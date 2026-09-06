@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-nXhLFg8f38QajUI726vpjX0ScIgJ3n3WSQ4oaeMCcQk=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a readable PDF export can still be wrong — tegridydev</title><meta name="description" content="PDF conversion can look finished long before I&#x27;ve checked whether the Markdown still means the same thing as the original page.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/datasets/pdf-extraction-and-markdown/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="a readable PDF export can still be wrong — tegridydev">
+<meta property="og:description" content="PDF conversion can look finished long before I&#x27;ve checked whether the Markdown still means the same thing as the original page."><meta property="og:url" content="https://tegridydev.com/blog/datasets/pdf-extraction-and-markdown/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="a readable PDF export can still be wrong — tegridydev"><meta name="twitter:description" content="PDF conversion can look finished long before I&#x27;ve checked whether the Markdown still means the same thing as the original page.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"a readable PDF export can still be wrong","description":"PDF conversion can look finished long before I've checked whether the Markdown still means the same thing as the original page.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/pdf-extraction-and-markdown/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-a-readable-pdf-export-can-still-be-wrong">[td] tegridydev | a readable PDF export can still be wrong</h1>
+<p>PDF conversion is one of those jobs where the output can look finished long before I've checked whether it is actually right.</p>
+<p>A two-column paper can become one readable paragraph with the columns mixed together. A table can lose its headers. An equation can lose one minus sign and still look completely normal.</p>
+<p>So I'm less interested in <strong>getting text out of a PDF</strong> than keeping enough information around to notice when the conversion changed the meaning.</p>
+<h2 id="keep-the-page-attached">keep the page attached</h2>
+<p>The page is a useful first boundary.</p>
+<p>Inside it, paragraphs, headings, tables and equations should stay distinguishable where the parser supports that. Each block keeps its page, reading order, parser revision and warnings.</p>
+<pre><code class="language-json">{
+  &quot;source_id&quot;: &quot;fixture-pricing-v1&quot;,
+  &quot;page&quot;: 2,
+  &quot;block_id&quot;: &quot;table-1&quot;,
+  &quot;kind&quot;: &quot;table&quot;,
+  &quot;columns&quot;: [&quot;item&quot;, &quot;price&quot;],
+  &quot;rows&quot;: [[&quot;example part&quot;, &quot;12.50&quot;]],
+  &quot;warnings&quot;: [&quot;currency absent from source header&quot;]
+}
+</code></pre>
+<p>If the source doesn't say whether <code>12.50</code> is dollars, pounds or bottle caps, the converter shouldn't helpfully decide for me.</p>
+<p>Page/block identity also gives the UI somewhere useful to go when I click a suspicious value.</p>
+<h2 id="use-the-expensive-path-when-it-earns-it">use the expensive path when it earns it</h2>
+<p>Native text extraction, layout-aware parsing and OCR solve different problems.</p>
+<p><a href="https://arxiv.org/abs/2408.09869v5">Docling's technical report</a> is useful related work around layout and table-aware conversion. It doesn't mean every document needs the heaviest pipeline.</p>
+<p>I'd start cheap and explicit. If native extraction works, use it. If a page has no usable text, mark it for another path rather than calling it a successful empty page.</p>
+<p>If two extractors disagree on numbers, that disagreement itself is a useful review queue.</p>
+<h2 id="keep-the-faithful-copy-before-making-it-convenient">keep the faithful copy before making it convenient</h2>
+<p>A readable extraction and a training-ready chunk set are different products.</p>
+<p>First preserve the closest faithful copy I can. Then treat heading cleanup, chunking and summarisation as later transformations.</p>
+<p>Every run should retain source hash, parser/model revision, settings, page count and a clear outcome:</p>
+<pre><code class="language-text">complete | partial | unsupported | timed-out | cancelled | failed
+</code></pre>
+<p>Downloading, converting and reading are also separate states.</p>
+<p>A directory full of Markdown papers should never accidentally become a claim that I read every one lol.</p>
+<h2 id="test-whether-the-evidence-survived">test whether the evidence survived</h2>
+<p>The fixture I'd want is deliberately annoying: plain text, columns, tables, equations, scans and mixed pages.</p>
+<p>Then ask questions whose answers depend on those structures.</p>
+<p>The first check isn't whether an LLM answers correctly. It's whether the needed evidence survived conversion. Otherwise model knowledge can hide a dropped table.</p>
+<p>I'd keep reading-order errors, missing symbols and table/header mistakes separate rather than collapse everything into one score.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The local extractor now creates page-scoped native text blocks with explicit empty-page/failure outcomes, parser revision and source/output hashes.</p>
+<p>It writes to staging and only renames the directory after <code>extracted.md</code> and <code>manifest.json</code> are complete. Integrity checking catches later changes.</p>
+<p>A generated two-page fixture verifies one known price and one page with no native extractable text.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/pdf-extraction-and-markdown/extract.py">extract.py</a> or the <a href="/blog/datasets/pdf-extraction-and-markdown/">module README</a>. It uses <a href="https://pypdf.readthedocs.io/en/stable/user/extract-text.html">pypdf native text extraction</a>, so it <strong>does not perform OCR</strong>.</p>
+<p><code>verify(output_path)</code> checks the stored reading-copy hash.</p>
+<p>OCR, semantic table/equation reconstruction and a comparison UI are still missing. The larger layout-family study hasn't run.</p>
+<p>And <code>complete native extraction</code> only means every page returned non-empty native text.</p>
+<p>It does <strong>not</strong> mean the document survived faithfully.</p>
+<p>That's basically the whole lesson: a nice Markdown file is an output format, not a fidelity certificate.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/pdf-extraction-and-markdown/pdf-extraction-and-markdown.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/pdf-extraction-and-markdown/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

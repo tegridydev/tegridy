@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-b1vkpSzq4FwKBpRPpYQkQUX/nEF2bav/dkEUnwRpR68=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal detection under nuisance and session shift — tegridydev</title><meta name="description" content="This study asks whether a signal detector responds to the labelled change rather than to generator settings, plotting choices or shared recording sessions. Synthetic complex samples supply known…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Signal detection under nuisance and session shift — tegridydev">
+<meta property="og:description" content="This study asks whether a signal detector responds to the labelled change rather than to generator settings, plotting choices or shared recording sessions. Synthetic complex samples supply known…"><meta property="og:url" content="https://tegridydev.com/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Signal detection under nuisance and session shift — tegridydev"><meta name="twitter:description" content="This study asks whether a signal detector responds to the labelled change rather than to generator settings, plotting choices or shared recording sessions. Synthetic complex samples supply known…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Signal detection under nuisance and session shift","description":"This study asks whether a signal detector responds to the labelled change rather than to generator settings, plotting choices or shared recording sessions. Synthetic complex samples supply known…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-signal-detection-under-nuisance-and-session-shift">[td] tegridydev | Signal detection under nuisance and session shift</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>Signal classifiers are very good at finding <em>something</em>. The uncomfortable part is working out whether that something is the labelled phenomenon or an accidental shortcut in SNR, plotting, session identity or generator settings.</p>
+<p>This study keeps the object deliberately synthetic. I generate complex-valued sequences with known nuisance parameters and ask whether a detector survives session and parameter shift. It is an anomaly-detection benchmark, not a covert-radio implementation and not evidence about a named protocol.</p>
+<h2 id="build-the-dataset-so-shortcuts-are-visible">Build the dataset so shortcuts are visible</h2>
+<p>Each record keeps generator revision, seed, base waveform family, nuisance parameters, perturbation label, sample-rate convention, duration and split group. Store the complex samples—or a losslessly specified recipe—not just spectrogram images. Plots are derived views and their scaling can leak labels.</p>
+<p>Noise, frequency offset, timing offset and session/channel parameters should be sampled independently of the anomaly label. Windows derived from one underlying sequence stay in one split. Otherwise a classifier can memorise a recording/session fingerprint while looking impressively accurate on random windows.</p>
+<p>The core counterfactual is a <strong>nuisance twin</strong>: same underlying signal and anomaly label, one benign nuisance changed. The model’s confidence should be much more stable on those pairs than when the actual labelled perturbation changes.</p>
+<h2 id="the-first-fixture">The first fixture</h2>
+<p>Use a 256-sample unit-energy complex sinusoid with random phase. The altered class receives a small amplitude-envelope perturbation, then both classes receive the same nuisance distributions and independent complex Gaussian noise. Thirty simulated sessions provide balanced pairs; a separate shift set uses a frequency-offset range outside training.</p>
+<p>That fixture is intentionally simple enough that a statistical baseline has a real chance of winning. The point is not to make a neural network look necessary.</p>
+<p>Compare energy/variance-style summaries, simple spectral/statistical features and a small temporal model. Report AUROC, precision-recall behaviour under the declared class balance, Brier score/calibration, detection at a fixed development false-alarm target and results by session/nuisance bin. False alarm also needs a unit—window, sequence or session—rather than one ambiguous percentage.</p>
+<p>The main hypotheses are:</p>
+<ul>
+<li>a learned detector can beat simple features under held-out nuisance conditions;</li>
+<li>combining observation views helps beyond either view alone without shared-seed leakage;</li>
+<li>calibration degrades under distribution shift, and that degradation should be reported rather than tuned away on the final set.</li>
+</ul>
+<p>An intentionally defective fixture with label-correlated SNR is important. If the audit does not catch that shortcut, I should not trust it on subtler leakage.</p>
+<p><strong>What would weaken the idea:</strong> if the statistical baseline matches or beats the neural model, keep it. If performance collapses only after switching from random windows to session-held-out data, the original “accuracy” was mostly split leakage. If a development threshold produces a huge shifted false-alarm rate, that is the result rather than an invitation to retune on the shift set.</p>
+<h2 id="what-this-can-and-cannot-tell-me">What this can and cannot tell me</h2>
+<p>O’Shea, Corgan and Clancy are clear prior work for learned modulation recognition. I am not claiming that learned RF classification is new. The narrower contribution is a nuisance-controlled evaluation that tries to make shortcut dependence painfully obvious.</p>
+<p>A later <strong>detectability envelope</strong> could plot performance against observer assumptions such as duration and available feature types, producing a conditional surface instead of one headline score. That would still describe this synthetic observation model, not absolute detectability in real radio traffic.</p>
+<p>The result I want is actually quite modest: <strong>when the detector fires, can I show that it is reacting to the thing I labelled rather than the way I happened to generate the dataset?</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The waveform generator now produces 3,000 balanced sequences in thirty sessions, matched nuisance pairs, unit clean energy and a separate shifted frequency range. A statistical classifier and a small sequence CNN train on twenty sessions; thresholds are selected on five development sessions and frozen for final/shift evaluation.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/signal_experiment.py">signal_experiment.py</a>; the <a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">module README</a> lists setup, commands and every supporting file.</p>
+<p>The report includes AUROC, Brier score, sequence false-alarm/detection rates, per-session outcomes and a session bootstrap interval. The development false-alarm target is not a promise that final false alarms stay below it.</p>
+<h2 id="what-i-actually-observed">What I actually observed</h2>
+<p>The statistical baseline achieved final AUROC 1.000, detection 100.0% and false alarms 4.8%. The CNN achieved AUROC 0.761, detection 56.4% and false alarms 22.0%. On the shifted set its false-alarm rate reached 100.0%. A threshold satisfying the development constraint did not transfer. This is a concrete reason to keep session-level reporting and the statistical baseline; it is not evidence about real radio traffic. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/pilot-results.json">saved result</a> for the exact values and run scope.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Convolutional Radio Modulation Recognition Networks</strong> — Timothy J. O’Shea, Johnathan Corgan, T. Charles Clancy. 2016-06-10 (arXiv v3; first submitted 2016-02-12). <a href="https://arxiv.org/abs/1602.04105">Source</a>.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/sigint-spectrum-analysis-and-covert-channel-concepts.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

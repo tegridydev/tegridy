@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-pvldvqjN+epeu7HAYuybdUzLGMdO68cQj2lj5EDr4kE=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>glow-worm: an inspectable byte-language-model baseline — tegridydev</title><meta name="description" content="glow-worm starts with a small language-modelling task: predict UTF-8 bytes and measure held-out probability quality. A byte vocabulary makes encoding inspectable, but a chatbot requires additional…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/training-and-evaluation/glow-worm-byte-model/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="glow-worm: an inspectable byte-language-model baseline — tegridydev">
+<meta property="og:description" content="glow-worm starts with a small language-modelling task: predict UTF-8 bytes and measure held-out probability quality. A byte vocabulary makes encoding inspectable, but a chatbot requires additional…"><meta property="og:url" content="https://tegridydev.com/research/training-and-evaluation/glow-worm-byte-model/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="glow-worm: an inspectable byte-language-model baseline — tegridydev"><meta name="twitter:description" content="glow-worm starts with a small language-modelling task: predict UTF-8 bytes and measure held-out probability quality. A byte vocabulary makes encoding inspectable, but a chatbot requires additional…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"glow-worm: an inspectable byte-language-model baseline","description":"glow-worm starts with a small language-modelling task: predict UTF-8 bytes and measure held-out probability quality. A byte vocabulary makes encoding inspectable, but a chatbot requires additional…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/training-and-evaluation/glow-worm-byte-model/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-glow-worm-an-inspectable-byte-language-model-baseline">[td] tegridydev | glow-worm: an inspectable byte-language-model baseline</h1>
+<p><em>research proposal</em></p>
+<p>glow-worm is deliberately small: predict the next UTF-8 byte, measure held-out probability quality and keep every part of the pipeline inspectable. A byte vocabulary avoids tokenizer mystery, but it also means one generated token is not necessarily one visible character. The first milestone is therefore a measured byte language model, not “I trained a chatbot”.</p>
+<p>The <a href="https://github.com/tegridydev/glow-worm">glow-worm repository</a> is the project reference. This module contains the local byte baseline and experiment scaffolding; useful conversation would require additional data and evaluation later.</p>
+<h2 id="bytes-make-the-contract-simple-not-effortless">Bytes make the contract simple, not effortless</h2>
+<p>Reserve IDs 0–255 for raw bytes and one separate end-of-document marker. Encode each document as UTF-8 and train shifted input/target pairs without crossing unrelated document boundaries.</p>
+<p>Streaming output needs a real decoder because generation can stop halfway through a multibyte character. The UI can buffer incomplete sequences or replace invalid bytes for display, but those display choices must never silently change the raw bytes used for scoring.</p>
+<p>A proposed first model is four causal Transformer blocks, width 128, four heads and a 256-byte context. Start with roughly ten million permitted bytes, deduplicate documents and split <strong>by source document before making windows</strong>. Close variants stay together so the final set is not just neighbouring text from training.</p>
+<h2 id="measure-the-representation-we-actually-trained">Measure the representation we actually trained</h2>
+<p>The main metric is cross-entropy in bits per byte, converting mean natural-log loss with <code>ln(2)</code>. Compare against byte unigram and bigram baselines on the exact same scored bytes. Control tokens and document boundaries get their own accounting rather than disappearing inside the denominator.</p>
+<p>Generation is a secondary diagnostic. Save the raw bytes, decoded view, prompt and sampling settings. Good byte loss does not establish factuality, instruction following or safety; those are different tasks.</p>
+<p>I’d also record actual training bytes, wall time, peak memory, checkpoint bytes and throughput across several initialisation seeds. A smaller parameter count is not automatically a faster model.</p>
+<h2 id="fixtures-before-a-larger-run">Fixtures before a larger run</h2>
+<p>Before spending compute, use ASCII, accented text, emoji, an empty document and an intentionally invalid byte sequence. Check valid round trips, causal masking, document boundaries and checkpoint reload. On a tiny fixed batch, verify that one optimisation step changes the intended parameters and can lower the objective.</p>
+<p>The release should keep the model definition, data manifest, split IDs, configuration, curves and raw generations. That would make the project useful even if the model itself remains tiny.</p>
+<p><strong>What would weaken the idea:</strong> if byte modelling adds enough sequence-length/compute overhead that a simple tokenizer baseline gives better held-out quality per unit of compute, that trade-off should be reported plainly. The point is inspectability, not proving bytes are universally superior.</p>
+<p>The ten-million-byte study is still the real next step. The current smoke fixture is mainly there to prove that the causal model, byte accounting and reload path behave the way the article says they do.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The four-block, width-128 causal byte Transformer now trains and reports held-out bits per byte. Tests cover prefix invariance to future tokens, one-batch learning and checkpoint reload. The runner accepts separate raw-byte training/evaluation documents and rejects identical hashes across those partitions.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/glow-worm-byte-model/experiment.py">experiment.py</a>; the <a href="/research/training-and-evaluation/glow-worm-byte-model/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Optional <code>--training-documents train.txt --evaluation-documents heldout.txt</code> uses local files. Multiple filenames are accepted for each option. The report identifies document hashes and scored byte counts; byte-only evaluation excludes the end-of-document control target.</p>
+<h2 id="what-i-actually-observed">What I actually observed</h2>
+<p>The saved run scores 352 held-out byte targets at 7.637 bits per byte. Its final training loss is much lower than its held-out loss, which is unsurprising for repeated training on a tiny document. A uniform 256-byte baseline assigns eight bits per byte; this comparison alone is weak evidence because the learned model and unigram baselines must also be compared on the exact same scored bytes and document groups. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/glow-worm-byte-model/smoke-results.json">saved result</a> for the exact values and run scope.</p>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/glow-worm-byte-model/glow-worm-byte-model.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/glow-worm-byte-model/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

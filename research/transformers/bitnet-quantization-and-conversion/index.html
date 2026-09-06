@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-2VLkWx0nsd/TbC29jxscHc7lLsdsXf4Dgv1dN894P5c=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BitNet conversion: separate numerical quality from packed execution — tegridydev</title><meta name="description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="BitNet conversion: separate numerical quality from packed execution — tegridydev">
+<meta property="og:description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…"><meta property="og:url" content="https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="BitNet conversion: separate numerical quality from packed execution — tegridydev"><meta name="twitter:description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"BitNet conversion: separate numerical quality from packed execution","description":"Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-bitnet-conversion-separate-numerical-quality-from-packed-execution">[td] tegridydev | BitNet conversion: separate numerical quality from packed execution</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>“Ternary model” can mean at least three different things: the forward pass uses ternary-valued weights, the stored checkpoint is compact, or the runtime is actually faster. Those claims are related, but none of them automatically proves the others.</p>
+<p>This study keeps the boundaries explicit so I can tell <strong>where</strong> quality or efficiency changed: function-preserving conversion, ternary numerical simulation, recovery training and packed execution are separate stages.</p>
+<h2 id="start-with-numerical-equivalence">Start with numerical equivalence</h2>
+<p>The simulated weight path scales by mean absolute weight, rounds to ternary values and restores scale. Activations can be quantised separately into a signed low-precision range. Zero scales need an explicit zero-output rule; otherwise an all-zero block turns into undefined arithmetic.</p>
+<p>A <code>BitLinear</code>-style training simulation can blend full-precision and quantised paths with a schedule. That schedule changes optimisation as well as numerical precision, so it needs comparison against immediate quantisation and a full-weight baseline at equal training tokens.</p>
+<p>Most importantly, floating trainable weights are still stored. A successful ternary simulation is evidence that a model can train or run under that numerical constraint. It is <strong>not</strong> evidence that the checkpoint occupies 1.58 bits per weight or that a CPU/GPU kernel executes fewer bytes or instructions.</p>
+<h2 id="a-staged-experiment">A staged experiment</h2>
+<p>I’d use one small architecture with a verified parameter mapping and a corpus split by source document. Start with a 32-prompt equivalence fixture before training anything.</p>
+<p>Compare five states:</p>
+<ol>
+<li>original model;</li>
+<li>function-preserving floating conversion;</li>
+<li>simulated ternary weights;</li>
+<li>trained/recovered simulated ternary weights;</li>
+<li>packed export/runtime, only if one actually exists.</li>
+</ol>
+<p>Each transition gets its own output-difference report. If quality collapses during the supposedly function-preserving step, that is a mapping/tie/tokeniser problem and I should not blame quantisation. If the packed path does not exist, the experiment stops before any inference-efficiency claim.</p>
+<p>For training comparisons, keep model revision, tokeniser, data hashes, seeds and token budgets fixed. Report held-out language-model quality plus exact checkpoint identity and transfer coverage.</p>
+<p><strong>What would weaken the idea:</strong> if ternary recovery cannot reach an acceptable quality budget, that is a numerical result. If a packed representation saves file bytes but runtime memory/latency do not improve, that is a storage result only. I want those outcomes reported separately rather than compressed into “BitNet worked/didn’t work”.</p>
+<h2 id="storage-needs-honest-accounting">Storage needs honest accounting</h2>
+<p><code>log2(3) ≈ 1.585</code> bits is the information bound for an ideal ternary symbol code. A simple independently addressable representation may use two bits, and real artifacts also store scales, shapes, padding and metadata.</p>
+<p>A pack/unpack fixture should test every ternary symbol, block boundary, padding case and shape before touching a full model. Packed-runtime output then needs to match a dequantised reference within a declared tolerance.</p>
+<p>A second extension is mixed precision: locate layers or token categories where ternary simulation causes the largest functional change, keep a small subset at higher precision and compare with uniform precision under the same <strong>total stored bytes</strong>. That is only useful if the accounting includes all per-layer scales and exceptions.</p>
+<p>BitNet b1.58 is direct prior work for ternary-weight language modelling. The thing I’m trying to make cleaner here is the experimental language around conversion: <strong>numerical ternarisation, packed storage and faster execution are three checkpoints, not one headline.</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>A deep float clone now preserves function and tied parameters. The separate ternary-weight simulator uses a zero-scale guard and a straight-through gradient path; conversion preserves cloned weight ties and tests confirm gradient updates. The two-bit symbol reference remains a separate storage example.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/quantization.py">quantization.py</a>; the <a href="/research/transformers/bitnet-quantization-and-conversion/">module README</a> lists setup, commands and every supporting file.</p>
+<p><code>convert(model, quantized=False)</code> is the function-preserving baseline. <code>quantized=True</code> replaces linear projections with the explicitly different weight simulation. Packed-symbol storage and floating matrix execution are not interchangeable performance claims.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Shuming Ma; Hongyu Wang; Lingxiao Ma; Lei Wang; Wenhui Wang; Shaohan Huang; Li Dong; Ruiping Wang; Jilong Xue; Furu Wei. <a href="https://arxiv.org/abs/2402.17764v1">The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits</a>.</strong> 2024-02-27, arXiv v1; work-in-progress preprint.</li>
+<li><strong>Zhihang Yuan; Yuzhang Shang; Yue Song; Dawei Yang; Qiang Wu; Yan Yan; Guangyu Sun. <a href="https://arxiv.org/abs/2312.05821v5">ASVD: Activation-aware Singular Value Decomposition for Compressing Large Language Models</a>.</strong> 2025-08-28, arXiv v5; first submitted 2023-12-10.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/bitnet-quantization-and-conversion.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

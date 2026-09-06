@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-NtOb5nPaEzC3TCnTKMqA7tfkOTq6ElzvXTuIqzcBMP4=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graph memory with source versions and applicability — tegridydev</title><meta name="description" content="This study asks whether explicit relationships between claims, passages and source versions reduce wrong-version answers beyond ordinary retrieval with the same metadata. The graph supplies…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/knowledge/graph-memory-with-a-paper-trail/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Graph memory with source versions and applicability — tegridydev">
+<meta property="og:description" content="This study asks whether explicit relationships between claims, passages and source versions reduce wrong-version answers beyond ordinary retrieval with the same metadata. The graph supplies…"><meta property="og:url" content="https://tegridydev.com/research/knowledge/graph-memory-with-a-paper-trail/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Graph memory with source versions and applicability — tegridydev"><meta name="twitter:description" content="This study asks whether explicit relationships between claims, passages and source versions reduce wrong-version answers beyond ordinary retrieval with the same metadata. The graph supplies…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Graph memory with source versions and applicability","description":"This study asks whether explicit relationships between claims, passages and source versions reduce wrong-version answers beyond ordinary retrieval with the same metadata. The graph supplies…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/knowledge/graph-memory-with-a-paper-trail/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-graph-memory-with-source-versions-and-applicability">[td] tegridydev | Graph memory with source versions and applicability</h1>
+<p><em>system design and evaluation plan</em></p>
+<p>I want a research memory that can answer two questions at once: <strong>what does this say?</strong> and <strong>what is this statement based on, under which version and conditions?</strong> The proposal is ordinary passage retrieval plus a small graph connecting source versions, passages and claims.</p>
+<p>The graph is an index for following evidence. It cannot turn an unsupported statement into a true one, and I do not want graph complexity getting credit for metadata that a flat retriever could have used just as well.</p>
+<h2 id="the-minimum-graph">The minimum graph</h2>
+<p>Keep three records distinct:</p>
+<table>
+<thead>
+<tr>
+<th>Record</th>
+<th>What it represents</th>
+<th>Minimum useful fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source version</td>
+<td>An immutable captured document</td>
+<td>ID, hash, title, capture/publication time, version label, locator</td>
+</tr>
+<tr>
+<td>Passage</td>
+<td>A span inside one source version</td>
+<td>ID, source-version ID, text, heading/page, offsets, extraction method</td>
+</tr>
+<tr>
+<td>Claim</td>
+<td>A statement derived from passages</td>
+<td>ID, statement, subject, applicability, support IDs, review status</td>
+</tr>
+</tbody>
+</table>
+<p>Edges such as <code>derived_from</code>, <code>supports</code>, <code>contradicts</code>, <code>supersedes</code> and <code>applies_to</code> keep their creator, time and evidence. Automatically inferred edges stay labelled as inferred. W3C PROV is useful terminology for provenance, but a JSON or relational store is enough for the first implementation; a graph database is not the research contribution.</p>
+<p>Applicability is the important bit. Suppose a fictional service, Cedar, defaults to a 30-second timeout in release 1 and 10 seconds for new release-2 deployments, while an upgrade note says existing deployments retain their configured value. Those statements are not automatically contradictory. The query “what is Cedar’s timeout?” is underspecified unless release/deployment context is known.</p>
+<p><code>supersedes</code> also should not erase history. A newer manual can become the current default source while the old version remains valid evidence for a historical question.</p>
+<h2 id="retrieval-should-explain-what-it-followed">Retrieval should explain what it followed</h2>
+<p>Ingest sources as immutable snapshots. A changed file becomes a new version. Passage extraction retains span locations and overlap, and candidate claims must resolve back to exact supporting text. Capture time, publication time and effective time stay separate; unknown dates remain unknown.</p>
+<p>A bounded retriever can start with lexical/embedding passage search, apply explicit release or as-of filters, then follow reviewed graph edges for at most two hops under a fixed context budget. Every included and excluded record is logged. If the query lacks a condition that changes the answer, return alternatives or ask for scope instead of resolving the ambiguity with confident prose.</p>
+<p>Citation resolution is mechanical: does the citation point to a passage that was supplied? Whether that passage actually supports the sentence is a separate support judgement.</p>
+<h2 id="does-the-graph-buy-anything">Does the graph buy anything?</h2>
+<p>Build 60 short fictional documents across several services and releases, including migration rules and conflicting sources. Write 30 questions before testing—10 development, 20 final—with lookups, version-sensitive cases, conflicts and insufficient-evidence cases.</p>
+<p>Compare:</p>
+<ol>
+<li>flat passage retrieval;</li>
+<li>flat retrieval with the <strong>same version/applicability metadata</strong>;</li>
+<li>metadata plus graph expansion.</li>
+</ol>
+<p>All three use the same generator and final context budget. That metadata-only baseline is crucial: if version filtering solves the problem, graph traversal should not take the credit.</p>
+<p>Measure answer correctness, version correctness, supported-claim rate, evidence recall, latency, records visited and human annotation time. Report unanswered cases separately so abstention cannot game support rate.</p>
+<p><strong>What would weaken the idea:</strong> if good flat retrieval with explicit metadata matches the graph, I would keep the simpler system. A graph can spread extraction errors, over-amplify high-degree nodes and make duplicated sources look like independent agreement, so extra structure has to earn its maintenance cost.</p>
+<p>The current Cedar fixture is intentionally small enough that every useful source is already easy to retrieve. That makes it good for checking semantics—especially applicability and historical versions—but not for claiming a graph advantage. The real test is whether graph expansion recovers useful qualifications that a metadata-matched flat baseline misses.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The three Cedar sources and five scoped questions are now executable. Retrieval preserves release/deployment metadata, explicit exclusions, a word budget and reviewed edge traversal capped at two hops and forty records. The test confirms that graph and metadata-only retrieval select the same evidence on this small fixture.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/graph-memory-with-a-paper-trail/cedar.py">cedar.py</a>; the <a href="/research/knowledge/graph-memory-with-a-paper-trail/">module README</a> lists setup, commands and every supporting file.</p>
+<p>An unspecified question returns conditional evidence with <code>needs-scope</code>; release 3 is unsupported. An upgrade record cannot silently replace a new-deployment default.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>Paul Groth and Luc Moreau, editors. <em>PROV-Overview: An Overview of the PROV Family of Documents</em>. W3C Working Group Note, 30 April 2013. <a href="https://www.w3.org/TR/prov-overview/">W3C document</a>.</li>
+<li>Darren Edge and colleagues. <em>From Local to Global: A Graph RAG Approach to Query-Focused Summarization</em>. 2024, revised 2025. <a href="https://arxiv.org/abs/2404.16130v2">arXiv:2404.16130, version 2</a>.</li>
+</ol>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/graph-memory-with-a-paper-trail/graph-memory-with-a-paper-trail.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/graph-memory-with-a-paper-trail/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+# tegridydev
+
+Open-source tools, datasets and practical research.
+
+- [Home](https://tegridydev.com/)
+- [Blog](https://tegridydev.com/blog/)
+- [Research](https://tegridydev.com/research/)

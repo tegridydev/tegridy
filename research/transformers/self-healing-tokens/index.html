@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-n/SxEUpfGWF4RR69FR19KwIPTSWlOSxVHGXz5shBMrY=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-healing tokens: recovery without unnecessary edits — tegridydev</title><meta name="description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/self-healing-tokens/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Self-healing tokens: recovery without unnecessary edits — tegridydev">
+<meta property="og:description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…"><meta property="og:url" content="https://tegridydev.com/research/transformers/self-healing-tokens/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Self-healing tokens: recovery without unnecessary edits — tegridydev"><meta name="twitter:description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-healing tokens: recovery without unnecessary edits","description":"This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/self-healing-tokens/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-self-healing-tokens-recovery-without-unnecessary-edits">[td] tegridydev | Self-healing tokens: recovery without unnecessary edits</h1>
+<p><em>controlled denoising proposal</em></p>
+<p>“Self-healing tokens” sounds much more dramatic than the first experiment actually is. I’m testing a simple question on redundant synthetic records: <strong>does separating “should I edit this position?” from “what value should replace it?” improve recovery without unnecessarily changing clean tokens?</strong></p>
+<p>This is offline denoising with known corruption. It is not a model rewriting its own weights, deciding that unusual language is wrong or establishing truth in arbitrary text.</p>
+<h2 id="give-the-task-enough-structure-to-be-checkable">Give the task enough structure to be checkable</h2>
+<p>A clean record contains five values from <code>v00</code>–<code>v15</code>, repeated three times, followed by a modulo-16 checksum:</p>
+<pre><code class="language-text">v02 v05 v01 v03 v04 SEP
+v02 v05 v01 v03 v04 SEP
+v02 v05 v01 v03 v04 v15
+</code></pre>
+<p>Only the fifteen repeated data positions are corrupted in the main task. Each eligible position can remain clean, become <code>MASK</code>, or be substituted with a different valid value. Store the clean record, corrupted record and exact change mask.</p>
+<p>Repetition makes many cases recoverable, while the checksum supplies extra consistency evidence without uniquely identifying every original. Some inputs are genuinely ambiguous—for example three disagreeing copies can leave multiple plausible originals. The evaluator knows the generated target; the repair model does <strong>not</strong> get to use that target as evidence.</p>
+<p>Split 30,000 distinct clean records before generating corruption. All variants of one clean record stay in its split. Training resamples corruption; final evaluation freezes variants at several rates plus a harder 0.30 condition and a separate checksum-corruption stress test.</p>
+<h2 id="detection-and-recovery-are-separate-outputs">Detection and recovery are separate outputs</h2>
+<p>Use a small bidirectional Transformer with two heads at each data position:</p>
+<ul>
+<li>a binary detector estimates whether the observed token was corrupted;</li>
+<li>a 16-way recovery head predicts the clean value.</li>
+</ul>
+<p>Train both detector loss and recovery loss over the fifteen data positions. Recovery is trained on clean positions too, so the model is rewarded for preserving valid inputs rather than learning that every token wants rewriting.</p>
+<p>At inference, the recovery prediction is applied only when detector probability exceeds a threshold chosen on development data subject to a 1% clean-position false-edit constraint. If no useful threshold satisfies that, abstention is an acceptable result.</p>
+<h2 id="the-rule-baseline-is-supposed-to-be-hard-to-beat">The rule baseline is supposed to be hard to beat</h2>
+<p>Compare:</p>
+<ol>
+<li>identity/no repair;</li>
+<li>majority repair across the three copies;</li>
+<li>ordinary denoiser that predicts every position;</li>
+<li>detector-gated denoiser;</li>
+<li>oracle-location gating as a diagnostic only.</li>
+</ol>
+<p>The majority rule can still fail when two copies share the same wrong substitution or no pair agrees. It also checks checksum consistency without forcing an arbitrary value just to make the sum work.</p>
+<p>Report detector precision/recall, corrupted-position recovery, false edits on clean positions, whole-record exact recovery, unresolved positions and net token errors removed. Break results down by mask/substitution, corruption rate and agreement pattern. Whole-record accuracy and token repair answer different questions, so keep both.</p>
+<p>The oracle-location condition tells me whether the bottleneck is <strong>finding damaged positions</strong> or <strong>reconstructing them</strong>. It is not a deployable competitor.</p>
+<p><strong>What would weaken the idea:</strong> if majority voting stays stronger, the neural method has not earned its complexity. If a detector can identify corruption but the recovery head still guesses badly, detection and repair should not be collapsed into one “healing score”. If the threshold edits clean tokens to gain recovery, show that trade-off rather than hiding it in average accuracy.</p>
+<p>Masked-language modelling is obvious prior context for reconstructing hidden input. The narrower question here is whether an explicit edit decision improves preservation under a controlled corruption process.</p>
+<p>I’d only move toward less synthetic text after the learned system can beat or meaningfully complement the stupid-simple majority rule. Right now that rule is exactly the kind of baseline I want: annoyingly competent and impossible to impress with a fancy architecture diagram.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The detector/recovery Transformer now trains beside a same-backbone ordinary denoiser and compares both with identity and majority repair. Clean records are split before corruption. The gate threshold uses development data under a 1% clean-edit constraint, with explicit abstention if no threshold qualifies.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/experiment.py">experiment.py</a>; the <a href="/research/transformers/self-healing-tokens/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Report corrupted-position recovery, clean false edits and whole-record accuracy together. A development clean-edit constraint is not a guarantee on unseen records. The majority rule is a strong task-specific baseline and must remain visible.</p>
+<h2 id="what-i-actually-observed">What I actually observed</h2>
+<p>On the saved held-out fixture, majority repair recovered 69.8% of corrupted positions, the ordinary denoiser 14.4%, and the gated model 9.4%. All three measured zero false edits on clean positions in this small sample. The gated threshold selected on development data was 0.0, so this run did not demonstrate useful selective abstention. The simple rule remains substantially stronger; longer or more complicated models are not justified by this result alone. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/smoke-results.json">saved result</a> for the exact values and run scope.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>Jacob Devlin, Ming-Wei Chang, Kenton Lee and Kristina Toutanova. <em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em>. 2018, revised 2019. <a href="https://arxiv.org/html/1810.04805v2">arXiv:1810.04805, version 2</a>, especially section 3.1.</li>
+</ol>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/self-healing-tokens.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-aHTfQ6+6JQJx9R4TSNwDtSse1I4NNvf9drTsdVmGzaY=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four-dimensional summary trees and time-slice queries — tegridydev</title><meta name="description" content="A sparse four-dimensional tree can reuse regional summaries for spatial and time-interval queries. This study defines an exact query contract first, then measures when hierarchical aggregation…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/mathematics/four-dimensional-lattice/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Four-dimensional summary trees and time-slice queries — tegridydev">
+<meta property="og:description" content="A sparse four-dimensional tree can reuse regional summaries for spatial and time-interval queries. This study defines an exact query contract first, then measures when hierarchical aggregation…"><meta property="og:url" content="https://tegridydev.com/research/mathematics/four-dimensional-lattice/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Four-dimensional summary trees and time-slice queries — tegridydev"><meta name="twitter:description" content="A sparse four-dimensional tree can reuse regional summaries for spatial and time-interval queries. This study defines an exact query contract first, then measures when hierarchical aggregation…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Four-dimensional summary trees and time-slice queries","description":"A sparse four-dimensional tree can reuse regional summaries for spatial and time-interval queries. This study defines an exact query contract first, then measures when hierarchical aggregation…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/mathematics/four-dimensional-lattice/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-four-dimensional-summary-trees-and-time-slice-queries">[td] tegridydev | Four-dimensional summary trees and time-slice queries</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>This started as a 4D visualisation idea—three spatial axes plus time—but the useful research question is really about <strong>when hierarchical summaries save enough repeated query work to justify building and storing the tree</strong>. The animation can come later; first the numerical object needs to be exact.</p>
+<h2 id="the-tree-i-actually-mean">The tree I actually mean</h2>
+<p>Each observation is <code>(x, y, z, t, value, observation_id)</code> inside explicit finite domains. I use half-open intervals consistently so every boundary point belongs to exactly one child. Splitting all four axes in half produces up to sixteen children, but empty regions do not need to exist.</p>
+<p>A node stores bounds, depth, count, sum, minimum, maximum, children and optional raw observation IDs. Mean is derived from <code>sum / count</code>; an empty cell has no mean rather than a pretend zero. Aggregates are computed <strong>before</strong> deciding whether to split, and recursion stops on maximum depth, low occupancy, identical coordinates or a midpoint that can no longer separate values.</p>
+<p>The invariants are more important than the picture: every valid observation belongs to exactly one leaf, and parent count/sum must equal the totals of its disjoint children.</p>
+<p>Range queries reuse a node aggregate only when that node is completely inside the query. Disjoint nodes are ignored. Partial nodes have to descend or inspect retained raw values. A leaf mean is not enough to answer an exact subregion query—if a leaf contains values 2 and 10 on opposite sides of the query boundary, returning 6 for the side containing only 2 is simply wrong.</p>
+<p>For time views, I’d show an interval or containing time bin rather than imply that continuous-time data naturally has meaningful exact-timestamp slices. Observation count should be visible beside colour so one sample does not look as reliable as a thousand. Visual depth and numerical query depth stay separate settings.</p>
+<h2 id="the-cheap-comparison">The cheap comparison</h2>
+<p>Hierarchical spatial indexing is established territory, so SQLite’s R-tree is a sensible prior baseline rather than pretending that “space plus time” is new. My narrower question is whether a sparse 4D summary tree gives a useful latency/memory trade-off for repeated local interval summaries.</p>
+<p>Start with a hand-checkable sixteen-point fixture covering all child codes, duplicates, empty cells and boundaries. Every query must match a flat scan exactly before any timing is interesting.</p>
+<p>Then use 1,000 and 10,000 synthetic points under uniform, clustered, identical-coordinate, bursty-time and imbalanced distributions. Pre-register 100 queries per distribution, half aligned to retained cells and half cutting across them. Compare:</p>
+<ul>
+<li>flat scan;</li>
+<li>the sparse summary tree;</li>
+<li>an established range-index adapter if available.</li>
+</ul>
+<p>Measure build time, p50/p95 query latency, peak memory, retained nodes and visited observations. Also report <strong>amortisation</strong>: a faster query is not a win if construction only pays for itself after more queries than the workload ever makes.</p>
+<p>The prediction is intentionally workload-dependent. Clustered data with repeated cell-aligned queries should benefit most. Uniform data or tiny datasets may be better as a scan.</p>
+<p><strong>What would weaken the idea:</strong> if the tree does not beat the strongest simple baseline after construction/storage are counted, keep it as a visualisation or educational structure rather than a performance claim.</p>
+<h2 id="two-useful-extensions">Two useful extensions</h2>
+<p>A variance-guided display could spend rendering detail on regions with high internal variation while leaving the exact numerical tree untouched. That would test visual anomaly detection at a fixed cube budget without confusing a prettier plot with a better data structure.</p>
+<p>A boundary-audit overlay could highlight partially intersected leaves and expose where an approximate view lacks enough resolution. That is a usability experiment, not a new query algorithm.</p>
+<p>The part I care about most is still very simple: <strong>the tree should never get to be fast by quietly answering a different query than the scan.</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The sparse sixteen-child tree now retains raw leaf observations for exact partial queries and reuses aggregates only for covered nodes. Tests cover all child codes, boundaries, duplicates, empty results and randomized scan comparisons at depths zero, one and three. A 1,000-point pilot records build and query costs.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/mathematics/four-dimensional-lattice/tree.py">tree.py</a>; the <a href="/research/mathematics/four-dimensional-lattice/">module README</a> lists setup, commands and every supporting file.</p>
+<p>The API consumes <code>(x,y,z,t,value)</code> tuples in finite half-open bounds. Duplicate coordinates remain separate observations. <code>pilot-results.json</code> records local timings; benchmark break-even is conditional on that synthetic workload.</p>
+<h2 id="what-i-actually-observed">What I actually observed</h2>
+<p>On this machine's repeated-query pilot, the clustered workload amortized construction after approximately 27 queries. The uniform workload had no measured break-even because traversal was slower than scanning. These timings depend on two reused query shapes and are too narrow for a general speed claim. Exact counts and sums matched the scan oracle in every timed case. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/mathematics/four-dimensional-lattice/pilot-results.json">saved result</a> for the exact values and run scope.</p>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/mathematics/four-dimensional-lattice/four-dimensional-lattice.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/mathematics/four-dimensional-lattice/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

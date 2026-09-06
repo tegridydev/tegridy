@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-wBkZ6zikQTkuwX/Q+nODX47hQ9xO8+opb2nzlwbnYX0=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sparse feature recovery: reconstruction is only one target — tegridydev</title><meta name="description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/sparse-feature-recovery/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Sparse feature recovery: reconstruction is only one target — tegridydev">
+<meta property="og:description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…"><meta property="og:url" content="https://tegridydev.com/research/transformers/sparse-feature-recovery/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Sparse feature recovery: reconstruction is only one target — tegridydev"><meta name="twitter:description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Sparse feature recovery: reconstruction is only one target","description":"A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/sparse-feature-recovery/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-sparse-feature-recovery-reconstruction-is-only-one-target">[td] tegridydev | Sparse feature recovery: reconstruction is only one target</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>Sparse autoencoders can reconstruct a vector very well without recovering the independent features that generated it. That distinction is the entire point of this study.</p>
+<p>I want three measurements kept separate: <strong>reconstruction</strong>, <strong>dictionary recovery</strong> and <strong>support recovery</strong>. If the first improves while the other two stay bad, the autoencoder has learned a useful code for reconstruction, not necessarily the original latent features.</p>
+<h2 id="a-synthetic-problem-where-the-ground-truth-exists">A synthetic problem where the ground truth exists</h2>
+<p>Generate sparse coefficients <code>x</code> over 100 source features, project them through 100 normalised directions in a 30-dimensional observation space and optionally add noise:</p>
+<p><code>y = Wᵀx + ε</code>.</p>
+<p>The SAE produces <code>z = ReLU(Ey+b)</code> and <code>ŷ = Dz</code>, trained with reconstruction MSE plus an L1 sparsity penalty. Decoder columns are renormalised after updates so the model cannot shrink encoder activations and inflate decoder magnitude just to make the L1 term cheap.</p>
+<p>For the first independent regime, activate each feature with probability 0.05 and sample positive coefficients from <code>[0.5, 1.5]</code>. Use separate train/development/final observations under the same dictionary, then repeat the whole experiment with independently generated dictionaries.</p>
+<h2 id="learned-feature-numbers-do-not-mean-anything-by-themselves">Learned feature numbers do not mean anything by themselves</h2>
+<p>The biggest evaluation bug in the older toy experiment was comparing latent index 17 with learned unit 17 as though dictionary order were preserved. It is not.</p>
+<p>Build the ground-truth-versus-learned cosine matrix and solve a one-to-one assignment. Keep signed and absolute alignment distinct where sign ambiguity matters. Report unmatched/duplicate/dead features instead of forcing every learned direction into a clean story.</p>
+<p>Then evaluate whether aligned learned activations recover the <strong>active support</strong> of the original sparse vector. Support thresholds are selected on development data. Empty-support cases need a declared convention rather than accidental divide-by-zero behaviour.</p>
+<p>Reconstruction MSE, explained variance, mean active count, dead-feature fraction, duplicate-pair fraction, dictionary cosine, support precision/recall/F1 and coefficient error all answer different parts of the question.</p>
+<h2 id="baselines-that-make-the-metric-earn-trust">Baselines that make the metric earn trust</h2>
+<p>Before a training sweep, use deterministic evaluator fixtures:</p>
+<ul>
+<li>an exactly permuted ground-truth dictionary should match perfectly;</li>
+<li>shuffled feature labels should fail;</li>
+<li>deliberately duplicated source features should be marked non-identifiable rather than “recovered badly”.</li>
+</ul>
+<p>Compare the SAE with direct dictionary correlations, PCA reconstruction and a sparse solver given the true dictionary. The oracle-dictionary solver is only an upper-reference for inference. A separately learned sparse dictionary is the more relevant algorithmic baseline if compute can be made comparable.</p>
+<p>The first hypotheses are that alignment-aware evaluation beats raw index overlap, reconstruction can stay strong while dictionary recovery degrades under correlation, and rare features fail earlier than common ones under a fixed data budget.</p>
+<p>Vary one property at a time—correlation, sparsity, frequency skew, noise or bottleneck size—rather than immediately launching a giant factorial grid. Keep final support recovery out of hyperparameter selection unless supervised recovery is explicitly the objective.</p>
+<p><strong>What would weaken the idea:</strong> support recovery that does not beat a declared baseline in the identifiable independent regime, results that depend on one dictionary seed, or persistently good reconstruction paired with poor dictionary alignment. In correlated/underdetermined settings, some failures are non-identifiability rather than optimiser bugs, which is why the duplicated-feature fixture matters.</p>
+<h2 id="extensions">Extensions</h2>
+<p>A dictionary-drift experiment could rotate a small subset of source directions between phases and compare warm-started adaptation with retraining from scratch at equal optimisation steps. That turns “adaptive representation” into a specific changing-ground-truth test.</p>
+<p>A recovery-confidence audit could align several independently trained SAEs to one another <strong>without</strong> using ground truth, then ask whether cross-run agreement predicts actual recovery. The ambiguous fixture is essential because several models can confidently agree on the same wrong merged feature.</p>
+<p>Toy Models of Superposition provides obvious prior context for synthetic superposition. The narrow lesson I want from this implementation is simpler: <strong>a good reconstruction loss is not a licence to call every learned direction a recovered feature.</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The sparse autoencoder now trains on normalized synthetic dictionaries with the stated activation probability and coefficient range. The evaluator uses one-to-one signed matching, detects duplicated true features and records dead learned columns. Decoder columns are renormalized after optimizer steps.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/recovery.py">recovery.py</a>; the <a href="/research/transformers/sparse-feature-recovery/">module README</a> lists setup, commands and every supporting file.</p>
+<p>The permutation fixture must match perfectly and the duplicated dictionary must be labelled non-identifiable before interpreting a learned score. <code>pilot-results.json</code> retains every matched cosine rather than only a favorable average.</p>
+<h2 id="what-i-actually-observed">What I actually observed</h2>
+<p>The 100-step pilot reached held-out reconstruction MSE 0.0561, while mean one-to-one signed dictionary cosine was only 0.425. The evaluator passes the exact-permutation fixture, but the trained dictionary has not recovered the original features cleanly. Report these two measurements separately; increasing reconstruction quality cannot stand in for support recovery. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/pilot-results.json">saved result</a> for the exact values and run scope.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Nelson Elhage; Tristan Hume; Catherine Olsson; Nicholas Schiefer; Tom Henighan; Shauna Kravec; Zac Hatfield-Dodds; Robert Lasenby; Dawn Drain; Carol Chen; Roger Grosse; Sam McCandlish; Jared Kaplan; Dario Amodei; Martin Wattenberg; Christopher Olah. <a href="https://arxiv.org/abs/2209.10652v1">Toy Models of Superposition</a>.</strong> 2022-09-21, arXiv v1.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/sparse-feature-recovery.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

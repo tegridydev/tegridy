@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-283VirSB4BNEpJwevJrA+iprh0d+Sks5ihKS/GhSKXU=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>making synthetic data I can actually check — tegridydev</title><meta name="description" content="Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/datasets/synthetic-data-generation-and-quality/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="making synthetic data I can actually check — tegridydev">
+<meta property="og:description" content="Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline."><meta property="og:url" content="https://tegridydev.com/blog/datasets/synthetic-data-generation-and-quality/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="making synthetic data I can actually check — tegridydev"><meta name="twitter:description" content="Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"making synthetic data I can actually check","description":"Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/synthetic-data-generation-and-quality/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-making-synthetic-data-i-can-actually-check">[td] tegridydev | making synthetic data I can actually check</h1>
+<p>Generating another thousand examples is the easy part.</p>
+<p>Working out whether they're actually useful is where I want to spend more time.</p>
+<p>I've played with DataWRT, SynData and <a href="https://github.com/tegridydev/data-m8">data-m8</a>, but the common question is simpler:</p>
+<p><strong>can I independently explain why each accepted example is right?</strong></p>
+<h2 id="start-somewhere-with-a-boring-correct-answer">start somewhere with a boring correct answer</h2>
+<p>For the first experiment I like tiny synthetic worlds where the answer doesn't depend on another model's opinion.</p>
+<p>An inventory item starts with 12 units, receives 5 and ships 4.</p>
+<p>The answer is 13.</p>
+<pre><code class="language-python">def remaining_stock(start, received, shipped):
+    if any(type(v) is not int or v &lt; 0 for v in (start, received, shipped)):
+        raise ValueError(&quot;stock movements must be non-negative integers&quot;)
+    if shipped &gt; start + received:
+        raise ValueError(&quot;shipment exceeds available stock&quot;)
+    return start + received - shipped
+</code></pre>
+<p>Now a generator can rewrite the question, but it doesn't get to decide the answer.</p>
+<p>That gives me one independent check. A correct <code>13</code> attached to a misleading question is still bad data.</p>
+<h2 id="keep-the-ugly-raw-response">keep the ugly raw response</h2>
+<p>For every candidate I want the source-state ID, generator/template revision, settings, raw response, parsed fields, verifier result and final disposition.</p>
+<p>Failed generations count too.</p>
+<p>Otherwise I can generate 1,000 attempts, quietly throw away 700 broken ones and tell myself I made a wonderfully clean 300-row dataset :)</p>
+<p>Rewrites keep parent IDs, and cache keys include model, prompt, settings and source state. A cache saves a call; it doesn't prove correctness.</p>
+<h2 id="polished-reasoning-can-still-be-wrong">polished reasoning can still be wrong</h2>
+<p>I also don't want one magic quality score.</p>
+<p>Longer reasoning isn't automatically better. Fancy wording isn't automatically better. A model judge can prefer the same confident mistake the generator likes.</p>
+<p>A useful calibration pair is:</p>
+<pre><code class="language-text">short + correct
+long + wrong
+</code></pre>
+<p>then reverse the writing style.</p>
+<p>If the filter follows style instead of correctness, that's important to know before training anything on it.</p>
+<p><a href="https://arxiv.org/abs/2212.10560">Self-Instruct</a> is useful prior work. My narrower interest is making source state → generated wording → accepted row easy to inspect.</p>
+<h2 id="split-the-world-before-rewriting-it">split the world before rewriting it</h2>
+<p>Every paraphrase of the same source state belongs in the same split.</p>
+<p>Otherwise the model can train on:</p>
+<blockquote>
+<p>12 units arrived, 4 shipped...</p>
+</blockquote>
+<p>and get evaluated on:</p>
+<blockquote>
+<p>after receiving twelve and shipping four...</p>
+</blockquote>
+<p>which isn't quite the heroic generalisation story I was hoping for.</p>
+<p>Counterfactual pairs are useful too. Change one shipment value, recompute the answer and generate a minimally different question. If the rewrite keeps the old answer or drops the changed condition, it fails a concrete test.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The local generator creates deterministic inventory states, two wording templates and minimally changed shipment counterfactuals.</p>
+<p>A separate parser reconstructs the arithmetic and rejects mismatched answers, altered states or unsupported wording. Parent families are assigned to splits before variants are generated, and overlapping counterfactual states are merged into one split group.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/synthetic-data-generation-and-quality/generate.py">generate.py</a> or the <a href="/blog/datasets/synthetic-data-generation-and-quality/">module README</a>.</p>
+<p><code>--count</code> refers to source states, not final rows. Most states produce four rows, and every output keeps parent identity, split, template revision, seed, source state and verifier outcome.</p>
+<p>Free-form model rewrites, broader rule families, judge comparisons and actual fine-tuning are still separate experiments. The current verifier only understands its explicit grammar.</p>
+<p>That's fine for now.</p>
+<p>I'd rather have a small synthetic dataset I can genuinely inspect than a million-row one where the main quality check is another model saying <em>looks good to me</em>.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/synthetic-data-generation-and-quality/synthetic-data-generation-and-quality.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/synthetic-data-generation-and-quality/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

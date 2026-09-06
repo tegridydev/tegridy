@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-LWE1Jg4m0PKW1sxuOEcQ2AGq0TNAqhJIk0CtiTmPODg=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>doing research without losing the question — tegridydev</title><meta name="description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="doing research without losing the question — tegridydev">
+<meta property="og:description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer."><meta property="og:url" content="https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="doing research without losing the question — tegridydev"><meta name="twitter:description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"doing research without losing the question","description":"I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-doing-research-without-losing-the-question">[td] tegridydev | doing research without losing the question</h1>
+<p>I like questions that start slightly sideways.</p>
+<p>Could a different representation make this easier to inspect? Is the complicated system doing anything the little baseline isn't? What happens if I change one weird part?</p>
+<p>The problem is that one question can quickly become a reading list, dashboard and three architectures before I've decided what would count as an answer.</p>
+<p>At that point I'm also giving myself several creative ways to avoid the original question lol.</p>
+<h2 id="turn-curiosity-into-something-that-can-lose">turn curiosity into something that can lose</h2>
+<p><code>understand how models do maths</code> is an interest.</p>
+<p>This is a question:</p>
+<blockquote>
+<p>Do components selected using digit-form addition also matter when the same problem is written using number words?</p>
+</blockquote>
+<p>Now I have something I can vary and something I can measure.</p>
+<p>Before building much, I like a tiny question card:</p>
+<table>
+<thead>
+<tr>
+<th>thing</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>question</td>
+<td>do digit-selected components contribute to word-form addition?</td>
+</tr>
+<tr>
+<td>prediction</td>
+<td>removing them hurts more than matched random components</td>
+</tr>
+<tr>
+<td>comparison</td>
+<td>same model and operands, different notation</td>
+</tr>
+<tr>
+<td>alternative</td>
+<td>they support number output generally</td>
+</tr>
+<tr>
+<td>evidence</td>
+<td>held-out answers before/after intervention</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>the untouched model can't reliably do the task</td>
+</tr>
+</tbody>
+</table>
+<p>The stop condition is underrated.</p>
+<p>If the model can't answer the baseline questions, I don't want to spend three days explaining the mechanism behind behaviour it wasn't reliably producing.</p>
+<h2 id="search-for-mechanisms-not-the-name-i-gave-mine">search for mechanisms, not the name I gave mine</h2>
+<p>The name I give an idea usually tells me very little about prior art.</p>
+<p>Something I call <code>reflective memory</code> could overlap with retrieval, recurrent state, cache replacement or online adaptation. Those are the terms I actually need to search.</p>
+<p>For close methods I want to know what changes, what the baseline is, what evidence is reported and how the question differs from mine.</p>
+<p>If I can't explain the difference, I don't know enough to call my thing novel. If a simpler method already handles the problem, finding that early saves a lot of lovingly over-engineered work.</p>
+<h2 id="attach-evidence-to-claims">attach evidence to claims</h2>
+<p>A bibliography tells me which sources I used.</p>
+<p>It doesn't tell me which source supports which sentence.</p>
+<p>So I keep a small claim ledger:</p>
+<table>
+<thead>
+<tr>
+<th>claim</th>
+<th>evidence</th>
+<th>status</th>
+<th>limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tool saves a conversation</td>
+<td>save-path + round-trip fixture</td>
+<td>implementation claim</td>
+<td>saving isn't retrieval</td>
+</tr>
+<tr>
+<td>retrieved history changes an answer</td>
+<td>paired requests</td>
+<td>proposed test</td>
+<td>change can still be wrong</td>
+</tr>
+<tr>
+<td>memory improves accuracy</td>
+<td>held-out comparison</td>
+<td>hypothesis</td>
+<td>extra context may explain it</td>
+</tr>
+</tbody>
+</table>
+<p>For papers I keep title, authors, version, URL and relevant section. For runs I keep code revision, inputs, settings and output.</p>
+<p>W3C PROV gives useful language around entities, activities and derivation. <a href="https://www.w3.org/TR/prov-overview/">Groth and Moreau, 2013</a>. A recoverable table is enough to start.</p>
+<h2 id="build-the-cheapest-test-that-separates-explanations">build the cheapest test that separates explanations</h2>
+<p>A pilot should help me choose between explanations, not just make my favourite one look plausible.</p>
+<p>For arithmetic I'd first fix the answer scorer, then confirm the model solves both notation forms. Only then do activations and interventions become worth collecting.</p>
+<p>I also like separating:</p>
+<pre><code class="language-text">development → fix the method
+discovery   → choose candidates
+evaluation  → test choices already made
+</code></pre>
+<p>Related examples stay together. A paraphrase isn't magically unseen because the wording changed.</p>
+<p>Before final evaluation, freeze the main metric and comparison. If I change them after seeing the result, cool—that run just became development data.</p>
+<p>A fixed seed doesn't rescue a bad metric. It only helps me reproduce it perfectly :)</p>
+<h2 id="use-ai-where-i-can-inspect-the-contribution">use AI where I can inspect the contribution</h2>
+<p>Models are useful for search terms, explanations, fixtures, code review and draft criticism.</p>
+<p>A review prompt I like is:</p>
+<blockquote>
+<p>Which claim here is stronger than the evidence I've shown?</p>
+</blockquote>
+<p>That's much more useful than asking whether the work seems impressive.</p>
+<p>Generated explanations and novelty scores are still generated outputs. They don't become independent validation because they sound confident.</p>
+<h2 id="finish-with-an-answer-sized-to-the-evidence">finish with an answer sized to the evidence</h2>
+<p>A useful result can be positive, negative or a good reason to abandon the idea.</p>
+<p>The write-up should say what I asked, what I compared, what happened and what else could still explain it.</p>
+<p>I try to keep these distinctions visible:</p>
+<pre><code class="language-text">helped on this evaluation ≠ generally works
+inconclusive test ≠ hypothesis is false
+candidate feature ≠ mechanism found
+</code></pre>
+<p>They look obvious written down and get less obvious after several hours staring at an experiment.</p>
+<p>At the end of a session I want one recoverable state and one next action.</p>
+<blockquote>
+<p>The scorer accepts the right digits inside a wrong explanation. Fix canonical matching before collecting activations.</p>
+</blockquote>
+<p>That's dramatically more useful tomorrow than <code>continue research</code>.</p>
+<p>The <a href="/research/transformers/arithmetic-across-notations/">arithmetic module</a> now has a token-boundary checker and intervention scorer, so the next hand-off there is concrete: choose the local model, record the exact hook and pass the feasibility check before ranking anything.</p>
+<p>Still not enough to write <code>arithmetic circuit found</code> in the notes :)</p>
+<h2 id="reference">reference</h2>
+<p>Paul Groth and Luc Moreau, editors. <strong>PROV-Overview: An Overview of the PROV Family of Documents.</strong> W3C Working Group Note, 30 April 2013. <a href="https://www.w3.org/TR/prov-overview/">Full document</a>.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/research-without-losing-the-question.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

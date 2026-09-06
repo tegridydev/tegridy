@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-B85CCb8nFDXlYXwQD1na8sKbX765vBom6xNmEB43rpw=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arithmetic across notations: testing causal transfer — tegridydev</title><meta name="description" content="The same addition can be written with digits or English words. This protocol asks whether components selected by their causal effect in one notation also contribute in the other, while controlling…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/arithmetic-across-notations/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Arithmetic across notations: testing causal transfer — tegridydev">
+<meta property="og:description" content="The same addition can be written with digits or English words. This protocol asks whether components selected by their causal effect in one notation also contribute in the other, while controlling…"><meta property="og:url" content="https://tegridydev.com/research/transformers/arithmetic-across-notations/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Arithmetic across notations: testing causal transfer — tegridydev"><meta name="twitter:description" content="The same addition can be written with digits or English words. This protocol asks whether components selected by their causal effect in one notation also contribute in the other, while controlling…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Arithmetic across notations: testing causal transfer","description":"The same addition can be written with digits or English words. This protocol asks whether components selected by their causal effect in one notation also contribute in the other, while controlling…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/arithmetic-across-notations/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-arithmetic-across-notations-testing-causal-transfer">[td] tegridydev | Arithmetic across notations: testing causal transfer</h1>
+<p><em>experimental protocol</em></p>
+<p>The same addition can be written with digits or English words. A model getting both right tells me it can handle both forms; it does <strong>not</strong> tell me that the same internal machinery performed the calculation.</p>
+<p>This experiment asks the stronger question: <strong>if I select components because they causally matter for digit-form addition, do those same components matter when the identical arithmetic is written in words, and vice versa?</strong></p>
+<p>I’m treating intervention effects as the primary evidence. Activation similarity and pretty overlays can help locate candidates, but they do not get to become “the arithmetic circuit” on their own.</p>
+<h2 id="what-counts-as-shared-machinery">What counts as shared machinery</h2>
+<p>For this study, a component is <em>important</em> when replacing its activation reduces the complete correct-answer score more than matched control interventions. It is <em>shared across notation</em> when a set discovered on digit prompts also has a held-out effect on word prompts, or the reverse.</p>
+<p>Those are bounded operational definitions. A positive result would support shared causal involvement in this checkpoint/task; it would not establish a unique or complete addition algorithm.</p>
+<p>Nikankin and colleagues’ work on arithmetic heuristics is useful prior context for looking beyond raw answer accuracy. This protocol tests a different surface-form transfer question.</p>
+<h2 id="dataset-and-split">Dataset and split</h2>
+<p>Use non-negative additions with operands from 0 to 99. Enumerate the 5,050 unordered pairs, stratify by ones-column carry and answer length, then sample 600 pairs with seed 1729. Split by <strong>unordered pair</strong> into exactly 200 development, 200 discovery and 200 final pairs so every notation/order variant of one arithmetic fact stays together.</p>
+<p>For each pair create digit and English-word prompts in both operand orders, for example:</p>
+<pre><code class="language-text">Calculate 17 + 28. Answer with digits only:
+Calculate seventeen plus twenty-eight. Answer with digits only:
+</code></pre>
+<p>Use one deterministic number renderer and one canonical decimal target. Equal operands only keep unique prompts. Save the pair list and split before loading the model.</p>
+<p>Choose an openly available causal LM with interceptable activations and record exact checkpoint/tokeniser revision, precision and runtime. Before component discovery, require at least 80% development exact-match accuracy in <strong>each notation</strong>. If the checkpoint cannot do the task, change the model or task and document that decision before touching final data.</p>
+<h2 id="score-the-whole-answer">Score the whole answer</h2>
+<p>The answer score is the conditional log probability of the complete target continuation:</p>
+<pre><code class="language-text">S(x, y) = sum over t of log P(y_t | x, y_&lt;t)
+</code></pre>
+<p>That matters because a multi-token answer cannot be evaluated from its first token. Verify the prompt/continuation token boundary explicitly and compare every prompt with its own baseline.</p>
+<p>Generation is also reported using strict canonical exact match, with a small fixed token limit and truncations separated. Extra prose is a failure under this particular task contract.</p>
+<h2 id="discovery-intervention-and-controls">Discovery, intervention and controls</h2>
+<p>Start with feed-forward activation coordinates at the <strong>final prompt token</strong>, which gives both notations the same functional position used to begin predicting the answer. Operand-internal token alignment is a later study.</p>
+<p>On discovery pairs, replace each tested coordinate with its layer mean estimated from development prompts. Rank by the resulting drop in correct-answer score and lock the top 20 separately for digit and word prompts.</p>
+<p>Final evaluation runs four directions:</p>
+<ul>
+<li>digit-selected → digit prompts;</li>
+<li>digit-selected → word prompts;</li>
+<li>word-selected → word prompts;</li>
+<li>word-selected → digit prompts.</li>
+</ul>
+<p>Compare each selected set with random same-layer sets, activation-magnitude-matched sets and <strong>non-arithmetic number controls</strong> such as copying an operand. Repeat the main study with both mean and zero ablation. Agreement is stronger evidence; disagreement says the result depends on the intervention distribution.</p>
+<p>The intervention should be applied only at the final prompt position during prefill, then the answer is teacher-forced normally. Reapplying the hook to every answer position would test a different mechanism.</p>
+<h2 id="similarity-stays-secondary">Similarity stays secondary</h2>
+<p>Cosine similarity is useful for describing whether representations align, but keep its sign. Taking absolute cosine turns opposite vectors into apparent agreement. Exclude zero-norm cases and report them.</p>
+<p>The key statistic is transfer effect: selected-set damage minus matched-control damage, bootstrapped over complete operand pairs so all variants stay together. Report both transfer directions, notation, carry status and answer length. A secondary “correct in both notations” analysis is fine if it is labelled as conditioning on baseline success.</p>
+<p><strong>What would weaken the idea:</strong> strong within-notation effects with no cross-notation transfer support notation-specific machinery. Weak effects everywhere could mean redundancy, poor discovery or a bad intervention and should not be sold as “arithmetic has no circuit”. If number-output controls break just as much, the selected components may be generic answer machinery.</p>
+<p>The result I want is deliberately modest and specific: <strong>which components transferred, under which intervention, for which prompts, and how far above matched disruption controls?</strong> That is enough to make the experiment useful without claiming a universal maths circuit.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The intervention runner now checks prompt/completion token boundaries, modifies selected features only at the last prompt position, scores every answer token and removes hooks even after errors. A tiny causal fixture verifies score arithmetic and an actual intervention effect.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/intervene.py">intervene.py</a>; the <a href="/research/transformers/arithmetic-across-notations/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Install <code>requirements-model.txt</code> only for the optional local Hugging Face loader. It uses <code>local_files_only=True</code> and disables remote model code; it does not download weights. Supply an exact named module exposing <code>[batch,position,feature]</code>. A zero ablation can measure broad damage, so it is not sufficient evidence of arithmetic specificity.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>Yaniv Nikankin, Anja Reusch, Aaron Mueller and Yonatan Belinkov. <em>Arithmetic Without Algorithms: Language Models Solve Math With a Bag of Heuristics</em>. 2024, revised 2025. <a href="https://arxiv.org/abs/2410.21272v2">arXiv:2410.21272, version 2</a>.</li>
+</ol>
+<h2 id="local-reference-example">Local reference example</h2>
+<p><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/protocol_reference.py">protocol_reference.py</a> — Generates the 600 pair assignments and strict answer checks. It does not load a model or perform ablations. It uses only Python’s standard library. From this article folder, run:</p>
+<pre><code class="language-sh">python3 protocol_reference.py
+</code></pre>
+<p>The command runs the included deterministic checks without writing files or contacting a service. Passing these checks establishes the illustrated contract, not the broader project’s performance.</p>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/arithmetic-across-notations.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

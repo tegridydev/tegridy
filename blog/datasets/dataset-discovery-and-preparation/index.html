@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-qug1EJnA8mTN12QA8Lt0ylE69BCUyyT2CQYERAcVNps=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cleaning a dataset without cleaning away its meaning — tegridydev</title><meta name="description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="cleaning a dataset without cleaning away its meaning — tegridydev">
+<meta property="og:description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away."><meta property="og:url" content="https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="cleaning a dataset without cleaning away its meaning — tegridydev"><meta name="twitter:description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"cleaning a dataset without cleaning away its meaning","description":"I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-cleaning-a-dataset-without-cleaning-away-its-meaning">[td] tegridydev | cleaning a dataset without cleaning away its meaning</h1>
+<p>I want dataset tools to save me repetitive work.</p>
+<p>I don't want them deciding that an ID is secretly a number, casing never matters, or two rows with the same key must be interchangeable.</p>
+<p>A table can be beautifully clean and still be wrong in some very tidy ways.</p>
+<h2 id="three-rows-can-already-break-it">three rows can already break it</h2>
+<p>Take:</p>
+<pre><code class="language-text">0017   alpha
+0018   beta
+0018   gamma
+</code></pre>
+<p>Converting IDs to integers turns <code>0017</code> into <code>17</code>. Keeping the first duplicate makes the disagreement between <code>beta</code> and <code>gamma</code> disappear. Lowercasing everything could damage code or case-sensitive labels.</p>
+<p>My preferred result is boring: keep <code>0017</code> as a string and quarantine both conflicting <code>0018</code> rows.</p>
+<p>One accepted row plus two quarantined rows still accounts for all three inputs.</p>
+<p>Nothing mysteriously vanished during “cleanup”.</p>
+<h2 id="make-the-recipe-readable">make the recipe readable</h2>
+<p>I prefer a small explicit recipe over one clever automatic cleaner.</p>
+<pre><code class="language-json">{
+  &quot;id_field&quot;: &quot;record_id&quot;,
+  &quot;protected_fields&quot;: [&quot;record_id&quot;, &quot;label&quot;],
+  &quot;trim_outer_whitespace&quot;: [&quot;description&quot;],
+  &quot;duplicate_key_policy&quot;: &quot;quarantine-conflicts&quot;,
+  &quot;missing_value_policy&quot;: &quot;preserve-null&quot;
+}
+</code></pre>
+<p>Discovery tells me which dataset revision I found. Profiling describes it. The recipe says what changes are allowed. Execution writes a new version and records what happened to every row.</p>
+<p>A blank field, missing key and failed parse are also different things. They shouldn't all become <code>""</code> because it makes the dataframe look nicer.</p>
+<h2 id="split-before-making-more-copies">split before making more copies</h2>
+<p>The split should belong to whatever I'm trying to generalise beyond: a person, device, conversation, repository, document or time period.</p>
+<p>Chunks and paraphrases inherit their parent's split. Otherwise I can create a shiny “unseen” evaluation row by rewriting something the model already trained on.</p>
+<p>A seed only makes the assignment repeatable. It doesn't make the grouping sensible.</p>
+<p><a href="https://arxiv.org/abs/2107.06499v2">Deduplicating Training Data</a> is useful background on overlap, while <a href="https://arxiv.org/abs/1803.09010v8">Datasheets for Datasets</a> gives a framework for documenting the resulting collection.</p>
+<h2 id="show-me-the-weird-rows">show me the weird rows</h2>
+<p>A random preview can miss exactly what a cleaner is likely to damage.</p>
+<p>I'd deliberately surface leading-zero IDs, rare labels, malformed rows and duplicate conflicts. The before/after view should say <strong>why</strong> each change happened.</p>
+<p>Once I can follow one awkward row all the way through, bulk processing starts feeling useful instead of slightly terrifying.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The local recipe engine reads CSV, JSON arrays and JSONL without coercing numeric-looking IDs.</p>
+<p>It preserves protected fields, logs whitespace edits, quarantines conflicting duplicates, counts identical repeats separately and assigns deterministic group splits. Every input row is accounted for.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/prepare.py">prepare.py</a> or the <a href="/blog/datasets/dataset-discovery-and-preparation/">module README</a>.</p>
+<p>The supplied recipe expects string <code>record_id</code> values. An optional <code>group_field</code> keeps related children together; otherwise the ID becomes the split group. Hash buckets target 80/10/10 without pretending that guarantees exact class balance.</p>
+<p>The engine only supports explicit recipe operations. Dataset discovery providers, augmentation and an interactive row-diff UI are still separate work.</p>
+<p>Malformed JSONL rows can be rejected individually; malformed whole JSON/CSV files remain file-level errors.</p>
+<p>That's the direction I want: make the dataset easier to use without making its history harder to explain.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/dataset-discovery-and-preparation.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

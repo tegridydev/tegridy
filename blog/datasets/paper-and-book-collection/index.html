@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-dOI9td8FuSExBcgXbrGS0qq6pv+nlAI2Gvr7895TGSE=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>collecting papers without losing why I wanted them — tegridydev</title><meta name="description" content="I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/datasets/paper-and-book-collection/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="collecting papers without losing why I wanted them — tegridydev">
+<meta property="og:description" content="I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant."><meta property="og:url" content="https://tegridydev.com/blog/datasets/paper-and-book-collection/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="collecting papers without losing why I wanted them — tegridydev"><meta name="twitter:description" content="I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"collecting papers without losing why I wanted them","description":"I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/paper-and-book-collection/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-collecting-papers-without-losing-why-i-wanted-them">[td] tegridydev | collecting papers without losing why I wanted them</h1>
+<p>I can build a reading queue much faster than I can read it.</p>
+<p>That part is easy :)</p>
+<p>The harder bit is coming back later and remembering <strong>why I saved something</strong>, especially when the same paper appeared under three searches.</p>
+<p>I want the queue to remember the question behind the download.</p>
+<h2 id="a-download-isnt-a-reading-history">a download isn't a reading history</h2>
+<p>Discovery, selection, download, conversion and reading are separate events.</p>
+<p>A failed download doesn't erase a good selection reason. A successful Markdown conversion doesn't mean I read the paper. Having a PDF in a folder definitely doesn't mean I checked it closely enough to cite it.</p>
+<p>Books make identity messier. A chapter, edition and complete book can overlap without being interchangeable.</p>
+<pre><code class="language-json">{
+  &quot;work_id&quot;: &quot;fictional-memory-handbook&quot;,
+  &quot;edition&quot;: &quot;2&quot;,
+  &quot;part&quot;: &quot;chapter-4&quot;,
+  &quot;question&quot;: &quot;How are stale records replaced?&quot;,
+  &quot;selection_reason&quot;: &quot;Compare the replacement rule with FIFO&quot;,
+  &quot;acquisition&quot;: &quot;pending&quot;,
+  &quot;reading&quot;: &quot;metadata-only&quot;
+}
+</code></pre>
+<p>Real entries need resolvable bibliographic information, URLs and whatever verification I've actually done. Matching a title alone isn't enough.</p>
+<h2 id="let-failed-files-fail-honestly">let failed files fail honestly</h2>
+<p>If a download dies halfway through, I don't want <code>paper.pdf</code> sitting there looking complete.</p>
+<p>Write to staging first. Record the expected revision, bytes, hash and outcome. Only publish the completed file after validation.</p>
+<p>The selection reason survives even when the transfer doesn't. The <a href="/blog/datasets/pdf-extraction-and-markdown/">PDF conversion post</a> covers what happens after the file arrives.</p>
+<p><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html">OAI-PMH</a> is useful for metadata harvesting, but finding metadata and having permission to redistribute a file are separate questions.</p>
+<h2 id="organise-around-the-question">organise around the question</h2>
+<p>A dashboard saying I have 842 papers mostly tells me I should stop downloading papers.</p>
+<p>What I actually want is:</p>
+<pre><code class="language-text">question
+├── candidate references
+├── evidence checked
+├── contradictory source
+└── still missing
+</code></pre>
+<p>One short selection reason and a reading state is probably enough. Too much friction and I'll just stop using the tool.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The local SQLite queue separates works, editions, acquisition receipts and page/section reading notes.</p>
+<p>Stable IDs replace title matching. Foreign keys reject notes for unknown editions and local files receive SHA-256 receipts. Reading one edition doesn't mark every edition read.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/paper-and-book-collection/reading_queue.py">reading_queue.py</a> or the <a href="/blog/datasets/paper-and-book-collection/">module README</a>.</p>
+<pre><code class="language-sh">python3 reading_queue.py reading.sqlite edition cedar-v1 cedar 1 https://example.org/manual &quot;self-authored fixture&quot; --file manual.pdf
+python3 reading_queue.py reading.sqlite read cedar-v1 &quot;pages 2-3&quot; &quot;checked timeout&quot;
+</code></pre>
+<p><code>export</code> writes the queue as JSON.</p>
+<p>Provider discovery, rights verification and automatic downloading aren't implemented. A rights description in the database is supplied metadata, not a legal determination.</p>
+<p>For now I mostly want the queue to remember the thing I apparently trusted past-me to remember manually.</p>
+<p>That strategy has not been going amazingly :)</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/paper-and-book-collection/paper-and-book-collection.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/paper-and-book-collection/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — tegridydev</title><meta name="description" content="Project write-ups, experiments and things I’ve been playing around with.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Blog — tegridydev">
+<meta property="og:description" content="Project write-ups, experiments and things I’ve been playing around with."><meta property="og:url" content="https://tegridydev.com/blog/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Blog — tegridydev"><meta name="twitter:description" content="Project write-ups, experiments and things I’ve been playing around with.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><div class="document"><h1>Blog</h1><p>Project write-ups, experiments and things I’ve been playing around with.</p><p><a href="/blog/feed.xml">Subscribe via RSS</a></p><ul class="entries"><li><a class="entry-link" href="https://huggingface.co/blog/tegridydev/research-papers-dataset"><span class="entry-title">Research Papers Dataset</span><span class="entry-description">How and why I built the research papers dataset.</span></a><p class="article-meta"><time datetime="2026-05-23">2026-05-23</time> · on Hugging Face</p></li><li><a class="entry-link" href="/blog/model-interpretability/what-a-model-map-can-show/"><span class="entry-title">what am I actually looking at in a model map?</span><span class="entry-description">I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I&#x27;ve actually tested causally.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/knowledge/xanadu-linked-documents/"><span class="entry-title">xanadu-2: links that remember what they point to</span><span class="entry-description">Normal links point somewhere. I&#x27;m interested in links that also remember which version and exact passage I meant when I created them.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/knowledge/sorting-notes-without-rewriting-history/"><span class="entry-title">sorting old notes without rewriting history</span><span class="entry-description">A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/knowledge/knowledge-bases-that-help-with-real-work/"><span class="entry-title">knowledge bases should help me choose the next check</span><span class="entry-description">I don&#x27;t really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/knowledge/embeddings-need-a-contract/"><span class="entry-title">an embedding column needs more than a convincing name</span><span class="entry-description">Before I trust an embedding search or scatterplot, I want to know exactly which model produced the vectors, how they were made and whether the query uses the same representation.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/developer-tools/research-without-losing-the-question/"><span class="entry-title">doing research without losing the question</span><span class="entry-description">I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/datasets/synthetic-data-generation-and-quality/"><span class="entry-title">making synthetic data I can actually check</span><span class="entry-description">Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/datasets/pdf-extraction-and-markdown/"><span class="entry-title">a readable PDF export can still be wrong</span><span class="entry-description">PDF conversion can look finished long before I&#x27;ve checked whether the Markdown still means the same thing as the original page.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/datasets/paper-and-book-collection/"><span class="entry-title">collecting papers without losing why I wanted them</span><span class="entry-description">I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/datasets/dataset-discovery-and-preparation/"><span class="entry-title">cleaning a dataset without cleaning away its meaning</span><span class="entry-description">I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/applications/lead-extraction-and-cleaning/"><span class="entry-title">pulling useful fields out of messy text</span><span class="entry-description">Turning messy text into a clean table is easy to demo. The harder part is making sure every neat little cell still has evidence behind it.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/applications/image-conversion-resizing-and-privacy/"><span class="entry-title">image conversion has more edge cases than the button suggests</span><span class="entry-description">“Make this image smaller” sounds simple until smaller could mean fewer pixels, fewer bytes, a square canvas or just something that uploads properly.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/applications/discord-log-export-and-field-extraction-toolkit/"><span class="entry-title">getting a useful export out of a chat log</span><span class="entry-description">A chat export becomes useful when I can trace a cleaned field or spreadsheet row all the way back to the exact message that produced it.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/agents/minecraft-time-with-astra/"><span class="entry-title">minecraft time with astra</span><span class="entry-description">Spent some time playing around with Astra during the last few days and gave it my usual Minecraft test. I know these oneshot game clones have been benchmarked to death, but I still find them…</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/agents/botsim-local-community/"><span class="entry-title">botsim: letting the locals talk</span><span class="entry-description">I like the idea of leaving a tiny local community of model personas running, then seeing what survives once scheduling, memory and interruptions get in the way.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory"><span class="entry-title">Open Source AI Agents</span><span class="entry-description">My directory of open-source AI agent projects.</span></a><p class="article-meta"><time datetime="2025-02-21">2025-02-21</time> · on Hugging Face</p></li><li><a class="entry-link" href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025"><span class="entry-title">WTF is Fine-Tuning?</span><span class="entry-description">A plain-English intro to fine-tuning.</span></a><p class="article-meta"><time datetime="2025-02-16">2025-02-16</time> · on Hugging Face</p></li><li><a class="entry-link" href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face"><span class="entry-title">LLM Dataset Formats 101</span><span class="entry-description">A plain guide to common dataset formats.</span></a><p class="article-meta"><time datetime="2025-02-01">2025-02-01</time> · on Hugging Face</p></li></ul></div></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

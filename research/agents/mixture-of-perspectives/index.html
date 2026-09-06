@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-uhwShYl3c1TQUI0U5i6a3Qg1+MO++zJRZdU9nBXGSdo=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixture of Perspectives: preserving useful disagreement — tegridydev</title><meta name="description" content="Mixture of Perspectives is a decision-support study: expose competing values, factual assumptions and unresolved objections, then test whether reviewers detect important omissions. The experiment…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/agents/mixture-of-perspectives/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Mixture of Perspectives: preserving useful disagreement — tegridydev">
+<meta property="og:description" content="Mixture of Perspectives is a decision-support study: expose competing values, factual assumptions and unresolved objections, then test whether reviewers detect important omissions. The experiment…"><meta property="og:url" content="https://tegridydev.com/research/agents/mixture-of-perspectives/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Mixture of Perspectives: preserving useful disagreement — tegridydev"><meta name="twitter:description" content="Mixture of Perspectives is a decision-support study: expose competing values, factual assumptions and unresolved objections, then test whether reviewers detect important omissions. The experiment…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Mixture of Perspectives: preserving useful disagreement","description":"Mixture of Perspectives is a decision-support study: expose competing values, factual assumptions and unresolved objections, then test whether reviewers detect important omissions. The experiment…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/agents/mixture-of-perspectives/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-mixture-of-perspectives-preserving-useful-disagreement">[td] tegridydev | Mixture of Perspectives: preserving useful disagreement</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>Mixture of Perspectives is not an attempt to calculate the objectively correct morality number. I’m interested in a much more practical question: <strong>does explicitly preserving different values and unresolved objections help a human reviewer notice important things that a single smooth answer misses?</strong></p>
+<p>The useful output is therefore a decision-support record, not a synthetic consensus. It should expose assumptions, factual disputes, value conflicts, minority objections and the person who still owns the decision.</p>
+<h2 id="make-the-modelling-assumptions-visible">Make the modelling assumptions visible</h2>
+<p>One simple representation is a vector of dimensions such as harm prevention, fairness, autonomy, care, honesty, loyalty and justice. A perspective can weight those dimensions differently, but a weighted sum is only one modelling choice. Some positions are better represented as hard constraints: an action that violates a declared right or feasibility rule should not be able to buy its way back with unrelated benefits.</p>
+<p>The numbers are not moral ground truth. Scenario authors decide which outcomes exist, how they are scaled and whose interests appear. Every score therefore needs a rationale, uncertainty range and enough provenance to challenge it. I also want a Pareto view beside each perspective’s preferred action, because disagreement can be a genuine trade-off rather than a solver bug.</p>
+<p>The response contract should keep <strong>factual uncertainty</strong> separate from <strong>value disagreement</strong>. Whether an option costs $100 can be checked. Whether fairness outweighs convenience cannot be resolved by generating more confident prose. A mediator can identify that difference without pretending every disagreement has to disappear.</p>
+<h2 id="a-test-that-does-not-reward-theatrical-debate">A test that does not reward theatrical debate</h2>
+<p>I’d begin with 40 fictional, low-stakes allocation cases. Each case has facts, feasible options, affected groups and a checklist of considerations written before generation. Twenty cases are development material and twenty remain untouched, grouped by scenario template so paraphrases do not leak across the split.</p>
+<p>Compare:</p>
+<ol>
+<li>direct single-agent advice;</li>
+<li>one agent explicitly asked for multiple perspectives;</li>
+<li>rule-only vector scoring;</li>
+<li>independent perspectives without debate;</li>
+<li>the full deliberation loop.</li>
+</ol>
+<p>Match generated tokens and maximum rounds where practical. Independent reviewers, blinded to the method, rate consideration coverage, factual error, unsupported certainty, contradiction, clarity and distracting-but-irrelevant objections. More words and more disagreement are not automatically better.</p>
+<p>The hypotheses are straightforward. Structured perspectives should surface more relevant considerations than a direct answer at the same budget. Retaining dissent should help reviewers notice material omissions. Explicit assumption ranges should make recommendations stable under harmless paraphrase but sensitive to substantive factual changes.</p>
+<p>I also want controls for correlated role-play. Remove one perspective, permute order, swap role names and paraphrase keyword triggers. If a conclusion moves mainly because the word <code>rights</code> appeared, I have a lexical heuristic rather than robust deliberation. Same-model versus different-model panels are a later comparison because changing models also changes competence and style.</p>
+<p><strong>What would weaken the idea:</strong> if the multi-perspective version adds cost without improving consideration coverage or omission detection, use the simpler direct prompt. A negative result here would be useful.</p>
+<h2 id="extensions-that-keep-the-disagreement-inspectable">Extensions that keep the disagreement inspectable</h2>
+<p>An <strong>assumption sensitivity map</strong> varies uncertain factual values and shows which recommendations flip. If two perspectives disagree only because they assumed different outcomes, the system should show that. If disagreement remains with identical facts, preserve it as a value conflict.</p>
+<p>A second extension gives one challenger a narrow responsibility: name a potentially missing stakeholder, possible impact and evidence needed to assess it. Compare that with an unconstrained “critic” prompt. The goal is useful coverage, not a tiny theatre company arguing for its own sake.</p>
+<p>Self-Refine is relevant prior work for same-model critique and revision. The narrower thing I’m testing here is whether <strong>explicit value plurality plus retained dissent</strong> improves a defined human review task. Fluent agreement is not the target.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The evaluator now applies hard constraints before utility ranking, preserves Pareto alternatives and separates value-weight changes from a changed factual budget. Forty fictional cases expose both perspectives and all rejected actions.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/mixture-of-perspectives/perspectives.py">perspectives.py</a>; the <a href="/research/agents/mixture-of-perspectives/">module README</a> lists setup, commands and every supporting file.</p>
+<p>All criteria use declared [0,1] scales and nonnegative weights. Ties remain multiple winners; an infeasible high-scoring action cannot win.</p>
+<h2 id="related-public-work">Related public work</h2>
+<p><a href="https://github.com/tegridydev/mixture-of-persona-research">mixture-of-persona-research</a> is relevant to this topic. The methods and evaluation settings in this article are proposed unless explicitly identified as observations of that repository. A related project link does not establish that all features described here are implemented.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Aman Madaan; Niket Tandon; Prakhar Gupta; Skyler Hallinan; Luyu Gao; Sarah Wiegreffe; Uri Alon; Nouha Dziri; Shrimai Prabhumoye; Yiming Yang; Shashank Gupta; Bodhisattwa Prasad Majumder; Katherine Hermann; Sean Welleck; Amir Yazdanbakhsh; Peter Clark. <a href="https://arxiv.org/abs/2303.17651v2">Self-Refine: Iterative Refinement with Self-Feedback</a>.</strong> 2023-05-25, arXiv v2; first submitted 2023-03-30.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/mixture-of-perspectives/mixture-of-perspectives.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/mixture-of-perspectives/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

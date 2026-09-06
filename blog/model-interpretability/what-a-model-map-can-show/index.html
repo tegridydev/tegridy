@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-H+gjg7JzxSkzJcD5vR4H5wpD88Mranw8hP1CJzT0nuQ=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>what am I actually looking at in a model map? — tegridydev</title><meta name="description" content="I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I&#x27;ve actually tested causally.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/model-interpretability/what-a-model-map-can-show/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="what am I actually looking at in a model map? — tegridydev">
+<meta property="og:description" content="I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I&#x27;ve actually tested causally."><meta property="og:url" content="https://tegridydev.com/blog/model-interpretability/what-a-model-map-can-show/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="what am I actually looking at in a model map? — tegridydev"><meta name="twitter:description" content="I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I&#x27;ve actually tested causally.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"what am I actually looking at in a model map?","description":"I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I've actually tested causally.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/model-interpretability/what-a-model-map-can-show/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-what-am-i-actually-looking-at-in-a-model-map">[td] tegridydev | what am I actually looking at in a model map?</h1>
+<p>The model-analysis interface I keep wanting is easy to picture.</p>
+<p>Load a model, type a prompt, watch things activate, then run a slightly different prompt and overlay the two.</p>
+<p>Click a neuron. Follow an edge. Open the numbers behind it. Patch something and run it again.</p>
+<p>Basically Chrome DevTools except the weird bug is somewhere inside GPT-2.</p>
+<p>Graphix and MechaMap are some of the projects I've used to explore that direction. The important part isn't just drawing the graph; it's making sure the graph tells me <strong>what kind of evidence I'm actually looking at</strong>.</p>
+<h2 id="three-maps-that-happen-to-look-similar">three maps that happen to look similar</h2>
+<p>I want structure, activity and intervention evidence to stay visibly separate.</p>
+<table>
+<thead>
+<tr>
+<th>view</th>
+<th>defensible statement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>structure</td>
+<td>this component exists here and has this shape</td>
+</tr>
+<tr>
+<td>activity</td>
+<td>this value was observed for this input</td>
+</tr>
+<tr>
+<td>intervention</td>
+<td>changing this component changed this measured behaviour</td>
+</tr>
+</tbody>
+</table>
+<p>Those distinctions sound obvious until all three become glowing nodes and lines.</p>
+<p>Weights are parameters. Activations are values from a particular run. Attention weights, residual vectors and MLP outputs are different measurements. An edge might mean architecture, correlation or attribution.</p>
+<p>I don't want the UI drawing all of them the same way and letting my brain fill in the exciting story.</p>
+<h2 id="the-arithmetic-example-i-keep-coming-back-to">the arithmetic example I keep coming back to</h2>
+<p>Take:</p>
+<pre><code class="language-text">Answer using decimal digits. 42 + 41 =
+</code></pre>
+<p>and:</p>
+<pre><code class="language-text">Answer using decimal digits. forty-two plus forty-one =
+</code></pre>
+<p>Both ask for <code>83</code>.</p>
+<p>The tempting thing is to overlay activations and hunt for shared components.</p>
+<p>Useful, but the prompts may have different token lengths and boundaries. <code>token 5</code> in one isn't automatically comparable with <code>token 5</code> in the other.</p>
+<p>For a controlled comparison I'd define the role—say the final prompt position before generation—and save:</p>
+<pre><code class="language-text">run ID
+model + revision
+prompt ID
+token position
+component
+measurement type
+value
+</code></pre>
+<p>Missing stays different from zero. An interrupted capture stays incomplete.</p>
+<h2 id="controls-should-live-in-the-interface">controls should live in the interface</h2>
+<p>Say one neuron lights up across a pile of addition prompts.</p>
+<p>Cool.</p>
+<p>Now test:</p>
+<pre><code class="language-text">42 + 41
+42 dogs 41
+forty two plus forty one
+forty two dogs forty one
+13 + 70
+blue + chair
+</code></pre>
+<p>Maybe it cares about arithmetic. Maybe digits. Maybe formatting.</p>
+<p>All are interesting. Only one is the story I wanted, so clicking a candidate should also make matched controls easy.</p>
+<p>Visual rules matter too. Use one colour scale for compatible measurements. Don't auto-scale tiny and huge changes until both look dramatic. Don't subtract coordinates from separately fitted 2D projections and pretend that's motion in the original space.</p>
+<p>If the basis changes, say so.</p>
+<p>Maybe literally:</p>
+<pre><code class="language-text">Comparable across layers: NOPE
+</code></pre>
+<p>:)</p>
+<h2 id="candidate-circuit-is-a-good-name">candidate circuit is a good name</h2>
+<p>If something looks circuit-ish, show:</p>
+<pre><code class="language-text">supporting prompts
+component coordinates
+selection rule
+controls tried
+interventions tried
+status
+</code></pre>
+<p>A generated explanation can sit beside that as commentary. It isn't privileged access to the model's reasoning.</p>
+<p>For arithmetic I'd select candidates on one prompt set, then intervene on held-out digit and word-form examples. Compare against random same-layer components and components with similar activation magnitude.</p>
+<p>If suppressing the candidate damages every kind of text, broad model damage is still an explanation.</p>
+<p>If it only breaks producing <code>83</code>, maybe I found number-output machinery rather than addition.</p>
+<p>Causal arithmetic work gives good reasons to look here. Nikankin and colleagues report heuristic-like arithmetic components in the models they studied. That's motivation, not permission to call every bright node an arithmetic circuit. <a href="https://arxiv.org/abs/2410.21272v2">Nikankin et al.</a>.</p>
+<h2 id="keep-the-measurement-attached">keep the measurement attached</h2>
+<p>A run should remember model/tokeniser revisions, precision, actual tokens, hook location, generation settings and code revision.</p>
+<p>An intervention also needs its exact rule.</p>
+<p><code>zero ablation</code> is different from replacing with a corpus mean. Copying an activation from another prompt requires both prompts and a reason those positions correspond.</p>
+<p>I don't want a screenshot becoming the only surviving evidence for a precise tensor capture.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The local viewer now reads activation JSON, checks occurrence identities and representation manifests, and displays raw signed values on one shared colour scale.</p>
+<p><code>null</code> means missing. Numeric zero is an observation.</p>
+<p>It refuses incompatible overlays and labels truncation after 2,000 displayed records.</p>
+<p>Start with <a href="/blog/model-interpretability/what-a-model-map-can-show/viewer.html">viewer.html</a>, load <a href="/blog/model-interpretability/what-a-model-map-can-show/fixture.json">fixture.json</a>, and run:</p>
+<pre><code class="language-sh">node test_viewer.cjs
+</code></pre>
+<p>for the data-contract checks.</p>
+<p>The fixture is synthetic. The viewer does not load a model, infer circuits or perform semantic token alignment.</p>
+<p>The full workflow I want eventually is:</p>
+<pre><code class="language-text">load model
+→ capture
+→ overlay
+→ inspect candidate
+→ generate controls
+→ intervene
+→ rerun
+→ test held-out prompts
+→ export evidence
+</code></pre>
+<p>with every interesting thing carrying a status like <code>observed</code>, <code>partial</code>, <code>not tested</code> or <code>hypothesis</code>.</p>
+<p>I still want the giant circuit graph, clickable neurons and cursed neural subway map. Obviously.</p>
+<p>I just want the tool to make it slightly harder to look at a pretty graph and accidentally convince myself I've already proved the story behind it.</p>
+<h2 id="reference">reference</h2>
+<p>Yaniv Nikankin, Anja Reusch, Aaron Mueller and Yonatan Belinkov. <strong>Arithmetic Without Algorithms: Language Models Solve Math With a Bag of Heuristics.</strong> First submitted 28 October 2024; arXiv v2, 20 May 2025. <a href="https://arxiv.org/abs/2410.21272v2">Paper record</a>. DOI: <code>10.48550/arXiv.2410.21272</code>.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/model-interpretability/what-a-model-map-can-show/what-a-model-map-can-show.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/model-interpretability/what-a-model-map-can-show/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

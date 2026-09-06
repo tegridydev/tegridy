@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-Cto7gbb09HJYM3TvLyOmxFjWpuIpXHtL5LTmsSLLbYU=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reflective transformer: causal memory and bounded adaptation — tegridydev</title><meta name="description" content="This proposal combines a causally written memory bank with head-level retrieval. Its first study isolates memory and fixed head specialisation; performance-driven adaptation is a later…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/reflective-transformer-memory-and-adaptation/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Reflective transformer: causal memory and bounded adaptation — tegridydev">
+<meta property="og:description" content="This proposal combines a causally written memory bank with head-level retrieval. Its first study isolates memory and fixed head specialisation; performance-driven adaptation is a later…"><meta property="og:url" content="https://tegridydev.com/research/transformers/reflective-transformer-memory-and-adaptation/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Reflective transformer: causal memory and bounded adaptation — tegridydev"><meta name="twitter:description" content="This proposal combines a causally written memory bank with head-level retrieval. Its first study isolates memory and fixed head specialisation; performance-driven adaptation is a later…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Reflective transformer: causal memory and bounded adaptation","description":"This proposal combines a causally written memory bank with head-level retrieval. Its first study isolates memory and fixed head specialisation; performance-driven adaptation is a later…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/reflective-transformer-memory-and-adaptation/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-reflective-transformer-causal-memory-and-bounded-adaptation">[td] tegridydev | Reflective transformer: causal memory and bounded adaptation</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>“Reflective transformer” is the working name for a model that can retrieve earlier internal information and, later, adapt how strongly different heads use that memory. The important part is not the name; it is keeping <strong>memory retrieval, head specialisation and feedback-driven adaptation</strong> as separate mechanisms until each one works.</p>
+<p>The first study is therefore memory plus fixed head behaviour. Performance-driven adaptation comes later with an explicit delayed feedback source.</p>
+<h2 id="start-with-a-causal-memory-bank">Start with a causal memory bank</h2>
+<p>Use ordinary attention tensors <code>Q,K,V:[B,H,T,d]</code> and give each head a bounded bank of keys/values <code>[B,H,N,d]</code>. A query produces memory scores <code>[B,H,T,N]</code>, invalid entries are masked, and each head retrieves a weighted value sum. Empty banks return zero rather than NaNs.</p>
+<p>The bank is part of the experimental state. Entries need episode identity, creation step, last use and any utility metadata. Writes happen at a declared boundary <strong>after</strong> a completed segment, and a prediction can only read entries that were causally available before it. Independent episodes reset memory unless cross-episode learning is explicitly the task.</p>
+<p>This sounds basic, but it prevents two ugly shortcuts: batch elements reading each other’s memory and targets being written before the model is asked to predict them.</p>
+<p>Start with FIFO/LRU-style policies before anything learned. Access frequency alone can over-reward common memories and discard rare-but-important ones. If a utility policy is later added, define utility through controlled removal effects or external task outcomes rather than a similarity score calling itself usefulness.</p>
+<h2 id="a-delayed-reuse-task">A delayed-reuse task</h2>
+<p>Generate episodes that introduce random symbol/value associations, add distractors and later ask for values after the original evidence has fallen outside the ordinary context window. Some episodes change an association partway through so stale-memory behaviour is measurable.</p>
+<p>Compare a 2×2 factorial first:</p>
+<ol>
+<li>ordinary attention;</li>
+<li>memory only;</li>
+<li>fixed head specialisation only;</li>
+<li>memory + specialisation.</li>
+</ol>
+<p>Train under equal token budgets and count the memory bank in total storage. Also compare with simply extending the normal context at a similar storage budget; external memory should have to beat “remember more input” before earning architectural complexity.</p>
+<p>Measure query accuracy by delay, stale-answer rate, rare-association accuracy, bank turnover, useful-hit rate and resource use. A “useful hit” should mean that removing the retrieved item causes a measurable task effect, not that its cosine similarity happened to be high.</p>
+<p>Use empty-memory and shuffled-memory controls. If they perform equally well, the model may be ignoring the bank.</p>
+<h2 id="adaptation-needs-a-real-feedback-channel">Adaptation needs a real feedback channel</h2>
+<p>The model does not magically know whether its last answer was correct. In the first adaptation experiment, supervised labels can provide delayed external feedback <strong>after</strong> prediction. A deployment-oriented version would need delayed verified feedback or a clearly labelled proxy.</p>
+<p>Self-confidence is not correctness. Any adaptation rule needs to state who provides the signal, when it arrives and how wrong feedback is handled.</p>
+<p>I would compare a bounded moving-average update, fixed schedule and no adaptation, with rollback when development performance degrades. Adaptation should also face a fixed learned-gate control: if the dynamic update buys nothing, keep the simpler gate.</p>
+<p><strong>What would weaken the idea:</strong> memory that does not beat a context/storage-matched baseline, utility policies that only help common associations, or adaptation that damages pre-change behaviour without a compensating post-change benefit.</p>
+<h2 id="two-extensions-worth-keeping">Two extensions worth keeping</h2>
+<p>One is a contradiction-aware memory that retains old and new associations with validity intervals rather than immediately overwriting history. That connects temporal validity with memory in a way I can actually query.</p>
+<p>The other tests whether apparently specialised heads depend on different memory subsets by removing their most-used entries and comparing with random removals. Shared versus per-head banks need equal <strong>total</strong> capacity so head separation does not secretly multiply memory.</p>
+<p>Memorizing Transformers is obvious prior context for retrieving earlier representations. My immediate contribution is much smaller: <strong>a memory state that is causal, episode-isolated, reloadable and cheap enough that its usefulness can be tested against just extending context.</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The memory module now stores episode-isolated <code>[batch,head,slot,width]</code> keys/values, performs detached FIFO writes only at increasing completed steps and masks same-step/future entries. Empty banks return zero; per-head gates start at 0.5. Tests check reset, reload and 32/128 total capacities.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/reflective-transformer-memory-and-adaptation/memory.py">memory.py</a>; the <a href="/research/transformers/reflective-transformer-memory-and-adaptation/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Use <code>Memory.write</code> after processing a segment and query with a later prediction step. A reset is explicit between episodes. The caller remains responsible for not supplying future labels as earlier observations.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Yuhuai Wu; Markus N. Rabe; DeLesley Hutchins; Christian Szegedy. <a href="https://arxiv.org/abs/2203.08913v1">Memorizing Transformers</a>.</strong> 2022-03-16, arXiv v1; ICLR 2022.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/reflective-transformer-memory-and-adaptation/reflective-transformer-memory-and-adaptation.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/reflective-transformer-memory-and-adaptation/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

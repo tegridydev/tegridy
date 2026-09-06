@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-gvUSBjP3s96nqwIC4GxrIwlgzeu8QfOiPS+CH2ssc9I=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-rewarding training: objective fidelity and evaluator drift — tegridydev</title><meta name="description" content="This study separates candidate generation, training-time judgement and independent evaluation. It asks whether self-scored updates improve a checkable task beyond equally budgeted supervised…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/training-and-evaluation/self-rewarding-training-loops/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Self-rewarding training: objective fidelity and evaluator drift — tegridydev">
+<meta property="og:description" content="This study separates candidate generation, training-time judgement and independent evaluation. It asks whether self-scored updates improve a checkable task beyond equally budgeted supervised…"><meta property="og:url" content="https://tegridydev.com/research/training-and-evaluation/self-rewarding-training-loops/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Self-rewarding training: objective fidelity and evaluator drift — tegridydev"><meta name="twitter:description" content="This study separates candidate generation, training-time judgement and independent evaluation. It asks whether self-scored updates improve a checkable task beyond equally budgeted supervised…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-rewarding training: objective fidelity and evaluator drift","description":"This study separates candidate generation, training-time judgement and independent evaluation. It asks whether self-scored updates improve a checkable task beyond equally budgeted supervised…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/training-and-evaluation/self-rewarding-training-loops/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-self-rewarding-training-objective-fidelity-and-evaluator-drift">[td] tegridydev | Self-rewarding training: objective fidelity and evaluator drift</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>A self-rewarding loop can look better every iteration simply because the model is getting better at satisfying its own judge. I want an independent measuring point outside that loop.</p>
+<p>The core separation is <strong>generator → training-time judge → final evaluator</strong>. Those roles can share model weights in some conditions, but the records and objectives stay distinct. A rising judge score is especially weak evidence when the judge itself changes during training.</p>
+<h2 id="first-name-the-loss-honestly">First, name the loss honestly</h2>
+<p>A preferred/rejected pair is data, not a training algorithm. If training keeps only the preferred response and uses token cross-entropy, that is supervised fine-tuning even if a preference pair existed earlier. Pairwise ranking, DPO and reward-based RL are different mechanisms and should not inherit each other’s names from a UI label.</p>
+<p>For a DPO-style condition, both preferred and rejected responses must enter the policy/reference log-ratio margin under the same prompt boundary and response mask. Swapping the pair should reverse the margin. Ties need a declared policy. A supervised-best-answer baseline trains on the same selected preferred responses with ordinary token loss.</p>
+<p>Self-Rewarding Language Models is direct prior work for LLM-generated rewards and iterative DPO. The local question is narrower: can I audit objective fidelity and evaluator drift in a small task with independently checkable answers?</p>
+<h2 id="keep-the-judge-on-a-leash">Keep the judge on a leash</h2>
+<p>Store the judge prompt, model revision, candidate order, scores, ties and reasons. Randomise and swap response order because judges can have presentation bias. Include style traps such as concise-correct versus verbose-confident-wrong, then reverse the styling while holding substance fixed.</p>
+<p>The final evaluator should be frozen or use a deterministic answer key wherever possible. On open-ended tasks, use a fixed rubric and blinded human checks on a declared sample rather than letting the training judge certify itself.</p>
+<h2 id="a-bounded-first-loop">A bounded first loop</h2>
+<p>Start with structured extraction or small arithmetic: 1,000 training prompts, 200 validation and 300 final, grouped by template/content. Generate a small fixed number of candidates per training prompt and keep final prompts completely outside pair generation, judge tuning and stopping decisions.</p>
+<p>Compare:</p>
+<ul>
+<li>untouched base model;</li>
+<li>supervised training on valid targets;</li>
+<li>supervised best-candidate training;</li>
+<li>random-pair preference training;</li>
+<li>self-scored preference training.</li>
+</ul>
+<p>Match training tokens, generation budget and update steps as closely as possible. One or two iterations are enough for the first study.</p>
+<p>Measure independent task accuracy, structured-output validity, judge pair accuracy, swapped-order consistency, reward/accuracy correlation and response length. BLEU/ROUGE/BERTScore can be diagnostics where appropriate, but they do not replace task correctness.</p>
+<p>The main hypotheses are that the judge can identify objectively better pairs above chance, self-scored updates beat equal-budget supervised training on the independent evaluator, and any gain survives style/length controls. A second iteration then tests whether the feedback loop continues helping or starts amplifying its own bias.</p>
+<p><strong>What would weaken the idea:</strong> an internal score rising while final accuracy stays flat or falls is evaluator drift, not success. If supervised best-answer training performs equally well, the preference machinery has not earned its extra complexity.</p>
+<h2 id="two-extensions-worth-keeping">Two extensions worth keeping</h2>
+<p>A disagreement filter can accept pairs only when two differently prompted judges—or a judge plus deterministic checker—agree on a supported preference, compared with random filtering at the same retained data size. Correlated judges can still agree on errors, so the independent evaluator remains necessary.</p>
+<p>A persistent style-audit set can track whether the judge becomes easier to game across iterations. That gives the loop an explicit stop signal instead of “train again because reward went up”.</p>
+<p>Every checkpoint should keep model/tokeniser hashes, data split, exact loss, optimiser settings and evaluator outputs. The interesting artifact is not just a new set of weights; it is a reproducible record of <strong>what signal actually pushed them there</strong>.</p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The DPO implementation now sums response-masked token log probabilities and detaches reference ratios. Numerical tests verify both loss directions, prompt-mask exclusion and an actual trainable parameter update. A swapped-order judge audit rejects a deliberately style-biased fixture judge.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/self-rewarding-training-loops/preference.py">preference.py</a>; the <a href="/research/training-and-evaluation/self-rewarding-training-loops/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Use <code>sequence_logprob</code>, <code>dpo</code> and <code>judge_audit</code>. The tiny gradient test is an objective-fidelity fixture, not a preference-learning quality result.</p>
+<h2 id="related-public-work">Related public work</h2>
+<p><a href="https://github.com/tegridydev/RLTPF">RLTPF</a> names the related idea of feedback on a model’s reasoning process. Its inspected public tree contains a README and licence, so it does not supply a training implementation or evaluation results. The independent-evaluation protocol above also applies when process feedback is the proposed reward signal.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Weizhe Yuan; Richard Yuanzhe Pang; Kyunghyun Cho; Xian Li; Sainbayar Sukhbaatar; Jing Xu; Jason Weston. <a href="https://arxiv.org/abs/2401.10020v3">Self-Rewarding Language Models</a>.</strong> 2025-03-28, arXiv v3; ICML 2024.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/self-rewarding-training-loops/self-rewarding-training-loops.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/training-and-evaluation/self-rewarding-training-loops/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-1lOE1cSMRJxn4K+ChjnzNCM77ou3T8VPVL0RWqAF6C8=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>getting a useful export out of a chat log — tegridydev</title><meta name="description" content="A chat export becomes useful when I can trace a cleaned field or spreadsheet row all the way back to the exact message that produced it.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/applications/discord-log-export-and-field-extraction-toolkit/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="getting a useful export out of a chat log — tegridydev">
+<meta property="og:description" content="A chat export becomes useful when I can trace a cleaned field or spreadsheet row all the way back to the exact message that produced it."><meta property="og:url" content="https://tegridydev.com/blog/applications/discord-log-export-and-field-extraction-toolkit/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="getting a useful export out of a chat log — tegridydev"><meta name="twitter:description" content="A chat export becomes useful when I can trace a cleaned field or spreadsheet row all the way back to the exact message that produced it.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"getting a useful export out of a chat log","description":"A chat export becomes useful when I can trace a cleaned field or spreadsheet row all the way back to the exact message that produced it.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/applications/discord-log-export-and-field-extraction-toolkit/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-getting-a-useful-export-out-of-a-chat-log">[td] tegridydev | getting a useful export out of a chat log</h1>
+<p>A chat export gets interesting once I need to actually do something with it.</p>
+<p>Find an old decision. Pull out a few fields. Compare edits. Turn a messy conversation into a table. Then wonder why row 184 says something slightly different from what I remember reading.</p>
+<p>The bit I care about is tracing that row <strong>all the way back to the message that produced it</strong>.</p>
+<h2 id="two-jobs-one-clean-hand-off">two jobs, one clean hand-off</h2>
+<p>I split the problem into two parts.</p>
+<p>The exporter preserves message history and identity. The parser reads those records and proposes useful fields. Either side should remain inspectable without the other running.</p>
+<p>A message record needs its ID, author, channel ID, timestamps, content availability and attachment/embed descriptions. IDs stay strings because turning <code>0017</code> into <code>17</code> for convenience is exactly the sort of helpful cleanup I don't want.</p>
+<p>The export run keeps its scope, cursors and completion state too. A history collected over several minutes isn't one magical atomic snapshot; things can change while I'm paging through it.</p>
+<h2 id="pagination-gets-weird-quickly">pagination gets weird quickly</h2>
+<p>Say page one ends at <code>m100</code> and a retry makes page two start with <code>m100</code> again.</p>
+<p>That shouldn't become two messages.</p>
+<p>If <code>m100</code> changed between observations, I also don't want the newer text silently replacing the older one. Same identity, different observed version.</p>
+<p>If I cancel after two pages, keep the data and mark the run <code>partial</code>. A file existing on disk does not magically mean the export finished :)</p>
+<h2 id="every-field-should-open-its-source">every field should open its source</h2>
+<p>If I later extract:</p>
+<pre><code class="language-text">company = Cedar Systems
+</code></pre>
+<p>I want the exact message or document span supporting it.</p>
+<p>Each field keeps the source ID, value, span or structural path, extractor revision and review status. A generated value with no support belongs in a suggestion queue, not the final table.</p>
+<p>I'd parse predictable Markdown/JSON deterministically and only use a model for irregular prose where the rules genuinely struggle.</p>
+<p>Faithful JSON should stay beside any flattened spreadsheet export. Formula-like text may need presentation escaping, but the original value should remain recoverable.</p>
+<h2 id="missing-data-should-stay-missing">missing data should stay missing</h2>
+<p>Discord permissions and Gateway intents affect what an app can observe; the <a href="https://docs.discord.com/developers/events/gateway">Gateway documentation</a> is the reference I'd use for a live collector.</p>
+<p>If message content isn't available, don't turn that into an empty message. <code>not available</code> and <code>""</code> are different observations.</p>
+<p>Tokens also belong in configuration, not URLs or exported diagnostics. Fake pages are enough to debug pagination safely.</p>
+<h2 id="what-i-built-from-this">what I built from this</h2>
+<p>The offline exporter now follows explicit cursors, reconciles duplicate message IDs, preserves edit history and records conflicting revisions rather than overwriting them.</p>
+<p>A 250-message fixture covers three pages, an edit and repeated delivery. Interrupted or malformed input produces a partial receipt.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/applications/discord-log-export-and-field-extraction-toolkit/export_logs.py">export_logs.py</a>; the <a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">module README</a> documents the JSON page format. Output preserves raw message objects and the source-file hash.</p>
+<p>The next feature I'd add is the review screen: proposed value on the left, exact source text on the right, plus a diff when parser versions disagree.</p>
+<p>That's the useful bit. I shouldn't have to trust the parser saying it improved; I should be able to see <strong>what changed and why</strong>.</p>
+<p>A live Discord adapter, PDF adapter and interactive field-review UI are still separate work. The current tool only consumes saved JSON pages and does not connect to Discord.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/applications/discord-log-export-and-field-extraction-toolkit/discord-log-export-and-field-extraction-toolkit.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/applications/discord-log-export-and-field-extraction-toolkit/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

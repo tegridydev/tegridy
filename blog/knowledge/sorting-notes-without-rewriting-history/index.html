@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-7iERrnu/OOB/bCFBHjys6mo5aKqzSQ5utI+IICWQYyI=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sorting old notes without rewriting history — tegridydev</title><meta name="description" content="A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from.">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/knowledge/sorting-notes-without-rewriting-history/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="sorting old notes without rewriting history — tegridydev">
+<meta property="og:description" content="A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from."><meta property="og:url" content="https://tegridydev.com/blog/knowledge/sorting-notes-without-rewriting-history/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="sorting old notes without rewriting history — tegridydev"><meta name="twitter:description" content="A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from.">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"sorting old notes without rewriting history","description":"A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/knowledge/sorting-notes-without-rewriting-history/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/research/">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-sorting-old-notes-without-rewriting-history">[td] tegridydev | sorting old notes without rewriting history</h1>
+<p>A research folder can become an archaeological site surprisingly quickly.</p>
+<p>There are originals, cleaned versions, exports of cleaned versions, generated summaries and a file called <code>final</code> that is somehow older than all of them.</p>
+<p>I've been dealing with enough of that lately that I now think less about:</p>
+<blockquote>
+<p>which file should I keep?</p>
+</blockquote>
+<p>and more about:</p>
+<blockquote>
+<p>what relationship do these files have?</p>
+</blockquote>
+<p>I want a clean reading copy <strong>without deleting the trail that explains where it came from</strong>.</p>
+<h2 id="duplicate-can-mean-a-few-things">“duplicate” can mean a few things</h2>
+<p>These shouldn't share one delete button.</p>
+<table>
+<thead>
+<tr>
+<th>relationship</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte-identical</td>
+<td>every stored byte matches</td>
+</tr>
+<tr>
+<td>same body</td>
+<td>content matches under an explicit rule</td>
+</tr>
+<tr>
+<td>revision</td>
+<td>something actually changed</td>
+</tr>
+<tr>
+<td>related topic</td>
+<td>they discuss similar things</td>
+</tr>
+</tbody>
+</table>
+<p>A hash proves two byte sequences match. It doesn't tell me why both copies exist.</p>
+<p>One might be a backup. One might belong inside another project's reproducibility bundle. Deleting it can break context even if the bytes exist elsewhere.</p>
+<p>Normalisation gets sneaky too. Ignore metadata and I might miss changed attribution. Ignore whitespace and I might miss meaningful Python indentation.</p>
+<p>The comparison rule belongs beside the result.</p>
+<h2 id="separate-the-file-from-the-content">separate the file from the content</h2>
+<p>I like three small objects:</p>
+<pre><code class="language-text">occurrence
+content version
+transformation
+</code></pre>
+<p>An occurrence says where something was found. A content version identifies the bytes and hash. A transformation says how one version became another.</p>
+<pre><code class="language-json">{
+  &quot;operation&quot;: &quot;normalise-headings&quot;,
+  &quot;input_version&quot;: &quot;note-v1&quot;,
+  &quot;output_version&quot;: &quot;note-v2&quot;,
+  &quot;allowed_changes&quot;: [&quot;markdown-heading-levels&quot;],
+  &quot;review_status&quot;: &quot;pending&quot;
+}
+</code></pre>
+<p>The operation name isn't proof that only headings changed.</p>
+<p>The diff is still the check.</p>
+<p>W3C PROV already provides useful language for entities, activities and derivation, so I don't need to invent Tegridy Provenance Protocol v7 just because I enjoy naming things. <a href="https://www.w3.org/TR/prov-overview/">Groth and Moreau, 2013</a>.</p>
+<h2 id="prettier-can-still-be-worse">prettier can still be worse</h2>
+<p>This is the annoying part.</p>
+<p>A converter can produce cleaner Markdown while damaging source-like text.</p>
+<pre><code class="language-python">class Note:
+    def title(self):
+        return &quot;Untitled&quot;
+</code></pre>
+<p>A bad converter might decide <code>class Note:</code> or <code>def title</code> looks like a heading. A table parser can lose a minus sign and still return a lovely table.</p>
+<p>The output becomes easier to read and less correct.</p>
+<p>A link checker only proves the target resolves. A Python parser can catch invalid syntax, but valid code can still behave differently.</p>
+<p>Every validator needs a scope.</p>
+<h2 id="sort-without-touching-the-originals-first">sort without touching the originals first</h2>
+<p>My preferred first pass is boring:</p>
+<ol>
+<li>inventory paths, sizes and hashes,</li>
+<li>group exact matches,</li>
+<li>classify obvious writing, references, generated drafts, code and data,</li>
+<li>leave the raw files alone.</li>
+</ol>
+<p>Only then do I choose a reading copy.</p>
+<p><code>canonical for reading</code> doesn't mean <code>the only true version</code>. It just means this is what the current index points to.</p>
+<p>Transformations happen one at a time in a new output directory. Heading cleanup, summarisation and code repair are separate operations because they're allowed to change different things.</p>
+<h2 id="make-a-tiny-evil-fixture-first">make a tiny evil fixture first</h2>
+<p>Before bulk conversion I'd make a few annoying files containing nested fences, equations, tables, Unicode, relative links, metadata differences and intentionally interrupted writes.</p>
+<p>Then define exactly what the conversion may change.</p>
+<p>If the task is heading cleanup, code bodies should survive exactly. If I'm repairing code, keep the original and test behaviour separately.</p>
+<p>I'd also kill a write halfway through on purpose.</p>
+<p>An incomplete output should never replace the previous readable version.</p>
+<p>A clean exit code is nice.</p>
+<p>Recoverability is nicer.</p>
+<h2 id="attribution-survives-cleanup-too">attribution survives cleanup too</h2>
+<p>A paper I downloaded remains someone else's paper after I reorganise it.</p>
+<p>A generated explanation remains generated until I review it.</p>
+<p>An old contents list mentioning a project doesn't prove I built the implementation it describes.</p>
+<p>So original author/source metadata stays separate from collection ownership. If authorship is unclear, <code>unknown</code> beats guessing.</p>
+<p>For public writing, the front door can still stay clean. Publish the finished article with the references it needs and keep the raw archive separately.</p>
+<p>I also prefer supporting files beside the project they belong to. A post with screenshots, tests or fixtures is easier to understand when those files travel together.</p>
+<p>That's basically the rule:</p>
+<blockquote>
+<p>make the current collection nicer to use without forcing future-me to trust that the cleanup was perfect.</p>
+</blockquote>
+<p>Given how many folders I've apparently named <code>final</code>, future-me deserves the help :)</p>
+<h2 id="reference">reference</h2>
+<p>Paul Groth and Luc Moreau, editors. <strong>PROV-Overview: An Overview of the PROV Family of Documents.</strong> W3C Working Group Note, 30 April 2013. <a href="https://www.w3.org/TR/prov-overview/">Full document</a>.</p>
+<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/sorting-notes-without-rewriting-history/sorting-notes-without-rewriting-history.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/sorting-notes-without-rewriting-history/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>

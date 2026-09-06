@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" data-theme="mocha" data-theme-choice="system"><head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-Mg3yVxXDupjOppZhHTlEhGH02Z1XFNrfOwgVD6F7RXg=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protocol resource budgets: bytes, work and retained state — tegridydev</title><meta name="description" content="This research models how accepted inputs consume response bytes, processing work and unfinished state. It begins with bounded discrete-event simulations so each quantity and termination condition…">
+<meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/security/internet-protocol-amplification-research/">
+<link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
+<link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Protocol resource budgets: bytes, work and retained state — tegridydev">
+<meta property="og:description" content="This research models how accepted inputs consume response bytes, processing work and unfinished state. It begins with bounded discrete-event simulations so each quantity and termination condition…"><meta property="og:url" content="https://tegridydev.com/research/security/internet-protocol-amplification-research/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Protocol resource budgets: bytes, work and retained state — tegridydev"><meta name="twitter:description" content="This research models how accepted inputs consume response bytes, processing work and unfinished state. It begins with bounded discrete-event simulations so each quantity and termination condition…">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Protocol resource budgets: bytes, work and retained state","description":"This research models how accepted inputs consume response bytes, processing work and unfinished state. It begins with bounded discrete-event simulations so each quantity and termination condition…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/security/internet-protocol-amplification-research/"}</script>
+</head><body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
+        <span class="brand-mark" aria-hidden="true">[td]</span>
+        <span>tegridydev</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
+      </nav>
+
+      <div class="theme-picker">
+        <button class="theme-toggle" type="button" aria-expanded="false"
+          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+          title="Choose colour theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+          </svg>
+        </button>
+
+        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+          <div class="theme-group">
+            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                <span class="theme-swatch" aria-hidden="true"></span>
+                <span>System</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                <span>Latte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                <span>Frappé</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                <span>Macchiato</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                <span>Mocha</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="theme-group">
+            <p class="theme-group-label" id="custom-themes">tegridydev</p>
+            <div class="theme-options" role="group" aria-labelledby="custom-themes">
+              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                <span>Terminal Mint</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                <span>Night Shift</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                <span>Emberline</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                <span>Moss Byte</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                <span>Plum Static</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                <span>Deep Current</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                <span>Graphite</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                <span>Solar Paper</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                <span>Cherry Wire</span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                <span>Cobalt Lab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-protocol-resource-budgets-bytes-work-and-retained-state">[td] tegridydev | Protocol resource budgets: bytes, work and retained state</h1>
+<p><em>design study and proposed evaluation</em></p>
+<p>“Amplification” is one of those security words that can hide several completely different resource problems. I want to separate them before attaching the idea to any deployed protocol: response bytes, processing work, retained unfinished state and branching downstream work all need different measurements.</p>
+<p>The first version therefore stays inside bounded discrete-event simulations. That lets me check the accounting and termination rules without constructing live traffic or turning a measurement note into an operational denial-of-service recipe.</p>
+<h2 id="four-budgets-four-claims">Four budgets, four claims</h2>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>What I mean</th>
+<th>What it does <strong>not</strong> prove</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traffic ratio</td>
+<td>Response bytes / attributable input bytes at a declared layer</td>
+<td>CPU cost or successful reflection</td>
+</tr>
+<tr>
+<td>Work ratio</td>
+<td>Server work per accepted input unit against an ordinary-request baseline</td>
+<td>Complexity from one timing point</td>
+</tr>
+<tr>
+<td>Retained state</td>
+<td>Live memory/queued work from unfinished jobs over time</td>
+<td>An unbounded leak without cleanup tests</td>
+</tr>
+<tr>
+<td>Branching work</td>
+<td>Downstream jobs caused by one admitted job under an explicit graph</td>
+<td>Self-sustaining network recursion</td>
+</tr>
+</tbody>
+</table>
+<p>Every result needs its byte layer, connection boundary, window and terminal condition. A zero denominator is undefined, not “infinite”. A large response to the actual requester is not automatically reflection.</p>
+<h2 id="protocol-examples-are-constraints-not-vulnerability-claims">Protocol examples are constraints, not vulnerability claims</h2>
+<p>For HTTP/2, the useful question is whether different bounded parser/admission policies change retained state, rejection latency and legitimate completion under incomplete work. RFC 9113 already discusses field-block/resource limits, so the simulation should model started, accumulating, completed, rejected and cleaned-up states and track bytes separately from work. A parser can stop storing data yet still burn processing time.</p>
+<p>For QUIC, RFC 9000 already defines pre-validation byte accounting around an unvalidated address. That means reflection and CPU-work questions should stay separate. A toy state machine can verify a declared byte invariant without spoofing anything; if the toy violates its own rule, I have found a model bug, not a protocol vulnerability.</p>
+<p>The old CLDAP/referral idea is even more dependent on mechanism. A referral appearing in a response does not tell me who follows it or whether the action can repeat. Until a specific implementation establishes that behaviour, I only need an abstract job graph with chains, cycles, fan-out and explicit termination budgets.</p>
+<h2 id="the-cheap-falsifiable-study">The cheap falsifiable study</h2>
+<p>Use 100 deterministic synthetic workloads containing ordinary jobs, incomplete jobs, bursts and slow clients. All policies receive the same offered work and every rejected job is retained in the ledger.</p>
+<p>Three questions are enough:</p>
+<ol>
+<li>Does a per-job deadline or global pending-work cap reduce peak retained state without destroying legitimate completion?</li>
+<li>Does the QUIC-inspired accounting object always stay inside its declared pre-validation byte limit, including intentionally defective fixtures that prove the checker can fail?</li>
+<li>Do cycle detection and a global work budget bound graph work more reliably than depth alone across chains, trees, cycles and dense graphs?</li>
+</ol>
+<p>Measure peak state, admitted/emitted bytes, total work units, rejection delay, legitimate completion and tail latency. If wall-clock timing is later added, hardware/build/warm-up become part of the manifest.</p>
+<p>Depth is a good example of why the ledger matters. Limiting path length does not limit total work when fan-out is high; a branching tree can contain <code>1 + b + … + b^d</code> jobs. Cycle detection controls repetition, while an admission budget controls total work. Retries and child jobs have to be charged <strong>before</strong> enqueueing or the limit is decorative.</p>
+<p><strong>What would weaken the idea:</strong> if a simpler cleanup/deadline policy gives the same bounded behaviour, there is no reason to invent a more elaborate resource contract. Likewise, any observation from the simulator stays an observation about the simulator until an authorised version-specific implementation study is designed separately.</p>
+<h2 id="where-id-extend-it">Where I’d extend it</h2>
+<p>A reusable <strong>resource contract</strong> could declare maximum retained bytes, pending jobs and work per lifecycle, then test those promises with state-machine fixtures. A second experiment could compose two individually bounded services and check whether retries/handoffs still multiply total work, comparing independent per-hop budgets with one shared end-to-end budget.</p>
+<p>That is the direction I find useful: not “how big a bad request can I make?”, but <strong>can a service state exactly what resources one admitted unit of work is allowed to consume, and can I falsify that statement safely?</strong></p>
+<h2 id="what-exists-locally">What exists locally</h2>
+<p>The finite job-graph simulator now charges work before enqueueing, records every admitted/rejected job and measures peak queue occupancy. Chain, cycle and branching fixtures verify hand counts. A separate unvalidated-byte object enforces the three-to-one accounting invariant.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/security/internet-protocol-amplification-research/budgets.py">budgets.py</a>; the <a href="/research/security/internet-protocol-amplification-research/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Depth, cycle detection and a global work budget are separate controls. The QUIC-inspired accounting fixture checks byte totals only; it makes no vulnerability or CPU-cost claim.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>RFC 9113: HTTP/2</strong> — Martin Thomson, Cory Benfield. 2022-06. <a href="https://www.rfc-editor.org/rfc/rfc9113.html">Source</a>.</li>
+<li><strong>RFC 9000: QUIC: A UDP-Based Multiplexed and Secure Transport</strong> — Jana Iyengar, Martin Thomson. 2021-05. <a href="https://www.rfc-editor.org/rfc/rfc9000.html">Source</a>.</li>
+</ul>
+<h2 id="status">Status</h2>
+<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/security/internet-protocol-amplification-research/internet-protocol-amplification-research.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/security/internet-protocol-amplification-research/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">92 is only half way</p>
+      <nav class="footer-links" aria-label="Other profiles">
+        <a href="https://github.com/tegridydev" rel="me">GitHub</a>
+        <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
+        <a href="/blog/feed.xml">RSS</a>
+        <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+
+</body>
+</html>
