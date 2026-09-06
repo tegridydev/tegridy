@@ -1,0 +1,65 @@
+{
+  "conditions": {
+    "switching": {
+      "position": {
+        "accuracy": 0.6171875,
+        "brier": 0.2428191602230072,
+        "shifted_accuracy": 0.4375
+      },
+      "features": {
+        "accuracy": 0.703125,
+        "brier": 0.21839214861392975,
+        "shifted_accuracy": 0.3984375
+      },
+      "fixed": {
+        "accuracy": 0.734375,
+        "brier": 0.18182115256786346,
+        "shifted_accuracy": 0.578125
+      },
+      "learned": {
+        "accuracy": 0.734375,
+        "brier": 0.18191035091876984,
+        "shifted_accuracy": 0.578125
+      },
+      "last_observation": {
+        "accuracy": 0.7109375,
+        "shifted_accuracy": 0.578125
+      }
+    },
+    "periodic": {
+      "position": {
+        "accuracy": 0.546875,
+        "brier": 0.25016775727272034,
+        "shifted_accuracy": 0.578125
+      },
+      "features": {
+        "accuracy": 0.46875,
+        "brier": 0.25062260031700134,
+        "shifted_accuracy": 0.515625
+      },
+      "fixed": {
+        "accuracy": 0.5703125,
+        "brier": 0.24253153800964355,
+        "shifted_accuracy": 0.6171875
+      },
+      "learned": {
+        "accuracy": 0.5703125,
+        "brier": 0.24248065054416656,
+        "shifted_accuracy": 0.6171875
+      },
+      "last_observation": {
+        "accuracy": 0.7421875,
+        "shifted_accuracy": 0.6796875
+      }
+    }
+  },
+  "train_episodes": 256,
+  "test_episodes": 128,
+  "selection": "fixed steps; no final-data tuning",
+  "scope": "CPU smoke experiment, not the article full benchmark",
+  "seed": 1729,
+  "steps": 40,
+  "torch_version": "2.14.0+cpu",
+  "python": "3.11.15",
+  "source_sha256": "a31ad1088e4d8ff01786117c0208500172759e09863593cdad84dbf0ae15d342"
+}

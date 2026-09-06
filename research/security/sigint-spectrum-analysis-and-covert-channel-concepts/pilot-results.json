@@ -1,0 +1,179 @@
+{
+  "results": {
+    "seed": 17,
+    "steps": 100,
+    "sequences": 3000,
+    "sessions": {
+      "train": 20,
+      "development": 5,
+      "test": 5,
+      "shifted": 5
+    },
+    "conditions": {
+      "statistics": {
+        "threshold": 0.44551175832748413,
+        "final": {
+          "auroc": 1.0,
+          "detection": 1.0,
+          "false_alarm": 0.048,
+          "brier": 0.14588654041290283,
+          "session_detection_interval": [
+            1.0,
+            1.0
+          ],
+          "sessions": [
+            {
+              "session": 25,
+              "detection": 1.0,
+              "false_alarm": 0.06
+            },
+            {
+              "session": 26,
+              "detection": 1.0,
+              "false_alarm": 0.06
+            },
+            {
+              "session": 27,
+              "detection": 1.0,
+              "false_alarm": 0.02
+            },
+            {
+              "session": 28,
+              "detection": 1.0,
+              "false_alarm": 0.06
+            },
+            {
+              "session": 29,
+              "detection": 1.0,
+              "false_alarm": 0.04
+            }
+          ]
+        },
+        "shifted": {
+          "auroc": 1.0,
+          "detection": 1.0,
+          "false_alarm": 0.044,
+          "brier": 0.14305613934993744,
+          "session_detection_interval": [
+            1.0,
+            1.0
+          ],
+          "sessions": [
+            {
+              "session": 0,
+              "detection": 1.0,
+              "false_alarm": 0.08
+            },
+            {
+              "session": 1,
+              "detection": 1.0,
+              "false_alarm": 0.06
+            },
+            {
+              "session": 2,
+              "detection": 1.0,
+              "false_alarm": 0.04
+            },
+            {
+              "session": 3,
+              "detection": 1.0,
+              "false_alarm": 0.0
+            },
+            {
+              "session": 4,
+              "detection": 1.0,
+              "false_alarm": 0.04
+            }
+          ]
+        }
+      },
+      "sequence": {
+        "threshold": 0.5876280665397644,
+        "final": {
+          "auroc": 0.760752,
+          "detection": 0.564,
+          "false_alarm": 0.22,
+          "brier": 0.23924991488456726,
+          "session_detection_interval": [
+            0.22400000000000003,
+            0.884
+          ],
+          "sessions": [
+            {
+              "session": 25,
+              "detection": 0.08,
+              "false_alarm": 0.0
+            },
+            {
+              "session": 26,
+              "detection": 0.32,
+              "false_alarm": 0.0
+            },
+            {
+              "session": 27,
+              "detection": 1.0,
+              "false_alarm": 0.32
+            },
+            {
+              "session": 28,
+              "detection": 0.42,
+              "false_alarm": 0.4
+            },
+            {
+              "session": 29,
+              "detection": 1.0,
+              "false_alarm": 0.38
+            }
+          ]
+        },
+        "shifted": {
+          "auroc": 0.502896,
+          "detection": 1.0,
+          "false_alarm": 1.0,
+          "brier": 0.3476802408695221,
+          "session_detection_interval": [
+            1.0,
+            1.0
+          ],
+          "sessions": [
+            {
+              "session": 0,
+              "detection": 1.0,
+              "false_alarm": 1.0
+            },
+            {
+              "session": 1,
+              "detection": 1.0,
+              "false_alarm": 1.0
+            },
+            {
+              "session": 2,
+              "detection": 1.0,
+              "false_alarm": 1.0
+            },
+            {
+              "session": 3,
+              "detection": 1.0,
+              "false_alarm": 1.0
+            },
+            {
+              "session": 4,
+              "detection": 1.0,
+              "false_alarm": 1.0
+            }
+          ]
+        }
+      }
+    },
+    "scope": "one-seed synthetic pilot; bootstrap resamples five final sessions, not real RF recordings"
+  },
+  "source_sha256": "64bbddb34a1508a683feb0c3e77e27149cc6c4ae219ffa2e9bd137145524eae3",
+  "python": "3.11.15",
+  "command": "python3 signal_experiment.py",
+  "environment": {
+    "numpy": "2.4.6",
+    "torch": "2.14.0+cpu",
+    "scipy": "1.17.1"
+  },
+  "scope": "local synthetic pilot; see article for measurement limits"
+}

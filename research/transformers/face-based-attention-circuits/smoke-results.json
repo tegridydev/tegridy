@@ -1,0 +1,42 @@
+{
+  "conditions": {
+    "base": {
+      "final_accuracy": 0.328125,
+      "last_training_loss": 2.6820390224456787,
+      "parameters": 105120,
+      "reload_equal": true
+    },
+    "dense": {
+      "final_accuracy": 0.34375,
+      "last_training_loss": 2.5806996822357178,
+      "parameters": 109570,
+      "reload_equal": true
+    },
+    "static": {
+      "final_accuracy": 0.310546875,
+      "last_training_loss": 2.4413094520568848,
+      "parameters": 109220,
+      "reload_equal": true
+    },
+    "fbac": {
+      "final_accuracy": 0.341796875,
+      "last_training_loss": 2.7302865982055664,
+      "parameters": 109540,
+      "reload_equal": true,
+      "within_mode_gate_swap_accuracy": 0.33984375,
+      "cross_mode_gate_swap_accuracy": 0.345703125
+    }
+  },
+  "split_pairs": [
+    768,
+    128,
+    128
+  ],
+  "fbac_parameters": 4420,
+  "scope": "CPU smoke experiment, not the article full benchmark",
+  "seed": 1729,
+  "steps": 40,
+  "torch_version": "2.14.0+cpu",
+  "python": "3.11.15",
+  "source_sha256": "72b17f1e3401937d4efca051def0df3c071934e43f00c9e51b9b2369c4d5a62a"
+}

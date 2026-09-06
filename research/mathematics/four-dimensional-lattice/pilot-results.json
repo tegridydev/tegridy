@@ -1,0 +1,37 @@
+{
+  "results": {
+    "uniform": {
+      "count": 1000,
+      "queries": 100,
+      "build_seconds": 0.005045670000981772,
+      "tree_seconds": 0.059331165997718927,
+      "scan_seconds": 0.04190662000110024,
+      "break_even_queries": null
+    },
+    "clustered": {
+      "count": 1000,
+      "queries": 100,
+      "build_seconds": 0.009060230000613956,
+      "tree_seconds": 0.0064871659997152165,
+      "scan_seconds": 0.0413282560002699,
+      "break_even_queries": 27
+    },
+    "identical": {
+      "count": 1000,
+      "queries": 100,
+      "build_seconds": 0.0008951029994932469,
+      "tree_seconds": 0.039651594997849315,
+      "scan_seconds": 0.04018483199979528,
+      "break_even_queries": 168
+    }
+  },
+  "source_sha256": "2425d031d86a32ea2fda8b373edbe8e790c6f5a402a04d0733f786d9565e713b",
+  "python": "3.11.15",
+  "command": "python3 tree.py",
+  "environment": {
+    "numpy": "2.4.6",
+    "torch": "2.14.0+cpu",
+    "scipy": "1.17.1"
+  },
+  "scope": "local synthetic pilot; see article for measurement limits"
+}

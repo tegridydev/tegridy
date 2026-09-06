@@ -10,31 +10,31 @@ This run started in **Work with Astra on Max**, using this exact prompt:
 
 The first output came back as a little game called Wildblock, contained in one HTML file.
 
-![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot.png)
+![Wildblock original one-shot: island menu and cabin](wild-block-one-shot.png)
 
 I was pretty happy with how much it included within a single output and it felt smooth/optimised straight out of the box (usually that requires a few revision passes focussing on performance and stability).
 
 Even the menu already had world saving, import/export, seeds and settings for graphics and controls. Those are details I appreciate when I'm sitting there playing with something, particularly when I haven't had to spend another 10 minutes going back and forward planning those additions and features.
 
-![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot-2.png)
+![Wildblock original one-shot: first-person building view](wild-block-one-shot-2.png)
 
-Now lets check out that same project at continued different points.
+Here is that same project at a couple of later points.
 
 ## the original oneshot plus one revision with Astra Work Max
 
 I liked where that revision had taken it (adding NPCs, buildings, lighting, water physics, community sim game systems etc)
 
-![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot-revision.png)
+![Astra revision: OpenCraft settlement and activity journal](wild-block-one-shot-revision.png)
 
-So I grabbed that revised single html file and decided to keep going with the simulation side and build it out.
+So I grabbed that revised single HTML file and decided to keep going with the simulation side and build it out.
 
 ## the topdown full scale world sim version
 
 I opened that revised output in my local Zed environment and used Codex CLI. That stage consisted of one full `/plan` run with **Astra xHigh**, followed by one `/goal` revision with **Astra Low**.
 
-![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot-revision-codex.png)
+![Codex revision: top-down settlement view and resident inspector](wild-block-one-shot-revision-codex.png)
 
-The whole process took roughly **145 minutes**, from the initial prompt through to the completed Codex result, so lets say roughly 2 hours (I did not speedrun this lol).
+The whole process took roughly **145 minutes**, from the initial prompt through to the completed Codex result, so roughly 2 hours 25 minutes (I did not speedrun this lol).
 
 Getting to a similar level of quality and feature depth with **Sol 5.6** had taken me around **3–5 hours**, including multiple Codex revision runs using xHigh for planning and Medium for coding.
 
@@ -44,6 +44,12 @@ I'm particularly interested in spending more time with that xHigh/Low combinatio
 
 The top-down version is probably where I'll lose more time now. I like the idea of leaving a little world running and watching what the NPCs do with it. I'm curious how far I could take the settlements and how well everything would hold together over a longer session.
 
-I've shared the oneshot Wildblock source in [the GitHub repo](https://github.com/tegridydev/tegridy/tree/main/blog/minecraft-time-with-astra), published as `wildblock.html`.
+I've shared the oneshot Wildblock source here as [wildblock.html](wildblock.html).
 
-That copy has a small branding pass for my `[td]` metadata and menu links; it's the initial oneshot game, before either of the gameplay revisions shown in the videos.
+That copy has a small branding pass for my `[td]` metadata and menu links; it's the initial oneshot game, before either of the gameplay revisions shown in the screenshots.
+
+## about the files
+
+The playable file and all four screenshots live here with this post. The screenshots show different stages; opening the HTML gives you the initial oneshot, not the later top-down simulation. Open it in a browser with WebGL support. Its local save belongs to the browser/origin you use, so export a world if you want a portable copy.
+
+[Blog index](../../README.md)

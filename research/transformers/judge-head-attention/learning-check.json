@@ -1,0 +1,31 @@
+{
+  "conditions": {
+    "ordinary": {
+      "accuracy": 0.484375,
+      "parameters": 23968,
+      "reload_equal": true
+    },
+    "static": {
+      "accuracy": 0.453125,
+      "parameters": 23971,
+      "reload_equal": true
+    },
+    "token": {
+      "accuracy": 0.390625,
+      "parameters": 24163,
+      "reload_equal": true
+    },
+    "judge": {
+      "accuracy": 0.3828125,
+      "parameters": 24019,
+      "reload_equal": true
+    }
+  },
+  "task": "12-token two-pair smoke fixture; separate seeded episodes, not disjoint-combination full study",
+  "scope": "CPU smoke experiment, not the article full benchmark",
+  "seed": 1729,
+  "steps": 400,
+  "torch_version": "2.14.0+cpu",
+  "python": "3.11.15",
+  "source_sha256": "1085782f6fefaff6265d819ca90eceea184abbc0637ebbe729f6264dfdc19fc1"
+}

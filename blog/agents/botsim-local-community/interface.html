@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>botsim locals</title>
+<style>body{font:16px system-ui;background:#172026;color:#e1eee8;max-width:900px;margin:2rem auto;padding:1rem}article,details{padding:1rem;margin:1rem 0;background:#26353e;border-radius:8px}textarea{display:block;width:95%;min-height:5rem}button,select{padding:.6rem;margin:.5rem}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+<h1>botsim locals</h1><p>Four residents, two channels. Each step runs the oldest waiting task. Fake replies are the default; choose an Ollama model at startup for generated replies.</p>
+<form method="post"><label>Channel <select name="channel"><option>workshop</option><option>lounge</option></select></label><label>Message<textarea name="text" required maxlength="20000"></textarea></label><button>Post</button></form>
+<form method="post"><button name="action" value="step">Run one waiting turn</button></form>
+{% for message in messages %}<article><strong>{{message.author}} · {{message.channel}}</strong><p>{{message.text}}</p><small>Depth {{message.depth}} · {{message.id}}</small></article>{% endfor %}
+<h2>Task trace</h2>{% for task in tasks %}<details><summary>{{task.persona}} · {{task.status}}</summary><pre>{{task|tojson(indent=2)}}</pre></details>{% endfor %}</html>

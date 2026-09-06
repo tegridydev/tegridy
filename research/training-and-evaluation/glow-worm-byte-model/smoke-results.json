@@ -1,0 +1,21 @@
+{
+  "held_out_bits_per_byte": 7.637373924255371,
+  "evaluation_bytes": 352,
+  "last_training_loss": 0.12347593903541565,
+  "reload_equal": true,
+  "training_document_hashes": [
+    "a7fa1693595671aed10692954f7602035d1f1c40671a6b68fd3fd4bda6238adb"
+  ],
+  "evaluation_document_hashes": [
+    "3a1d495b8bc12cab5d16cf43c4a40ca38d17c4a28a94548db86d1aa17155dbff"
+  ],
+  "training_windows": 18,
+  "evaluation_windows": 11,
+  "window_policy": "32-token nonoverlapping document-local windows; incomplete tails excluded; input first token is context only",
+  "scope": "CPU smoke experiment, not the article full benchmark",
+  "seed": 1729,
+  "steps": 40,
+  "torch_version": "2.14.0+cpu",
+  "python": "3.11.15",
+  "source_sha256": "5dcebe7b4765931ee9289546f0040f17018c0cff4cfa0d961fdf32f43f4c90d5"
+}

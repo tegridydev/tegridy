@@ -1,0 +1,1 @@
+{"id_field":"record_id","protected_fields":["record_id","label"],"trim_outer_whitespace":["description"],"duplicate_key_policy":"quarantine-conflicts","missing_value_policy":"preserve-null"}

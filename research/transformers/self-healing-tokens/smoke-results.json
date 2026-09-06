@@ -1,0 +1,42 @@
+{
+  "conditions": {
+    "identity": {
+      "corrupt_recovery": 0.0,
+      "clean_false_edit": 0.0,
+      "whole_record_accuracy": 0.109375
+    },
+    "majority": {
+      "corrupt_recovery": 0.6978417038917542,
+      "clean_false_edit": 0.0,
+      "whole_record_accuracy": 0.78125
+    },
+    "ordinary": {
+      "corrupt_recovery": 0.14388489723205566,
+      "clean_false_edit": 0.0,
+      "whole_record_accuracy": 0.203125,
+      "last_training_loss": 0.6258004307746887,
+      "reload_equal": true
+    },
+    "gated": {
+      "corrupt_recovery": 0.09352517873048782,
+      "clean_false_edit": 0.0,
+      "whole_record_accuracy": 0.109375,
+      "last_training_loss": 0.9139794707298279,
+      "reload_equal": true,
+      "threshold": 0.0,
+      "threshold_status": "development-selected"
+    }
+  },
+  "split_clean_records": [
+    384,
+    64,
+    64
+  ],
+  "selection": "threshold chosen on development records only",
+  "scope": "CPU smoke experiment, not the article full benchmark",
+  "seed": 1729,
+  "steps": 40,
+  "torch_version": "2.14.0+cpu",
+  "python": "3.11.15",
+  "source_sha256": "d82a0b6e67531ab5a18cd3f9de3e960f26e8ec636628fcaf7f211336365109b8"
+}
