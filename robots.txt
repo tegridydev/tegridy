@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tegridydev.com/sitemap.xml
+Sitemap: https://tegridydev.github.io/tegridy/sitemap.xml

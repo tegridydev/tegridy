@@ -1,40 +1,40 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-ofxV8I1ia8EY6A2pQPlYF9zRJQsXtXkkchn8HEQ2MSU=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-IKed9YN5OlWBUnfpdfQMpiJDfV7JxCWFvzXHLoZHk/I=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SL5: thread-aware evidence and prediction timelines — tegridydev</title><meta name="description" content="SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/knowledge/sl5-and-independent-research-workflows/">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.github.io/tegridy/research/knowledge/sl5-and-independent-research-workflows/">
 <link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
 <link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
-<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
-<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
+<link rel="icon" href="/tegridy/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/tegridy/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/tegridy/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/tegridy/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="SL5: thread-aware evidence and prediction timelines — tegridydev">
-<meta property="og:description" content="SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…"><meta property="og:url" content="https://tegridydev.com/research/knowledge/sl5-and-independent-research-workflows/">
+<meta property="og:description" content="SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…"><meta property="og:url" content="https://tegridydev.github.io/tegridy/research/knowledge/sl5-and-independent-research-workflows/">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="SL5: thread-aware evidence and prediction timelines — tegridydev"><meta name="twitter:description" content="SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…">
-<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SL5: thread-aware evidence and prediction timelines","description":"SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/knowledge/sl5-and-independent-research-workflows/"}</script>
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/tegridy/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/tegridy/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SL5: thread-aware evidence and prediction timelines","description":"SL5 is a proposal for searching technical discussions without losing speaker, quotation and time context. The first study tests thread-aware evidence selection against flat retrieval with…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.github.io/tegridy/"},"mainEntityOfPage":"https://tegridydev.github.io/tegridy/research/knowledge/sl5-and-independent-research-workflows/"}</script>
 </head><body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/#home" aria-label="tegridydev home">
+      <a class="brand" href="/tegridy/#home" aria-label="tegridydev home">
         <span class="brand-mark" aria-hidden="true">[td]</span>
         <span>tegridydev</span>
       </a>
 
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/#projects">Projects</a>
-        <a href="/#datasets">Data</a>
-        <a href="/#writing">Writing</a>
-        <a href="/blog/">Blog</a>
-        <a href="/research/" aria-current="page">Research</a>
-        <a href="/#research">Citations</a>
-        <a class="email-nav" href="/#contact">Contact</a>
+        <a href="/tegridy/#projects">Projects</a>
+        <a href="/tegridy/#datasets">Data</a>
+        <a href="/tegridy/#writing">Writing</a>
+        <a href="/tegridy/blog/">Blog</a>
+        <a href="/tegridy/research/" aria-current="page">Research</a>
+        <a href="/tegridy/#research">Citations</a>
+        <a class="email-nav" href="/tegridy/#contact">Contact</a>
       </nav>
 
       <div class="theme-picker">
@@ -125,7 +125,7 @@
     </div>
   </header>
 
-<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-sl5-thread-aware-evidence-and-prediction-timelines">[td] tegridydev | SL5: thread-aware evidence and prediction timelines</h1>
+<main class="container" id="main-content"><article class="article"><p><a href="/tegridy/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-sl5-thread-aware-evidence-and-prediction-timelines">[td] tegridydev | SL5: thread-aware evidence and prediction timelines</h1>
 <p><em>design study and proposed evaluation</em></p>
 <p>SL5 is my attempt to make technical discussions searchable without flattening away the things that make them evidence: <strong>who said what, what they were replying to, which words were actually quoted and when the statement existed</strong>. The 3D-library stuff is fun, but the first research question is much more boring and more useful.</p>
 <p>Does thread-aware retrieval reduce attribution and chronology errors compared with flat retrieval when both systems receive the same metadata and context budget?</p>
@@ -152,25 +152,25 @@
 <p>The immediate target remains tiny: resolve five questions over ten messages correctly in a text interface before building spatial navigation, historical personas or anything else that makes the demo look cooler than the evidence system underneath it.</p>
 <h2 id="what-exists-locally">What exists locally</h2>
 <p>A ten-message thread fixture now resolves nested quotes to the original author/span, retains timestamp correction history and rejects mixed or cyclic quote attribution. Forecast resolution requires a pre-outcome interpretation and leaves two vague forecasts unresolvable.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/thread.py">thread.py</a>; the <a href="/research/knowledge/sl5-and-independent-research-workflows/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/thread.py">thread.py</a>; the <a href="/tegridy/research/knowledge/sl5-and-independent-research-workflows/">module README</a> lists setup, commands and every supporting file.</p>
 <p>The <code>Thread</code> API stores messages and quote edges; <code>Forecast</code> freezes target, deadline and ambiguity. Tests ask five exact-span attribution questions and resolve two ambiguous forecasts without hindsight.</p>
 <h2 id="status">Status</h2>
 <p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/sl5-and-independent-research-workflows.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
+<p><a href="/tegridy/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/sl5-and-independent-research-workflows.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/sl5-and-independent-research-workflows/README.md">Setup and supporting files</a> · <a href="/tegridy/research/">More research</a></p></article></main>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">
         <a href="https://github.com/tegridydev" rel="me">GitHub</a>
         <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
-        <a href="/blog/feed.xml">RSS</a>
+        <a href="/tegridy/blog/feed.xml">RSS</a>
         <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/#home">top ↑</a>
+        <a href="/tegridy/privacy/">Privacy</a>
+        <a href="/tegridy/#home">top ↑</a>
       </nav>
     </div>
   </footer>
 
-  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
+  <script src="/tegridy/assets/build/site.a8d83bf34dee.js" defer></script>
 
 </body>
 </html>
