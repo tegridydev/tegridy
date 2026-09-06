@@ -20,15 +20,19 @@ Even the menu already had world saving, import/export, seeds and settings for gr
 
 Now lets check out that same project at continued different points.
 
-## Image #1 | the original oneshot plus one revision with Astra Work Max.
+## the original oneshot plus one revision with Astra Work Max
 
 I liked where that revision had taken it (adding NPCs, buildings, lighting, water physics, community sim game systems etc)
 
+![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot-revision.png)
+
 So I grabbed that revised single html file and decided to keep going with the simulation side and build it out.
 
-## Image #2 | the topdown full scale world sim version
+## the topdown full scale world sim version
 
 I opened that revised output in my local Zed environment and used Codex CLI. That stage consisted of one full `/plan` run with **Astra xHigh**, followed by one `/goal` revision with **Astra Low**.
+
+![wildblock](/blog/minecraft-time-with-astra/wild-block-one-shot-revision-codex.png)
 
 The whole process took roughly **145 minutes**, from the initial prompt through to the completed Codex result, so lets say roughly 2 hours (I did not speedrun this lol).
 
