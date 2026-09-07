@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-2VLkWx0nsd/TbC29jxscHc7lLsdsXf4Dgv1dN894P5c=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-+9tfhTRyG8jXEn2yV2Ip9ZnmzDGTpOIMLlTLD8N8YY4=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BitNet conversion: separate numerical quality from packed execution — tegridydev</title><meta name="description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…">
+<title>BitNet conversion: separate numerical quality from packed execution — tegridydev</title><meta name="description" content="Separate function-preserving float conversion, ternary-weight simulation, two-bit storage and actual inference execution.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/">
@@ -13,13 +13,11 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="BitNet conversion: separate numerical quality from packed execution — tegridydev">
-<meta property="og:description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…"><meta property="og:url" content="https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="BitNet conversion: separate numerical quality from packed execution — tegridydev"><meta name="twitter:description" content="Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…">
+<meta property="og:description" content="Separate function-preserving float conversion, ternary-weight simulation, two-bit storage and actual inference execution."><meta property="og:url" content="https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="BitNet conversion: separate numerical quality from packed execution — tegridydev"><meta name="twitter:description" content="Separate function-preserving float conversion, ternary-weight simulation, two-bit storage and actual inference execution.">
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"BitNet conversion: separate numerical quality from packed execution","description":"Ternary numerical values, compact stored weights and faster inference are three different claims. This protocol isolates floating conversion, quantised simulation, recovery training and packed…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/"}</script>
-<link rel="stylesheet" href="/assets/reading.css">
-<script src="/assets/reading.js" defer></script>
-</head><body class="writing-page">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"BitNet conversion: separate numerical quality from packed execution","description":"Separate function-preserving float conversion, ternary-weight simulation, two-bit storage and actual inference execution.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/bitnet-quantization-and-conversion/"}</script>
+<link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -127,10 +125,104 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics & articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/" aria-current="page">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-bitnet-conversion-separate-numerical-quality-from-packed-execution">[td] tegridydev | BitNet conversion: separate numerical quality from packed execution</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#start-with-numerical-equivalence">Start with numerical equivalence</a></li><li><a href="#a-staged-experiment">A staged experiment</a></li><li><a href="#storage-needs-honest-accounting">Storage needs honest accounting</a></li><li><a href="#what-exists-locally">What exists locally</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/" aria-current="page">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-08">2026-09-08</time> · Local implementation</p><h1 id="td-tegridydev-bitnet-conversion-separate-numerical-quality-from-packed-execution">[td] tegridydev | BitNet conversion: separate numerical quality from packed execution</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#results">Results</a></li><li><a href="#four-checks-four-different-claims">four checks, four different claims</a></li><li><a href="#start-with-numerical-equivalence">Start with numerical equivalence</a></li><li><a href="#a-staged-experiment">A staged experiment</a></li><li><a href="#storage-needs-honest-accounting">Storage needs honest accounting</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
 <p><em>design study and proposed evaluation</em></p>
 <p>“Ternary model” can mean at least three different things: the forward pass uses ternary-valued weights, the stored checkpoint is compact, or the runtime is actually faster. Those claims are related, but none of them automatically proves the others.</p>
 <p>This study keeps the boundaries explicit so I can tell <strong>where</strong> quality or efficiency changed: function-preserving conversion, ternary numerical simulation, recovery training and packed execution are separate stages.</p>
+<!-- cpu-comparison:start -->
+<h2 id="results">Results</h2>
+<p>The packed representation uses fewer stored bytes, and its scalar output agrees numerically with the ternary simulation. The Python scalar packed path is slower than dense NumPy execution in this workload. Quantisation error against the original float matrix remains separate from packing error; storage reduction is not a speed or model-quality result.</p>
+<p>Synthetic single-matrix conversion and actual scalar two-bit CPU execution. Complete packed file bytes are measured; float array bytes exclude a container. No trained-model quality or optimised-kernel speed claim.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Seed standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>512 · dense array bytes</td>
+<td style="text-align: right;">1.04858e+06</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>512 · dense seconds</td>
+<td style="text-align: right;">0.000369879</td>
+<td style="text-align: right;">0.00014138</td>
+</tr>
+<tr>
+<td>512 · packed file bytes</td>
+<td style="text-align: right;">65598</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>512 · packed seconds</td>
+<td style="text-align: right;">0.919392</td>
+<td style="text-align: right;">0.013686</td>
+</tr>
+<tr>
+<td>512 · packed simulation mse</td>
+<td style="text-align: right;">1.00349e-11</td>
+<td style="text-align: right;">1.026e-13</td>
+</tr>
+<tr>
+<td>512 · quantization mse</td>
+<td style="text-align: right;">136.985</td>
+<td style="text-align: right;">2.0635</td>
+</tr>
+<tr>
+<td>512 · simulation seconds</td>
+<td style="text-align: right;">0.000261063</td>
+<td style="text-align: right;">3.9889e-05</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/comparison-results.json">comparison record</a> includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.</p>
+<!-- cpu-comparison:end -->
+
+<h2 id="four-checks-four-different-claims">four checks, four different claims</h2>
+<table>
+<thead>
+<tr>
+<th>Path in this module</th>
+<th>What is checked</th>
+<th>What is not established</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>convert(model, quantized=False)</code></td>
+<td>Deep clone preserves outputs and tied weights in a small fixture</td>
+<td>Full checkpoint compatibility</td>
+</tr>
+<tr>
+<td><code>convert(model, quantized=True)</code></td>
+<td>Ternary-weight simulation has finite gradients and updates</td>
+<td>Packed execution or unchanged numerical behaviour</td>
+</tr>
+<tr>
+<td><code>pack</code> / <code>unpack</code></td>
+<td>Two-bit symbols round-trip with padding validation</td>
+<td>Total model storage including scales, shape and metadata</td>
+</tr>
+<tr>
+<td>Inference execution</td>
+<td>Floating tensor operations remain in use</td>
+<td>A latency or throughput improvement</td>
+</tr>
+</tbody>
+</table>
+<p>A hand-checkable storage example, from the module folder:</p>
+<pre><code class="language-python">from ternary_reference import pack, unpack
+values = [-1, 0, 1, 0, -1]
+payload = pack(values)
+assert len(payload) == 2
+assert unpack(payload, len(values)) == values
+</code></pre>
+<p>Five symbols occupy two payload bytes here. That is a property of this reference format, <strong>not</strong> a measured compression ratio for a complete model. The caller still needs count, shape and scale information.</p>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/test_quantization.py">float/simulation tests</a> and <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/ternary_reference.py">packing reference</a> deliberately test different boundaries. Run them after <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/README.md">setup</a>; a speed claim would require an actual packed kernel, comparable hardware and measured end-to-end execution.</p>
 <h2 id="start-with-numerical-equivalence">Start with numerical equivalence</h2>
 <p>The simulated weight path scales by mean absolute weight, rounds to ternary values and restores scale. Activations can be quantised separately into a signed low-precision range. Zero scales need an explicit zero-output rule; otherwise an all-zero block turns into undefined arithmetic.</p>
 <p>A <code>BitLinear</code>-style training simulation can blend full-precision and quantised paths with a schedule. That schedule changes optimisation as well as numerical precision, so it needs comparison against immediate quantisation and a full-weight baseline at equal training tokens.</p>
@@ -153,9 +245,9 @@
 <p>A pack/unpack fixture should test every ternary symbol, block boundary, padding case and shape before touching a full model. Packed-runtime output then needs to match a dequantised reference within a declared tolerance.</p>
 <p>A second extension is mixed precision: locate layers or token categories where ternary simulation causes the largest functional change, keep a small subset at higher precision and compare with uniform precision under the same <strong>total stored bytes</strong>. That is only useful if the accounting includes all per-layer scales and exceptions.</p>
 <p>BitNet b1.58 is direct prior work for ternary-weight language modelling. The thing I’m trying to make cleaner here is the experimental language around conversion: <strong>numerical ternarisation, packed storage and faster execution are three checkpoints, not one headline.</strong></p>
-<h2 id="what-exists-locally">What exists locally</h2>
+<h2 id="implementation">Implementation</h2>
 <p>A deep float clone now preserves function and tied parameters. The separate ternary-weight simulator uses a zero-scale guard and a straight-through gradient path; conversion preserves cloned weight ties and tests confirm gradient updates. The two-bit symbol reference remains a separate storage example.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/quantization.py">quantization.py</a>; the <a href="/research/transformers/bitnet-quantization-and-conversion/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/quantization.py">quantization.py</a>; the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/README.md">module README</a> lists setup, commands and every supporting file.</p>
 <p><code>convert(model, quantized=False)</code> is the function-preserving baseline. <code>quantized=True</code> replaces linear projections with the explicitly different weight simulation. Packed-symbol storage and floating matrix execution are not interchangeable performance claims.</p>
 <h2 id="references">References</h2>
 <ul>
@@ -163,8 +255,8 @@
 <li><strong>Zhihang Yuan; Yuzhang Shang; Yue Song; Dawei Yang; Qiang Wu; Yan Yan; Guangyu Sun. <a href="https://arxiv.org/abs/2312.05821v5">ASVD: Activation-aware Singular Value Decomposition for Compressing Large Language Models</a>.</strong> 2025-08-28, arXiv v5; first submitted 2023-12-10.</li>
 </ul>
 <h2 id="status">Status</h2>
-<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/bitnet-quantization-and-conversion.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in Transformers"><a href="/research/transformers/face-based-attention-circuits/"><span>Previous in topic</span><strong>Face-based attention circuits: a controlled feature-mixing study</strong></a><a href="/research/transformers/arithmetic-across-notations/"><span>Next in topic</span><strong>Arithmetic across notations: testing causal transfer</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p>The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.</p>
+<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/transformers/weight-similarity-and-svd-compression/"><span class="entry-title">Weight similarity and functional low-rank compression</span><span class="entry-description">Compare complete stored factor bytes with calibration and held-out functional error, rather than inferring usefulness from weight similarity.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/architecture-experiments/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/bitnet-quantization-and-conversion.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/bitnet-quantization-and-conversion/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/transformers/face-based-attention-circuits/"><span>Previous in topic</span><strong>Face-based attention circuits: a controlled feature-mixing study</strong></a><a href="/research/transformers/arithmetic-across-notations/"><span>Next in topic</span><strong>Arithmetic across notations: testing causal transfer</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

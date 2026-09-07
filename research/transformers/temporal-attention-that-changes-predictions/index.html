@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-yl8tJraNP2wCCgVIFNLbFTJMvB/MmN1fp0NdNdWnsh4=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-DGVLT/XA/MX+P9CaSABfQWzDnPa5pfQmmt8uWNS+PB8=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Temporal attention: elapsed time inside the prediction — tegridydev</title><meta name="description" content="This protocol tests an elapsed-time penalty at a query-to-observation attention readout. The relevant comparison is with an otherwise identical model already given timestamps, so a benefit from…">
+<title>Temporal attention: elapsed time inside the prediction — tegridydev</title><meta name="description" content="A saved elapsed-time attention pilot finds task-dependent results against timestamp features and a last-observation baseline.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/temporal-attention-that-changes-predictions/">
@@ -13,13 +13,11 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Temporal attention: elapsed time inside the prediction — tegridydev">
-<meta property="og:description" content="This protocol tests an elapsed-time penalty at a query-to-observation attention readout. The relevant comparison is with an otherwise identical model already given timestamps, so a benefit from…"><meta property="og:url" content="https://tegridydev.com/research/transformers/temporal-attention-that-changes-predictions/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Temporal attention: elapsed time inside the prediction — tegridydev"><meta name="twitter:description" content="This protocol tests an elapsed-time penalty at a query-to-observation attention readout. The relevant comparison is with an otherwise identical model already given timestamps, so a benefit from…">
+<meta property="og:description" content="A saved elapsed-time attention pilot finds task-dependent results against timestamp features and a last-observation baseline."><meta property="og:url" content="https://tegridydev.com/research/transformers/temporal-attention-that-changes-predictions/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Temporal attention: elapsed time inside the prediction — tegridydev"><meta name="twitter:description" content="A saved elapsed-time attention pilot finds task-dependent results against timestamp features and a last-observation baseline.">
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Temporal attention: elapsed time inside the prediction","description":"This protocol tests an elapsed-time penalty at a query-to-observation attention readout. The relevant comparison is with an otherwise identical model already given timestamps, so a benefit from…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/temporal-attention-that-changes-predictions/"}</script>
-<link rel="stylesheet" href="/assets/reading.css">
-<script src="/assets/reading.js" defer></script>
-</head><body class="writing-page">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Temporal attention: elapsed time inside the prediction","description":"A saved elapsed-time attention pilot finds task-dependent results against timestamp features and a last-observation baseline.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/temporal-attention-that-changes-predictions/"}</script>
+<link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -127,10 +125,204 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics & articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/" aria-current="page">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-temporal-attention-elapsed-time-inside-the-prediction">[td] tegridydev | Temporal attention: elapsed time inside the prediction</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#the-actual-attention-bias">The actual attention bias</a></li><li><a href="#two-tasks-that-pull-in-different-directions">Two tasks that pull in different directions</a></li><li><a href="#fair-model-comparison">Fair model comparison</a></li><li><a href="#what-exists-locally">What exists locally</a></li><li><a href="#what-i-actually-observed">What I actually observed</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/" aria-current="page">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-08">2026-09-08</time> · Bounded pilot; see scope and results</p><h1 id="td-tegridydev-temporal-attention-elapsed-time-inside-the-prediction">[td] tegridydev | Temporal attention: elapsed time inside the prediction</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#results">Results</a></li><li><a href="#earlier-pilot-results">Earlier pilot results</a></li><li><a href="#the-actual-attention-bias">The actual attention bias</a></li><li><a href="#two-tasks-that-pull-in-different-directions">Two tasks that pull in different directions</a></li><li><a href="#fair-model-comparison">Fair model comparison</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#earlier-observations">Earlier observations</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
 <p><em>method proposal and experimental protocol</em></p>
 <p>I originally played with temporal attention by reweighting attention maps after a model had already produced its hidden states. That is useful for visualisation, but it cannot show that elapsed time changed the prediction.</p>
 <p>This version puts time <strong>inside</strong> the prediction path. The question is whether an explicit age penalty helps a model use irregular observations, compared with an otherwise identical model that already receives timestamp features.</p>
+<!-- cpu-comparison:start -->
+<h2 id="results">Results</h2>
+<p>Learned decay reached 79.69% on the ordinary periodic task but fell to 62.75% under the gap shift, below the last-observation baseline at 71.48%. On switching data it was close to the simpler controls and near chance after the shift. The result depends on the generator and arrival gaps; it does not establish universal recency weighting.</p>
+<p>Two synthetic temporal generators, frozen final and gap-shift sets, development-selected checkpoints; no universal recency or real-arrival-process claim.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Seed standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>periodic-features · final · accuracy</td>
+<td style="text-align: right;">0.789453</td>
+<td style="text-align: right;">0.01265</td>
+</tr>
+<tr>
+<td>periodic-features · shift · accuracy</td>
+<td style="text-align: right;">0.636133</td>
+<td style="text-align: right;">0.018639</td>
+</tr>
+<tr>
+<td>periodic-fixed · final · accuracy</td>
+<td style="text-align: right;">0.790039</td>
+<td style="text-align: right;">0.0118</td>
+</tr>
+<tr>
+<td>periodic-fixed · shift · accuracy</td>
+<td style="text-align: right;">0.627539</td>
+<td style="text-align: right;">0.016596</td>
+</tr>
+<tr>
+<td>periodic-learned · final · accuracy</td>
+<td style="text-align: right;">0.796875</td>
+<td style="text-align: right;">0.010653</td>
+</tr>
+<tr>
+<td>periodic-learned · shift · accuracy</td>
+<td style="text-align: right;">0.627539</td>
+<td style="text-align: right;">0.016596</td>
+</tr>
+<tr>
+<td>periodic-position · final · accuracy</td>
+<td style="text-align: right;">0.742578</td>
+<td style="text-align: right;">0.0013102</td>
+</tr>
+<tr>
+<td>periodic-position · shift · accuracy</td>
+<td style="text-align: right;">0.713867</td>
+<td style="text-align: right;">0.0013811</td>
+</tr>
+<tr>
+<td>periodic · last observation · final · accuracy</td>
+<td style="text-align: right;">0.743164</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>periodic · last observation · shift · accuracy</td>
+<td style="text-align: right;">0.714844</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>switching-features · final · accuracy</td>
+<td style="text-align: right;">0.727734</td>
+<td style="text-align: right;">0.0021171</td>
+</tr>
+<tr>
+<td>switching-features · shift · accuracy</td>
+<td style="text-align: right;">0.506445</td>
+<td style="text-align: right;">0.010509</td>
+</tr>
+<tr>
+<td>switching-fixed · final · accuracy</td>
+<td style="text-align: right;">0.72832</td>
+<td style="text-align: right;">0.00368</td>
+</tr>
+<tr>
+<td>switching-fixed · shift · accuracy</td>
+<td style="text-align: right;">0.500391</td>
+<td style="text-align: right;">0.0075833</td>
+</tr>
+<tr>
+<td>switching-learned · final · accuracy</td>
+<td style="text-align: right;">0.728711</td>
+<td style="text-align: right;">0.004223</td>
+</tr>
+<tr>
+<td>switching-learned · shift · accuracy</td>
+<td style="text-align: right;">0.500195</td>
+<td style="text-align: right;">0.0073535</td>
+</tr>
+<tr>
+<td>switching-position · final · accuracy</td>
+<td style="text-align: right;">0.730078</td>
+<td style="text-align: right;">0.00087346</td>
+</tr>
+<tr>
+<td>switching-position · shift · accuracy</td>
+<td style="text-align: right;">0.504883</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>switching · last observation · final · accuracy</td>
+<td style="text-align: right;">0.730469</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>switching · last observation · shift · accuracy</td>
+<td style="text-align: right;">0.504883</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/comparison-results.json">comparison record</a> includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.</p>
+<!-- cpu-comparison:end -->
+
+<h2 id="earlier-pilot-results">Earlier pilot results</h2>
+<p>The temporal bias helped on the switching fixture, but the last-observation baseline led the periodic fixture. The task and baseline change the conclusion; there is no general win for recency here.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Condition</th>
+<th>Accuracy</th>
+<th>Shifted accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>switching</td>
+<td>position</td>
+<td>61.7188%</td>
+<td>43.7500%</td>
+</tr>
+<tr>
+<td>switching</td>
+<td>features</td>
+<td>70.3125%</td>
+<td>39.8438%</td>
+</tr>
+<tr>
+<td>switching</td>
+<td>fixed</td>
+<td>73.4375%</td>
+<td>57.8125%</td>
+</tr>
+<tr>
+<td>switching</td>
+<td>learned</td>
+<td>73.4375%</td>
+<td>57.8125%</td>
+</tr>
+<tr>
+<td>switching</td>
+<td>last_observation</td>
+<td>71.0938%</td>
+<td>57.8125%</td>
+</tr>
+<tr>
+<td>periodic</td>
+<td>position</td>
+<td>54.6875%</td>
+<td>57.8125%</td>
+</tr>
+<tr>
+<td>periodic</td>
+<td>features</td>
+<td>46.8750%</td>
+<td>51.5625%</td>
+</tr>
+<tr>
+<td>periodic</td>
+<td>fixed</td>
+<td>57.0312%</td>
+<td>61.7188%</td>
+</tr>
+<tr>
+<td>periodic</td>
+<td>learned</td>
+<td>57.0312%</td>
+<td>61.7188%</td>
+</tr>
+<tr>
+<td>periodic</td>
+<td>last_observation</td>
+<td>74.2188%</td>
+<td>67.9688%</td>
+</tr>
+</tbody>
+</table>
+<p>Seed 1729; 40 steps; 256 training and 128 test episodes per task. Fixed steps, with no final-data tuning. Multi-seed and broader temporal processes remain untested.</p>
+<p>Records: <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/smoke-results.json">smoke-results.json</a>. These values are transcribed from the saved records, not newly rerun experiments.</p>
 <h2 id="the-actual-attention-bias">The actual attention bias</h2>
 <p>For query time <code>t_q</code> and observation time <code>t_i</code>, start with the ordinary content score and subtract an age term:</p>
 <pre><code class="language-text">s_i = (qᵀ k_i) / sqrt(d_k) − λ · (t_q − t_i) / τ + m_i
@@ -177,19 +369,19 @@ a = softmax(s)
 <p>A dashboard can show observation values, ages, masks, head weights and probabilities, but plots are inspection tools. The result is predictive performance under controlled conditions.</p>
 <p><strong>What would weaken the idea:</strong> learned decay losing to timestamp features means explicit age bias is unnecessary. Strong performance on switching data but poor periodic/shift performance says the recency prior is task-specific. An empty eligible context needs an explicit fallback rather than a NaN or invented uniform distribution.</p>
 <p>The experiment I want is not “temporal attention improves transformers”. It is: <strong>on which time structures does a simple recency bias help after the model already knows the timestamps, and where does that bias become the wrong prior?</strong></p>
-<h2 id="what-exists-locally">What exists locally</h2>
+<h2 id="implementation">Implementation</h2>
 <p>Both irregular-time generators now produce targets after the last query gap. Position-only, explicit-age, fixed-decay and learned-decay models receive identical observations; a last-observation baseline and longer-gap shift set make the comparison inspectable. Tests cover reproducible episodes and trainable decay.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/experiment.py">experiment.py</a>; the <a href="/research/transformers/temporal-attention-that-changes-predictions/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/experiment.py">experiment.py</a>; the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/README.md">module README</a> lists setup, commands and every supporting file.</p>
 <p>Bias-only softmax still has the uniform-age-shift cancellation derived in the article. These models also receive explicit age features, which supply an absolute-age path; that distinction is part of the intervention.</p>
-<h2 id="what-i-actually-observed">What I actually observed</h2>
+<h2 id="earlier-observations">Earlier observations</h2>
 <p>On switching episodes, learned decay achieved 73.4% accuracy against 71.1% for the last-observation baseline. On periodic episodes it achieved 57.0%, below the last-observation baseline's 74.2%. Learned decay reached 57.8% on the longer-gap switching set. This one-seed run supports checking task dependence and shift sensitivity, not a general recency advantage. Shift gaps are 19, 37 and 83 steps so they do not all alias the twenty-step periodic cycle. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/smoke-results.json">saved result</a> for the exact values and run scope.</p>
 <h2 id="references">References</h2>
 <ol>
 <li>Ashish Vaswani and colleagues. <em>Attention Is All You Need</em>. 2017. <a href="https://arxiv.org/html/1706.03762v7">arXiv:1706.03762, version 7</a>, especially sections 3.2.1–3.2.3.</li>
 </ol>
 <h2 id="status">Status</h2>
-<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/temporal-attention-that-changes-predictions.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in Transformers"><a href="/research/transformers/weight-similarity-and-svd-compression/"><span>Previous in topic</span><strong>Weight similarity and functional low-rank compression</strong></a><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/"><span>Next in topic</span><strong>Adaptive neural architectures: mechanisms and research priorities</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p>The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.</p>
+<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/transformers/reflective-transformer-memory-and-adaptation/"><span class="entry-title">Reflective transformer: causal memory and bounded adaptation</span><span class="entry-description">A causal memory fixture checks delayed retrieval, batch isolation and episode reset while keeping adaptation benefits unproven.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/architecture-experiments/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/temporal-attention-that-changes-predictions.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/temporal-attention-that-changes-predictions/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/transformers/weight-similarity-and-svd-compression/"><span>Previous in topic</span><strong>Weight similarity and functional low-rank compression</strong></a><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/"><span>Next in topic</span><strong>Adaptive neural architectures: mechanisms and research priorities</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

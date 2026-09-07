@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-wBkZ6zikQTkuwX/Q+nODX47hQ9xO8+opb2nzlwbnYX0=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-zkjEJBehMx/9kIq6nwbIvdFH9Z4ifaitSQGJEo6NYmk=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sparse feature recovery: reconstruction is only one target — tegridydev</title><meta name="description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…">
+<title>Sparse feature recovery: reconstruction is only one target — tegridydev</title><meta name="description" content="A synthetic sparse-autoencoder pilot separates held-out reconstruction error from recovery of the generating features.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/sparse-feature-recovery/">
@@ -13,13 +13,11 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Sparse feature recovery: reconstruction is only one target — tegridydev">
-<meta property="og:description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…"><meta property="og:url" content="https://tegridydev.com/research/transformers/sparse-feature-recovery/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Sparse feature recovery: reconstruction is only one target — tegridydev"><meta name="twitter:description" content="A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…">
+<meta property="og:description" content="A synthetic sparse-autoencoder pilot separates held-out reconstruction error from recovery of the generating features."><meta property="og:url" content="https://tegridydev.com/research/transformers/sparse-feature-recovery/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Sparse feature recovery: reconstruction is only one target — tegridydev"><meta name="twitter:description" content="A synthetic sparse-autoencoder pilot separates held-out reconstruction error from recovery of the generating features.">
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Sparse feature recovery: reconstruction is only one target","description":"A sparse autoencoder can reconstruct observations without recovering the independent features that generated them. This synthetic study measures reconstruction, dictionary alignment and…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/sparse-feature-recovery/"}</script>
-<link rel="stylesheet" href="/assets/reading.css">
-<script src="/assets/reading.js" defer></script>
-</head><body class="writing-page">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Sparse feature recovery: reconstruction is only one target","description":"A synthetic sparse-autoencoder pilot separates held-out reconstruction error from recovery of the generating features.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/sparse-feature-recovery/"}</script>
+<link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -127,10 +125,193 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics & articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/" aria-current="page">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-sparse-feature-recovery-reconstruction-is-only-one-target">[td] tegridydev | Sparse feature recovery: reconstruction is only one target</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#a-synthetic-problem-where-the-ground-truth-exists">A synthetic problem where the ground truth exists</a></li><li><a href="#learned-feature-numbers-do-not-mean-anything-by-themselves">Learned feature numbers do not mean anything by themselves</a></li><li><a href="#baselines-that-make-the-metric-earn-trust">Baselines that make the metric earn trust</a></li><li><a href="#extensions">Extensions</a></li><li><a href="#what-exists-locally">What exists locally</a></li><li><a href="#what-i-actually-observed">What I actually observed</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/" aria-current="page">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-08">2026-09-08</time> · Bounded pilot; see scope and results</p><h1 id="td-tegridydev-sparse-feature-recovery-reconstruction-is-only-one-target">[td] tegridydev | Sparse feature recovery: reconstruction is only one target</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#results">Results</a></li><li><a href="#earlier-pilot-results">Earlier pilot results</a></li><li><a href="#a-synthetic-problem-where-the-ground-truth-exists">A synthetic problem where the ground truth exists</a></li><li><a href="#learned-feature-numbers-do-not-mean-anything-by-themselves">Learned feature numbers do not mean anything by themselves</a></li><li><a href="#baselines-that-make-the-metric-earn-trust">Baselines that make the metric earn trust</a></li><li><a href="#extensions">Extensions</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#earlier-observations">Earlier observations</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
 <p><em>design study and proposed evaluation</em></p>
 <p>Sparse autoencoders can reconstruct a vector very well without recovering the independent features that generated it. That distinction is the entire point of this study.</p>
 <p>I want three measurements kept separate: <strong>reconstruction</strong>, <strong>dictionary recovery</strong> and <strong>support recovery</strong>. If the first improves while the other two stay bad, the autoencoder has learned a useful code for reconstruction, not necessarily the original latent features.</p>
+<!-- cpu-comparison:start -->
+<h2 id="results">Results</h2>
+<p>Low reconstruction error did not imply clean feature recovery. Across the feature-count, correlation and noise conditions, mean signed dictionary alignment stayed around 0.45–0.48 and support F1 around 0.13–0.33. The full receipt includes zero-reconstruction and all-positive-support controls; these synthetic dictionary results do not identify real-model concepts.</p>
+<p>Synthetic nonnegative sparse codes; independent dictionary/initialisation replicates; threshold selected on development rows; no recovery claim for real-model features.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Seed standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.451469</td>
+<td style="text-align: right;">0.0065578</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.000579255</td>
+<td style="text-align: right;">3.8369e-05</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.214083</td>
+<td style="text-align: right;">0.0058181</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 05 · mean signed cosine</td>
+<td style="text-align: right;">0.451106</td>
+<td style="text-align: right;">0.0065758</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 05 · mse</td>
+<td style="text-align: right;">0.000585862</td>
+<td style="text-align: right;">4.431e-05</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 0 noise0 · 05 · support f1</td>
+<td style="text-align: right;">0.214218</td>
+<td style="text-align: right;">0.0064553</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 9 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.449627</td>
+<td style="text-align: right;">0.0052811</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 9 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.000455789</td>
+<td style="text-align: right;">3.1375e-05</td>
+</tr>
+<tr>
+<td>features100 correlation0 · 9 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.208143</td>
+<td style="text-align: right;">0.0020971</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.463252</td>
+<td style="text-align: right;">0.0045774</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.00146767</td>
+<td style="text-align: right;">0.00016886</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.133829</td>
+<td style="text-align: right;">0.0019691</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 05 · mean signed cosine</td>
+<td style="text-align: right;">0.463127</td>
+<td style="text-align: right;">0.0044714</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 05 · mse</td>
+<td style="text-align: right;">0.00148771</td>
+<td style="text-align: right;">0.00017997</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 0 noise0 · 05 · support f1</td>
+<td style="text-align: right;">0.13308</td>
+<td style="text-align: right;">0.0018584</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 9 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.452857</td>
+<td style="text-align: right;">0.001176</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 9 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.00104145</td>
+<td style="text-align: right;">0.00021126</td>
+</tr>
+<tr>
+<td>features200 correlation0 · 9 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.135201</td>
+<td style="text-align: right;">0.0012175</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.476465</td>
+<td style="text-align: right;">0.0075805</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.000511496</td>
+<td style="text-align: right;">6.4923e-05</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.327349</td>
+<td style="text-align: right;">0.017519</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 05 · mean signed cosine</td>
+<td style="text-align: right;">0.473572</td>
+<td style="text-align: right;">0.0080547</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 05 · mse</td>
+<td style="text-align: right;">0.000541304</td>
+<td style="text-align: right;">6.0297e-05</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 0 noise0 · 05 · support f1</td>
+<td style="text-align: right;">0.320935</td>
+<td style="text-align: right;">0.014186</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 9 noise0 · 0 · mean signed cosine</td>
+<td style="text-align: right;">0.478803</td>
+<td style="text-align: right;">0.013165</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 9 noise0 · 0 · mse</td>
+<td style="text-align: right;">0.000403885</td>
+<td style="text-align: right;">3.6608e-05</td>
+</tr>
+<tr>
+<td>features50 correlation0 · 9 noise0 · 0 · support f1</td>
+<td style="text-align: right;">0.311325</td>
+<td style="text-align: right;">0.017698</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/comparison-results.json">comparison record</a> includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.</p>
+<!-- cpu-comparison:end -->
+
+<h2 id="earlier-pilot-results">Earlier pilot results</h2>
+<p>The saved model reconstructed held-out inputs with modest error but did not recover the true features closely. Reconstruction and identification need separate measurements.</p>
+<table>
+<thead>
+<tr>
+<th>Measurement</th>
+<th>Saved value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Held-out reconstruction MSE</td>
+<td>0.056118</td>
+</tr>
+<tr>
+<td>Mean matched signed cosine</td>
+<td>0.425241</td>
+</tr>
+<tr>
+<td>Dead learned features</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Matched true features</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p>1024 synthetic rows, 768 train/256 held out; no correlated-feature study. Seed 17; 100 training steps. Correlated-feature and non-identifiable dictionaries still require separate studies.</p>
+<p>Records: <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/pilot-results.json">pilot-results.json</a>. These values are transcribed from the saved records, not newly rerun experiments.</p>
 <h2 id="a-synthetic-problem-where-the-ground-truth-exists">A synthetic problem where the ground truth exists</h2>
 <p>Generate sparse coefficients <code>x</code> over 100 source features, project them through 100 normalised directions in a 30-dimensional observation space and optionally add noise:</p>
 <p><code>y = Wᵀx + ε</code>.</p>
@@ -156,19 +337,19 @@
 <p>A dictionary-drift experiment could rotate a small subset of source directions between phases and compare warm-started adaptation with retraining from scratch at equal optimisation steps. That turns “adaptive representation” into a specific changing-ground-truth test.</p>
 <p>A recovery-confidence audit could align several independently trained SAEs to one another <strong>without</strong> using ground truth, then ask whether cross-run agreement predicts actual recovery. The ambiguous fixture is essential because several models can confidently agree on the same wrong merged feature.</p>
 <p>Toy Models of Superposition provides obvious prior context for synthetic superposition. The narrow lesson I want from this implementation is simpler: <strong>a good reconstruction loss is not a licence to call every learned direction a recovered feature.</strong></p>
-<h2 id="what-exists-locally">What exists locally</h2>
+<h2 id="implementation">Implementation</h2>
 <p>The sparse autoencoder now trains on normalized synthetic dictionaries with the stated activation probability and coefficient range. The evaluator uses one-to-one signed matching, detects duplicated true features and records dead learned columns. Decoder columns are renormalized after optimizer steps.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/recovery.py">recovery.py</a>; the <a href="/research/transformers/sparse-feature-recovery/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/recovery.py">recovery.py</a>; the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/README.md">module README</a> lists setup, commands and every supporting file.</p>
 <p>The permutation fixture must match perfectly and the duplicated dictionary must be labelled non-identifiable before interpreting a learned score. <code>pilot-results.json</code> retains every matched cosine rather than only a favorable average.</p>
-<h2 id="what-i-actually-observed">What I actually observed</h2>
+<h2 id="earlier-observations">Earlier observations</h2>
 <p>The 100-step pilot reached held-out reconstruction MSE 0.0561, while mean one-to-one signed dictionary cosine was only 0.425. The evaluator passes the exact-permutation fixture, but the trained dictionary has not recovered the original features cleanly. Report these two measurements separately; increasing reconstruction quality cannot stand in for support recovery. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/pilot-results.json">saved result</a> for the exact values and run scope.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>Nelson Elhage; Tristan Hume; Catherine Olsson; Nicholas Schiefer; Tom Henighan; Shauna Kravec; Zac Hatfield-Dodds; Robert Lasenby; Dawn Drain; Carol Chen; Roger Grosse; Sam McCandlish; Jared Kaplan; Dario Amodei; Martin Wattenberg; Christopher Olah. <a href="https://arxiv.org/abs/2209.10652v1">Toy Models of Superposition</a>.</strong> 2022-09-21, arXiv v1.</li>
 </ul>
 <h2 id="status">Status</h2>
-<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/sparse-feature-recovery.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in Transformers"><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/"><span>Previous in topic</span><strong>Adaptive neural architectures: mechanisms and research priorities</strong></a><a href="/research/transformers/self-healing-tokens/"><span>Next in topic</span><strong>Self-healing tokens: recovery without unnecessary edits</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p>The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.</p>
+<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/transformers/neuron-mapping-and-token-trajectories/"><span class="entry-title">Neuron mapping: selectivity, trajectories and causal checks</span><span class="entry-description">Keep token occurrences, model revisions and projection bases compatible before interpreting activation maps or trajectories.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/blog/model-interpretability/what-a-model-map-can-show/"><span class="entry-title">what am I actually looking at in a model map?</span><span class="entry-description">I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I&#x27;ve actually tested causally.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/model-interpretation-evaluation/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/sparse-feature-recovery.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/sparse-feature-recovery/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/"><span>Previous in topic</span><strong>Adaptive neural architectures: mechanisms and research priorities</strong></a><a href="/research/transformers/self-healing-tokens/"><span>Next in topic</span><strong>Self-healing tokens: recovery without unnecessary edits</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

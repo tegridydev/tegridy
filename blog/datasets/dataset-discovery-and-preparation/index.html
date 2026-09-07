@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-qug1EJnA8mTN12QA8Lt0ylE69BCUyyT2CQYERAcVNps=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-iqt40zrCYHZYsQF3MUfE5w0iVpMjw4pZIsLAEZ2wDnM=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>cleaning a dataset without cleaning away its meaning — tegridydev</title><meta name="description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
@@ -16,10 +16,8 @@
 <meta property="og:description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away."><meta property="og:url" content="https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="cleaning a dataset without cleaning away its meaning — tegridydev"><meta name="twitter:description" content="I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.">
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"cleaning a dataset without cleaning away its meaning","description":"I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/"}</script>
-<link rel="stylesheet" href="/assets/reading.css">
-<script src="/assets/reading.js" defer></script>
-</head><body class="writing-page">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"cleaning a dataset without cleaning away its meaning","description":"I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/datasets/dataset-discovery-and-preparation/"}</script>
+<link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -127,10 +125,97 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics & articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">minecraft time with astra</a></li><li><a href="/blog/agents/botsim-local-community/">botsim: letting the locals talk</a></li></ul></details><details class="topic-group"><summary>Applications<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">pulling useful fields out of messy text</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">image conversion has more edge cases than the button suggests</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">getting a useful export out of a chat log</a></li></ul></details><details class="topic-group" open><summary>Datasets<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">making synthetic data I can actually check</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">a readable PDF export can still be wrong</a></li><li><a href="/blog/datasets/paper-and-book-collection/">collecting papers without losing why I wanted them</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/" aria-current="page">cleaning a dataset without cleaning away its meaning</a></li></ul></details><details class="topic-group"><summary>Developer tools<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/">doing research without losing the question</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">xanadu-2: links that remember what they point to</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">sorting old notes without rewriting history</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/">knowledge bases should help me choose the next check</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">an embedding column needs more than a convincing name</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">what am I actually looking at in a model map?</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine-Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-cleaning-a-dataset-without-cleaning-away-its-meaning">[td] tegridydev | cleaning a dataset without cleaning away its meaning</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#three-rows-can-already-break-it">three rows can already break it</a></li><li><a href="#make-the-recipe-readable">make the recipe readable</a></li><li><a href="#split-before-making-more-copies">split before making more copies</a></li><li><a href="#show-me-the-weird-rows">show me the weird rows</a></li><li><a href="#what-i-built-from-this">what I built from this</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents &amp; assistants<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">minecraft time with astra</a></li><li><a href="/blog/agents/botsim-local-community/">botsim: letting the locals talk</a></li></ul></details><details class="topic-group"><summary>Applications &amp; utilities<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">pulling useful fields out of messy text</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">image conversion has more edge cases than the button suggests</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">getting a useful export out of a chat log</a></li></ul></details><details class="topic-group" open><summary>Datasets &amp; documents<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">making synthetic data I can actually check</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">a readable PDF export can still be wrong</a></li><li><a href="/blog/datasets/paper-and-book-collection/">collecting papers without losing why I wanted them</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/" aria-current="page">cleaning a dataset without cleaning away its meaning</a></li></ul></details><details class="topic-group"><summary>Developer workflows<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/">doing research without losing the question</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">xanadu-2: links that remember what they point to</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">sorting old notes without rewriting history</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/">knowledge bases should help me choose the next check</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">an embedding column needs more than a convincing name</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">what am I actually looking at in a model map?</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine-Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-08">2026-09-08</time></p><h1 id="td-tegridydev-cleaning-a-dataset-without-cleaning-away-its-meaning">[td] tegridydev | cleaning a dataset without cleaning away its meaning</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#account-for-every-input-row">account for every input row</a></li><li><a href="#three-rows-can-already-break-it">three rows can already break it</a></li><li><a href="#make-the-recipe-readable">make the recipe readable</a></li><li><a href="#split-before-making-more-copies">split before making more copies</a></li><li><a href="#show-me-the-weird-rows">show me the weird rows</a></li><li><a href="#what-i-built-from-this">what I built from this</a></li></ol></details>
 <p>I want dataset tools to save me repetitive work.</p>
 <p>I don't want them deciding that an ID is secretly a number, casing never matters, or two rows with the same key must be interchangeable.</p>
 <p>A table can be beautifully clean and still be wrong in some very tidy ways.</p>
+<!-- cpu-comparison:start -->
+<h2 id="recorded-findings">Recorded findings</h2>
+<p>The 11,592 input rows were accounted for as 9,411 accepted rows, 941 duplicates, 1,237 quarantined rows, and three rejected rows. The split check found no group leakage. This establishes accounting for the supplied synthetic recipe, not improved downstream model quality.</p>
+<p>Synthetic mixed-quality row accounting and grouped splitting; no discovery-provider or downstream-quality claim.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Seed standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accepted</td>
+<td style="text-align: right;">9411</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>duplicates</td>
+<td style="text-align: right;">941</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>elapsed seconds</td>
+<td style="text-align: right;">0.0497992</td>
+<td style="text-align: right;">0.0011065</td>
+</tr>
+<tr>
+<td>input rows</td>
+<td style="text-align: right;">11592</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>quarantined</td>
+<td style="text-align: right;">1237</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/comparison-results.json">comparison record</a> includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.</p>
+<!-- cpu-comparison:end -->
+
+<h2 id="account-for-every-input-row">account for every input row</h2>
+<p>Here is the bounded example in <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/test_prepare.py">test_prepare.py</a>. The recipe protects <code>id</code> and <code>label</code>, trims only outer whitespace in <code>text</code>, preserves nulls and quarantines conflicting duplicate IDs.</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Outcome</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{"id":"0017","text":" A ","label":"X"}</code></td>
+<td>Accepted as <code>{"id":"0017","text":"A","label":"X"}</code></td>
+<td>Only the declared whitespace change</td>
+</tr>
+<tr>
+<td><code>{"id":"0018","text":"a"}</code></td>
+<td>Quarantined</td>
+<td>Conflicts with the next row</td>
+</tr>
+<tr>
+<td><code>{"id":"0018","text":"b"}</code></td>
+<td>Quarantined</td>
+<td>Same identity, different content</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>Rejected</td>
+<td>Not a record</td>
+</tr>
+</tbody>
+</table>
+<p>Four inputs become one accepted, two quarantined and one rejected: nothing quietly disappears. An exact duplicate has its own count; it is different from a conflicting identity.</p>
+<p>After <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/README.md">setup</a>, reproduce the accounting with:</p>
+<pre><code class="language-python">from prepare import prepare
+from test_prepare import RECIPE
+rows = [{&quot;id&quot;:&quot;0017&quot;, &quot;text&quot;:&quot; A &quot;, &quot;label&quot;:&quot;X&quot;},
+        {&quot;id&quot;:&quot;0018&quot;, &quot;text&quot;:&quot;a&quot;}, {&quot;id&quot;:&quot;0018&quot;, &quot;text&quot;:&quot;b&quot;}, None]
+result = prepare(rows, RECIPE)
+assert result[&quot;counts&quot;] == {&quot;accepted&quot;:1, &quot;quarantined&quot;:2, &quot;rejected&quot;:1, &quot;duplicates&quot;:0}
+assert rows[0][&quot;text&quot;] == &quot; A &quot;
+</code></pre>
+<p>For related rows, set <code>group_field</code> to their shared parent field. The test puts 100 rows with the same parent into one split. That prevents sibling leakage; it does not guarantee a representative evaluation set.</p>
 <h2 id="three-rows-can-already-break-it">three rows can already break it</h2>
 <p>Take:</p>
 <pre><code class="language-text">0017   alpha
@@ -165,12 +250,12 @@
 <h2 id="what-i-built-from-this">what I built from this</h2>
 <p>The local recipe engine reads CSV, JSON arrays and JSONL without coercing numeric-looking IDs.</p>
 <p>It preserves protected fields, logs whitespace edits, quarantines conflicting duplicates, counts identical repeats separately and assigns deterministic group splits. Every input row is accounted for.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/prepare.py">prepare.py</a> or the <a href="/blog/datasets/dataset-discovery-and-preparation/">module README</a>.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/prepare.py">prepare.py</a> or the <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/README.md">module README</a>.</p>
 <p>The supplied recipe expects string <code>record_id</code> values. An optional <code>group_field</code> keeps related children together; otherwise the ID becomes the split group. Hash buckets target 80/10/10 without pretending that guarantees exact class balance.</p>
 <p>The engine only supports explicit recipe operations. Dataset discovery providers, augmentation and an interactive row-diff UI are still separate work.</p>
 <p>Malformed JSONL rows can be rejected individually; malformed whole JSON/CSV files remain file-level errors.</p>
 <p>That's the direction I want: make the dataset easier to use without making its history harder to explain.</p>
-<p><a href="/blog/">Blog index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/dataset-discovery-and-preparation.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p><nav class="article-pagination" aria-label="More in Datasets"><a href="/blog/datasets/paper-and-book-collection/"><span>Previous in topic</span><strong>collecting papers without losing why I wanted them</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p><a href="/blog/">Blog index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/blog/datasets/synthetic-data-generation-and-quality/"><span class="entry-title">making synthetic data I can actually check</span><span class="entry-description">Generating another thousand examples is easy. I care more about whether I can independently check why each one survived the pipeline.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/blog/datasets/pdf-extraction-and-markdown/"><span class="entry-title">a readable PDF export can still be wrong</span><span class="entry-description">PDF conversion can look finished long before I&#x27;ve checked whether the Markdown still means the same thing as the original page.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/document-dataset-reliability/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/dataset-discovery-and-preparation.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/datasets/dataset-discovery-and-preparation/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/blog/datasets/paper-and-book-collection/"><span>Previous in topic</span><strong>collecting papers without losing why I wanted them</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

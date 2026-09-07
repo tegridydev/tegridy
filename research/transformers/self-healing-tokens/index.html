@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-n/SxEUpfGWF4RR69FR19KwIPTSWlOSxVHGXz5shBMrY=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-a5jhF1HAmmg4Vz0yv+r+NvQBDHNRsS1S/cIosvtGM1Y=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Self-healing tokens: recovery without unnecessary edits — tegridydev</title><meta name="description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…">
+<title>Self-healing tokens: recovery without unnecessary edits — tegridydev</title><meta name="description" content="A saved repair pilot compares clean-input harm and corrupt-token recovery; majority repair leads the learned models.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/transformers/self-healing-tokens/">
@@ -13,13 +13,11 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Self-healing tokens: recovery without unnecessary edits — tegridydev">
-<meta property="og:description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…"><meta property="og:url" content="https://tegridydev.com/research/transformers/self-healing-tokens/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Self-healing tokens: recovery without unnecessary edits — tegridydev"><meta name="twitter:description" content="This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…">
+<meta property="og:description" content="A saved repair pilot compares clean-input harm and corrupt-token recovery; majority repair leads the learned models."><meta property="og:url" content="https://tegridydev.com/research/transformers/self-healing-tokens/">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Self-healing tokens: recovery without unnecessary edits — tegridydev"><meta name="twitter:description" content="A saved repair pilot compares clean-input harm and corrupt-token recovery; majority repair leads the learned models.">
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-healing tokens: recovery without unnecessary edits","description":"This study separates corruption detection from value recovery on redundant synthetic records. Its target is a measurable repair–preservation trade-off, including cases where the available…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/self-healing-tokens/"}</script>
-<link rel="stylesheet" href="/assets/reading.css">
-<script src="/assets/reading.js" defer></script>
-</head><body class="writing-page">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-healing tokens: recovery without unnecessary edits","description":"A saved repair pilot compares clean-input harm and corrupt-token recovery; majority repair leads the learned models.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/transformers/self-healing-tokens/"}</script>
+<link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -127,10 +125,248 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics & articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/" aria-current="page">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-self-healing-tokens-recovery-without-unnecessary-edits">[td] tegridydev | Self-healing tokens: recovery without unnecessary edits</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#give-the-task-enough-structure-to-be-checkable">Give the task enough structure to be checkable</a></li><li><a href="#detection-and-recovery-are-separate-outputs">Detection and recovery are separate outputs</a></li><li><a href="#the-rule-baseline-is-supposed-to-be-hard-to-beat">The rule baseline is supposed to be hard to beat</a></li><li><a href="#what-exists-locally">What exists locally</a></li><li><a href="#what-i-actually-observed">What I actually observed</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm mechanisms: sequence generation, routing and motion</a></li><li><a href="/research/agents/moa-framework/">MoA orchestration: routing, events and honest aggregation</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: preserving useful disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local assistant memory: retrieval, validity and reuse</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: evidence that survives revision</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: thread-aware evidence and prediction timelines</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/">OpenAbstract: correction, evidence and the public reading view</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph memory with source versions and applicability</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: measuring index freshness separately from search quality</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Hyper Matrix Lattice: adaptive summaries and interval search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">Four-dimensional summary trees and time-slice queries</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Security research: evidence, evaluation and open leads</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Signal detection under nuisance and session shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol resource budgets: bytes, work and retained state</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self-rewarding training: objective fidelity and evaluator drift</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">Recursive self-correction: when revision helps and when to stop</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">glow-worm: an inspectable byte-language-model baseline</a></li></ul></details><details class="topic-group" open><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">Weight similarity and functional low-rank compression</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal attention: elapsed time inside the prediction</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive neural architectures: mechanisms and research priorities</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse feature recovery: reconstruction is only one target</a></li><li><a href="/research/transformers/self-healing-tokens/" aria-current="page">Self-healing tokens: recovery without unnecessary edits</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Reflective transformer: causal memory and bounded adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Neuron mapping: selectivity, trajectories and causal checks</a></li><li><a href="/research/transformers/judge-head-attention/">Judge-head attention: measuring contextual influence</a></li><li><a href="/research/transformers/hydraform/">Hydraform: trainable structural adaptation under a fixed budget</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face-based attention circuits: a controlled feature-mixing study</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet conversion: separate numerical quality from packed execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">Arithmetic across notations: testing causal transfer</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-08">2026-09-08</time> · Bounded pilot; see scope and results</p><h1 id="td-tegridydev-self-healing-tokens-recovery-without-unnecessary-edits">[td] tegridydev | Self-healing tokens: recovery without unnecessary edits</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#earlier-pilot-results">Earlier pilot results</a></li><li><a href="#give-the-task-enough-structure-to-be-checkable">Give the task enough structure to be checkable</a></li><li><a href="#detection-and-recovery-are-separate-outputs">Detection and recovery are separate outputs</a></li><li><a href="#the-rule-baseline-is-supposed-to-be-hard-to-beat">The rule baseline is supposed to be hard to beat</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#earlier-observations">Earlier observations</a></li><li><a href="#references">References</a></li><li><a href="#status">Status</a></li></ol></details>
 <p><em>controlled denoising proposal</em></p>
 <p>“Self-healing tokens” sounds much more dramatic than the first experiment actually is. I’m testing a simple question on redundant synthetic records: <strong>does separating “should I edit this position?” from “what value should replace it?” improve recovery without unnecessarily changing clean tokens?</strong></p>
 <p>This is offline denoising with known corruption. It is not a model rewriting its own weights, deciding that unusual language is wrong or establishing truth in arbitrary text.</p>
+<!-- cpu-comparison:start -->
+<h2 id="recorded-findings">Recorded findings</h2>
+<p>Majority repair recovered more corrupted positions than either learned model at every tested severity. At 15% corruption its recovery rate was 70.99%, versus about 12% for the learned models. Checksum abstention suppressed edits but also suppressed recovery; these results do not support general-text repair claims.</p>
+<p>Grouped repeated-record synthetic repair, three frozen severity levels and checksum abstention; five initialisation seeds in this comparison. No general-text repair claim.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Seed standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 · 15 · gated · clean false edit</td>
+<td style="text-align: right;">0.00544131</td>
+<td style="text-align: right;">0.0014857</td>
+</tr>
+<tr>
+<td>0 · 15 · gated · corrupt recovery</td>
+<td style="text-align: right;">0.120201</td>
+<td style="text-align: right;">0.00425</td>
+</tr>
+<tr>
+<td>0 · 15 · gated checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · gated checksum · corrupt recovery</td>
+<td style="text-align: right;">0.0166189</td>
+<td style="text-align: right;">0.0019877</td>
+</tr>
+<tr>
+<td>0 · 15 · identity · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · identity · corrupt recovery</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · majority · clean false edit</td>
+<td style="text-align: right;">0.00025546</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · majority · corrupt recovery</td>
+<td style="text-align: right;">0.709885</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · ordinary · clean false edit</td>
+<td style="text-align: right;">0.0051603</td>
+<td style="text-align: right;">0.00089684</td>
+</tr>
+<tr>
+<td>0 · 15 · ordinary · corrupt recovery</td>
+<td style="text-align: right;">0.122206</td>
+<td style="text-align: right;">0.0046864</td>
+</tr>
+<tr>
+<td>0 · 15 · ordinary checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 15 · ordinary checksum · corrupt recovery</td>
+<td style="text-align: right;">0.019914</td>
+<td style="text-align: right;">0.0035601</td>
+</tr>
+<tr>
+<td>0 · 35 · gated · clean false edit</td>
+<td style="text-align: right;">0.0168045</td>
+<td style="text-align: right;">0.0049296</td>
+</tr>
+<tr>
+<td>0 · 35 · gated · corrupt recovery</td>
+<td style="text-align: right;">0.0993394</td>
+<td style="text-align: right;">0.0040062</td>
+</tr>
+<tr>
+<td>0 · 35 · gated checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · gated checksum · corrupt recovery</td>
+<td style="text-align: right;">0.000377477</td>
+<td style="text-align: right;">0.00056271</td>
+</tr>
+<tr>
+<td>0 · 35 · identity · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · identity · corrupt recovery</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · majority · clean false edit</td>
+<td style="text-align: right;">0.00115779</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · majority · corrupt recovery</td>
+<td style="text-align: right;">0.442277</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · ordinary · clean false edit</td>
+<td style="text-align: right;">0.0175323</td>
+<td style="text-align: right;">0.003618</td>
+</tr>
+<tr>
+<td>0 · 35 · ordinary · corrupt recovery</td>
+<td style="text-align: right;">0.0983328</td>
+<td style="text-align: right;">0.0039452</td>
+</tr>
+<tr>
+<td>0 · 35 · ordinary checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 35 · ordinary checksum · corrupt recovery</td>
+<td style="text-align: right;">0.000503303</td>
+<td style="text-align: right;">0.00028135</td>
+</tr>
+<tr>
+<td>0 · 6 · gated · clean false edit</td>
+<td style="text-align: right;">0.028343</td>
+<td style="text-align: right;">0.011412</td>
+</tr>
+<tr>
+<td>0 · 6 · gated · corrupt recovery</td>
+<td style="text-align: right;">0.0747053</td>
+<td style="text-align: right;">0.0026837</td>
+</tr>
+<tr>
+<td>0 · 6 · gated checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · gated checksum · corrupt recovery</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · identity · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · identity · corrupt recovery</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · majority · clean false edit</td>
+<td style="text-align: right;">0.0055142</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · majority · corrupt recovery</td>
+<td style="text-align: right;">0.155055</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · ordinary · clean false edit</td>
+<td style="text-align: right;">0.0289495</td>
+<td style="text-align: right;">0.0071366</td>
+</tr>
+<tr>
+<td>0 · 6 · ordinary · corrupt recovery</td>
+<td style="text-align: right;">0.0749911</td>
+<td style="text-align: right;">0.0044541</td>
+</tr>
+<tr>
+<td>0 · 6 · ordinary checksum · clean false edit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>0 · 6 · ordinary checksum · corrupt recovery</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/comparison-results.json">comparison record</a> includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.</p>
+<!-- cpu-comparison:end -->
+
+<h2 id="earlier-pilot-results">Earlier pilot results</h2>
+<p>Majority repair beat both learned models on this fixture. Keeping the identity baseline matters too: avoiding edits protects clean tokens but leaves corrupt ones unrepaired.</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Corrupt-token recovery</th>
+<th>Clean false edits</th>
+<th>Whole-record accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>identity</td>
+<td>0.0000%</td>
+<td>0.0000%</td>
+<td>10.9375%</td>
+</tr>
+<tr>
+<td>majority</td>
+<td>69.7842%</td>
+<td>0.0000%</td>
+<td>78.1250%</td>
+</tr>
+<tr>
+<td>ordinary</td>
+<td>14.3885%</td>
+<td>0.0000%</td>
+<td>20.3125%</td>
+</tr>
+<tr>
+<td>gated</td>
+<td>9.3525%</td>
+<td>0.0000%</td>
+<td>10.9375%</td>
+</tr>
+</tbody>
+</table>
+<p>Seed 1729; 40 training steps; 384/64/64 clean records for training/development/final evaluation. The gated threshold was selected on development records only.</p>
+<p>Records: <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/smoke-results.json">smoke-results.json</a>. These values are transcribed from the saved records, not newly rerun experiments.</p>
 <h2 id="give-the-task-enough-structure-to-be-checkable">Give the task enough structure to be checkable</h2>
 <p>A clean record contains five values from <code>v00</code>–<code>v15</code>, repeated three times, followed by a modulo-16 checksum:</p>
 <pre><code class="language-text">v02 v05 v01 v03 v04 SEP
@@ -163,19 +399,19 @@ v02 v05 v01 v03 v04 v15
 <p><strong>What would weaken the idea:</strong> if majority voting stays stronger, the neural method has not earned its complexity. If a detector can identify corruption but the recovery head still guesses badly, detection and repair should not be collapsed into one “healing score”. If the threshold edits clean tokens to gain recovery, show that trade-off rather than hiding it in average accuracy.</p>
 <p>Masked-language modelling is obvious prior context for reconstructing hidden input. The narrower question here is whether an explicit edit decision improves preservation under a controlled corruption process.</p>
 <p>I’d only move toward less synthetic text after the learned system can beat or meaningfully complement the stupid-simple majority rule. Right now that rule is exactly the kind of baseline I want: annoyingly competent and impossible to impress with a fancy architecture diagram.</p>
-<h2 id="what-exists-locally">What exists locally</h2>
+<h2 id="implementation">Implementation</h2>
 <p>The detector/recovery Transformer now trains beside a same-backbone ordinary denoiser and compares both with identity and majority repair. Clean records are split before corruption. The gate threshold uses development data under a 1% clean-edit constraint, with explicit abstention if no threshold qualifies.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/experiment.py">experiment.py</a>; the <a href="/research/transformers/self-healing-tokens/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/experiment.py">experiment.py</a>; the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/README.md">module README</a> lists setup, commands and every supporting file.</p>
 <p>Report corrupted-position recovery, clean false edits and whole-record accuracy together. A development clean-edit constraint is not a guarantee on unseen records. The majority rule is a strong task-specific baseline and must remain visible.</p>
-<h2 id="what-i-actually-observed">What I actually observed</h2>
+<h2 id="earlier-observations">Earlier observations</h2>
 <p>On the saved held-out fixture, majority repair recovered 69.8% of corrupted positions, the ordinary denoiser 14.4%, and the gated model 9.4%. All three measured zero false edits on clean positions in this small sample. The gated threshold selected on development data was 0.0, so this run did not demonstrate useful selective abstention. The simple rule remains substantially stronger; longer or more complicated models are not justified by this result alone. See the <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/smoke-results.json">saved result</a> for the exact values and run scope.</p>
 <h2 id="references">References</h2>
 <ol>
 <li>Jacob Devlin, Ming-Wei Chang, Kenton Lee and Kristina Toutanova. <em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em>. 2018, revised 2019. <a href="https://arxiv.org/html/1810.04805v2">arXiv:1810.04805, version 2</a>, especially section 3.1.</li>
 </ol>
 <h2 id="status">Status</h2>
-<p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/self-healing-tokens.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in Transformers"><a href="/research/transformers/sparse-feature-recovery/"><span>Previous in topic</span><strong>Sparse feature recovery: reconstruction is only one target</strong></a><a href="/research/transformers/reflective-transformer-memory-and-adaptation/"><span>Next in topic</span><strong>Reflective transformer: causal memory and bounded adaptation</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p>The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.</p>
+<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/"><span class="entry-title">Adaptive neural architectures: mechanisms and research priorities</span><span class="entry-description">Navigate adaptive-architecture proposals, tested local mechanisms and bounded pilot findings without combining their claims.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/architecture-experiments/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/self-healing-tokens.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/self-healing-tokens/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/transformers/sparse-feature-recovery/"><span>Previous in topic</span><strong>Sparse feature recovery: reconstruction is only one target</strong></a><a href="/research/transformers/reflective-transformer-memory-and-adaptation/"><span>Next in topic</span><strong>Reflective transformer: causal memory and bounded adaptation</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

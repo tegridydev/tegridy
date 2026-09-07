@@ -10,3 +10,5 @@
 @media(min-width:901px){.writing-page .site-header .container{max-width:88rem}.writing-page .site-header{position:sticky;top:0}.browse-panel>summary{list-style:none}.browse-panel>summary::-webkit-details-marker{display:none}}
 @media(max-width:900px){.reading-layout{grid-template-columns:minmax(0,1fr);gap:1.5rem;padding-top:1rem}.reading-sidebar{position:static;max-height:none}.browse-content{max-height:60dvh;overflow-y:auto}.browse-hint{display:inline;margin-left:.5rem}.writing-page .site-header{position:relative}.article-pagination{grid-template-columns:1fr}.reading-main .article h2{scroll-margin-top:1.5rem}.reading-main .article{margin-top:0}.writing-page .site-nav{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.reading-paths-link{display:block;color:var(--link);margin:0 .25rem 1rem;font-size:.875rem}
