@@ -2,7 +2,9 @@
 
 Things I have been playing with, practical dev notes and ideas I want to turn into useful tools. Some posts describe a session; others work through a design before building it.
 
-15 articles, grouped by topic. Supporting code and assets stay inside each article folder.
+## Running the included code
+
+Open a module README for its local setup and commands. Python implementations use Python 3.11+, with dependencies listed beside the code. Run tests from the module folder so similarly named standalone examples do not share imports. Browser tools identify their local entry page or loopback address. Saved synthetic results are linked from the relevant article and retain their measurement limits.
 
 ## Agents and assistants
 
@@ -37,8 +39,5 @@ Things I have been playing with, practical dev notes and ideas I want to turn in
 
 - [what am I actually looking at in a model map?](model-interpretability/what-a-model-map-can-show/README.md)
 
-## Running the included code
-
-Open a module README for its local setup and commands. Python implementations use Python 3.11+, with dependencies listed beside the code. Run tests from the module folder so similarly named standalone examples do not share imports. Browser tools identify their local entry page or loopback address. Saved synthetic results are linked from the relevant article and retain their measurement limits.
 
 [Home](../README.md)
