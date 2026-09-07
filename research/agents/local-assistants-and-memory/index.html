@@ -1,40 +1,40 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-r3PA1J9qucszRB1KJ3cZ6z6+ro2giCbertYpB500cLQ=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-/PrNOy8lDlPaW976WhBgFJjD52relf++0LUsnf4iSSU=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Local assistant memory: retrieval, validity and reuse — tegridydev</title><meta name="description" content="This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.github.io/tegridy/research/agents/local-assistants-and-memory/">
+<meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/research/agents/local-assistants-and-memory/">
 <link rel="me" href="https://github.com/tegridydev"><link rel="me" href="https://huggingface.co/tegridydev">
 <link rel="me" href="https://bsky.app/profile/mechanistics.bsky.social">
-<link rel="icon" href="/tegridy/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/tegridy/llms.txt">
-<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/tegridy/blog/feed.xml">
-<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/tegridy/research/feed.xml">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="describedby" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Local assistant memory: retrieval, validity and reuse — tegridydev">
-<meta property="og:description" content="This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…"><meta property="og:url" content="https://tegridydev.github.io/tegridy/research/agents/local-assistants-and-memory/">
+<meta property="og:description" content="This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…"><meta property="og:url" content="https://tegridydev.com/research/agents/local-assistants-and-memory/">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Local assistant memory: retrieval, validity and reuse — tegridydev"><meta name="twitter:description" content="This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…">
-<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/tegridy/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/tegridy/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Local assistant memory: retrieval, validity and reuse","description":"This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.github.io/tegridy/"},"mainEntityOfPage":"https://tegridydev.github.io/tegridy/research/agents/local-assistants-and-memory/"}</script>
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Local assistant memory: retrieval, validity and reuse","description":"This study asks whether a bounded memory policy helps a model reuse facts across sessions. The mechanism is selection of relevant, applicable records before generation; saving a transcript alone…","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/agents/local-assistants-and-memory/"}</script>
 </head><body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/tegridy/#home" aria-label="tegridydev home">
+      <a class="brand" href="/#home" aria-label="tegridydev home">
         <span class="brand-mark" aria-hidden="true">[td]</span>
         <span>tegridydev</span>
       </a>
 
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/tegridy/#projects">Projects</a>
-        <a href="/tegridy/#datasets">Data</a>
-        <a href="/tegridy/#writing">Writing</a>
-        <a href="/tegridy/blog/">Blog</a>
-        <a href="/tegridy/research/" aria-current="page">Research</a>
-        <a href="/tegridy/#research">Citations</a>
-        <a class="email-nav" href="/tegridy/#contact">Contact</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#datasets">Data</a>
+        <a href="/#writing">Writing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/research/" aria-current="page">Research</a>
+        <a href="/#research">Citations</a>
+        <a class="email-nav" href="/#contact">Contact</a>
       </nav>
 
       <div class="theme-picker">
@@ -125,7 +125,7 @@
     </div>
   </header>
 
-<main class="container" id="main-content"><article class="article"><p><a href="/tegridy/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-local-assistant-memory-retrieval-validity-and-reuse">[td] tegridydev | Local assistant memory: retrieval, validity and reuse</h1>
+<main class="container" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta">tegridydev · <time datetime="2026">2026</time></p><h1 id="td-tegridydev-local-assistant-memory-retrieval-validity-and-reuse">[td] tegridydev | Local assistant memory: retrieval, validity and reuse</h1>
 <p><em>design study and proposed evaluation</em></p>
 <p>Saving a conversation is easy. The harder problem is deciding which old information is still relevant, still valid and actually belongs in the next prompt. I’m testing whether a small, auditable memory policy can improve cross-session recall over simple recency while using the same context budget.</p>
 <p>The intervention is <strong>retrieval</strong>, not “having a transcript”. If one condition gets more useful context than another simply because it receives more tokens, that tells me nothing about memory quality.</p>
@@ -152,7 +152,7 @@
 <p>The next useful expansion is memory-utility accounting: on labelled offline tasks, record whether each retrieved item was actually needed for the correct answer. That gives me a way to test storage reduction against recall loss without asking the model to grade its own memories.</p>
 <h2 id="what-exists-locally">What exists locally</h2>
 <p>The request recorder now filters by opaque owner ID, effective time and recorded time, resolves supersession per fact key, and logs selected and omitted candidates. Thirty synthetic histories cover corrections, historical queries and same-display-name owners.</p>
-<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/retrieval.py">retrieval.py</a>; the <a href="/tegridy/research/agents/local-assistants-and-memory/">module README</a> lists setup, commands and every supporting file.</p>
+<p>Start with <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/retrieval.py">retrieval.py</a>; the <a href="/research/agents/local-assistants-and-memory/">module README</a> lists setup, commands and every supporting file.</p>
 <p>Relevance and recency policies share the same eligibility logic. The current rule uses term overlap and a fixed budget; no final-history outcome tunes either rule.</p>
 <h2 id="related-public-work">Related public work</h2>
 <p><a href="https://github.com/tegridydev/SES-DMA">SES-DMA</a> explores distributed agents and dynamic memory. Its README includes empirical language, but this article adopts no benchmark result from that wording. The comparison here requires an explicit retrieval trace and independent held-out tasks before claiming that stored interactions improve performance.</p>
@@ -162,21 +162,21 @@
 </ul>
 <h2 id="status">Status</h2>
 <p>The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.</p>
-<p><a href="/tegridy/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/local-assistants-and-memory.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/README.md">Setup and supporting files</a> · <a href="/tegridy/research/">More research</a></p></article></main>  <footer class="site-footer">
+<p><a href="/research/">Research index</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/local-assistants-and-memory.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/agents/local-assistants-and-memory/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p></article></main>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">
         <a href="https://github.com/tegridydev" rel="me">GitHub</a>
         <a href="https://huggingface.co/tegridydev" rel="me">Hugging Face</a>
-        <a href="/tegridy/blog/feed.xml">RSS</a>
+        <a href="/blog/feed.xml">RSS</a>
         <a href="https://bsky.app/profile/mechanistics.bsky.social" rel="me">Bluesky</a>
-        <a href="/tegridy/privacy/">Privacy</a>
-        <a href="/tegridy/#home">top ↑</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/#home">top ↑</a>
       </nav>
     </div>
   </footer>
 
-  <script src="/tegridy/assets/build/site.a8d83bf34dee.js" defer></script>
+  <script src="/assets/build/site.a8d83bf34dee.js" defer></script>
 
 </body>
 </html>

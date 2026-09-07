@@ -2,6 +2,6 @@
 
 Open-source tools, datasets and practical research.
 
-- [Home](https://tegridydev.github.io/tegridy/)
-- [Blog](https://tegridydev.github.io/tegridy/blog/)
-- [Research](https://tegridydev.github.io/tegridy/research/)
+- [Home](https://tegridydev.com/)
+- [Blog](https://tegridydev.com/blog/)
+- [Research](https://tegridydev.com/research/)
