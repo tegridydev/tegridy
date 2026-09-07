@@ -63,10 +63,10 @@ class JudgeAttention(nn.Module):
 
 
 class RecallModel(nn.Module):
-    def __init__(self, mode="judge"):
+    def __init__(self, mode="judge", sequence_length=12):
         super().__init__()
         self.embed = nn.Embedding(70, 64)
-        self.position = nn.Parameter(torch.zeros(12, 64))
+        self.position = nn.Parameter(torch.zeros(sequence_length, 64))
         self.attention = JudgeAttention(mode)
         self.head = nn.Linear(64, 32)
 

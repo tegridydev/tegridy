@@ -1,3 +1,17 @@
++++
+title = "Mixture of Perspectives: preserving useful disagreement"
+date = "2026"
+description = "Separate hard constraints from competing preferences and keep useful disagreement visible in a small decision fixture."
+draft = false
+id = "research/mixture-of-perspectives"
+type = "research-note"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["research/moa-framework", "research/recursive-self-correction-with-uncertainty"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Mixture of Perspectives: preserving useful disagreement
 
 *design study and proposed evaluation*
@@ -5,6 +19,30 @@
 Mixture of Perspectives is not an attempt to calculate the objectively correct morality number. I’m interested in a much more practical question: **does explicitly preserving different values and unresolved objections help a human reviewer notice important things that a single smooth answer misses?**
 
 The useful output is therefore a decision-support record, not a synthetic consensus. It should expose assumptions, factual disputes, value conflicts, minority objections and the person who still owns the decision.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The perspectives disagreed in 37.3% of the fictional utility cases while producing no infeasible winners. This demonstrates sensitivity to declared value weights while retaining hard constraints; it does not evaluate moral judgement or language-model deliberation.
+
+Varied fictional finite utilities and objective budget ceilings; this measures value-weight sensitivity, not real-world moral judgement or language-model deliberation.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| cases | 200 | 0 |
+| disagreement rate | 0.373 | 0.022528 |
+| infeasible winners | 0 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## a disagreement that should survive aggregation
+
+In the [40-case fixture](test_perspectives.py), the first speed-first perspective selects `fast`, while cost-first selects `cheap`. Both appear on the Pareto set. Changing the factual budget can remove `fast` and make `cheap` win even for speed-first.
+
+That separates disagreement about preferences from disagreement about feasibility. A large speed weight cannot make an over-budget action eligible. Non-finite constraint values and duplicate action IDs are rejected so they cannot quietly bypass that rule. These checks do not turn the weighting choices into objective facts.
 
 ## Make the modelling assumptions visible
 
@@ -42,7 +80,7 @@ A second extension gives one challenger a narrow responsibility: name a potentia
 
 Self-Refine is relevant prior work for same-model critique and revision. The narrower thing I’m testing here is whether **explicit value plurality plus retained dissent** improves a defined human review task. Fluent agreement is not the target.
 
-## What exists locally
+## Implementation
 
 The evaluator now applies hard constraints before utility ranking, preserves Pareto alternatives and separates value-weight changes from a changed factual budget. Forty fictional cases expose both perspectives and all rejected actions.
 
@@ -60,6 +98,6 @@ All criteria use declared [0,1] scales and nonnegative weights. Ties remain mult
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

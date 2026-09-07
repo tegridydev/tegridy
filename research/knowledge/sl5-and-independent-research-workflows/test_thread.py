@@ -27,3 +27,10 @@ def test_ambiguous_forecasts_do_not_gain_hindsight():
             "no measurable target",
         )
         assert thread.resolve(forecast, 10, "anything") == "unresolvable"
+
+
+def test_export_import_preserves_nested_attribution():
+    from thread import fixture,export_thread,import_thread
+    original=fixture()
+    restored=import_thread(export_thread(original))
+    assert restored.attribution('m2',0,16)==original.attribution('m2',0,16)

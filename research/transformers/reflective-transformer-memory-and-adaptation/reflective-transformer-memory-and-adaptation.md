@@ -1,3 +1,17 @@
++++
+title = "Reflective transformer: causal memory and bounded adaptation"
+date = "2026"
+description = "A causal memory fixture checks delayed retrieval, batch isolation and episode reset while keeping adaptation benefits unproven."
+draft = false
+id = "research/reflective-transformer-memory-and-adaptation"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/local-assistants-and-memory", "research/temporal-attention-that-changes-predictions"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Reflective transformer: causal memory and bounded adaptation
 
 *design study and proposed evaluation*
@@ -5,6 +19,35 @@
 “Reflective transformer” is the working name for a model that can retrieve earlier internal information and, later, adapt how strongly different heads use that memory. The important part is not the name; it is keeping **memory retrieval, head specialisation and feedback-driven adaptation** as separate mechanisms until each one works.
 
 The first study is therefore memory plus fixed head behaviour. Performance-driven adaptation comes later with an explicit delayed feedback source.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Attention over all eight written items averaged 97.19% accuracy; four-slot FIFO averaged 35.98% and no memory 7.42%. FIFO was much worse on evicted than retained targets. The capacity difference is intentional, so this is an eligibility/eviction study, not a capacity-matched architecture comparison.
+
+Synthetic eight-write episodic lookup with a learned query projection, no-memory, full-eight-item attention and four-slot FIFO. Capacity difference is explicit; this is not a full reflective Transformer or LRU comparison.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| attention · accuracy | 0.971875 | 0.012628 |
+| attention · evicted · accuracy | 0.967491 | 0.013079 |
+| attention · retained · accuracy | 0.977293 | 0.012505 |
+| fifo · accuracy | 0.359766 | 0.032694 |
+| fifo · evicted · accuracy | 0.0402827 | 0.0053589 |
+| fifo · retained · accuracy | 0.754585 | 0.077528 |
+| none · accuracy | 0.0742188 | 0 |
+| none · evicted · accuracy | 0.0742049 | 0 |
+| none · retained · accuracy | 0.0742358 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## a write becomes eligible later
+
+The [memory fixture](test_memory.py) reads an empty store at step 0, writes at step 0, and still reads zero at that same step. The write becomes eligible at step 1. Two batch items retain different values, and resetting item 0 leaves item 1 intact.
+
+Those checks matter more than calling the storage reflective: same-step access would leak information, and a shared reset could erase another episode. The stored values are detached while the retrieval gate receives gradients. This establishes bounded causal storage behaviour, not a benefit from online adaptation.
 
 ## Start with a causal memory bank
 
@@ -51,7 +94,7 @@ The other tests whether apparently specialised heads depend on different memory 
 
 Memorizing Transformers is obvious prior context for retrieving earlier representations. My immediate contribution is much smaller: **a memory state that is causal, episode-isolated, reloadable and cheap enough that its usefulness can be tested against just extending context.**
 
-## What exists locally
+## Implementation
 
 The memory module now stores episode-isolated `[batch,head,slot,width]` keys/values, performs detached FIFO writes only at increasing completed steps and masks same-step/future entries. Empty banks return zero; per-head gates start at 0.5. Tests check reset, reload and 32/128 total capacities.
 
@@ -65,6 +108,6 @@ Use `Memory.write` after processing a segment and query with a later prediction 
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

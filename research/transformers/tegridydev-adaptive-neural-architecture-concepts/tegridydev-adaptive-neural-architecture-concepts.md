@@ -1,3 +1,17 @@
++++
+title = "Adaptive neural architectures: mechanisms and research priorities"
+date = "2026"
+description = "Navigate adaptive-architecture proposals, tested local mechanisms and bounded pilot findings without combining their claims."
+updated = "2026-09-08"
+draft = false
+id = "research/tegridydev-adaptive-neural-architecture-concepts"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/face-based-attention-circuits", "research/self-healing-tokens", "research/temporal-attention-that-changes-predictions"]
+status = "proposal"
++++
+
 # [td] tegridydev | Adaptive neural architectures: mechanisms and research priorities
 
 *research overview and implementation priorities*
@@ -5,6 +19,21 @@
 I’ve got a lot of old adaptive-architecture ideas, and the easiest way to make them useless would be to combine them all into one giant “self-evolving transformer” before any individual mechanism earns its keep.
 
 This overview organises them by **what actually changes**—memory, routing, representation, repair or precision—and gives each one a smallest useful comparison.
+
+
+## Start with the mechanism and its evidence
+
+| Mechanism | Current evidence | Useful next comparison |
+| --- | --- | --- |
+| [Feature mixing](../face-based-attention-circuits/README.md) | Saved pilot roughly matches dense control | Matched interventions across seeds |
+| [Selective repair](../self-healing-tokens/README.md) | Majority repair leads the learned models | More training plus clean-input harm checks |
+| [Temporal bias](../temporal-attention-that-changes-predictions/README.md) | Saved result depends on the task and baseline | Broader generators with timestamp controls |
+| [Head mutation](../hydraform/README.md) | Local structural and optimiser tests | Final-size and reset-matched training |
+| [Causal memory](../reflective-transformer-memory-and-adaptation/README.md) | Eligibility, isolation and reset tests | Fixed-budget retrieval evaluation |
+| [Precision and factors](../weight-similarity-and-svd-compression/README.md) | Storage and functional-error checks | Complete-model cost and quality measurement |
+| Lifecycle, geometric and combined leads below | Mechanism proposals | Define one transformation and its falsifier first |
+
+Use the linked notes for code and results; the rest of this page is a proposal map. No combined architecture has earned a performance claim from these separate checks.
 
 ## Memory and lifecycle
 
@@ -57,12 +86,11 @@ For now I would keep building these as small falsifiable mechanisms rather than 
 
 ## Current implementation map
 
-The individual mechanisms now have local code: [temporal attention](../temporal-attention-that-changes-predictions/README.md), [selective repair](../self-healing-tokens/README.md), [FBAC](../face-based-attention-circuits/README.md), [head mutation](../hydraform/README.md) and [causal memory](../reflective-transformer-memory-and-adaptation/README.md). The first saved pilots do not support combining them into a new architecture: FBAC roughly matches its dense control, majority repair beats the learned repair models, and temporal gains depend on the generator. Keep geometric, phase and hybrid leads at the mechanism-definition stage until they have comparably explicit tests.
+The individual mechanisms have supporting implementations: [temporal attention](../temporal-attention-that-changes-predictions/README.md), [selective repair](../self-healing-tokens/README.md), [FBAC](../face-based-attention-circuits/README.md), [head mutation](../hydraform/README.md) and [causal memory](../reflective-transformer-memory-and-adaptation/README.md). The five-seed comparisons do not establish a benefit from combining these mechanisms: FBAC shows no consistent advantage over its controls, majority repair beats the learned models, guided mutation does not beat the fixed/reset controls, and temporal gains reverse under a timing shift. Geometric, phase and hybrid combinations remain proposals requiring independent evaluation.
 
-[Research index](../../README.md)
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

@@ -1,10 +1,8 @@
 # Research
 
-Studies in AI, model internals, knowledge systems, numerical methods and security. Each note states the question, the proposed mechanism, what would test it and what remains unresolved. Reference programs demonstrate bounded parts of the methods; they are not trained model results.
+Studies in AI, model internals, knowledge systems, numerical methods and security. Each note states the question, the proposed mechanism, what would test it and what remains unresolved. Reference programs demonstrate bounded parts of the methods; they are not trained-model results.
 
-## Running the included code
-
-Open a module README for its local setup and commands. Python implementations use Python 3.11+, with dependencies listed beside the code. Run tests from the module folder so similarly named standalone examples do not share imports. Browser tools identify their local entry page or loopback address. Saved synthetic results are linked from the relevant article and retain their measurement limits.
+29 articles, grouped by topic. Supporting code and assets stay inside each article folder.
 
 ## Agents and assistants
 
@@ -52,6 +50,10 @@ Open a module README for its local setup and commands. Python implementations us
 - [Adaptive neural architectures: mechanisms and research priorities](transformers/tegridydev-adaptive-neural-architecture-concepts/README.md)
 - [Temporal attention: elapsed time inside the prediction](transformers/temporal-attention-that-changes-predictions/README.md)
 - [Weight similarity and functional low-rank compression](transformers/weight-similarity-and-svd-compression/README.md)
+
+## Running the included code
+
+Open a module README for its local setup and commands. Python implementations use Python 3.11+, with dependencies listed beside the code. Run tests from the module folder so similarly named standalone examples do not share imports. Browser tools identify their local entry page or loopback address. Saved synthetic results are linked from the relevant article and retain their measurement limits.
 
 [Home](../README.md)
 

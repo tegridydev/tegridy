@@ -1,3 +1,16 @@
++++
+title = "an embedding column needs more than a convincing name"
+date = "2026"
+description = "Before I trust an embedding search or scatterplot, I want to know exactly which model produced the vectors, how they were made and whether the query uses the same representation."
+draft = false
+id = "blog/embeddings-need-a-contract"
+type = "article"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/cloudvec-paper-search", "research/graph-memory-with-a-paper-trail"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | an embedding column needs more than a convincing name
 
 An embedding workbench is a very satisfying thing to build.
@@ -9,6 +22,59 @@ The problem is that a column named `embedding` does not actually prove I have em
 Before I trust the search, I want a contract between generation, storage and retrieval: **what produced this vector, what happened to the text first, and which other vectors is it valid to compare against?**
 
 Think of map coordinates. Two numbers aren't enough unless I know the coordinate system.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+On these ten authored fixtures, vector search ranked the labelled documents better than lexical search. Rank fusion performed worse than vector search alone; adding lexical ranks did not improve this fixture.
+
+Ten explicitly authored topic/paraphrase relevance fixtures using a real pinned pretrained encoder; labels are engineering fixtures, not an independently annotated retrieval benchmark. Deterministic seed repeats do not add evidence.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| hybrid · mrr | 0.7125 | — |
+| hybrid · recall at 3 | 0.9 | — |
+| lexical · mrr | 0.45 | — |
+| lexical · recall at 3 | 0.5 | — |
+| vector · mrr | 0.95 | — |
+| vector · recall at 3 | 1 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## two dimensions can still be incompatible
+
+This example uses hand-written vectors, not a downloaded embedding model. After [setup](README.md), run it in the module folder:
+
+```python
+from search import rank
+manifest = dict(model_revision="fixture-v1", tokenizer_revision="none",
+                pooling="fixture", dimension=2)
+index = dict(manifest=manifest, documents=[
+    dict(id="a", text="byte model", vector=[1, 0]),
+    dict(id="b", text="other text", vector=[-1, 0]),
+])
+result = rank("byte", index, [1, 0], manifest)
+assert result["lexical"][0][0] == "a"
+assert result["vector"] == [("a", 1.0), ("b", -1.0)]
+try:
+    rank("byte", index, [1, 0], dict(manifest, model_revision="fixture-v2"))
+except ValueError:
+    print("Different representation: comparison rejected")
+else:
+    raise AssertionError("The mismatch should be rejected")
+```
+
+| Check | What it tells me |
+| --- | --- |
+| Lexical search puts `a` first | The word appears in that document |
+| Cosine scores are `+1` and `−1` | The supplied vectors point in opposite directions |
+| Changing only the revision is rejected | Equal dimensions do not establish compatibility |
+| Rank fusion combines positions | Its number is not a cosine or a relevance probability |
+
+The [regression test](test_search.py) also checks that an unknown lexical query has no matches. None of this establishes semantic quality for a real model; that needs labelled queries and genuine encoder provenance.
 
 ## what actually made the vector?
 
@@ -144,7 +210,7 @@ The local [search.py](search.py) tool then provides a BM25-style lexical baselin
 
 It checks unique document IDs, dimensions and exact representation-manifest compatibility. Negative cosine scores remain visible.
 
-The [module README](README.md) documents the index/query format. No embedding model is bundled or called; neural relevance still depends on externally supplied vectors and truthful provenance.
+The [module README](README.md) documents the index/query format. The optional [index builder](build_index.py) calls an explicitly acquired, hash-checked encoder. Model weights are not bundled. The recorded ten-query comparison is an authored engineering fixture; neural retrieval quality on other workloads still needs labelled evaluation and truthful provenance.
 
 That's deliberate.
 

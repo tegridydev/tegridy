@@ -1,3 +1,16 @@
++++
+title = "sorting old notes without rewriting history"
+date = "2026"
+description = "A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from."
+draft = false
+id = "blog/sorting-notes-without-rewriting-history"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/xanadu-linked-documents", "blog/pdf-extraction-and-markdown"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | sorting old notes without rewriting history
 
 A research folder can become an archaeological site surprisingly quickly.
@@ -13,6 +26,36 @@ and more about:
 > what relationship do these files have?
 
 I want a clean reading copy **without deleting the trail that explains where it came from**.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The archive fixture identified 500 exact-duplicate groups among 1,000 files and reported two name conflicts. Original files were preserved. Repeating this deterministic inventory with different seed labels does not provide independent statistical evidence.
+
+Known byte-duplicate archive fixture; originals are never modified or moved. Name collisions do not imply semantic duplicates.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| duplicate groups | 500 | 0 |
+| files | 1000 | 0 |
+| name conflicts | 2 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## a three-file inventory
+
+Suppose `notes/a.md` and `backup/a.md` have the same byte hash, while `notes/a-clean.md` differs. Keep two occurrences of the first content version and one occurrence of the second; record the cleanup as a possible transformation, not an established fact until its diff is inspected.
+
+| Occurrence | Comparison result | Safe next action |
+| --- | --- | --- |
+| `notes/a.md` | Same bytes as backup | Retain its original location in the inventory |
+| `backup/a.md` | Same bytes as notes | Check why this occurrence exists before removal |
+| `notes/a-clean.md` | Different hash | Review the diff and allowed transformations |
+
+This illustrative inventory does not delete anything. A reading index can point to the reviewed copy while the provenance still records all three occurrences.
 
 ## “duplicate” can mean a few things
 

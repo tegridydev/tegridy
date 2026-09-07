@@ -13,27 +13,27 @@ The four-block, width-128 causal byte Transformer now trains and reports held-ou
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 experiment.py --steps 40
+uv run --no-project --python .venv/bin/python python experiment.py --steps 40
 ```
 
 The earlier standard-library references have their own self-tests:
 
 ```bash
-python3 byte_baseline.py
+uv run --no-project --python .venv/bin/python python byte_baseline.py
 ```
 
 Optional `--training-documents train.txt --evaluation-documents heldout.txt` uses local files. Multiple filenames are accepted for each option. The report identifies document hashes and scored byte counts; byte-only evaluation excludes the end-of-document control target.
 
-## Local result
+## Earlier pilot result
 
 The saved run scores 352 held-out byte targets at 7.637 bits per byte. Its final training loss is much lower than its held-out loss, which is unsurprising for repeated training on a tiny document. A uniform 256-byte baseline assigns eight bits per byte; this comparison alone is weak evidence because the learned model and unigram baselines must also be compared on the exact same scored bytes and document groups.
 
@@ -48,6 +48,22 @@ The saved run scores 352 held-out byte targets at 7.637 bits per byte. Its final
 
 ## Remaining work
 
-The saved smoke run uses two self-authored documents, 32-token windows and forty optimizer steps. Incomplete tails are excluded and the first byte in each window is context-only. The ten-million-byte corpus study, corpus-level grouping and generation comparison remain unrun.
+The saved smoke run uses two self-authored documents, 32-token windows and forty optimizer steps. Incomplete tails are excluded and the first byte in each window is context-only. The separate CPU comparison uses pinned article-grouped WikiText-2 with approximately ten million available training bytes and a fixed 2.1-million-token exposure budget. A generation-quality comparison remains outside that study.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study glow-worm-byte-model --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Across five initialisation seeds, held-out loss averaged 3.360 bits per byte versus 4.570 for the unigram baseline. Each model used 2,097,152 training-token exposures from approximately ten million available bytes. This is a bounded byte-prediction result, not a full-corpus training pass or a chatbot evaluation.
+
+See the [article](glow-worm-byte-model.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

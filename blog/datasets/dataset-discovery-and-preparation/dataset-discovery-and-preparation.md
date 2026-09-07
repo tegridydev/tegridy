@@ -1,3 +1,16 @@
++++
+title = "cleaning a dataset without cleaning away its meaning"
+date = "2026"
+description = "I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away."
+draft = false
+id = "blog/dataset-discovery-and-preparation"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/synthetic-data-generation-and-quality", "blog/pdf-extraction-and-markdown"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | cleaning a dataset without cleaning away its meaning
 
 I want dataset tools to save me repetitive work.
@@ -5,6 +18,53 @@ I want dataset tools to save me repetitive work.
 I don't want them deciding that an ID is secretly a number, casing never matters, or two rows with the same key must be interchangeable.
 
 A table can be beautifully clean and still be wrong in some very tidy ways.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The 11,592 input rows were accounted for as 9,411 accepted rows, 941 duplicates, 1,237 quarantined rows, and three rejected rows. The split check found no group leakage. This establishes accounting for the supplied synthetic recipe, not improved downstream model quality.
+
+Synthetic mixed-quality row accounting and grouped splitting; no discovery-provider or downstream-quality claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| accepted | 9411 | 0 |
+| duplicates | 941 | 0 |
+| elapsed seconds | 0.0497992 | 0.0011065 |
+| input rows | 11592 | 0 |
+| quarantined | 1237 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## account for every input row
+
+Here is the bounded example in [test_prepare.py](test_prepare.py). The recipe protects `id` and `label`, trims only outer whitespace in `text`, preserves nulls and quarantines conflicting duplicate IDs.
+
+| Input | Outcome | Reason |
+| --- | --- | --- |
+| `{"id":"0017","text":" A ","label":"X"}` | Accepted as `{"id":"0017","text":"A","label":"X"}` | Only the declared whitespace change |
+| `{"id":"0018","text":"a"}` | Quarantined | Conflicts with the next row |
+| `{"id":"0018","text":"b"}` | Quarantined | Same identity, different content |
+| `null` | Rejected | Not a record |
+
+Four inputs become one accepted, two quarantined and one rejected: nothing quietly disappears. An exact duplicate has its own count; it is different from a conflicting identity.
+
+After [setup](README.md), reproduce the accounting with:
+
+```python
+from prepare import prepare
+from test_prepare import RECIPE
+rows = [{"id":"0017", "text":" A ", "label":"X"},
+        {"id":"0018", "text":"a"}, {"id":"0018", "text":"b"}, None]
+result = prepare(rows, RECIPE)
+assert result["counts"] == {"accepted":1, "quarantined":2, "rejected":1, "duplicates":0}
+assert rows[0]["text"] == " A "
+```
+
+For related rows, set `group_field` to their shared parent field. The test puts 100 rows with the same parent into one split. That prevents sibling leakage; it does not guarantee a representative evaluation set.
 
 ## three rows can already break it
 

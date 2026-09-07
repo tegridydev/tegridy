@@ -2,7 +2,7 @@
 
 Research questions, explicit mechanisms, controls and next experiments.
 
-5 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [Autoresearch: evidence that survives revision](autoresearch-web-researcher/README.md)
 - [Local assistant memory: retrieval, validity and reuse](local-assistants-and-memory/README.md)

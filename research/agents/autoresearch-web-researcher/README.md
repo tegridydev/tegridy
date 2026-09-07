@@ -13,16 +13,16 @@ An immutable local source store now retains exact passages across an initial ans
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 evidence.py
+uv run --no-project --python .venv/bin/python python evidence.py
 ```
 
 The `Research` API accepts captured source text and explicitly supplied claims. A changed source version marks an old citation historical; it does not destroy a valid quotation from the retained earlier snapshot.
@@ -39,3 +39,19 @@ The `Research` API accepts captured source text and explicitly supplied claims. 
 The fixture validates trace preservation, not entailment or improved writing. Automatic page discovery, fetching, answer generation and independent claim-support judging remain separate adapters and studies.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study autoresearch-web-researcher --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+The 100 synthetic histories per seed retained their version-specific citations across answer revisions. The measured result is citation preservation; whether each citation supports its associated claim requires a separate entailment evaluation.
+
+See the [article](autoresearch-web-researcher.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

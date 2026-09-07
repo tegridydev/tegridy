@@ -1,3 +1,17 @@
++++
+title = "Self-healing tokens: recovery without unnecessary edits"
+date = "2026"
+description = "A saved repair pilot compares clean-input harm and corrupt-token recovery; majority repair leads the learned models."
+draft = false
+id = "research/self-healing-tokens"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/tegridydev-adaptive-neural-architecture-concepts"]
+status = "pilot"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Self-healing tokens: recovery without unnecessary edits
 
 *controlled denoising proposal*
@@ -5,6 +19,71 @@
 “Self-healing tokens” sounds much more dramatic than the first experiment actually is. I’m testing a simple question on redundant synthetic records: **does separating “should I edit this position?” from “what value should replace it?” improve recovery without unnecessarily changing clean tokens?**
 
 This is offline denoising with known corruption. It is not a model rewriting its own weights, deciding that unusual language is wrong or establishing truth in arbitrary text.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Majority repair recovered more corrupted positions than either learned model at every tested severity. At 15% corruption its recovery rate was 70.99%, versus about 12% for the learned models. Checksum abstention suppressed edits but also suppressed recovery; these results do not support general-text repair claims.
+
+Grouped repeated-record synthetic repair, three frozen severity levels and checksum abstention; five initialisation seeds in this comparison. No general-text repair claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| 0 · 15 · gated · clean false edit | 0.00544131 | 0.0014857 |
+| 0 · 15 · gated · corrupt recovery | 0.120201 | 0.00425 |
+| 0 · 15 · gated checksum · clean false edit | 0 | 0 |
+| 0 · 15 · gated checksum · corrupt recovery | 0.0166189 | 0.0019877 |
+| 0 · 15 · identity · clean false edit | 0 | 0 |
+| 0 · 15 · identity · corrupt recovery | 0 | 0 |
+| 0 · 15 · majority · clean false edit | 0.00025546 | 0 |
+| 0 · 15 · majority · corrupt recovery | 0.709885 | 0 |
+| 0 · 15 · ordinary · clean false edit | 0.0051603 | 0.00089684 |
+| 0 · 15 · ordinary · corrupt recovery | 0.122206 | 0.0046864 |
+| 0 · 15 · ordinary checksum · clean false edit | 0 | 0 |
+| 0 · 15 · ordinary checksum · corrupt recovery | 0.019914 | 0.0035601 |
+| 0 · 35 · gated · clean false edit | 0.0168045 | 0.0049296 |
+| 0 · 35 · gated · corrupt recovery | 0.0993394 | 0.0040062 |
+| 0 · 35 · gated checksum · clean false edit | 0 | 0 |
+| 0 · 35 · gated checksum · corrupt recovery | 0.000377477 | 0.00056271 |
+| 0 · 35 · identity · clean false edit | 0 | 0 |
+| 0 · 35 · identity · corrupt recovery | 0 | 0 |
+| 0 · 35 · majority · clean false edit | 0.00115779 | 0 |
+| 0 · 35 · majority · corrupt recovery | 0.442277 | 0 |
+| 0 · 35 · ordinary · clean false edit | 0.0175323 | 0.003618 |
+| 0 · 35 · ordinary · corrupt recovery | 0.0983328 | 0.0039452 |
+| 0 · 35 · ordinary checksum · clean false edit | 0 | 0 |
+| 0 · 35 · ordinary checksum · corrupt recovery | 0.000503303 | 0.00028135 |
+| 0 · 6 · gated · clean false edit | 0.028343 | 0.011412 |
+| 0 · 6 · gated · corrupt recovery | 0.0747053 | 0.0026837 |
+| 0 · 6 · gated checksum · clean false edit | 0 | 0 |
+| 0 · 6 · gated checksum · corrupt recovery | 0 | 0 |
+| 0 · 6 · identity · clean false edit | 0 | 0 |
+| 0 · 6 · identity · corrupt recovery | 0 | 0 |
+| 0 · 6 · majority · clean false edit | 0.0055142 | 0 |
+| 0 · 6 · majority · corrupt recovery | 0.155055 | 0 |
+| 0 · 6 · ordinary · clean false edit | 0.0289495 | 0.0071366 |
+| 0 · 6 · ordinary · corrupt recovery | 0.0749911 | 0.0044541 |
+| 0 · 6 · ordinary checksum · clean false edit | 0 | 0 |
+| 0 · 6 · ordinary checksum · corrupt recovery | 0 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## Earlier pilot results
+
+Majority repair beat both learned models on this fixture. Keeping the identity baseline matters too: avoiding edits protects clean tokens but leaves corrupt ones unrepaired.
+
+| Condition | Corrupt-token recovery | Clean false edits | Whole-record accuracy |
+| --- | --- | --- | --- |
+| identity | 0.0000% | 0.0000% | 10.9375% |
+| majority | 69.7842% | 0.0000% | 78.1250% |
+| ordinary | 14.3885% | 0.0000% | 20.3125% |
+| gated | 9.3525% | 0.0000% | 10.9375% |
+
+Seed 1729; 40 training steps; 384/64/64 clean records for training/development/final evaluation. The gated threshold was selected on development records only.
+
+Records: [smoke-results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## Give the task enough structure to be checkable
 
@@ -55,7 +134,7 @@ Masked-language modelling is obvious prior context for reconstructing hidden inp
 
 I’d only move toward less synthetic text after the learned system can beat or meaningfully complement the stupid-simple majority rule. Right now that rule is exactly the kind of baseline I want: annoyingly competent and impossible to impress with a fancy architecture diagram.
 
-## What exists locally
+## Implementation
 
 The detector/recovery Transformer now trains beside a same-backbone ordinary denoiser and compares both with identity and majority repair. Clean records are split before corruption. The gate threshold uses development data under a 1% clean-edit constraint, with explicit abstention if no threshold qualifies.
 
@@ -63,7 +142,7 @@ Start with [experiment.py](experiment.py); the [module README](README.md) lists 
 
 Report corrupted-position recovery, clean false edits and whole-record accuracy together. A development clean-edit constraint is not a guarantee on unseen records. The majority rule is a strong task-specific baseline and must remain visible.
 
-## What I actually observed
+## Earlier observations
 
 On the saved held-out fixture, majority repair recovered 69.8% of corrupted positions, the ordinary denoiser 14.4%, and the gated model 9.4%. All three measured zero false edits on clean positions in this small sample. The gated threshold selected on development data was 0.0, so this run did not demonstrate useful selective abstention. The simple rule remains substantially stronger; longer or more complicated models are not justified by this result alone. See the [saved result](smoke-results.json) for the exact values and run scope.
 
@@ -73,6 +152,6 @@ On the saved held-out fixture, majority repair recovered 69.8% of corrupted posi
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

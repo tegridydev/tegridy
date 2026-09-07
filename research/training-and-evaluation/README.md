@@ -2,7 +2,7 @@
 
 Research questions, explicit mechanisms, controls and next experiments.
 
-3 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [glow-worm: an inspectable byte-language-model baseline](glow-worm-byte-model/README.md)
 - [Recursive self-correction: when revision helps and when to stop](recursive-self-correction-with-uncertainty/README.md)

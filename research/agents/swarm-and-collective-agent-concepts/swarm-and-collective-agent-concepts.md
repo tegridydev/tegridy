@@ -1,8 +1,48 @@
++++
+title = "Swarm mechanisms: sequence generation, routing and motion"
+date = "2026"
+description = "A tiny finite-grammar study makes neighbour coupling measurable while keeping routing, communication and motion proposals separate."
+draft = false
+id = "research/swarm-and-collective-agent-concepts"
+type = "research-note"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["research/moa-framework"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Swarm mechanisms: sequence generation, routing and motion
 
 *design study and proposed evaluation*
 
 I’ve accumulated a few different “swarm” ideas over time, but they are not one algorithm just because they all involve neighbours. This note keeps four mechanisms separate: sequence generation, local-model communication, trainable routing and ordinary boids motion. The first one is the most useful place to start because I can check it against a tiny grammar instead of relying on vibes.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Ring coupling covered 99.75% of the changed grammar versus 99.51% for independent generation, but the other grammars showed complete coverage for both. This small fixture-specific difference does not establish a consistent benefit from coupling or useful downstream training data.
+
+SW-01 finite layered grammars; exact uniform legal-set evaluation; fixed coupling, four agents, equal token budgets; no downstream training claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| changed · complete · coverage | 0.992593 | 0.016563 |
+| changed · complete · elapsed seconds | 0.0038198 | 5.9789e-05 |
+| changed · complete · repetition | 0.8392 | 0.0026833 |
+| changed · complete · uniform grammar logprob | -1.10698 | 0.0024848 |
+| changed · independent · coverage | 0.995062 | 0.006762 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## start with SW-01
+
+The implemented study is [the finite grammar](grammar.py): four legal sequences, four agents, fixed smoothing and neighbour reweighting. Its comparison uses five seeds and 2,000 generated tokens per condition, with zero coupling versus strength two.
+
+Likelihood counts repeated occurrences; coverage counts distinct legal sequences. Those denominators answer different questions. Four legal sequences can saturate coverage quickly, so this is a mechanism fixture rather than evidence about language generation. SW-02, SW-03 and SW-04 remain separate proposals; they should not inherit SW-01's implementation status.
 
 ## SW-01 — neighbour-coupled sequence generation
 
@@ -44,7 +84,7 @@ Two extensions are worth keeping in the backlog. One chooses most neighbours for
 
 The main lesson is simple: **“swarm” is a topology, not a result**. Each version needs its own mechanism, baseline and failure condition instead of inheriting intelligence from the metaphor.
 
-## What exists locally
+## Implementation
 
 SW-01 now has a finite grammar, exact legal-sequence enumeration, ordered transition counts, fixed smoothing and four agents with neighbour reweighting. Five seeds compare zero coupling with strength two at exactly 2,000 generated tokens per condition.
 
@@ -58,6 +98,6 @@ Likelihood uses occurrence counts, including duplicate sequences; coverage uses 
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

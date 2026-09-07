@@ -13,16 +13,16 @@ The correction ledger now separates immutable claim versions, append-only review
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 governance.py
+uv run --no-project --python .venv/bin/python python governance.py
 ```
 
 The equal-permission fixture retains rejected and deferred versions. Duplicate evidence IDs do not become additional votes. A workflow decision is distinct from evidence being true.
@@ -36,6 +36,22 @@ The equal-permission fixture retains rejected and deferred versions. Duplicate e
 
 ## Remaining work
 
-Forty replay histories exercise a repeated fixture pattern, not a held-out governance benchmark. The evidence rule consumes explicit external support labels; majority voting, independent-source weighting, persistence and adversarial dispute families remain unimplemented.
+Forty replay histories exercise a repeated fixture pattern, not a held-out governance benchmark. The evidence rule consumes explicit external support labels; majority voting, independent-source weighting, and adversarial dispute families remain unimplemented. An append-only SQLite command journal now supports persistent replay.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study open-abstract-knowledge-governance --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+The command journal replayed 100 synthetic cases per seed with zero replay errors. Support labels were supplied explicitly, so this demonstrates persistent state transitions rather than independent evidence assessment or better human governance.
+
+See the [article](open-abstract-knowledge-governance.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

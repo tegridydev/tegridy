@@ -13,16 +13,16 @@ Native PDF extraction now produces page-scoped text blocks, explicit empty-page/
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 extract.py source.pdf extraction
+uv run --no-project --python .venv/bin/python python extract.py source.pdf extraction
 ```
 
 Output is a new directory containing `extracted.md` and `manifest.json`; existing output directories are refused. `verify(output_path)` checks the reading-copy hash. The implementation uses [pypdf native text extraction](https://pypdf.readthedocs.io/en/stable/user/extract-text.html), which does not perform OCR. Encrypted PDFs require a decrypted local copy.
@@ -36,6 +36,6 @@ Output is a new directory containing `extracted.md` and `manifest.json`; existin
 
 ## Remaining work
 
-OCR, semantic table/equation reconstruction and a page comparison UI remain unimplemented. “Complete native extraction” means nonempty text on every page, not verified document fidelity. The eighteen-layout-family study has not run.
+Optional local OCR and a static PDF/text review page are implemented. OCR execution requires pdftoppm and tesseract. Semantic table/equation reconstruction remains unimplemented. “Complete native extraction” means nonempty text on every page, not verified document fidelity. The eighteen-layout-family study has not run.
 
 [Topic index](../README.md) · [Blog index](../../README.md)

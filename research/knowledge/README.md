@@ -2,7 +2,7 @@
 
 Research questions, explicit mechanisms, controls and next experiments.
 
-4 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [CloudVec: measuring index freshness separately from search quality](cloudvec-paper-search/README.md)
 - [Graph memory with source versions and applicability](graph-memory-with-a-paper-trail/README.md)

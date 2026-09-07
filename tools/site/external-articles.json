@@ -1,0 +1,6 @@
+[
+ {"title":"Research Papers Dataset","date":"2026-05-23","description":"How and why I built the research papers dataset.","url":"https://huggingface.co/blog/tegridydev/research-papers-dataset"},
+ {"title":"Open Source AI Agents","date":"2025-02-21","description":"My directory of open-source AI agent projects.","url":"https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory"},
+ {"title":"WTF is Fine-Tuning?","date":"2025-02-16","description":"A plain-English intro to fine-tuning.","url":"https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025"},
+ {"title":"LLM Dataset Formats 101","date":"2025-02-01","description":"A plain guide to common dataset formats.","url":"https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face"}
+]

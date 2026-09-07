@@ -2,7 +2,7 @@
 
 Research questions, explicit mechanisms, controls and next experiments.
 
-2 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [Four-dimensional summary trees and time-slice queries](four-dimensional-lattice/README.md)
 - [Hyper Matrix Lattice: adaptive summaries and interval search](hyper-matrix-lattice-and-numerical-search/README.md)

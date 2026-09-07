@@ -1,0 +1,938 @@
+{
+  "entries": [
+    {
+      "article": "blog/agents/botsim-local-community/botsim-local-community.md",
+      "directory": "blog/agents/botsim-local-community",
+      "id": "botsim-local-community",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Headless deterministic fake-provider workflow with repeated process-level storage reopen; no live Ollama or social-simulation validity claim.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Headless deterministic fake-provider workflow with repeated process-level storage reopen; no live Ollama or social-simulation validity claim.",
+      "title": "botsim: letting the locals talk"
+    },
+    {
+      "article": "blog/agents/minecraft-time-with-astra/minecraft-time-with-astra.md",
+      "directory": "blog/agents/minecraft-time-with-astra",
+      "execution": "manual-or-catalogue",
+      "id": "minecraft-time-with-astra",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Study-specific run scope must explicitly distinguish a pilot from the full article protocol.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Interactive browser demonstration; no automated gameplay evaluation is reported.",
+      "title": "minecraft time with astra"
+    },
+    {
+      "article": "blog/applications/discord-log-export-and-field-extraction-toolkit/discord-log-export-and-field-extraction-toolkit.md",
+      "directory": "blog/applications/discord-log-export-and-field-extraction-toolkit",
+      "id": "discord-log-export-and-field-extraction-toolkit",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Generated saved-JSON pages with duplicates and an edit; offline reconciliation only, no Discord connection.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Generated saved-JSON pages with duplicates and an edit; offline reconciliation only, no Discord connection.",
+      "title": "getting a useful export out of a chat log"
+    },
+    {
+      "article": "blog/applications/image-conversion-resizing-and-privacy/image-conversion-resizing-and-privacy.md",
+      "directory": "blog/applications/image-conversion-resizing-and-privacy",
+      "id": "image-conversion-resizing-and-privacy",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Generated image fixtures; actual encoded bytes and metadata checks, not a photographic perceptual-quality or browser study.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Generated image fixtures; actual encoded bytes and metadata checks, not a photographic perceptual-quality or browser study.",
+      "title": "image conversion has more edge cases than the button suggests"
+    },
+    {
+      "article": "blog/applications/lead-extraction-and-cleaning/lead-extraction-and-cleaning.md",
+      "directory": "blog/applications/lead-extraction-and-cleaning",
+      "id": "lead-extraction-and-cleaning",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Fictional example.invalid contact workflow; scripted labels test persistence and suppression, not real-world extraction precision or deliverability.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Fictional example.invalid contact workflow; scripted labels test persistence and suppression, not real-world extraction precision or deliverability.",
+      "title": "pulling useful fields out of messy text"
+    },
+    {
+      "article": "blog/datasets/dataset-discovery-and-preparation/dataset-discovery-and-preparation.md",
+      "directory": "blog/datasets/dataset-discovery-and-preparation",
+      "id": "dataset-discovery-and-preparation",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic mixed-quality row accounting and grouped splitting; no discovery-provider or downstream-quality claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Synthetic mixed-quality row accounting and grouped splitting; no discovery-provider or downstream-quality claim.",
+      "title": "cleaning a dataset without cleaning away its meaning"
+    },
+    {
+      "article": "blog/datasets/paper-and-book-collection/paper-and-book-collection.md",
+      "directory": "blog/datasets/paper-and-book-collection",
+      "id": "paper-and-book-collection",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Local synthetic selection/acquisition/read-state persistence; no automatic rights determination or claim of reading real papers.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Local synthetic selection/acquisition/read-state persistence; no automatic rights determination or claim of reading real papers.",
+      "title": "collecting papers without losing why I wanted them"
+    },
+    {
+      "article": "blog/datasets/pdf-extraction-and-markdown/pdf-extraction-and-markdown.md",
+      "directory": "blog/datasets/pdf-extraction-and-markdown",
+      "execution": "labelled-corpus-required",
+      "id": "pdf-extraction-and-markdown",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Study-specific run scope must explicitly distinguish a pilot from the full article protocol.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Extraction accuracy requires a labelled corpus; real OCR accuracy has not been measured.",
+      "title": "a readable PDF export can still be wrong"
+    },
+    {
+      "article": "blog/datasets/synthetic-data-generation-and-quality/synthetic-data-generation-and-quality.md",
+      "directory": "blog/datasets/synthetic-data-generation-and-quality",
+      "id": "synthetic-data-generation-and-quality",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Explicit inventory-arithmetic grammar at larger generation scale, deliberate answer corruption and split accounting. Broader rule families and downstream training value are not established.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Explicit inventory-arithmetic grammar at larger generation scale, deliberate answer corruption and split accounting. Broader rule families and downstream training value are not established.",
+      "title": "making synthetic data I can actually check"
+    },
+    {
+      "article": "blog/developer-tools/research-without-losing-the-question/research-without-losing-the-question.md",
+      "directory": "blog/developer-tools/research-without-losing-the-question",
+      "id": "research-without-losing-the-question",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.",
+      "title": "doing research without losing the question"
+    },
+    {
+      "article": "blog/knowledge/embeddings-need-a-contract/embeddings-need-a-contract.md",
+      "directory": "blog/knowledge/embeddings-need-a-contract",
+      "id": "embeddings-need-a-contract",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Ten explicitly authored topic/paraphrase relevance fixtures using a real pinned pretrained encoder; labels are engineering fixtures, not an independently annotated retrieval benchmark. Deterministic seed repeats do not add evidence.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Ten explicitly authored topic/paraphrase relevance fixtures using a real pinned pretrained encoder; labels are engineering fixtures, not an independently annotated retrieval benchmark. Deterministic seed repeats do not add evidence.",
+      "title": "an embedding column needs more than a convincing name"
+    },
+    {
+      "article": "blog/knowledge/knowledge-bases-that-help-with-real-work/knowledge-bases-that-help-with-real-work.md",
+      "directory": "blog/knowledge/knowledge-bases-that-help-with-real-work",
+      "id": "knowledge-bases-that-help-with-real-work",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Explicit Cedar fictional-document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge-base performance claim.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Explicit Cedar fictional-document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge-base performance claim.",
+      "title": "knowledge bases should help me choose the next check"
+    },
+    {
+      "article": "blog/knowledge/sorting-notes-without-rewriting-history/sorting-notes-without-rewriting-history.md",
+      "directory": "blog/knowledge/sorting-notes-without-rewriting-history",
+      "id": "sorting-notes-without-rewriting-history",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Known byte-duplicate archive fixture; originals are never modified or moved. Name collisions do not imply semantic duplicates.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Known byte-duplicate archive fixture; originals are never modified or moved. Name collisions do not imply semantic duplicates.",
+      "title": "sorting old notes without rewriting history"
+    },
+    {
+      "article": "blog/knowledge/xanadu-linked-documents/xanadu-linked-documents.md",
+      "directory": "blog/knowledge/xanadu-linked-documents",
+      "id": "xanadu-linked-documents",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Local immutable Unicode passage storage and transactional round-trip, not a distributed editor or verified upstream repair.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Local immutable Unicode passage storage and transactional round-trip, not a distributed editor or verified upstream repair.",
+      "title": "xanadu-2: links that remember what they point to"
+    },
+    {
+      "article": "blog/model-interpretability/what-a-model-map-can-show/what-a-model-map-can-show.md",
+      "directory": "blog/model-interpretability/what-a-model-map-can-show",
+      "id": "what-a-model-map-can-show",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Real pinned-model activation file for manual loading in the existing viewer. No browser was opened; no circuit interpretation follows from visualising this capture.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Real pinned-model activation file for manual loading in the existing viewer. No browser was opened; no circuit interpretation follows from visualising this capture.",
+      "title": "what am I actually looking at in a model map?"
+    },
+    {
+      "article": "research/agents/autoresearch-web-researcher/autoresearch-web-researcher.md",
+      "directory": "research/agents/autoresearch-web-researcher",
+      "id": "autoresearch-web-researcher",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic source-version and answer-revision traces; exact citations do not establish entailment or web research quality.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Synthetic source-version and answer-revision traces; exact citations do not establish entailment or web research quality.",
+      "title": "Autoresearch: evidence that survives revision"
+    },
+    {
+      "article": "research/agents/local-assistants-and-memory/local-assistants-and-memory.md",
+      "directory": "research/agents/local-assistants-and-memory",
+      "id": "local-assistants-and-memory",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic lexical memory retrieval across ten fact vocabularies, corrections and owner collisions; whitespace-word budget, no model-answering or semantic paraphrase claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Synthetic lexical memory retrieval across ten fact vocabularies, corrections and owner collisions; whitespace-word budget, no model-answering or semantic paraphrase claim.",
+      "title": "Local assistant memory: retrieval, validity and reuse"
+    },
+    {
+      "article": "research/agents/mixture-of-perspectives/mixture-of-perspectives.md",
+      "directory": "research/agents/mixture-of-perspectives",
+      "id": "mixture-of-perspectives",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Varied fictional finite utilities and objective budget ceilings; this measures value-weight sensitivity, not real-world moral judgement or language-model deliberation.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Varied fictional finite utilities and objective budget ceilings; this measures value-weight sensitivity, not real-world moral judgement or language-model deliberation.",
+      "title": "Mixture of Perspectives: preserving useful disagreement"
+    },
+    {
+      "article": "research/agents/moa-framework/moa-framework.md",
+      "directory": "research/agents/moa-framework",
+      "id": "moa-framework",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Deterministic provider fixtures, explicit fault deadlines and persistent cache expiry; no live SDK, token-spend or answer-quality claim. Seed repeats are identical protocol replays, not independent task families.",
+        "seeds": [
+          17
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Deterministic provider fixtures, explicit fault deadlines and persistent cache expiry; no live SDK, token-spend or answer-quality claim. Seed repeats are identical protocol replays, not independent task families.",
+      "title": "MoA orchestration: routing, events and honest aggregation"
+    },
+    {
+      "article": "research/agents/swarm-and-collective-agent-concepts/swarm-and-collective-agent-concepts.md",
+      "directory": "research/agents/swarm-and-collective-agent-concepts",
+      "id": "swarm-and-collective-agent-concepts",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "SW-01 finite layered grammars; exact uniform legal-set evaluation; fixed coupling, four agents, equal token budgets; no downstream training claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "SW-01 finite layered grammars; exact uniform legal-set evaluation; fixed coupling, four agents, equal token budgets; no downstream training claim.",
+      "title": "Swarm mechanisms: sequence generation, routing and motion"
+    },
+    {
+      "article": "research/knowledge/cloudvec-paper-search/cloudvec-paper-search.md",
+      "directory": "research/knowledge/cloudvec-paper-search",
+      "id": "cloudvec-paper-search",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Persistent SQLite crash/replay/version/tombstone comparison; supplied fixture vectors only, no semantic relevance measurement.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Persistent SQLite crash/replay/version/tombstone comparison; supplied fixture vectors only, no semantic relevance measurement.",
+      "title": "CloudVec: measuring index freshness separately from search quality"
+    },
+    {
+      "article": "research/knowledge/graph-memory-with-a-paper-trail/graph-memory-with-a-paper-trail.md",
+      "directory": "research/knowledge/graph-memory-with-a-paper-trail",
+      "id": "graph-memory-with-a-paper-trail",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Sixty purpose-built synthetic documents; graph links make qualifications reachable, while metadata-only is a strong control. This construction does not measure natural-corpus relevance or human annotation cost; seed repeats are deterministic.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Sixty purpose-built synthetic documents; graph links make qualifications reachable, while metadata-only is a strong control. This construction does not measure natural-corpus relevance or human annotation cost; seed repeats are deterministic.",
+      "title": "Graph memory with source versions and applicability"
+    },
+    {
+      "article": "research/knowledge/open-abstract-knowledge-governance/open-abstract-knowledge-governance.md",
+      "directory": "research/knowledge/open-abstract-knowledge-governance",
+      "id": "open-abstract-knowledge-governance",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic command-journal crash/replay with explicit support labels; no independent-source voting or human-governance advantage claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Synthetic command-journal crash/replay with explicit support labels; no independent-source voting or human-governance advantage claim.",
+      "title": "OpenAbstract: correction, evidence and the public reading view"
+    },
+    {
+      "article": "research/knowledge/sl5-and-independent-research-workflows/sl5-and-independent-research-workflows.md",
+      "directory": "research/knowledge/sl5-and-independent-research-workflows",
+      "id": "sl5-and-independent-research-workflows",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Generated nested-quote histories with exact offsets and explicit clock corrections; no semantic retrieval or human annotation-agreement claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Generated nested-quote histories with exact offsets and explicit clock corrections; no semantic retrieval or human annotation-agreement claim.",
+      "title": "SL5: thread-aware evidence and prediction timelines"
+    },
+    {
+      "article": "research/mathematics/four-dimensional-lattice/four-dimensional-lattice.md",
+      "directory": "research/mathematics/four-dimensional-lattice",
+      "id": "four-dimensional-lattice",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Exact half-open 4D range summaries on five synthetic distributions; three timing repetitions per workload; no real-world latency claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Exact half-open 4D range summaries on five synthetic distributions; three timing repetitions per workload; no real-world latency claim.",
+      "title": "Four-dimensional summary trees and time-slice queries"
+    },
+    {
+      "article": "research/mathematics/hyper-matrix-lattice-and-numerical-search/hyper-matrix-lattice-and-numerical-search.md",
+      "directory": "research/mathematics/hyper-matrix-lattice-and-numerical-search",
+      "id": "hyper-matrix-lattice-and-numerical-search",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Development-selected variance threshold on synthetic 4D queries; separate exact binary-bounds comparison on sorted arrays. No learned estimator or real-workload latency claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Development-selected variance threshold on synthetic 4D queries; separate exact binary-bounds comparison on sorted arrays. No learned estimator or real-workload latency claim.",
+      "title": "Hyper Matrix Lattice: adaptive summaries and interval search"
+    },
+    {
+      "article": "research/security/internet-protocol-amplification-research/internet-protocol-amplification-research.md",
+      "directory": "research/security/internet-protocol-amplification-research",
+      "id": "internet-protocol-amplification-research",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "100 synthetic simulated workloads per CPU seed; deadline/capacity trade-off, no sockets or deployed-protocol measurements.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "100 synthetic simulated workloads per CPU seed; deadline/capacity trade-off, no sockets or deployed-protocol measurements.",
+      "title": "Protocol resource budgets: bytes, work and retained state"
+    },
+    {
+      "article": "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/sigint-spectrum-analysis-and-covert-channel-concepts.md",
+      "directory": "research/security/sigint-spectrum-analysis-and-covert-channel-concepts",
+      "id": "sigint-spectrum-analysis-and-covert-channel-concepts",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Seeded synthetic session-held-out detector comparison with frozen development threshold and offset shift. Raw probabilities retained; no real RF performance claim. Deliberately label-correlated-SNR audit remains separate.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Seeded synthetic session-held-out detector comparison with frozen development threshold and offset shift. Raw probabilities retained; no real RF performance claim. Deliberately label-correlated-SNR audit remains separate.",
+      "title": "Signal detection under nuisance and session shift"
+    },
+    {
+      "article": "research/security/tegridydev-security-research-catalogue/tegridydev-security-research-catalogue.md",
+      "directory": "research/security/tegridydev-security-research-catalogue",
+      "execution": "manual-or-catalogue",
+      "id": "tegridydev-security-research-catalogue",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Study-specific run scope must explicitly distinguish a pilot from the full article protocol.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Evidence catalogue. Each proposed investigation requires its own protocol and evaluation.",
+      "title": "Security research: evidence, evaluation and open leads"
+    },
+    {
+      "article": "research/training-and-evaluation/glow-worm-byte-model/glow-worm-byte-model.md",
+      "directory": "research/training-and-evaluation/glow-worm-byte-model",
+      "id": "glow-worm-byte-model",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Pinned WikiText-2 article-grouped byte study with up to roughly ten million available training bytes; fixed 512-step CPU budget, 256-byte windows, development checkpoint selection. Unigram sees the full selected corpus; Transformer training exposure is separately recorded. No chatbot-quality claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Pinned WikiText-2 article-grouped byte study with up to roughly ten million available training bytes; fixed 512-step CPU budget, 256-byte windows, development checkpoint selection. Unigram sees the full selected corpus; Transformer training exposure is separately recorded. No chatbot-quality claim.",
+      "title": "glow-worm: an inspectable byte-language-model baseline"
+    },
+    {
+      "article": "research/training-and-evaluation/recursive-self-correction-with-uncertainty/recursive-self-correction-with-uncertainty.md",
+      "directory": "research/training-and-evaluation/recursive-self-correction-with-uncertainty",
+      "id": "recursive-self-correction-with-uncertainty",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Pinned GPT-Neo digit arithmetic with exact response labels, one prompted revision and independent sampling at the same maximum output length. Actual token counts vary and are retained. Token likelihood is evaluated as a confidence proxy, not assumed calibrated.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Pinned GPT-Neo digit arithmetic with exact response labels, one prompted revision and independent sampling at the same maximum output length. Actual token counts vary and are retained. Token likelihood is evaluated as a confidence proxy, not assumed calibrated.",
+      "title": "Recursive self-correction: when revision helps and when to stop"
+    },
+    {
+      "article": "research/training-and-evaluation/self-rewarding-training-loops/self-rewarding-training-loops.md",
+      "directory": "research/training-and-evaluation/self-rewarding-training-loops",
+      "id": "self-rewarding-training-loops",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Single-token modulo-addition policy, on-policy candidate sampling and exact objective checking; comparison with unchanged and supervised policies on held-out operand pairs. This is not validation of a free-form self-judging language model.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Single-token modulo-addition policy, on-policy candidate sampling and exact objective checking; comparison with unchanged and supervised policies on held-out operand pairs. This is not validation of a free-form self-judging language model.",
+      "title": "Self-rewarding training: objective fidelity and evaluator drift"
+    },
+    {
+      "article": "research/transformers/arithmetic-across-notations/arithmetic-across-notations.md",
+      "directory": "research/transformers/arithmetic-across-notations",
+      "id": "arithmetic-across-notations",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Development-only 80% per-notation gate; greedy full-response exact scoring on grouped operand pairs. Discovery and final sets remain untouched. This gate alone is not a circuit-transfer experiment.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Development-only 80% per-notation gate; greedy full-response exact scoring on grouped operand pairs. Discovery and final sets remain untouched. This gate alone is not a circuit-transfer experiment.",
+      "title": "Arithmetic across notations: testing causal transfer"
+    },
+    {
+      "article": "research/transformers/bitnet-quantization-and-conversion/bitnet-quantization-and-conversion.md",
+      "directory": "research/transformers/bitnet-quantization-and-conversion",
+      "id": "bitnet-quantization-and-conversion",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic single-matrix conversion and actual scalar two-bit CPU execution. Complete packed file bytes are measured; float array bytes exclude a container. No trained-model quality or optimised-kernel speed claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Synthetic single-matrix conversion and actual scalar two-bit CPU execution. Complete packed file bytes are measured; float array bytes exclude a container. No trained-model quality or optimised-kernel speed claim.",
+      "title": "BitNet conversion: separate numerical quality from packed execution"
+    },
+    {
+      "article": "research/transformers/face-based-attention-circuits/face-based-attention-circuits.md",
+      "directory": "research/transformers/face-based-attention-circuits",
+      "id": "face-based-attention-circuits",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Grouped 1024 operand pairs, per-mode and layout-shift evaluation, five-run initialisation comparison when default seeds are used. Swap effects are not a matched-magnitude causal identification result.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Grouped 1024 operand pairs, per-mode and layout-shift evaluation, five-run initialisation comparison when default seeds are used. Swap effects are not a matched-magnitude causal identification result.",
+      "title": "Face-based attention circuits: a controlled feature-mixing study"
+    },
+    {
+      "article": "research/transformers/hydraform/hydraform.md",
+      "directory": "research/transformers/hydraform",
+      "id": "hydraform",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic sequence classification, equal total head width, fixed/final-size/reset controls and two-candidate development-guided mutation. Candidate evaluation time is included. Not an upstream reproduction or AG News result.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Synthetic sequence classification, equal total head width, fixed/final-size/reset controls and two-candidate development-guided mutation. Candidate evaluation time is included. Not an upstream reproduction or AG News result.",
+      "title": "Hydraform: trainable structural adaptation under a fixed budget"
+    },
+    {
+      "article": "research/transformers/judge-head-attention/judge-head-attention.md",
+      "directory": "research/transformers/judge-head-attention",
+      "id": "judge-head-attention",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "64-token two-pair synthetic recall; disjoint key/value associations and development checkpoint selection. Gating computes all heads; parameter differences are reported, not claimed matched. Causal head-importance study remains separate.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "64-token two-pair synthetic recall; disjoint key/value associations and development checkpoint selection. Gating computes all heads; parameter differences are reported, not claimed matched. Causal head-importance study remains separate.",
+      "title": "Judge-head attention: measuring contextual influence"
+    },
+    {
+      "article": "research/transformers/neuron-mapping-and-token-trajectories/neuron-mapping-and-token-trajectories.md",
+      "directory": "research/transformers/neuron-mapping-and-token-trajectories",
+      "id": "neuron-mapping-and-token-trajectories",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "Real GPT-Neo first-block activations for explicitly listed short prompts; shared PCA fitted only on the first prompt. Occurrence identity is retained; this does not establish semantic selectivity or causal circuits.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "Real GPT-Neo first-block activations for explicitly listed short prompts; shared PCA fitted only on the first prompt. Occurrence identity is retained; this does not establish semantic selectivity or causal circuits.",
+      "title": "Neuron mapping: selectivity, trajectories and causal checks"
+    },
+    {
+      "article": "research/transformers/reflective-transformer-memory-and-adaptation/reflective-transformer-memory-and-adaptation.md",
+      "directory": "research/transformers/reflective-transformer-memory-and-adaptation",
+      "id": "reflective-transformer-memory-and-adaptation",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic eight-write episodic lookup with a learned query projection, no-memory, full-eight-item attention and four-slot FIFO. Capacity difference is explicit; this is not a full reflective Transformer or LRU comparison.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Synthetic eight-write episodic lookup with a learned query projection, no-memory, full-eight-item attention and four-slot FIFO. Capacity difference is explicit; this is not a full reflective Transformer or LRU comparison.",
+      "title": "Reflective transformer: causal memory and bounded adaptation"
+    },
+    {
+      "article": "research/transformers/self-healing-tokens/self-healing-tokens.md",
+      "directory": "research/transformers/self-healing-tokens",
+      "id": "self-healing-tokens",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Grouped repeated-record synthetic repair, three frozen severity levels and checksum abstention; five initialisation seeds when default runner seeds are used. No general-text repair claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Grouped repeated-record synthetic repair, three frozen severity levels and checksum abstention; five initialisation seeds when default runner seeds are used. No general-text repair claim.",
+      "title": "Self-healing tokens: recovery without unnecessary edits"
+    },
+    {
+      "article": "research/transformers/sparse-feature-recovery/sparse-feature-recovery.md",
+      "directory": "research/transformers/sparse-feature-recovery",
+      "id": "sparse-feature-recovery",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Synthetic nonnegative sparse codes; independent dictionary/initialisation replicates; threshold selected on development rows; no recovery claim for real-model features.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Synthetic nonnegative sparse codes; independent dictionary/initialisation replicates; threshold selected on development rows; no recovery claim for real-model features.",
+      "title": "Sparse feature recovery: reconstruction is only one target"
+    },
+    {
+      "article": "research/transformers/tegridydev-adaptive-neural-architecture-concepts/tegridydev-adaptive-neural-architecture-concepts.md",
+      "directory": "research/transformers/tegridydev-adaptive-neural-architecture-concepts",
+      "execution": "manual-or-catalogue",
+      "id": "tegridydev-adaptive-neural-architecture-concepts",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Study-specific run scope must explicitly distinguish a pilot from the full article protocol.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "version": 1
+      },
+      "remaining": "Mechanism overview. Combined architectures have not been evaluated.",
+      "title": "Adaptive neural architectures: mechanisms and research priorities"
+    },
+    {
+      "article": "research/transformers/temporal-attention-that-changes-predictions/temporal-attention-that-changes-predictions.md",
+      "directory": "research/transformers/temporal-attention-that-changes-predictions",
+      "id": "temporal-attention-that-changes-predictions",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "scope": "Two synthetic temporal generators, frozen final and gap-shift sets, development-selected checkpoints; no universal recency or real-arrival-process claim.",
+        "seeds": [
+          17,
+          29,
+          43,
+          59,
+          71
+        ],
+        "source_scope": "See study.py return scope and the saved result; remaining requirements are not automatically satisfied.",
+        "version": 1
+      },
+      "remaining": "Two synthetic temporal generators, frozen final and gap-shift sets, development-selected checkpoints; no universal recency or real-arrival-process claim.",
+      "title": "Temporal attention: elapsed time inside the prediction"
+    },
+    {
+      "article": "research/transformers/weight-similarity-and-svd-compression/weight-similarity-and-svd-compression.md",
+      "directory": "research/transformers/weight-similarity-and-svd-compression",
+      "id": "weight-similarity-and-svd-compression",
+      "protocol": {
+        "acceptance": "Raw records and controls required; no success inference from passing tests.",
+        "adapter": "study.py",
+        "compute": "CPU; two threads; sequential isolated workers",
+        "data_seed": 1729,
+        "replication": "Deterministic replay or fixed-checkpoint evaluation; repeating RNG labels is not independent evidence.",
+        "scope": "First GPT-Neo MLP projection, four declared short texts split into calibration/evaluation; measured factor bytes and layer-output error. No end-to-end language-model loss or speed claim.",
+        "seeds": [
+          17
+        ],
+        "version": 1
+      },
+      "remaining": "First GPT-Neo MLP projection, four declared short texts split into calibration/evaluation; measured factor bytes and layer-output error. No end-to-end language-model loss or speed claim.",
+      "title": "Weight similarity and functional low-rank compression"
+    }
+  ],
+  "schema": 1
+}

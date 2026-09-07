@@ -1,3 +1,17 @@
++++
+title = "Arithmetic across notations: testing causal transfer"
+date = "2026"
+description = "A protocol and local scorer for testing whether digit-selected components transfer to number-word arithmetic after a feasibility gate."
+draft = false
+id = "research/arithmetic-across-notations"
+type = "research-note"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = ["research/neuron-mapping-and-token-trajectories", "blog/what-a-model-map-can-show"]
+status = "proposal"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Arithmetic across notations: testing causal transfer
 
 *experimental protocol*
@@ -7,6 +21,36 @@ The same addition can be written with digits or English words. A model getting b
 This experiment asks the stronger question: **if I select components because they causally matter for digit-form addition, do those same components matter when the identical arithmetic is written in words, and vice versa?**
 
 I’m treating intervention effects as the primary evidence. Activation similarity and pretty overlays can help locate candidates, but they do not get to become “the arithmetic circuit” on their own.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+This checkpoint and strict prompt/stopping configuration failed the development competence gate in both notations. No component discovery or final transfer evaluation was run. As in the self-correction setup, this does not isolate arithmetic ability from response formatting and early newline termination.
+
+Development-only 80% per-notation gate; greedy full-response exact scoring on grouped operand pairs. Discovery and final sets remain untouched. This gate alone is not a circuit-transfer experiment.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| digits · development exact match | 0 | — |
+| feasibility passed | 0 | — |
+| words · development exact match | 0 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## four directions, after the feasibility gate
+
+| Components selected using | Intervention evaluated using |
+| --- | --- |
+| Digits | Digits |
+| Digits | Number words |
+| Number words | Digits |
+| Number words | Number words |
+
+Keep the operands matched across those directions and compare each intervention with its own unmodified baseline. Cross-notation transfer is not established by either within-notation result.
+
+The [local scorer test](test_intervene.py) checks complete-answer log probability, token-boundary rejection and hook cleanup on a tiny model. It does not pass the article's 80% per-notation feasibility gate for a real checkpoint. Choosing and validating that checkpoint is still required before component discovery.
 
 ## What counts as shared machinery
 
@@ -70,7 +114,7 @@ The key statistic is transfer effect: selected-set damage minus matched-control 
 
 The result I want is deliberately modest and specific: **which components transferred, under which intervention, for which prompts, and how far above matched disruption controls?** That is enough to make the experiment useful without claiming a universal maths circuit.
 
-## What exists locally
+## Implementation
 
 The intervention runner now checks prompt/completion token boundaries, modifies selected features only at the last prompt position, scores every answer token and removes hooks even after errors. A tiny causal fixture verifies score arithmetic and an actual intervention effect.
 
@@ -82,7 +126,7 @@ Install `requirements-model.txt` only for the optional local Hugging Face loader
 
 1. Yaniv Nikankin, Anja Reusch, Aaron Mueller and Yonatan Belinkov. *Arithmetic Without Algorithms: Language Models Solve Math With a Bag of Heuristics*. 2024, revised 2025. [arXiv:2410.21272, version 2](https://arxiv.org/abs/2410.21272v2).
 
-## Local reference example
+## Reference example
 
 [protocol_reference.py](protocol_reference.py) — Generates the 600 pair assignments and strict answer checks. It does not load a model or perform ablations. It uses only Python’s standard library. From this article folder, run:
 
@@ -94,6 +138,6 @@ The command runs the included deterministic checks without writing files or cont
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

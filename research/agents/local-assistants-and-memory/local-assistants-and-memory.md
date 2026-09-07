@@ -1,3 +1,17 @@
++++
+title = "Local assistant memory: retrieval, validity and reuse"
+date = "2026"
+description = "Test current and historical memory retrieval with explicit ownership, validity, recording time and a fixed context budget."
+draft = false
+id = "research/local-assistants-and-memory"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/reflective-transformer-memory-and-adaptation", "research/graph-memory-with-a-paper-trail"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Local assistant memory: retrieval, validity and reuse
 
 *design study and proposed evaluation*
@@ -5,6 +19,33 @@
 Saving a conversation is easy. The harder problem is deciding which old information is still relevant, still valid and actually belongs in the next prompt. I’m testing whether a small, auditable memory policy can improve cross-session recall over simple recency while using the same context budget.
 
 The intervention is **retrieval**, not “having a transcript”. If one condition gets more useful context than another simply because it receives more tokens, that tells me nothing about memory quality.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Under the fixed word budget, relevance-based selection recovered all current target facts, while recent-first selection recovered none. Both recovered the historical and known-at-the-time targets. These deliberately constructed lexical histories demonstrate a selection-policy difference, not end-to-end assistant answer quality.
+
+Synthetic lexical memory retrieval across ten fact vocabularies, corrections and owner collisions; whitespace-word budget, no model-answering or semantic paraphrase claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| recent · current · recall | 0 | 0 |
+| recent · historical · recall | 1 | 0 |
+| recent · known then · recall | 1 | 0 |
+| relevant · current · recall | 1 | 0 |
+| relevant · historical · recall | 1 | 0 |
+| relevant · known then · recall | 1 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## current and historical are different requests
+
+The [retrieval test](test_retrieval.py) runs 30 fixture histories, with 10 marked development. A current request selects `new`; historical and known-at-the-time requests select `old`. A record owned by someone else is excluded with `other-owner` rather than merely receiving a lower similarity score.
+
+These are distinct eligibility rules before ranking. A two-word item also cannot fit a one-word budget. This fixture checks correction, ownership and recording-time boundaries; it does not establish that a model using the returned context gives better answers.
 
 ## A memory record that can age properly
 
@@ -41,7 +82,7 @@ This is deliberately less ambitious than trying to build a human-like memory sys
 
 The next useful expansion is memory-utility accounting: on labelled offline tasks, record whether each retrieved item was actually needed for the correct answer. That gives me a way to test storage reduction against recall loss without asking the model to grade its own memories.
 
-## What exists locally
+## Implementation
 
 The request recorder now filters by opaque owner ID, effective time and recorded time, resolves supersession per fact key, and logs selected and omitted candidates. Thirty synthetic histories cover corrections, historical queries and same-display-name owners.
 
@@ -59,6 +100,6 @@ Relevance and recency policies share the same eligibility logic. The current rul
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

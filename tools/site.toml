@@ -1,0 +1,8 @@
+# Production custom domain. Alternate project URLs can be passed with --base-url.
+url = "https://tegridydev.com"
+custom_domain = "tegridydev.com"
+name = "tegridydev"
+author = "tegridydev"
+repository = "https://github.com/tegridydev/tegridy"
+# Public Web Analytics site token, NOT a Cloudflare API credential.
+cloudflare_analytics_token = ""

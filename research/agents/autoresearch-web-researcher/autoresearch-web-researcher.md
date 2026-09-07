@@ -1,3 +1,17 @@
++++
+title = "Autoresearch: evidence that survives revision"
+date = "2026"
+description = "A local evidence fixture follows claims and exact citations through source revisions without rewriting earlier answers."
+draft = false
+id = "research/autoresearch-web-researcher"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/graph-memory-with-a-paper-trail", "blog/research-without-losing-the-question"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Autoresearch: evidence that survives revision
 
 *design study and proposed evaluation*
@@ -5,6 +19,29 @@
 A web-research agent can fail in two separate places: it can find bad material, or it can find good material and then lose what that material actually supported while rewriting the answer. I’m isolating the second problem first. Before live search, ranking or fancy planning, I want a boring local fixture where every claim can be traced back to the exact passage that justified it.
 
 The closest mental model is less “autonomous researcher” and more **lab notebook with a search assistant attached**. The useful output is not just an answer. It is the answer plus a record of what was searched, what was retrieved, which source version was used and which passages support or contradict each factual claim.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The 100 synthetic histories per seed retained their version-specific citations across answer revisions. The measured result is citation preservation; whether each citation supports its associated claim requires a separate entailment evaluation.
+
+Synthetic source-version and answer-revision traces; exact citations do not establish entailment or web research quality.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| histories | 100 | 0 |
+| retained historical citations | 344.8 | 15.834 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## the same citation after two revisions
+
+The [evidence fixture](test_evidence.py) retains three answer versions and two source versions. A citation that was `current` in the first answer becomes `historical-version` when checked against the later source state; its original answer record still retains the status recorded at that time.
+
+The last answer can contain both a historical passage and a current passage. That is useful when explaining a correction, provided each claim says which version it relies on. Replacing all old citations with the newest URL would destroy that explanation. Invalid or fabricated spans are rejected separately as `span-mismatch`.
 
 ## The evidence contract
 
@@ -42,7 +79,7 @@ The second is **disagreement-first follow-up**. Spend the final search on a clai
 
 This sits beside citation-quality work such as ALCE rather than replacing it. The contribution I’m testing is much narrower: **can the evidence trail survive the messy middle of research, including failures and revisions?**
 
-## What exists locally
+## Implementation
 
 An immutable local source store now retains exact passages across an initial answer and two revisions. Citation validation distinguishes current, historical, missing and mismatched source spans without retroactively changing the saved status of an earlier answer.
 
@@ -57,6 +94,6 @@ The `Research` API accepts captured source text and explicitly supplied claims. 
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

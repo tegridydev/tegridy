@@ -13,16 +13,16 @@ Three asynchronous fake providers now exercise normal text, empty deltas and tim
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 orchestrator.py
+uv run --no-project --python .venv/bin/python python orchestrator.py
 ```
 
 The demo prints exact per-attempt events, reconstructed streams, excluded workers and labelled completed output. Retry callers must assign a new attempt ID; the reducer does not merge attempts.
@@ -36,6 +36,22 @@ The demo prints exact per-attempt events, reconstructed streams, excluded worker
 
 ## Remaining work
 
-The implementation bounds dispatch attempts and wall time, not provider token/currency spend. SDK adapters, persistent cache expiry, automatic retries, adaptive routing and answer-quality comparisons remain unimplemented.
+The implementation bounds dispatch attempts and wall time, not provider token/currency spend. The SQLite cache supports restart and explicit expiry. SDK adapters, automatic retries, adaptive routing and answer-quality comparisons remain outside this implementation.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study moa-framework --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+The 100 requests produced 50 completions and 50 deliberately injected failure outcomes. The latter are expected fault-handling cases, not an observed 50% production failure rate. The fixture also exercises persistent cache expiry; live providers and answer quality were not evaluated.
+
+See the [article](moa-framework.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

@@ -99,3 +99,34 @@ def fixture():
 
 if __name__ == "__main__":
     print(json.dumps(fixture(), indent=2))
+
+
+def retrieve(sources,edges,query,filters=None,budget=100,initial_limit=3,max_hops=2):
+    """Budgeted lexical candidates plus reviewed graph expansion.
+
+    Applicability is checked for every graph target, not just initial candidates.
+    Edges are supplied judgements; this function does not certify their truth.
+    """
+    import re
+    if any(type(v) is not int or v<0 for v in [budget,initial_limit,max_hops]):raise ValueError('nonnegative integer limits required')
+    filters=filters or {};terms=set(re.findall(r'\w+',query.casefold()))
+    eligible={k:v for k,v in sources.items() if all(v.get(field)==value for field,value in filters.items())}
+    for edge in edges:
+        if edge['source'] not in sources or edge['target'] not in sources:raise ValueError('edge references missing source')
+        if edge.get('reviewed') and not edge.get('reason'):raise ValueError('reviewed edge requires reason')
+    scores={k:len(terms&set(re.findall(r'\w+',v['text'].casefold()))) for k,v in eligible.items()}
+    initial=sorted((k for k in eligible if scores[k]>0),key=lambda k:(-scores[k],k))[:initial_limit]
+    queue=[(k,0,'lexical') for k in initial];seen=set();selected=[];trace=[];used=0
+    while queue:
+        identity,depth,reason=queue.pop(0)
+        if identity in seen:continue
+        seen.add(identity)
+        if identity not in eligible:
+            trace.append(dict(id=identity,reason='inapplicable'));continue
+        cost=len(eligible[identity]['text'].split())
+        if used+cost>budget:
+            trace.append(dict(id=identity,reason='budget'));continue
+        selected.append(identity);used+=cost;trace.append(dict(id=identity,reason=reason,depth=depth,cost=cost))
+        if depth<max_hops:
+            queue.extend((edge['target'],depth+1,'reviewed-edge') for edge in edges if edge['source']==identity and edge.get('reviewed'))
+    return dict(selected=selected,trace=trace,words=used,initial=initial)

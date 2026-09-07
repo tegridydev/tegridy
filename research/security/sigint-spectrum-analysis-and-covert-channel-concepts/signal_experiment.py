@@ -121,7 +121,7 @@ def metrics(probabilities, labels, threshold, metadata):
     )
 
 
-def run(seed=17, steps=100):
+def run(seed=17, steps=100, output=None):
     x, y, meta = generate(seed)
     shift_x, shift_y, shift_meta = generate(seed, True, sessions=5)
     splits = {
@@ -167,6 +167,12 @@ def run(seed=17, steps=100):
             if (prob[dev_neg] >= t).mean() <= 0.05
         ]
         threshold = max(candidates, key=lambda t: ((prob[dev_pos] >= t).mean(), -t))
+        if output is not None:
+            from pathlib import Path
+            destination = Path(output)
+            np.savez_compressed(destination / (condition + '-predictions.npz'), probabilities=prob, labels=y, shift_probabilities=shift_prob, shift_labels=shift_y, threshold=threshold)
+            torch.save(model.state_dict(), destination / (condition + '.pt'))
+            (destination / 'sessions.json').write_text(json.dumps(dict(original=meta, shifted=shift_meta), indent=2) + '\n')
         test = splits["test"]
         results[condition] = dict(
             threshold=threshold,

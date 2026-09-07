@@ -1,3 +1,17 @@
++++
+title = "Signal detection under nuisance and session shift"
+date = "2026"
+description = "A saved synthetic signal pilot shows why detection, false alarms and session shift must be evaluated together."
+draft = false
+id = "research/sigint-spectrum-analysis-and-covert-channel-concepts"
+type = "research-note"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = ["research/tegridydev-security-research-catalogue"]
+status = "pilot"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Signal detection under nuisance and session shift
 
 *design study and proposed evaluation*
@@ -5,6 +19,44 @@
 Signal classifiers are very good at finding *something*. The uncomfortable part is working out whether that something is the labelled phenomenon or an accidental shortcut in SNR, plotting, session identity or generator settings.
 
 This study keeps the object deliberately synthetic. I generate complex-valued sequences with known nuisance parameters and ask whether a detector survives session and parameter shift. It is an anomaly-detection benchmark, not a covert-radio implementation and not evidence about a named protocol.
+
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+Across the five seeds, the sequence model flagged every shifted negative example at its frozen threshold: a 100% shifted false-alarm rate. The statistical baseline averaged 3.92%. Strong ordinary-set AUROC did not establish threshold robustness under this synthetic shift.
+
+Seeded synthetic session-held-out detector comparison with frozen development threshold and offset shift. Raw probabilities retained; no real RF performance claim. Deliberately label-correlated-SNR audit remains separate.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| sequence · final · auroc | 0.995034 | 0.0062537 |
+| sequence · final · false alarm | 0.0336 | 0.039355 |
+| sequence · shifted · auroc | 0.658488 | 0.20105 |
+| sequence · shifted · false alarm | 1 | 0 |
+| statistics · final · auroc | 0.999773 | 0.00028157 |
+| statistics · final · false alarm | 0.036 | 0.0056569 |
+| statistics · shifted · auroc | 0.999885 | 0.00016135 |
+| statistics · shifted · false alarm | 0.0392 | 0.015595 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## Earlier pilot results
+
+Under the synthetic shift, the sequence model labelled everything positive at its fixed threshold. Its detection rate therefore looks perfect while its false-alarm rate is also 100%. Both numbers are needed to see the failure.
+
+| Condition | Evaluation | AUROC | Detection | False alarms |
+| --- | --- | --- | --- | --- |
+| statistics | final | 1.000000 | 100.00% | 4.80% |
+| statistics | shifted | 1.000000 | 100.00% | 4.40% |
+| sequence | final | 0.760752 | 56.40% | 22.00% |
+| sequence | shifted | 0.502896 | 100.00% | 100.00% |
+
+Seed 17; 100 training steps; 3,000 sequences with 20/5/5 train/development/test sessions and five shifted sessions. Session resampling is not evidence from real RF recordings.
+
+Records: [pilot-results.json](pilot-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## Build the dataset so shortcuts are visible
 
@@ -40,7 +92,7 @@ A later **detectability envelope** could plot performance against observer assum
 
 The result I want is actually quite modest: **when the detector fires, can I show that it is reacting to the thing I labelled rather than the way I happened to generate the dataset?**
 
-## What exists locally
+## Implementation
 
 The waveform generator now produces 3,000 balanced sequences in thirty sessions, matched nuisance pairs, unit clean energy and a separate shifted frequency range. A statistical classifier and a small sequence CNN train on twenty sessions; thresholds are selected on five development sessions and frozen for final/shift evaluation.
 
@@ -48,7 +100,7 @@ Start with [signal_experiment.py](signal_experiment.py); the [module README](REA
 
 The report includes AUROC, Brier score, sequence false-alarm/detection rates, per-session outcomes and a session bootstrap interval. The development false-alarm target is not a promise that final false alarms stay below it.
 
-## What I actually observed
+## Earlier observations
 
 The statistical baseline achieved final AUROC 1.000, detection 100.0% and false alarms 4.8%. The CNN achieved AUROC 0.761, detection 56.4% and false alarms 22.0%. On the shifted set its false-alarm rate reached 100.0%. A threshold satisfying the development constraint did not transfer. This is a concrete reason to keep session-level reporting and the statistical baseline; it is not evidence about real radio traffic. See the [saved result](pilot-results.json) for the exact values and run scope.
 
@@ -58,6 +110,6 @@ The statistical baseline achieved final AUROC 1.000, detection 100.0% and false 
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

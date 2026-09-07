@@ -1,3 +1,17 @@
++++
+title = "Weight similarity and functional low-rank compression"
+date = "2026"
+description = "Compare complete stored factor bytes with calibration and held-out functional error, rather than inferring usefulness from weight similarity."
+draft = false
+id = "research/weight-similarity-and-svd-compression"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/bitnet-quantization-and-conversion"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Weight similarity and functional low-rank compression
 
 *design study and proposed evaluation*
@@ -5,6 +19,40 @@
 A weight-similarity heatmap can look wonderfully compressible while saving exactly zero bytes. I’m testing a more annoying question: **does similarity help choose weight-sharing or low-rank transformations that preserve function better than simple baselines once the entire saved representation is counted?**
 
 Parameter resemblance, functional resemblance and actual compression stay separate throughout the pipeline.
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+Rank-128 factors occupied 1.97 MB versus 9.44 MB for the original stored matrix, a reduction of about 79%. Layer-output mean squared error was 0.298; smaller ranks saved more space but increased that error. These measurements cover one projection and four short texts, not end-to-end model quality or inference speed.
+
+First GPT-Neo MLP projection, four declared short texts split into calibration/evaluation; measured factor bytes and layer-output error. No end-to-end language-model loss or speed claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| rank128 · dense file bytes | 9.43731e+06 | — |
+| rank128 · factor file bytes | 1.96658e+06 | — |
+| rank128 · held out mse | 0.297697 | — |
+| rank32 · dense file bytes | 9.43731e+06 | — |
+| rank32 · factor file bytes | 492024 | — |
+| rank32 · held out mse | 0.470541 | — |
+| rank64 · dense file bytes | 9.43731e+06 | — |
+| rank64 · factor file bytes | 983544 | — |
+| rank64 · held out mse | 0.388916 | — |
+| rank8 · dense file bytes | 9.43731e+06 | — |
+| rank8 · factor file bytes | 123384 | — |
+| rank8 · held out mse | 0.572879 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## show stored cost beside the answer error
+
+For an `m × n` matrix and rank `r`, the two factors contain `r(m+n)` values. With equal scalar width, a 64×64 matrix at rank 8 uses 1,024 factor values instead of 4,096; rank 32 merely breaks even on values before metadata.
+
+That count is not the complete file size. The [report implementation](compress.py) serialises the factors and reports the actual payload, including its container overhead. Keep it beside the functional error on both calibration and held-out inputs.
+
+The [functional fixture](test_compress.py) uses `diag(10, 1)` at rank 1. Calibration input `[1, 0]` has zero MSE, while held-out `[0, 100]` has MSE 5,000. A small discarded weight can matter a lot on a different input distribution. This example does not measure end-to-end model speed.
 
 ## Similarity only makes sense when the matrices are comparable
 
@@ -48,7 +96,7 @@ Functional error also depends on the inputs a layer sees. A direction with small
 
 SVD-LLM and ASVD are direct prior context for low-rank and activation-aware compression. The contribution I’m testing here is less ambitious: **does the criterion used to call two weights “similar” actually predict a better compression decision under complete accounting?**
 
-## What exists locally
+## Implementation
 
 The factorizer now creates actual NumPy low-rank factors, reloads serialized arrays and measures calibration/held-out output error. Reports separate parameter count, raw array bytes and complete file bytes. Tests verify an exact low-rank matrix and a calibration/held-out counterexample.
 
@@ -63,6 +111,6 @@ Start with [compress.py](compress.py); the [module README](README.md) lists setu
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

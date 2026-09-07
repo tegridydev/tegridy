@@ -1,8 +1,88 @@
++++
+title = "Hyper Matrix Lattice: adaptive summaries and interval search"
+date = "2026"
+description = "Separate adaptive regional summaries from sorted interval search, with exact partial-overlap checks before performance claims."
+draft = false
+id = "research/hyper-matrix-lattice-and-numerical-search"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/four-dimensional-lattice"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Hyper Matrix Lattice: adaptive summaries and interval search
 
 *design study and proposed evaluation*
 
 This note contains two related but separate data-structure questions. The first is how to spend detail in a multidimensional summary tree. The second is how to locate an exact interval in a sorted numeric array. They share an interest in bounded search, but a speed claim in one does not transfer to the other.
+
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+Adaptive summaries answered the clustered query workload in about 7.3 ms versus 297.6 ms for Python scanning, with about 112 ms of construction. Separately, standard sorted lookup answered the million-value uniform workload in about 0.34 ms versus 215 ms scanning after about 108 ms of sorting. These are distinct algorithms and baselines; sorting benefits are not evidence for a new lattice mechanism.
+
+Development-selected variance threshold on synthetic 4D queries; separate exact binary-bounds comparison on sorted arrays. No learned estimator or real-workload latency claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| bursty-time · build seconds | 0.0764054 | 0.0029917 |
+| bursty-time · scan seconds | 0.304479 | 0.0082805 |
+| bursty-time · tree seconds | 0.0453314 | 0.006119 |
+| clustered · build seconds | 0.111862 | 0.0087565 |
+| clustered · scan seconds | 0.29763 | 0.0082026 |
+| clustered · tree seconds | 0.00729367 | 0.0019867 |
+| interval clustered 100 · build seconds | 2.22318e-05 | 2.8317e-06 |
+| interval clustered 100 · indexed seconds | 9.30832e-05 | 1.1499e-05 |
+| interval clustered 100 · scan seconds | 0.000269698 | 1.4226e-05 |
+| interval clustered 10000 · build seconds | 0.000910059 | 5.0677e-05 |
+| interval clustered 10000 · indexed seconds | 9.87758e-05 | 8.6954e-06 |
+| interval clustered 10000 · scan seconds | 0.00207253 | 0.00036734 |
+| interval clustered 1000000 · build seconds | 0.11255 | 0.0031225 |
+| interval clustered 1000000 · indexed seconds | 0.000160379 | 1.2382e-05 |
+| interval clustered 1000000 · scan seconds | 0.232819 | 0.025842 |
+| interval duplicates 100 · build seconds | 1.93672e-05 | 6.2948e-06 |
+| interval duplicates 100 · indexed seconds | 9.189e-05 | 1.3583e-05 |
+| interval duplicates 100 · scan seconds | 0.000275896 | 3.1791e-05 |
+| interval duplicates 10000 · build seconds | 0.000909055 | 3.516e-05 |
+| interval duplicates 10000 · indexed seconds | 0.000117247 | 2.1141e-05 |
+| interval duplicates 10000 · scan seconds | 0.000977512 | 7.7035e-05 |
+| interval duplicates 1000000 · build seconds | 0.107768 | 0.00088215 |
+| interval duplicates 1000000 · indexed seconds | 0.000266851 | 2.6744e-05 |
+| interval duplicates 1000000 · scan seconds | 0.0879774 | 0.0033414 |
+| interval skewed 100 · build seconds | 1.79356e-05 | 2.5797e-06 |
+| interval skewed 100 · indexed seconds | 8.73316e-05 | 9.943e-06 |
+| interval skewed 100 · scan seconds | 0.000259185 | 1.0807e-05 |
+| interval skewed 10000 · build seconds | 0.000873291 | 2.9803e-05 |
+| interval skewed 10000 · indexed seconds | 9.18882e-05 | 3.5109e-06 |
+| interval skewed 10000 · scan seconds | 0.00070195 | 4.0228e-05 |
+| interval skewed 1000000 · build seconds | 0.103923 | 0.0031255 |
+| interval skewed 1000000 · indexed seconds | 0.000203101 | 1.186e-05 |
+| interval skewed 1000000 · scan seconds | 0.0934 | 0.013823 |
+| interval uniform 100 · build seconds | 2.64654e-05 | 5.0099e-06 |
+| interval uniform 100 · indexed seconds | 0.00020638 | 2.6335e-05 |
+| interval uniform 100 · scan seconds | 0.00079019 | 8.1951e-05 |
+| interval uniform 10000 · build seconds | 0.000946864 | 9.7099e-05 |
+| interval uniform 10000 · indexed seconds | 0.000106163 | 1.0732e-05 |
+| interval uniform 10000 · scan seconds | 0.00105988 | 0.00011119 |
+| interval uniform 1000000 · build seconds | 0.108451 | 0.0017413 |
+| interval uniform 1000000 · indexed seconds | 0.000337843 | 4.7367e-05 |
+| interval uniform 1000000 · scan seconds | 0.214945 | 0.0075885 |
+| uniform · build seconds | 0.0767104 | 0.0020161 |
+| uniform · scan seconds | 0.301659 | 0.0070093 |
+| uniform · tree seconds | 0.0979578 | 0.014598 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## refinement is not an interval-search result
+
+The [adaptive-tree fixture](test_adaptive_tree.py) uses two points with values 2 and 10 in different halves of the first coordinate. A coarse node and a refined node both return mean 2 for the left query and mean 10 for the right query. Refinement changes storage, not the exact partial-overlap answer.
+
+Sorted interval search is a separate problem with a separate representation and cost model. A faster interval lookup would not validate variance-driven refinement, just as equal tree answers do not establish a speed advantage. Keep construction cost and workload shape beside either timing claim.
 
 ## DATA-01 — adaptive multidimensional summaries
 
@@ -36,7 +116,7 @@ An **interval certificate** could return the two boundary positions plus neighbo
 
 The naming is intentionally less important than the contract. The Hyper Matrix Lattice is an adaptive summary index, not an algebraic-lattice result; interval search is a boundary problem, not a reason to reinvent binary search unless a measured workload gives me one.
 
-## What exists locally
+## Implementation
 
 A self-contained variance-refined 4D tree now complements the sorted interval reference. A fixed variance threshold controls subdivision; raw observations preserve exact answers even when a coarse leaf crosses a query boundary. Tests compare coarse/refined trees on original and shifted queries.
 
@@ -46,6 +126,6 @@ The same half-open count/sum convention is implemented locally in this module. C
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

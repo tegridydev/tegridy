@@ -1,3 +1,17 @@
++++
+title = "minecraft time with astra"
+date = "2026"
+description = "Trying Astra on a Minecraft-style browser game, with successive screenshots, playable prototypes and notes on what changed."
+draft = false
+id = "blog/minecraft-time-with-astra"
+type = "article"
+author = "tegridydev"
+topic = "agent-systems"
+related = []
+image = "/blog/agents/minecraft-time-with-astra/wild-block-one-shot.png"
+image_alt = "Screenshot of the first Wild Block browser-game prototype."
++++
+
 # [td] tegridydev | minecraft time with astra
 
 Spent some time playing around with Astra during the last few days and gave it my usual Minecraft test. I know these oneshot game clones have been benchmarked to death, but I still find them useful and by now I've spent enough (wasted? lol) time making little voxel games with different models to have a feel for where they struggle and how much revision I'm likely to be doing.

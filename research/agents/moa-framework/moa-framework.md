@@ -1,3 +1,17 @@
++++
+title = "MoA orchestration: routing, events and honest aggregation"
+date = "2026"
+description = "Track provider output, failures and cancellation through a replayable orchestration trace before aggregating an answer."
+draft = false
+id = "research/moa-framework"
+type = "research-note"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["blog/botsim-local-community", "research/mixture-of-perspectives"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | MoA orchestration: routing, events and honest aggregation
 
 *design study and proposed evaluation*
@@ -5,6 +19,30 @@
 Multi-agent systems are very easy to make look clever while quietly losing track of which worker said what. Before asking whether a committee improves answer quality, I want the boring plumbing to be correct: every request, stream, failure, retry and aggregation step should be replayable and attributable.
 
 The question here is therefore orchestration first, intelligence second.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The 100 requests produced 50 completions and 50 deliberately injected failure outcomes. The latter are expected fault-handling cases, not an observed 50% production failure rate. The fixture also exercises persistent cache expiry; live providers and answer quality were not evaluated.
+
+Deterministic provider fixtures, explicit fault deadlines and persistent cache expiry; no live SDK, token-spend or answer-quality claim. Seed repeats are identical protocol replays, not independent task families.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| completed | 50 | — |
+| failed | 50 | — |
+| requests | 100 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## keep the failed provider's words attached to it
+
+The [stream fixture](test_orchestrator.py) runs ordinary, empty-delta and timeout providers. Ordinary and empty-delta finish with `first second`; timeout ends with text `first`, status `failed`, and appears in `excluded`.
+
+The partial text remains inspectable under the failed provider. It does not become a successful aggregate or get attributed to the provider that finished. A cancelled stream also ignores a later completion event, while a missing sequence number is an error. These are fake providers: the fixture tests event handling, not remote model reliability.
 
 ## A request/event contract I can actually replay
 
@@ -36,7 +74,7 @@ Keep development and final evaluation separated by task family, freeze scoring b
 
 Mixture-of-Agents is direct related architecture for layered model-response sharing. The contribution I’m testing here is deliberately less glamorous: **can I tell exactly what happened when the committee breaks?** That seems like a good prerequisite for believing it when the committee succeeds.
 
-## What exists locally
+## Implementation
 
 Three asynchronous fake providers now exercise normal text, empty deltas and timeout after partial output. The reducer enforces contiguous sequence numbers, detects conflicting duplicates and keeps the first terminal outcome. Aggregation excludes failed partial streams, and canonical cache keys include the complete supplied request.
 
@@ -50,6 +88,6 @@ The demo prints exact per-attempt events, reconstructed streams, excluded worker
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

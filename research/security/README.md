@@ -2,7 +2,7 @@
 
 Research questions, explicit mechanisms, controls and next experiments.
 
-2 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [Protocol resource budgets: bytes, work and retained state](internet-protocol-amplification-research/README.md)
 - [Signal detection under nuisance and session shift](sigint-spectrum-analysis-and-covert-channel-concepts/README.md)

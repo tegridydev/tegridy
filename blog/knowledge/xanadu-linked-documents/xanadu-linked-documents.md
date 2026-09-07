@@ -1,3 +1,16 @@
++++
+title = "xanadu-2: links that remember what they point to"
+date = "2026"
+description = "Normal links point somewhere. I'm interested in links that also remember which version and exact passage I meant when I created them."
+draft = false
+id = "blog/xanadu-linked-documents"
+type = "article"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/graph-memory-with-a-paper-trail", "research/sl5-and-independent-research-workflows"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | xanadu-2: links that remember what they point to
 
 A normal link is useful until the thing on the other end changes.
@@ -7,6 +20,32 @@ Linking to a passage is better, but only if the system knows **which version of 
 That's the little idea I keep coming back to with [xanadu-2](https://github.com/tegridydev/xanadu-2): what would a local document system look like if links had durable identity and could point to historical content rather than whatever exists today?
 
 The inspiration comes from Project Xanadu, but I'm interested in a pretty small practical slice of that problem.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+All 1,000 passage links survived export/import across 1,000 documents and 2,000 versions. This supports the immutable-passage round-trip contract, including Unicode text; it does not establish distributed editing or an upstream repair.
+
+Local immutable Unicode passage storage and transactional round-trip, not a distributed editor or verified upstream repair.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| documents | 1000 | — |
+| preserved links | 1000 | — |
+| versions | 2000 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## identity through an actual round trip
+
+The [document test](test_documents.py) stores `a café note`, links characters 2–6 of version 1, then creates a replacement version. Resolving the original link still returns `café`. JSON export/import retains that link ID and its historical target.
+
+A missing version returns `missing-version`; a corrupted quote causes import rollback. Those are different failures and should remain different in the UI.
+
+The upstream defect discussed here is not tied to a verified upstream commit in this collection. Treat it as motivation for this independent local contract, not a claim that an identified current upstream release is broken. A pinned upstream reproduction remains needed before making that stronger claim.
 
 ## documents should have history
 

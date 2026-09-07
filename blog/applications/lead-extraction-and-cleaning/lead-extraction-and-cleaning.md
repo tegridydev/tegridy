@@ -1,3 +1,16 @@
++++
+title = "pulling useful fields out of messy text"
+date = "2026"
+description = "Turning messy text into a clean table is easy to demo. The harder part is making sure every neat little cell still has evidence behind it."
+draft = false
+id = "blog/lead-extraction-and-cleaning"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/discord-log-export-and-field-extraction-toolkit", "blog/dataset-discovery-and-preparation"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | pulling useful fields out of messy text
 
 I'm interested in the bit where messy text becomes a useful table.
@@ -7,6 +20,32 @@ Someone mentions a company, quotes another person and drops an email address in 
 Convincing and correct aren't the same thing.
 
 I'd rather have a few honest blanks than a complete-looking table full of invented relationships.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Of 1,000 fictional candidates, 533 were expected to remain after scripted review and suppression, and exactly 533 were exported. The result checks the review/export contract; it does not estimate extraction precision, address ownership or deliverability on real contacts.
+
+Fictional example.invalid contact workflow; scripted labels test persistence and suppression, not real-world extraction precision or deliverability.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| candidates | 1000 | — |
+| expected exported | 533 | — |
+| exported | 533 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## from a candidate to one export row
+
+The [contact fixture](test_contacts.py) starts with `Zoë forwards Ada <ada@example.org> and team@example.org.` Both addresses retain their exact source spans, and neither acquires an invented ownership relation.
+
+The reviewer accepts both candidates, then suppresses `TEAM@example.org`. Case-normalised suppression leaves one exported row. Re-ingesting the same text returns the existing candidate IDs; it does not create fresh contacts. A reviewer-supplied value beginning with `=` is escaped for the CSV export.
+
+Extraction, acceptance and permission to export are separate decisions here. This is a local review workflow, not a claim that an address is verified or that its owner consented to contact.
 
 ## keep the sentence behind the cell
 

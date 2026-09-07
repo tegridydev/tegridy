@@ -1,3 +1,16 @@
++++
+title = "collecting papers without losing why I wanted them"
+date = "2026"
+description = "I can build a reading queue much faster than I can read it. The useful part is remembering why something went into the queue and which version I actually meant."
+draft = false
+id = "blog/paper-and-book-collection"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/pdf-extraction-and-markdown", "research/autoresearch-web-researcher"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | collecting papers without losing why I wanted them
 
 I can build a reading queue much faster than I can read it.
@@ -7,6 +20,37 @@ That part is easy :)
 The harder bit is coming back later and remembering **why I saved something**, especially when the same paper appeared under three searches.
 
 I want the queue to remember the question behind the download.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The fixture retained 100 selected items, 50 acquisition records and 25 reading records as separate states. Acquisition did not imply that an item had been read. The check validates the state model and persistence, not discovery quality or permission to redistribute a real document.
+
+Local synthetic selection/acquisition/read-state persistence; no automatic rights determination or claim of reading real papers.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| acquired | 50 | — |
+| reading records | 25 | — |
+| selected | 100 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## selected is not acquired, and acquired is not read
+
+For a small illustrative queue, keep these states separate:
+
+| Record | What it establishes |
+| --- | --- |
+| Work selected to check a claim | Why the work entered the queue |
+| Edition v1 with its source and rights note | Which version could be acquired; not proof of a completed download |
+| Reading event: v1, pages 2–3 | What was actually recorded as read |
+| Edition v2 added later | Another version exists; it does not inherit v1's reading event |
+
+The [restart test](test_reading_queue.py) retains two editions and a reading event attached only to v1. It rejects reading an unknown edition and an empty reading scope. Acquisition receipts still need their own evidence: a URL in SQLite is not a successful download receipt.
 
 ## a download isn't a reading history
 
@@ -71,7 +115,7 @@ python3 reading_queue.py reading.sqlite read cedar-v1 "pages 2-3" "checked timeo
 
 `export` writes the queue as JSON.
 
-Provider discovery, rights verification and automatic downloading aren't implemented. A rights description in the database is supplied metadata, not a legal determination.
+The [acquisition helper](acquire.py) downloads an explicitly selected HTTPS file against a pinned hash and byte limit. Provider discovery and rights verification remain outside scope. A rights description in the database is supplied metadata, not a legal determination.
 
 For now I mostly want the queue to remember the thing I apparently trusted past-me to remember manually.
 

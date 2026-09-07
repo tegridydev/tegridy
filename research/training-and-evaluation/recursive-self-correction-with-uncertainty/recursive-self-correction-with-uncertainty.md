@@ -1,3 +1,17 @@
++++
+title = "Recursive self-correction: when revision helps and when to stop"
+date = "2026"
+description = "Account for helpful and harmful answer revisions using frozen development selection and separate final evaluation groups."
+draft = false
+id = "research/recursive-self-correction-with-uncertainty"
+type = "research-note"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["research/self-rewarding-training-loops"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Recursive self-correction: when revision helps and when to stop
 
 *design study and proposed evaluation*
@@ -5,6 +19,36 @@
 Recursive self-correction sounds useful until a model confidently “fixes” an answer that was already right. I’m interested in both sides of that transition: **when does critique repair an answer, when does it damage one, and when should the system stop answering and do something else instead?**
 
 Confidence is not proof. I treat uncertainty as a decision about the next action: answer from evidence, retrieve a dated fact, ask for missing scope, or admit that the available evidence cannot resolve the question.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The strict prompt-and-stopping configuration scored zero before revision, after revision and under independent sampling. Saved greedy responses commonly terminated on an initial newline. This is a failed baseline configuration, not evidence that a capable arithmetic model cannot self-correct; the run cannot distinguish useful from harmful revisions.
+
+Pinned GPT-Neo digit arithmetic with exact response labels, one prompted revision and independent sampling at the same maximum output length. Actual token counts vary and are retained. Token likelihood is evaluated as a confidence proxy, not assumed calibrated.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| independent accuracy | 0 | — |
+| initial accuracy | 0 | — |
+| revision accuracy | 0 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## keep all four revision transitions
+
+| Before | After | Interpretation |
+| --- | --- | --- |
+| Wrong | Correct | Repair |
+| Correct | Wrong | Damage |
+| Correct | Correct | Retained correctness |
+| Wrong | Wrong | Still wrong; wording may have changed |
+
+The [selection fixture](test_evaluate.py) freezes a development-selected threshold of `0.21`, then evaluates two final cases: one repair and one damage. The selective risk is `0.5`. A repair count alone would hide half the story.
+
+Development and final groups must not overlap, and the final action must match the action evaluated during selection. This is a fixture for accounting and frozen selection, not evidence that self-correction generally helps.
 
 ## Response needs before confidence scores
 
@@ -39,7 +83,7 @@ If the pilot ever justifies training, the optimiser loop becomes its own correct
 
 The immediate goal is smaller: build an evaluator that makes helpful and harmful revisions equally visible. A self-correction system should have to earn permission to rewrite a correct answer.
 
-## What exists locally
+## Implementation
 
 The evaluator now consumes externally scored before/after records, freezes a confidence threshold on development data, rejects overlapping split groups and accounts for one critique round, retrieval evidence and declared cost. Harmful edits stay in net-change and selective-risk results.
 
@@ -54,6 +98,6 @@ Each row needs `id`, `group`, Boolean `before`/`after`, `confidence`, `rounds: 1
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

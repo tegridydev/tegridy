@@ -1,0 +1,519 @@
+{
+  "environment": {
+    "artifact_storage": "temporary filesystem: /dev/shm",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "threads": 2
+  },
+  "execution_by_seed": {
+    "17": {
+      "elapsed_seconds": 19.575844529999813,
+      "memory_scope": "whole isolated process; Linux ru_maxrss",
+      "peak_rss_kib": 314156
+    },
+    "29": {
+      "elapsed_seconds": 18.305300313999396,
+      "memory_scope": "whole isolated process; Linux ru_maxrss",
+      "peak_rss_kib": 315432
+    },
+    "43": {
+      "elapsed_seconds": 18.223340921000272,
+      "memory_scope": "whole isolated process; Linux ru_maxrss",
+      "peak_rss_kib": 315236
+    },
+    "59": {
+      "elapsed_seconds": 18.490234819999387,
+      "memory_scope": "whole isolated process; Linux ru_maxrss",
+      "peak_rss_kib": 315396
+    },
+    "71": {
+      "elapsed_seconds": 18.68274336899958,
+      "memory_scope": "whole isolated process; Linux ru_maxrss",
+      "peak_rss_kib": 314848
+    }
+  },
+  "interpretation": "Measurements apply to the stated workload and controls. Seed variation does not establish real-world transfer; repeated deterministic fixtures are not independent replications.",
+  "metrics": {
+    "preference.accepted_preferences": {
+      "mean": 4801.2,
+      "seed_mean_bootstrap_95_interval": [
+        4721.2,
+        4881.2
+      ],
+      "standard_deviation": 103.64217288343582,
+      "values_by_seed": {
+        "17": 4871,
+        "29": 4725,
+        "43": 4800,
+        "59": 4678,
+        "71": 4932
+      }
+    },
+    "preference.accuracy": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0.0,
+        "29": 0.0,
+        "43": 0.0,
+        "59": 0.0,
+        "71": 0.0
+      }
+    },
+    "preference.discarded_candidate_sets": {
+      "mean": 7998.8,
+      "seed_mean_bootstrap_95_interval": [
+        7918.8,
+        8078.8
+      ],
+      "standard_deviation": 103.64217288343582,
+      "values_by_seed": {
+        "17": 7929,
+        "29": 8075,
+        "43": 8000,
+        "59": 8122,
+        "71": 7868
+      }
+    },
+    "preference.loss": {
+      "mean": 6.406873321533203,
+      "seed_mean_bootstrap_95_interval": [
+        5.921605777740479,
+        6.995162773132324
+      ],
+      "standard_deviation": 0.6750988817580056,
+      "values_by_seed": {
+        "17": 6.718823432922363,
+        "29": 6.156814098358154,
+        "43": 7.433121681213379,
+        "59": 5.767982006072998,
+        "71": 5.957625389099121
+      }
+    },
+    "supervised.accepted_preferences": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0,
+        "29": 0,
+        "43": 0,
+        "59": 0,
+        "71": 0
+      }
+    },
+    "supervised.accuracy": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0.0,
+        "29": 0.0,
+        "43": 0.0,
+        "59": 0.0,
+        "71": 0.0
+      }
+    },
+    "supervised.discarded_candidate_sets": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0,
+        "29": 0,
+        "43": 0,
+        "59": 0,
+        "71": 0
+      }
+    },
+    "supervised.loss": {
+      "mean": 7.087170791625977,
+      "seed_mean_bootstrap_95_interval": [
+        7.000088691711426,
+        7.211863327026367
+      ],
+      "standard_deviation": 0.14206304344541856,
+      "values_by_seed": {
+        "17": 7.325235843658447,
+        "29": 6.952786445617676,
+        "43": 7.071042060852051,
+        "59": 7.012567043304443,
+        "71": 7.074222564697266
+      }
+    },
+    "unchanged.accepted_preferences": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0,
+        "29": 0,
+        "43": 0,
+        "59": 0,
+        "71": 0
+      }
+    },
+    "unchanged.accuracy": {
+      "mean": 0.09000000283122063,
+      "seed_mean_bootstrap_95_interval": [
+        0.05000000074505806,
+        0.1300000049173832
+      ],
+      "standard_deviation": 0.05477225860711235,
+      "values_by_seed": {
+        "17": 0.05000000074505806,
+        "29": 0.15000000596046448,
+        "43": 0.15000000596046448,
+        "59": 0.05000000074505806,
+        "71": 0.05000000074505806
+      }
+    },
+    "unchanged.discarded_candidate_sets": {
+      "mean": 0.0,
+      "seed_mean_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "standard_deviation": 0.0,
+      "values_by_seed": {
+        "17": 0,
+        "29": 0,
+        "43": 0,
+        "59": 0,
+        "71": 0
+      }
+    },
+    "unchanged.loss": {
+      "mean": 2.3165868282318116,
+      "seed_mean_bootstrap_95_interval": [
+        2.2943745613098145,
+        2.3384970664978026
+      ],
+      "standard_deviation": 0.02854488218168247,
+      "values_by_seed": {
+        "17": 2.317365884780884,
+        "29": 2.277296543121338,
+        "43": 2.305759906768799,
+        "59": 2.3274617195129395,
+        "71": 2.3550500869750977
+      }
+    }
+  },
+  "observations_by_seed": {
+    "17": {
+      "steps": 400
+    },
+    "29": {
+      "steps": 400
+    },
+    "43": {
+      "steps": 400
+    },
+    "59": {
+      "steps": 400
+    },
+    "71": {
+      "steps": 400
+    }
+  },
+  "packages": {
+    "Flask": "3.1.3",
+    "Jinja2": "3.1.6",
+    "Markdown": "3.10.3",
+    "MarkupSafe": "3.0.3",
+    "PyYAML": "6.0.3",
+    "Pygments": "2.21.0",
+    "Werkzeug": "3.1.8",
+    "annotated-doc": "0.0.5",
+    "anyio": "4.15.1",
+    "blinker": "1.9.0",
+    "certifi": "2026.7.22",
+    "click": "8.5.0",
+    "filelock": "3.32.5",
+    "fsspec": "2026.7.0",
+    "h11": "0.16.0",
+    "hf-xet": "1.6.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "huggingface_hub": "1.30.0",
+    "idna": "3.19",
+    "iniconfig": "2.3.0",
+    "itsdangerous": "2.2.0",
+    "markdown-it-py": "4.2.0",
+    "mdurl": "0.1.2",
+    "mpmath": "1.3.0",
+    "networkx": "3.6.1",
+    "numpy": "2.5.3",
+    "packaging": "26.3",
+    "pillow": "12.3.0",
+    "pluggy": "1.6.0",
+    "pyarrow": "25.0.1",
+    "pypdf": "6.17.0",
+    "pytest": "9.1.1",
+    "regex": "2026.9.3",
+    "rich": "15.0.0",
+    "safetensors": "0.8.0",
+    "scipy": "1.18.1",
+    "setuptools": "84.0.0",
+    "shellingham": "1.5.4",
+    "sympy": "1.14.0",
+    "tokenizers": "0.23.2",
+    "torch": "2.14.0+cpu",
+    "tqdm": "4.70.0",
+    "transformers": "5.16.1",
+    "typer": "0.27.2",
+    "typing_extensions": "4.16.0"
+  },
+  "protocol": {
+    "acceptance": "Raw records and controls required; no success inference from passing tests.",
+    "adapter": "study.py",
+    "compute": "CPU; two threads; sequential isolated workers",
+    "data_seed": 1729,
+    "scope": "Single-token modulo-addition policy, on-policy candidate sampling and exact objective checking; comparison with unchanged and supervised policies on held-out operand pairs. This is not validation of a free-form self-judging language model.",
+    "seeds": [
+      17,
+      29,
+      43,
+      59,
+      71
+    ],
+    "version": 1
+  },
+  "raw_records": "Raw training artifacts are not distributed with this repository. The study code, pinned assets and recorded configuration support reproduction.",
+  "run_identities": [
+    "83e91df5fbf930df087487c6",
+    "cd0d4bd8e99105052a22caec",
+    "d4cc92bffcc96b099819742c",
+    "e32845dd31ea1d5281040a18",
+    "f0b2fd9e7ac877cd82662d28"
+  ],
+  "schema": 1,
+  "scope": "Single-token modulo-addition policy, on-policy candidate sampling and exact objective checking; comparison with unchanged and supervised policies on held-out operand pairs. This is not validation of a free-form self-judging language model.",
+  "seeds": [
+    17,
+    29,
+    43,
+    59,
+    71
+  ],
+  "source_sha256": {
+    "blog/agents/botsim-local-community/app.py": "35fcf41bfd905d646fe5e7f6888a638b87a4bcaa68ca059fda3a82bf0f21e725",
+    "blog/agents/botsim-local-community/requirements.txt": "f4162045269e1f9612dc2500439ecc6f456b905109ba129eda34006c535139da",
+    "blog/agents/botsim-local-community/study.py": "b60b45485df084c272d0b7b280fb0867d86c7df979ffef58329d10e970e9ef2e",
+    "blog/agents/botsim-local-community/test_app.py": "dfcd475e03a9a295df5f27bb9b032f14bd5a00c78a30f54b95be161b61b42ba0",
+    "blog/applications/discord-log-export-and-field-extraction-toolkit/export_logs.py": "64b4f11b1a3af45285ecdcc9a79a6daa4359c311f5115b9af16d7c5d4bba3a3f",
+    "blog/applications/discord-log-export-and-field-extraction-toolkit/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/applications/discord-log-export-and-field-extraction-toolkit/study.py": "8d782b1bf3f03dd9b7370a9878a45fd0c6392ce1a355ccc3e3c7c2bf87571293",
+    "blog/applications/discord-log-export-and-field-extraction-toolkit/test_export_logs.py": "b7bcf117ffbbfb4cd0ff87b05f57a0f6748d0dbf1ca2d9488dbc25aa059cb048",
+    "blog/applications/image-conversion-resizing-and-privacy/app.py": "aad16892ecd65207607ce7595143f7e4653dcbac6222485ee2f872ea2ed2b9f4",
+    "blog/applications/image-conversion-resizing-and-privacy/batch.py": "dab7406b91e440261447200ea5974c656db6bf4290769f31415ac5a6d98004c3",
+    "blog/applications/image-conversion-resizing-and-privacy/convert.py": "101d861c2731a72eaeaf573ee4ee08a2ac8b0c51ab72b6b7101ce04a8c58c6f1",
+    "blog/applications/image-conversion-resizing-and-privacy/requirements.txt": "6d3ac738863d6faacab063518e8390de3977b90c82bdef4f4e8eacf9d07583b7",
+    "blog/applications/image-conversion-resizing-and-privacy/study.py": "dac64f9fb3983caaf7488de8a776199fadf93ae8a11a2e6137f8c901ec37f081",
+    "blog/applications/image-conversion-resizing-and-privacy/test_app.py": "86655ca5e98b49548267efb826c31fe9820c79a22e4f7f2247093306f35c3e76",
+    "blog/applications/image-conversion-resizing-and-privacy/test_batch.py": "d8b7b75280a84dc8514f6a45f269196bd12fd8a92a3c183dbf7294546611def6",
+    "blog/applications/image-conversion-resizing-and-privacy/test_convert.py": "ff852968c15805f09ba672c99683097e042e4de36c68fd50221dc7e1657cb8ec",
+    "blog/applications/lead-extraction-and-cleaning/extract_contacts.py": "3192d2df5acc184bc39fb71ea33ded2e2ae2cfe4f7d94c00897d936306ccc67c",
+    "blog/applications/lead-extraction-and-cleaning/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/applications/lead-extraction-and-cleaning/study.py": "8955ed5b4a4628db89ff11f6ecafda8da16b90a4ce883a0493f194bc56518ecb",
+    "blog/applications/lead-extraction-and-cleaning/test_contacts.py": "a9ce81116dd8827f3cfe73aac3c3f04f2538830533018aefa6bfed8ea5a0cfb2",
+    "blog/datasets/dataset-discovery-and-preparation/prepare.py": "2c6944ae10471eaf988fe740d3873f406438535b9f2f1e36c562437b25993014",
+    "blog/datasets/dataset-discovery-and-preparation/recipe.json": "3cd66fc1f4fdc485a457cfe41e5fca0347bc28186332a3541484fc6eb3dfdf2c",
+    "blog/datasets/dataset-discovery-and-preparation/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/datasets/dataset-discovery-and-preparation/study.py": "2916c72cb267c88ca39b6df35217799db57859b5266a1567315e99fc03a1fb2d",
+    "blog/datasets/dataset-discovery-and-preparation/test_prepare.py": "52152ac338e27559319c544c54e84b7cd7d27be3402fab573c57114ac6b0e5ac",
+    "blog/datasets/paper-and-book-collection/acquire.py": "5b3ab892e6a33cfc8f2e0dbc9a144be121a2a6f1ac2d364cf2aea8334e37425b",
+    "blog/datasets/paper-and-book-collection/reading_queue.py": "594cd2d8e73cacc168e80f34aeeb19c4f44cbf6836725ce1d39c5965f0a10481",
+    "blog/datasets/paper-and-book-collection/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/datasets/paper-and-book-collection/study.py": "3ad3cb9aed33194c94ce091ec580407fe748ebe3b06e276188549d735524a25a",
+    "blog/datasets/paper-and-book-collection/test_reading_queue.py": "e62b3d55bb4f954deb47a6fed10f37d5ace08ba198fdceb2ac36ba1c594ef854",
+    "blog/datasets/pdf-extraction-and-markdown/evaluate_corpus.py": "a9817d17284abf6765f3db5eac918230bead623db44a614ec12722f6b347cb61",
+    "blog/datasets/pdf-extraction-and-markdown/extract.py": "351b4717f918ae2e00fa47f59b9baa6e34fc943e78fc18ac55a444561848ca8c",
+    "blog/datasets/pdf-extraction-and-markdown/ocr.py": "42660cce61a76435689ba8f2a960d958acc60bb39d083227320432f3c1662943",
+    "blog/datasets/pdf-extraction-and-markdown/requirements.txt": "1f89870712267b40222b1bf2e967d65b3540059771443be4b909a7ae37a16f14",
+    "blog/datasets/pdf-extraction-and-markdown/test_extract.py": "aae447235848dc1415d0803e33e21d0b96c2bf030919f81c35fe9ef9fd62d33f",
+    "blog/datasets/synthetic-data-generation-and-quality/generate.py": "3a3079479c37aae1e5bca389d9b3503572cdb3f954f25edf69e142b5be196598",
+    "blog/datasets/synthetic-data-generation-and-quality/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/datasets/synthetic-data-generation-and-quality/study.py": "419d17cfc582535581c78623f73a2360360b875077c3864a9518e14d0fa454e4",
+    "blog/datasets/synthetic-data-generation-and-quality/test_generate.py": "d872caef76f7375b1d04f8841aafdf490ddd92c878f973be684831c53a5e5e13",
+    "blog/developer-tools/research-without-losing-the-question/ledger.py": "1d2e0516fae4d827c019824891bce713df04127f0df6be414adedc101245f7cb",
+    "blog/developer-tools/research-without-losing-the-question/study.py": "4580a7b1f57448d7615225e4a3b59fe00289537de19333f89b30121405c7ea82",
+    "blog/developer-tools/research-without-losing-the-question/test_ledger.py": "64ed5724aaba6b3035c18c2627cd125bc57a6bf221d9540f21dc40cd9bb5373d",
+    "blog/knowledge/embeddings-need-a-contract/build_index.py": "356732c9164b84e30ac42f7b7a5aaa61b5b3b363b8ba79f0b1430f883ea5ac62",
+    "blog/knowledge/embeddings-need-a-contract/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/knowledge/embeddings-need-a-contract/search.py": "86a9aeb7e4184ad761696768246693a76cf7c2b15138af5702dac15005fc795d",
+    "blog/knowledge/embeddings-need-a-contract/study.py": "1d558c33f79fe10b6d3fa83e50d879ad3c3fda203091e7a0cf0fa6fa4ef52420",
+    "blog/knowledge/embeddings-need-a-contract/test_search.py": "393a63d7d9d440a2df9ddde552df57138d345fc9009636767b5287708a473090",
+    "blog/knowledge/embeddings-need-a-contract/vector_reference.py": "37cbe30d0c4e7f0630234cc4a492c34e9b9aeb70840c3ad7e4c48a8e4bebd68c",
+    "blog/knowledge/knowledge-bases-that-help-with-real-work/study.py": "5250981f01d26d88994cbdca796a3f48a1591571674a90907164b7c2c0006872",
+    "blog/knowledge/sorting-notes-without-rewriting-history/inventory.py": "bc008c1daee7a7c0496edf6182097974a5cc675561334dd25ef7ce798c2c30fc",
+    "blog/knowledge/sorting-notes-without-rewriting-history/study.py": "a8638c87f8709afe57d611feeaaef4b429a22daad67655430702ab0c1f5732dd",
+    "blog/knowledge/sorting-notes-without-rewriting-history/test_inventory.py": "0207d0caa2f7573c2156eea3a17f569655a9e19ee7a5a3335a69eda7f52425d5",
+    "blog/knowledge/xanadu-linked-documents/documents.py": "66fce608fc4ea42e47a9699676fd07cfd7abc26a660029bf8fe51e233f98ee89",
+    "blog/knowledge/xanadu-linked-documents/link_reference.py": "06bca3b017e6557f6f0e3861ae4b7771616b2df8ed353c9a9e84f8df6f2ad59b",
+    "blog/knowledge/xanadu-linked-documents/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "blog/knowledge/xanadu-linked-documents/study.py": "5f5b9fcb5625108a29e003c84cff2680f3012783f090c0c19e8cce5e2d9f6491",
+    "blog/knowledge/xanadu-linked-documents/test_documents.py": "7559937ffb1e2752f51b8d8d5902a68cb4e5fb6fa514731538668f4806c3bfcd",
+    "blog/model-interpretability/what-a-model-map-can-show/fixture.json": "5413ee093dfa8bc59317e942ae4ef30ebb3b6683b0f5911f98997a7d70098cc3",
+    "blog/model-interpretability/what-a-model-map-can-show/study.py": "803202b74694008b9efa0938423d7bc12b526c922b602ccce8f322c009829a0a",
+    "localdev/studies/assets.json": "95ecb8e3c761cb6e35dc1c0a84d1dc8b050150f676e4c515ee0aaa4686a7d602",
+    "localdev/studies/assets.py": "32f05d72d59a7c1a5c8a44dc1badaa7d035c8246948f06b758a7b2166000c97b",
+    "localdev/studies/corpus.json": "e52e616c7937bf754fee90c000a8cf114287862020fc951c56e413c0ec4ac907",
+    "localdev/studies/corpus.py": "f01cccac8e74daddf1bcc49e4ef567d4cfd2039af646acb0f484e63fe1a52b16",
+    "localdev/studies/pyproject.toml": "889ddb0fd1f2a7569ab9f21033c9e83edcac6ac999bd7d808a3300dfc54caf8c",
+    "localdev/studies/runner.py": "bb55599052bff104c427ceb554a0a81ea2314fd233a698d259b488c6b3306bd8",
+    "localdev/studies/tests/test_runner.py": "20b892a274b58153a9560f56fdaf05aa92f048d3a3bde7fdbbd0afa75374da6c",
+    "localdev/studies/uv.lock": "9c70860380e8d648c7e16c6996a3108aee9f96cdb644389546513bbfa85f1ab3",
+    "research/agents/autoresearch-web-researcher/evidence.py": "f1534da5aae6b623fa17f65f46fe23665c3ab4b99a6963e39a3815c6a9a9b76c",
+    "research/agents/autoresearch-web-researcher/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/agents/autoresearch-web-researcher/study.py": "057a0d24e3db51becbe34004f8dff2ea8ee03e4dfd53d161674ce6f648d1865c",
+    "research/agents/autoresearch-web-researcher/test_evidence.py": "2b2235e9498c5cda1907be46552387dba415da889475eec3dd57be283a6205dd",
+    "research/agents/local-assistants-and-memory/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/agents/local-assistants-and-memory/retrieval.py": "6a0aa451acde576503f3d8c7547a8535c5b207fa0c481fa824e82c4ca0b76e3b",
+    "research/agents/local-assistants-and-memory/study.py": "4a54a6f3d86c529c8b843de3c48cb3bd9dd0db7f4570727ba978dd4fbfdb196f",
+    "research/agents/local-assistants-and-memory/test_retrieval.py": "52af6e3790be8fbbcd3101de4c457214c057a962f99d89f68a68d6118535e6f9",
+    "research/agents/mixture-of-perspectives/perspectives.py": "0ede0c235100ee3866a9891aed8f2cbba4b841047ed6e7c129bdf7ac8bd2d4f5",
+    "research/agents/mixture-of-perspectives/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/agents/mixture-of-perspectives/study.py": "75dd517ff6beed0a4e4ce5c351525a7f244c15b11b872c7c4376c440969bc407",
+    "research/agents/mixture-of-perspectives/test_perspectives.py": "d4e178313d8b0803d4a0c5c1d3697e30245986cf44294d9b89a1dc37490cdc61",
+    "research/agents/moa-framework/orchestrator.py": "2de9b1121fe88ef0f7b990c704b6172658a7961d9194e00f497e3b8f246a7d7c",
+    "research/agents/moa-framework/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/agents/moa-framework/study.py": "409996a6667bcf99b76e67bc52b6e1e723f9046a2e9646ba9669a4c45c749ae3",
+    "research/agents/moa-framework/test_cache.py": "65b0f6765c22e38389b62cdccb226ee4f8af9ab29fd23c37bed295f7aa0ecfc1",
+    "research/agents/moa-framework/test_orchestrator.py": "181b346395f2af92e4b4de6a36e3e37d69d37fba224d13f7ae9a725aed7c09fa",
+    "research/agents/swarm-and-collective-agent-concepts/grammar.py": "bdecdb48407334c37e6f72a0241673d26a45070c4979e2dd882d6e772d97f986",
+    "research/agents/swarm-and-collective-agent-concepts/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/agents/swarm-and-collective-agent-concepts/study.py": "5aff030d31e644434fbf4dad0cc86381a3e6103544cab1a6c99fd25f6e86cb0d",
+    "research/agents/swarm-and-collective-agent-concepts/test_grammar.py": "56e048bc494626ea4d1bc2a6cda61dcd63166cf48015ec3164e2621916da3509",
+    "research/knowledge/cloudvec-paper-search/outbox.py": "31a9668807be1a67d3848b3d8154e648e147264f9412466c04f25f1fff175edf",
+    "research/knowledge/cloudvec-paper-search/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/knowledge/cloudvec-paper-search/study.py": "b06ea8ec0f6e095b41cfdca2b77c2018a22a551ebf677b5b6099e782f06c9dd2",
+    "research/knowledge/cloudvec-paper-search/test_outbox.py": "e80894d4f231caf4ae4fc5616bd68090afec075956d99aaabb42c9daf07ce0a4",
+    "research/knowledge/cloudvec-paper-search/test_persistent.py": "b8f0b3a0110da6f0e73db942abc6d2090b0e0c0c41ca9855c0f89ef49193fe37",
+    "research/knowledge/graph-memory-with-a-paper-trail/cedar.py": "2d72ffcb1647c1e8e6a0284efa8caff3cb1adb8927e677570e7a55a0b268fba7",
+    "research/knowledge/graph-memory-with-a-paper-trail/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/knowledge/graph-memory-with-a-paper-trail/study.py": "37a6b34479b2cf6454a6730644bebc73600875f7bdc7bbc82d547dfed2f5cf77",
+    "research/knowledge/graph-memory-with-a-paper-trail/test_cedar.py": "87b801cba01fb5fcd872037b5d2e4532ac8e5e8bf95a9fe2945a70de8fe1c3ea",
+    "research/knowledge/open-abstract-knowledge-governance/governance.py": "ca3bf548c243b324cd73f3c2bfd05357a86c5342297c69368109336080c308ee",
+    "research/knowledge/open-abstract-knowledge-governance/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/knowledge/open-abstract-knowledge-governance/study.py": "74a287cbe87dd61ca7ec421204a5e37187b454fb6cfd9073630ec7494335344f",
+    "research/knowledge/open-abstract-knowledge-governance/test_governance.py": "45bf36f07ef38b8882d12e220261085a3ac7a309e2fad38bd73691c8fca9470e",
+    "research/knowledge/open-abstract-knowledge-governance/test_persistent.py": "d5a9c049e581c863863646884d499e2f94f1e68aa28a8adaf76bc3e7e6044eb9",
+    "research/knowledge/sl5-and-independent-research-workflows/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/knowledge/sl5-and-independent-research-workflows/study.py": "0035730945a9d659b6fe07417c5e743f4482791cac0e85ac30700ecd8c00420c",
+    "research/knowledge/sl5-and-independent-research-workflows/test_thread.py": "deb99c3ba2b425c7902180f5a756888869eb230627043255e94fdc7be3491ed0",
+    "research/knowledge/sl5-and-independent-research-workflows/thread.py": "78445798e1b703770846701878e5df72b47a43cd210e1647b6b4f9385dfbe797",
+    "research/mathematics/four-dimensional-lattice/pilot-results.json": "a48a015884be477bbba7fe23c6952a7952a10b269f8259b1af6f49c7fe6f4b73",
+    "research/mathematics/four-dimensional-lattice/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/mathematics/four-dimensional-lattice/study.py": "b04bf7823e9ce6939967be3a739dab2141f99639307e2706aa325cd09310644c",
+    "research/mathematics/four-dimensional-lattice/test_tree.py": "8c1d469db32c47b764966de4e3d21a1edfa2cbecd62c6f22b87ff00e707d5335",
+    "research/mathematics/four-dimensional-lattice/tree.py": "2425d031d86a32ea2fda8b373edbe8e790c6f5a402a04d0733f786d9565e713b",
+    "research/mathematics/hyper-matrix-lattice-and-numerical-search/adaptive_tree.py": "2f25e2360aac83856b74a3dbda4d782061170f686eac25fdb48589d438193b8b",
+    "research/mathematics/hyper-matrix-lattice-and-numerical-search/interval_reference.py": "a2d910763381555ab7f2f1e9c77a18ca7267d920ff9f1933c9e60ba051605210",
+    "research/mathematics/hyper-matrix-lattice-and-numerical-search/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/mathematics/hyper-matrix-lattice-and-numerical-search/study.py": "8f9ae128b2250f630320a1297a793701331646f842b9a708528226595230b1db",
+    "research/mathematics/hyper-matrix-lattice-and-numerical-search/test_adaptive_tree.py": "e466b64da80142ba5b04d0d5b967d5dc5cd01eeaaa28e892ae32f3569d7e1ff5",
+    "research/model_assets.py": "c363e99b21ac0805a7a9b1df0aa26b424072b93292bc00641c0c47970a65724b",
+    "research/range_workloads.py": "752da7abe17db841d3338fd83613141de69283fd22d8959e8990da366927f5e8",
+    "research/security/internet-protocol-amplification-research/budgets.py": "f1693d055be2f5f87dab133425bf4fc9ecfd106844ffbfbbf44dbc0a81a3500b",
+    "research/security/internet-protocol-amplification-research/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/security/internet-protocol-amplification-research/study.py": "43310b09d5d0f3773bbb0d5a4f8ee49874746801b71caa37b559b6d6be67f76f",
+    "research/security/internet-protocol-amplification-research/test_budgets.py": "afc289c451a4c29e8a89d416467f2b1f2b270b59c5dc015ce5b8a325fbddbe27",
+    "research/security/internet-protocol-amplification-research/test_lifetimes.py": "bb9b26a04e8db6176d7e27c88f6bea656d87e51d9b50712e3f285817772b9969",
+    "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/pilot-results.json": "f93e3a592589fa4378cd79598fa80d2ea08b0db705d2c3b60ca0a64d2359f9cb",
+    "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/requirements.txt": "ecbaa3e4f02b460d8a3dc55588279ad7cc155f4601f44760c07584187c530459",
+    "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/signal_experiment.py": "63222e2bc947fa74e847164a1db1f9015bd683683d5d29a3d763bc3722d31a64",
+    "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/study.py": "787e469bc0a96830370f9b27462fae1a0fcccb04329ba522cc36dbb816a6ddee",
+    "research/security/sigint-spectrum-analysis-and-covert-channel-concepts/test_signal.py": "a52980cc44d8350d3dbda2c6e17000cd95acf9515a8bc9a599a54db33731d2c9",
+    "research/study_support.py": "314047665acffbc6d9cd184f96885e7ee635183684d3ff00c354960161c6d13d",
+    "research/training-and-evaluation/glow-worm-byte-model/byte_baseline.py": "82522e413118ed579f803a6a27e7e504df892cc0194a222b2e69cec9b3e568c8",
+    "research/training-and-evaluation/glow-worm-byte-model/experiment.py": "5dcebe7b4765931ee9289546f0040f17018c0cff4cfa0d961fdf32f43f4c90d5",
+    "research/training-and-evaluation/glow-worm-byte-model/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/training-and-evaluation/glow-worm-byte-model/smoke-results.json": "9ae9c38d6b6ba8c0a563ff7656d71a1008ff4558bf83b1718093f848b2f02606",
+    "research/training-and-evaluation/glow-worm-byte-model/study.py": "5d62511e956827e206c48bfac9d53a499527b20e017289b52c749354aa698d11",
+    "research/training-and-evaluation/glow-worm-byte-model/test_experiment.py": "97fcba9bf0085812505cb416431409b114f76dc82fafd4930dd74641efb52816",
+    "research/training-and-evaluation/recursive-self-correction-with-uncertainty/evaluate.py": "50feb24eb7fa6bdc81804d5cdbbd99e4ca91aa5e20a12b5274bdf5d52fc8426d",
+    "research/training-and-evaluation/recursive-self-correction-with-uncertainty/metrics_reference.py": "59cd35aa09b401d30f33116ed2d8a134c0bae05b7d41567716fa6f7ce69db576",
+    "research/training-and-evaluation/recursive-self-correction-with-uncertainty/requirements.txt": "26db60f3749b2d582ef13e54530725d1038086c5b72953678670871c2b85e15a",
+    "research/training-and-evaluation/recursive-self-correction-with-uncertainty/study.py": "a539f09776bbf173590790b433467c5687d96e947539119c3db56a9eabb5481f",
+    "research/training-and-evaluation/recursive-self-correction-with-uncertainty/test_evaluate.py": "a0aacd5c97b02713bf4119ba034ccb93753d5a98342cfcb4f52c4a8f13fe9fac",
+    "research/training-and-evaluation/self-rewarding-training-loops/preference.py": "aaac9bd9d17b1b90dd85ae20f348c9d6b33bcfe9320434429889962bb767bc78",
+    "research/training-and-evaluation/self-rewarding-training-loops/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/training-and-evaluation/self-rewarding-training-loops/study.py": "74333cc20b6a5163091f9d9bef6e58adfe3a52459acb33239214b83eedcafdf5",
+    "research/training-and-evaluation/self-rewarding-training-loops/test_preference.py": "2ae38753ecbf1122adc968eda3f8414eb0ffd4ad0df76564281dca45db94df98",
+    "research/transformers/arithmetic-across-notations/intervene.py": "c635fdc3b3a2f39a3cef1068f30b7eff72d20751975dacc589e9c876d3e4f84c",
+    "research/transformers/arithmetic-across-notations/protocol_reference.py": "3d66784310c628fde41874ca4b2deac972bb7a771d2660c15105dc471b7aa5ca",
+    "research/transformers/arithmetic-across-notations/requirements-model.txt": "67bd806372c70682add3f5603a3e06531dc82f873e1fe5e4bb6058d6a96984f6",
+    "research/transformers/arithmetic-across-notations/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/arithmetic-across-notations/study.py": "c46968d05f148540eebcfaf879e4cc10448e1e5d75bd45db7ea005bd6ad5eb43",
+    "research/transformers/arithmetic-across-notations/test_intervene.py": "9b72e941af0dcc253e00a32892d65f7af98ed67763fac9a30aa88914b15b61a4",
+    "research/transformers/bitnet-quantization-and-conversion/packed.py": "9c4dcf2065c58bc6cc3747bfc40b910e07e58cddfcb14d0936f667eb06d2d9b3",
+    "research/transformers/bitnet-quantization-and-conversion/quantization.py": "94a534d9fc47f7e482c3ce65580e771dac36f13c73b9cce138e6f5e1b3698ec8",
+    "research/transformers/bitnet-quantization-and-conversion/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/bitnet-quantization-and-conversion/study.py": "5faa290d0c8b7ad41fd2682b00f424707c78cf3d78cbcc26022811056526c7c2",
+    "research/transformers/bitnet-quantization-and-conversion/ternary_reference.py": "da249a01bb2ab71657632acbd9fe4decafc1d87912b913140f6dc7a074143f25",
+    "research/transformers/bitnet-quantization-and-conversion/test_packed.py": "a1615ea525a7557914cdc22ee63ec3f854395a991f4288960f752ec1d1d07870",
+    "research/transformers/bitnet-quantization-and-conversion/test_quantization.py": "27c2f025824da52f4ae50cf409f42346f4b3c621fb3d211505cb59e9dd68cc4c",
+    "research/transformers/face-based-attention-circuits/experiment.py": "72b17f1e3401937d4efca051def0df3c071934e43f00c9e51b9b2369c4d5a62a",
+    "research/transformers/face-based-attention-circuits/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/face-based-attention-circuits/smoke-results.json": "c9ae946b708fcc030c3bef71a009fb9319da3cccb423c40ae5ecd153947adfb2",
+    "research/transformers/face-based-attention-circuits/study.py": "b2a7334678f791ba5d284462267fbad7752f1c11e7286a6f2ae6da811f2d68c1",
+    "research/transformers/face-based-attention-circuits/test_experiment.py": "fe8f92d3a252ad9147e5bba7bc56e893cac5876a3e3a42bc8c7785dea1c53750",
+    "research/transformers/hydraform/adaptation.py": "1b06aeedd0a38127033f00ab64c6e5b65fd7c869c1fd6a160cff65d701ba31ea",
+    "research/transformers/hydraform/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/hydraform/study.py": "f7250b0733e4466605a124b5b416f7c659a48b1e2a26b11eaf7151e0867a67ca",
+    "research/transformers/hydraform/test_adaptation.py": "2ff46bdad6e4d24a5d91ff6a3d40abc9efef1ec2924bc989702fd61194efd272",
+    "research/transformers/judge-head-attention/experiment.py": "7c7aefb9f2ce99d446ebbe5e4125baba7410c7a041d65c13c32ed52d2989267d",
+    "research/transformers/judge-head-attention/learning-check.json": "0d6f62784e24b16603ca818b12cb09348dad66e9f06f6aadee94d0a5b7906a26",
+    "research/transformers/judge-head-attention/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/judge-head-attention/smoke-results.json": "c23dbdd6c3f70017ff2fdaa2eda7d96c72c31c7eafe85719e2024ea92f26c109",
+    "research/transformers/judge-head-attention/study.py": "f7a6103b8985254179e73450eece36234abeb4043594e23fc78b08717dae65a2",
+    "research/transformers/judge-head-attention/test_experiment.py": "cd07c5cc69fb0d27cc64f62e98d45cbbf7efd1732a493231e629dbdd2a2fd4bc",
+    "research/transformers/neuron-mapping-and-token-trajectories/capture.py": "3bc9c580b13a14e6634ebc523e12a4422d1a3299084b3104508bddb9583d6611",
+    "research/transformers/neuron-mapping-and-token-trajectories/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/neuron-mapping-and-token-trajectories/study.py": "d27ecde4195a7597fc6e3c259908547c857f1e0fffa6cdd62adc3a5d41070c8e",
+    "research/transformers/neuron-mapping-and-token-trajectories/test_capture.py": "c1f8c384415bc9da03c09367405ebb344fcdc4a2bd8a83a910f3ba9959258a13",
+    "research/transformers/reflective-transformer-memory-and-adaptation/memory.py": "86be99d9aabc98f530f0fabf6df8522ea7740236737dbca043d18f0bf4377223",
+    "research/transformers/reflective-transformer-memory-and-adaptation/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/reflective-transformer-memory-and-adaptation/study.py": "da7de0682512194d6737c40db7a6c397cb2b94a077263b8c5a73d6689e2c53cf",
+    "research/transformers/reflective-transformer-memory-and-adaptation/test_memory.py": "b94ab7be7a18f3b5cc0cbfa77e1a615ae6e501b6efb1e37562824b41708c2bcf",
+    "research/transformers/self-healing-tokens/experiment.py": "d82a0b6e67531ab5a18cd3f9de3e960f26e8ec636628fcaf7f211336365109b8",
+    "research/transformers/self-healing-tokens/repair_reference.py": "5fe56e85fedf189e86d2831972229ef3587189d1f924e20f802a5e55ec43ae3b",
+    "research/transformers/self-healing-tokens/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/self-healing-tokens/smoke-results.json": "0935416bef43056139aba055c3f68c73a408fd844d4aee21efb8618643e3cb91",
+    "research/transformers/self-healing-tokens/study.py": "25be036b106dcdec3aeaf8a39c1a88a794e70f078bb814700e13f920368f813d",
+    "research/transformers/self-healing-tokens/test_experiment.py": "46fb80da0e669f692bf5b704726afd704f8797f06aae06d35865b08b36b8c232",
+    "research/transformers/sparse-feature-recovery/pilot-results.json": "19f6edddad92d9baceaff090f3676d69376c8eb520fc30c64e7040fe01f4d2b6",
+    "research/transformers/sparse-feature-recovery/recovery.py": "4f21a94a2957ae700b2b0e795f51d14e2c239afaed953b32549667297e1cee57",
+    "research/transformers/sparse-feature-recovery/requirements.txt": "ecbaa3e4f02b460d8a3dc55588279ad7cc155f4601f44760c07584187c530459",
+    "research/transformers/sparse-feature-recovery/study.py": "acfc668fa0e9eac8f9d1374fc2f27d7b24c276b23a46d32222cbf866d1d4b541",
+    "research/transformers/sparse-feature-recovery/test_recovery.py": "af202964fca2a6738a5c66a840b65d2e98941d296ad332cc1de2a0a0d422e043",
+    "research/transformers/temporal-attention-that-changes-predictions/attention_reference.py": "1b349e87c22d3913cebcaa40c88fe1879861a8a0c06f6cadd3adad10790c27db",
+    "research/transformers/temporal-attention-that-changes-predictions/experiment.py": "a31ad1088e4d8ff01786117c0208500172759e09863593cdad84dbf0ae15d342",
+    "research/transformers/temporal-attention-that-changes-predictions/requirements.txt": "fc9488c7ae017ec55bf1e3d9cc79e1fdc278c96335022e0585a2b6e7ec8bb707",
+    "research/transformers/temporal-attention-that-changes-predictions/smoke-results.json": "804536b41307eeda00aa9f2532c14477c11439ab00382bbf8f26f1ff166183f1",
+    "research/transformers/temporal-attention-that-changes-predictions/study.py": "91077863c937c4d1395471e24c1209dc3afc85ea0c093e814203165e5e5b6717",
+    "research/transformers/temporal-attention-that-changes-predictions/test_experiment.py": "5aa6804fdc14676898074747d46359e8ed8b5caa2dfef921472bb6ee2ba1b180",
+    "research/transformers/weight-similarity-and-svd-compression/compress.py": "480e05607922ad99e0573c9618c4393f5d0fcc34386233715b99c53a89ee0c5f",
+    "research/transformers/weight-similarity-and-svd-compression/requirements.txt": "46b9d4e01aff46cd745313031e1ad77a72672ba308e473fa1a61eea184f5f34e",
+    "research/transformers/weight-similarity-and-svd-compression/study.py": "b12064ec74d90b0ef5d4ff2512df388a405b48086ac764c9ca1f1579adac5950",
+    "research/transformers/weight-similarity-and-svd-compression/test_compress.py": "0f7705d35b063a4a7f4ecd3f89ec23323d457a5697073844b6115dcb8d84ebe5"
+  },
+  "study": "self-rewarding-training-loops"
+}

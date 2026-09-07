@@ -112,3 +112,30 @@ def histories():
 
 if __name__ == "__main__":
     print(json.dumps(histories(), indent=2))
+
+
+class PersistentLedger:
+    """Append-only local command journal, replayed under a SQLite write lock."""
+    def __init__(self,path):
+        import sqlite3
+        self.db=sqlite3.connect(path)
+        self.db.execute('CREATE TABLE IF NOT EXISTS commands(sequence INTEGER PRIMARY KEY,method TEXT NOT NULL,payload TEXT NOT NULL)')
+
+    def replay(self):
+        ledger=Ledger()
+        for method,payload in self.db.execute('SELECT method,payload FROM commands ORDER BY sequence'):
+            if method not in {'submit','event','decide'}:raise ValueError('unknown stored command')
+            getattr(ledger,method)(**json.loads(payload))
+        return ledger
+
+    def apply(self,method,**payload):
+        if method not in {'submit','event','decide'}:raise ValueError('unknown ledger command')
+        encoded=json.dumps(payload,sort_keys=True,allow_nan=False)
+        with self.db:
+            self.db.execute('BEGIN IMMEDIATE')
+            ledger=self.replay()
+            result=getattr(ledger,method)(**payload)
+            self.db.execute('INSERT INTO commands(method,payload) VALUES(?,?)',(method,encoded))
+        return result
+
+    def close(self):self.db.close()

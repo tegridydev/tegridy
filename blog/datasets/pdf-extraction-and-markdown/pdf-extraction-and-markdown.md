@@ -1,3 +1,16 @@
++++
+title = "a readable PDF export can still be wrong"
+date = "2026"
+description = "PDF conversion can look finished long before I've checked whether the Markdown still means the same thing as the original page."
+updated = "2026-09-07"
+draft = false
+id = "blog/pdf-extraction-and-markdown"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/paper-and-book-collection", "blog/dataset-discovery-and-preparation"]
++++
+
 # [td] tegridydev | a readable PDF export can still be wrong
 
 PDF conversion is one of those jobs where the output can look finished long before I've checked whether it is actually right.
@@ -5,6 +18,33 @@ PDF conversion is one of those jobs where the output can look finished long befo
 A two-column paper can become one readable paragraph with the columns mixed together. A table can lose its headers. An equation can lose one minus sign and still look completely normal.
 
 So I'm less interested in **getting text out of a PDF** than keeping enough information around to notice when the conversion changed the meaning.
+
+
+## try the native-text boundary
+
+The smallest useful example has one page saying `Price: 12.50` and one blank page. The second page is deliberately **not** proof of an OCR failure: it has no native text, so the extractor must ask for review instead of guessing why.
+
+After the [module setup](README.md), run this in its folder:
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from test_extract import fixture
+from extract import extract, verify
+
+with TemporaryDirectory() as work:
+    source = Path(work) / "fixture.pdf"
+    fixture(source)
+    output = Path(work) / "reading-copy"
+    receipt = extract(source, output)
+    print(receipt["status"], receipt["page_count"])
+    print(receipt["pages"][0]["blocks"][0]["text"].strip())
+    print(receipt["pages"][1]["status"], verify(output))
+```
+
+The receipt says `partial`, with two pages. The first contains `Price: 12.50`; the second is `needs-ocr-or-review`. The saved Markdown hash verifies. Changing `extracted.md` afterwards makes verification fail.
+
+That checks native extraction and output integrity. It does not establish correct table reconstruction, reading order or OCR quality. The [fixture test](test_extract.py) makes those boundaries reproducible.
 
 ## keep the page attached
 
@@ -72,11 +112,11 @@ It writes to staging and only renames the directory after `extracted.md` and `ma
 
 A generated two-page fixture verifies one known price and one page with no native extractable text.
 
-Start with [extract.py](extract.py) or the [module README](README.md). It uses [pypdf native text extraction](https://pypdf.readthedocs.io/en/stable/user/extract-text.html), so it **does not perform OCR**.
+Start with [extract.py](extract.py) or the [module README](README.md). It uses [pypdf native text extraction](https://pypdf.readthedocs.io/en/stable/user/extract-text.html) first. Optional `--ocr` invokes local pdftoppm and Tesseract for pages without native text, and `--review` saves a static side-by-side PDF/text review page.
 
 `verify(output_path)` checks the stored reading-copy hash.
 
-OCR, semantic table/equation reconstruction and a comparison UI are still missing. The larger layout-family study hasn't run.
+The optional OCR adapter and static comparison page are implemented, but real OCR accuracy has not been measured here: the OCR executables and labelled eighteen-layout-family corpus are unavailable. Semantic table/equation reconstruction remains outside this extractor. The [corpus evaluator](evaluate_corpus.py) requires source hashes and reference page text; it does not generate its own ground truth.
 
 And `complete native extraction` only means every page returned non-empty native text.
 

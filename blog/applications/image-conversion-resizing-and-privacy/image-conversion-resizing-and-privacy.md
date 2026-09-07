@@ -1,3 +1,16 @@
++++
+title = "image conversion has more edge cases than the button suggests"
+date = "2026"
+description = "“Make this image smaller” sounds simple until smaller could mean fewer pixels, fewer bytes, a square canvas or just something that uploads properly."
+draft = false
+id = "blog/image-conversion-resizing-and-privacy"
+type = "article"
+author = "tegridydev"
+topic = "document-dataset-reliability"
+related = ["blog/pdf-extraction-and-markdown"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | image conversion has more edge cases than the button suggests
 
 “Make this image smaller” sounds like a lovely little feature.
@@ -5,6 +18,34 @@
 Then I have to ask whether smaller means fewer pixels, fewer bytes, a square canvas, or just *please make this thing upload without complaining*.
 
 That's what I like about small utilities. The button looks simple until the implementation has to decide what the user actually meant.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Across the generated image families, JPEG outputs averaged about 19 KB, WebP 31 KB and PNG 116 KB under the tested settings. These are encoded-size observations, not a quality-matched format ranking. Some size targets could not be met; the conversion receipts retain those outcomes.
+
+Generated image fixtures; actual encoded bytes and metadata checks, not a photographic perceptual-quality or browser study.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| JPEG · mean bytes | 19114.2 | 15.543 |
+| JPEG · targets met | 4 | 0 |
+| PNG · mean bytes | 115909 | 13.122 |
+| PNG · targets met | 2 | 0 |
+| WEBP · mean bytes | 31440 | 22.163 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## make the target fail visibly
+
+A one-byte JPEG budget is a useful deliberately impossible request. In [test_convert.py](test_convert.py), `convert(source(), "JPEG", byte_limit=1)` returns its smallest tried candidate with `target_met = false`; the receipt's byte count must equal the actual returned payload length.
+
+A separate fixture fits a transparent 160×90 image inside 40×40: the output is 40×22, with a white JPEG background and the private PNG metadata removed. Exact compressed bytes depend on the encoder, so the receipt is more useful than a promised percentage saving.
+
+After [setup](README.md), `python -m pytest -q test_convert.py` exercises both cases without starting the web interface. Use `receipt["bytes"]`, `receipt["dimensions"]` and `receipt["target_met"]` to decide whether the output meets your actual limit.
 
 ## geometry first
 

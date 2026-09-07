@@ -13,16 +13,16 @@ A local SQLite pipeline extracts email candidates with exact Unicode spans, reta
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 extract_contacts.py contacts.sqlite ingest notes.txt
+uv run --no-project --python .venv/bin/python python extract_contacts.py contacts.sqlite ingest notes.txt
 ```
 
 Use `list` to inspect candidate IDs; `review ID accepted REVIEWER --relation "reviewed relation"` to accept; `suppress EMAIL REASON` to exclude; and `export output.csv` to write accepted, unsuppressed candidates. These commands follow the database argument. No messages are sent.
@@ -39,3 +39,19 @@ Use `list` to inspect candidate IDs; `review ID accepted REVIEWER --relation "re
 Acquisition, deliverability validation and model-assisted relation extraction are not included. The regex is a deliberately limited candidate finder, not a complete email-address parser. Suppression uses a conservative case-insensitive key and retains source spellings.
 
 [Topic index](../README.md) · [Blog index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study lead-extraction-and-cleaning --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Of 1,000 fictional candidates, 533 were expected to remain after scripted review and suppression, and exactly 533 were exported. The result checks the review/export contract; it does not estimate extraction precision, address ownership or deliverability on real contacts.
+
+See the [article](lead-extraction-and-cleaning.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

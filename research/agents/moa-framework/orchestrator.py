@@ -125,3 +125,29 @@ if __name__ == "__main__":
             indent=2,
         )
     )
+
+
+class Cache:
+    """Persistent request-identity cache; expiration is explicit and testable."""
+    def __init__(self,path):
+        import sqlite3
+        self.db=sqlite3.connect(path)
+        self.db.execute('CREATE TABLE IF NOT EXISTS cache(key TEXT PRIMARY KEY,expires REAL,value TEXT)')
+
+    def put(self,request,value,now,ttl):
+        import math
+        if not math.isfinite(now) or not math.isfinite(ttl) or ttl<=0:raise ValueError('finite time and positive TTL required')
+        encoded=json.dumps(value,allow_nan=False)
+        with self.db:self.db.execute('INSERT INTO cache VALUES(?,?,?) ON CONFLICT(key) DO UPDATE SET expires=excluded.expires,value=excluded.value',(cache_key(request),now+ttl,encoded))
+
+    def get(self,request,now):
+        import math
+        if not math.isfinite(now):raise ValueError('finite time required')
+        row=self.db.execute('SELECT expires,value FROM cache WHERE key=?',(cache_key(request),)).fetchone()
+        if row is None:return None
+        if row[0]<=now:
+            with self.db:self.db.execute('DELETE FROM cache WHERE key=?',(cache_key(request),))
+            return None
+        return json.loads(row[1])
+
+    def close(self):self.db.close()

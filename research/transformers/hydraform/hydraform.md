@@ -1,3 +1,17 @@
++++
+title = "Hydraform: trainable structural adaptation under a fixed budget"
+date = "2026"
+description = "Test trainable attention-head mutations, optimiser coverage and checkpoint recovery before comparing adaptive and fixed architectures."
+draft = false
+id = "research/hydraform"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/tegridydev-adaptive-neural-architecture-concepts", "research/judge-head-attention"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Hydraform: trainable structural adaptation under a fixed budget
 
 *public-code analysis and proposed protocol*
@@ -5,6 +19,33 @@
 Hydraform explores changing attention-head structure while a model trains. The interesting part is not drawing a lineage of heads; it is making sure every structural mutation becomes a **real trainable state transition** and then separating the value of adaptation from final model size, optimiser resets and unrelated architectural differences.
 
 The [public repository](https://github.com/tegridydev/hydraform) is the project reference. The protocol here narrows the comparison; it does not report a new AG News training result.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The guided mutation averaged 95.47% accuracy, compared with 95.55% for both the fixed-final and random-mutation controls and 95.70% for the reset control. These synthetic results do not establish a benefit from guided mutation.
+
+Synthetic sequence classification, equal total head width, fixed/final-size/reset controls and two-candidate development-guided mutation. Candidate evaluation time is included. Not an upstream reproduction or AG News result.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| fixed final · accuracy | 0.955469 | 0.01671 |
+| fixed initial · accuracy | 0.950781 | 0.0098046 |
+| guided mutation · accuracy | 0.954688 | 0.0094075 |
+| random mutation · accuracy | 0.955469 | 0.010554 |
+| reset control · accuracy | 0.957031 | 0.009161 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## prove the replacement optimiser sees the new weights
+
+The [mutation fixture](test_adaptation.py) widens a head to 20, then narrows it to 12 under a parameter budget. After each mutation it compares parameter identities in the returned optimiser with every current model parameter, takes a gradient step and checks that the new projection weights change.
+
+Save/reload must also preserve architecture and predictions. The implementation resets all Adam moments, so a fair downstream comparison needs the same reset treatment in its controls.
+
+The historical upstream observation remains unpinned. This test supports the independent local mutation contract, not a claim about a particular upstream release or an accuracy improvement from adaptation.
 
 ## Mutation is not just another gradient step
 
@@ -36,9 +77,9 @@ If a frozen model built directly at the **final evolved architecture** performs 
 
 That is why I see the head-lineage visualisation as explanation rather than evidence. It becomes useful once the training state transition is real and the controls survive.
 
-The upstream revision used for the earlier source observations is not pinned here, so the local implementation is a reconstruction of the mutation contract. The next proper study is a final-size- and reset-matched training comparison. Until then Hydraform is a tested structural mechanism, not evidence that adaptive attention beats a fixed Transformer.
+The upstream revision used for the earlier source observations is not pinned here, so the implementation is a reconstruction of the mutation contract. The recorded synthetic comparison includes fixed-final and reset controls but found no advantage for guided mutation. Broader task evaluation is required before claiming an adaptive-attention benefit.
 
-## What exists locally
+## Implementation
 
 An independent local attention module now widens or narrows a head, copies overlapping weights, enforces a parameter budget and rebuilds Adam with all moment state reset. Tests prove optimizer coverage, new-weight updates, padding isolation and architecture-aware save/reload.
 
@@ -48,6 +89,6 @@ Start with [adaptation.py](adaptation.py); the [module README](README.md) lists 
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

@@ -1,3 +1,16 @@
++++
+title = "botsim: letting the locals talk"
+date = "2026"
+description = "I like the idea of leaving a tiny local community of model personas running, then seeing what survives once scheduling, memory and interruptions get in the way."
+draft = false
+id = "blog/botsim-local-community"
+type = "article"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["research/moa-framework", "research/local-assistants-and-memory"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | botsim: letting the locals talk
 
 I like the idea of leaving a little community of model personas running and seeing what they do with it.
@@ -5,6 +18,30 @@ I like the idea of leaving a little community of model personas running and seei
 Give them somewhere to talk, a few different interests and a problem to figure out together. Then try very hard not to end up with six bots endlessly telling each other *great point* lol.
 
 That's basically BotSim. The chat interface is the easy part. The interesting bit is **who gets a turn, what they can see and whether useful information survives the conversation**.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The deterministic provider produced 200 messages across 180 tasks and 13 storage reopens. This demonstrates restartable scheduling for the supplied conversation fixture; live Ollama behaviour and the realism of the simulated community were not evaluated.
+
+Headless deterministic fake-provider workflow with repeated process-level storage reopen; no live Ollama or social-simulation validity claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| messages | 200 | — |
+| restarts | 13 | — |
+| tasks | 180 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## a restart I can actually check
+
+The [restart test](test_app.py) posts one workshop message, steps once with `fake`, closes SQLite and reopens it. After recovery, it checks one completed task and two messages. Cancelling Ben's pending reply keeps it cancelled; a result arriving after cancellation does not become another message.
+
+That is the useful replay boundary: completed work stays completed and cancelled work cannot sneak back in. `fake` supplies deterministic local replies. It does not test Ollama availability, model quality or a real inference request. Run `python -m pytest -q test_app.py` after [setup](README.md); the Flask test client does not start a server.
 
 ## the transcript can lie a little
 

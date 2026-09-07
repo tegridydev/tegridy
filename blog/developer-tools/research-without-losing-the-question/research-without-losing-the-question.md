@@ -1,3 +1,16 @@
++++
+title = "doing research without losing the question"
+date = "2026"
+description = "I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer."
+draft = false
+id = "blog/research-without-losing-the-question"
+type = "article"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/autoresearch-web-researcher", "research/arithmetic-across-notations"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | doing research without losing the question
 
 I like questions that start slightly sideways.
@@ -7,6 +20,46 @@ Could a different representation make this easier to inspect? Is the complicated
 The problem is that one question can quickly become a reading list, dashboard and three architectures before I've decided what would count as an answer.
 
 At that point I'm also giving myself several creative ways to avoid the original question lol.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The worked example linked two claims to one recorded evidence item while preserving the question and revision trail. It demonstrates traceability, not an independently measured improvement in research quality.
+
+Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| claims | 2 | — |
+| evidence | 1 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## a reusable hand-off
+
+Here is the blank version of the question card, ready to copy into a note:
+
+```text
+Question:
+Prediction that could fail:
+Smallest comparison:
+Alternative explanation:
+Evidence needed:
+Stop condition:
+Current result and limit:
+Next action:
+```
+
+And one row format for the ledger:
+
+```text
+claim | source/run ID | exact version and passage | status | limitation | next check
+```
+
+For the arithmetic example, a failed baseline accuracy check changes the next action to fixing feasibility. It does not turn into evidence about which component performs arithmetic. Keep that failed check in the ledger so tomorrow's plan starts from what happened.
 
 ## turn curiosity into something that can lose
 

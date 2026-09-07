@@ -1,3 +1,17 @@
++++
+title = "Face-based attention circuits: a controlled feature-mixing study"
+date = "2026"
+description = "A saved feature-mixing pilot roughly matches its dense control and does not establish a gate-specific advantage."
+draft = false
+id = "research/face-based-attention-circuits"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/judge-head-attention", "research/sparse-feature-recovery"]
+status = "pilot"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Face-based attention circuits: a controlled feature-mixing study
 
 *architecture proposal and evaluation plan*
@@ -5,6 +19,45 @@
 Face-Based Attention Circuits (FBAC) is a deliberately small feature-mixing idea. Split a hidden vector into fixed coordinate slices—**faces**—then let the current token representation choose how strongly each projected slice contributes back to the residual stream.
 
 The name is just a name. A face is not assumed to be a semantic unit, geometric object or little independent neuron society. The research question is whether **input-dependent mixing of fixed slices does anything useful beyond adding roughly the same number of dense parameters**.
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+FBAC averaged 82.34% on the ordinary final split, below the base model at 89.06%. Under the layout shift it averaged 58.59%, close to the dense control at 58.83% and below the static gate at 59.80%. The swap comparisons do not supply the missing matched-magnitude causal control.
+
+Grouped 1024 operand pairs, per-mode and layout-shift evaluation, five initialisation seeds. Swap effects are not a matched-magnitude causal identification result.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| base · final · accuracy | 0.890625 | 0.10534 |
+| base · layout shift · accuracy | 0.510547 | 0.10018 |
+| dense · final · accuracy | 0.787109 | 0.10388 |
+| dense · layout shift · accuracy | 0.588281 | 0.078798 |
+| fbac · cross mode swap · accuracy | 0.819922 | 0.092216 |
+| fbac · final · accuracy | 0.823438 | 0.090073 |
+| fbac · layout shift · accuracy | 0.585938 | 0.078247 |
+| fbac · within mode swap · accuracy | 0.817187 | 0.089275 |
+| static · final · accuracy | 0.819922 | 0.13953 |
+| static · layout shift · accuracy | 0.598047 | 0.10812 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## Earlier pilot results
+
+The saved pilot did not establish a gate-specific advantage: the dense adapter slightly exceeded FBAC, and gate swaps did not consistently hurt it. This is a reason to improve the comparison, not evidence that conditional mixing works.
+
+| Condition | Final accuracy |
+| --- | --- |
+| base | 32.8125% |
+| dense | 34.3750% |
+| static | 31.0547% |
+| fbac | 34.1797% |
+
+Seed 1729; 40 training steps; 768/128/128 train/development/final operand pairs. These are the saved CPU smoke settings, not the full protocol below.
+
+Records: [smoke-results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## The module
 
@@ -51,7 +104,7 @@ Switch Transformers is useful broad prior context for conditional routing, but F
 
 The current synthetic task is intentionally small because I want the gate to earn its complexity before trying arithmetic, natural language or large-model circuit claims.
 
-## What exists locally
+## Implementation
 
 FBAC now trains beside base, dense-adapter and static-mixture controls on frozen operand-pair splits. The implementation checks the exact 4,420-parameter mixer, gate gradients and checkpoint reloads. Final evaluation includes gate permutations within the same task mode and across modes.
 
@@ -59,7 +112,7 @@ Start with [experiment.py](experiment.py); the [module README](README.md) lists 
 
 All four task modes for an operand pair stay together. Noise is resampled after pair allocation. Gate swaps intervene on computed mixture weights while preserving the recipient features and projections.
 
-## What I actually observed
+## Earlier observations
 
 In the saved 40-step, seed-1729 run, FBAC accuracy was 34.2%, compared with 34.4% for the dense adapter and 32.8% for the base model. Within-mode gate swaps gave 34.0%; cross-mode swaps gave 34.6%. These small, mixed differences do not support a gate-specific advantage. The useful next experiment is a sufficiently trained, multi-seed comparison with matched interventions. See the [saved result](smoke-results.json) for the exact values and run scope.
 
@@ -73,6 +126,6 @@ In the saved 40-step, seed-1729 run, FBAC accuracy was 34.2%, compared with 34.4
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

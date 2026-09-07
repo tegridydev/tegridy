@@ -10,11 +10,9 @@ I also use this space to work through research questions, explore weird ideas an
 
 [Blog](#blog) · [Research](#research) · [Running the code](#running-the-code)
 
-The `main` branch contains the public articles and their supporting code. The `static` branch contains the built [website](https://tegridydev.com/).
-
 ## Blog
 
-Personal dev notes, local tools, experiments and things I've been playing with. [Open the blog index](blog/README.md).
+Practical tools, experiments and the questions behind them. [Open the blog index](blog/README.md).
 
 ### Agents and assistants
 
@@ -103,12 +101,9 @@ Model mechanisms, agent systems, knowledge tools, numerical methods and security
 ## Running the code
 
 
+Supporting implementations accompany the articles. Each project README lists its entry points, dependencies and commands. The [reproduction guide](tools/studies/README.md) uses uv and pinned Python 3.12 dependencies to run the studies and their checks; browser tools identify their HTML entry point.
 
-Local implementations are included in blog modules and research modules when relevant. Open a project's README for its entry point, dependencies and commands. Python tools use Python 3.11 or newer; browser tools identify their HTML page or local address. Run Python tests from the individual project folder.
-
-Saved research pilots include failed and inconclusive results. Their articles explain what was measured and what still needs a larger study.
-
-
+Forty entries include recorded workflow checks or CPU comparisons, covering 140 runs. The articles distinguish functional checks, comparative experiments and proposals, and retain negative and inconclusive findings. Original pilot records remain available alongside the larger comparisons.
 
 [Back to top](#td-tegridydev)
 

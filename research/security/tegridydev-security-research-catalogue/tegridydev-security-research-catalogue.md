@@ -1,3 +1,17 @@
++++
+title = "Security research: evidence, evaluation and open leads"
+date = "2026"
+description = "A map of defensive research proposals, available evidence and unresolved source identities, with a concrete next check for each lead."
+updated = "2026-09-08"
+draft = false
+id = "research/tegridydev-security-research-catalogue"
+type = "research-note"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = ["research/internet-protocol-amplification-research", "research/sigint-spectrum-analysis-and-covert-channel-concepts"]
+status = "proposal"
++++
+
 # [td] tegridydev | Security research: evidence, evaluation and open leads
 
 *defensive research overview*
@@ -5,6 +19,22 @@
 These are separate security-research leads that happen to share one useful principle: **an observation should not quietly become a stronger claim as it moves through a tool**. A parser result is not attribution, a static code feature is not malicious intent, and a dashboard count is not automatically the underlying truth.
 
 I use one small evidence record across the leads—source identity/revision, exact span or event range, collection method, transformation history and unresolved questions—while keeping each threat model and label definition separate. PROV-DM is useful vocabulary for provenance without requiring a ledger or standards-conformance claim.
+
+
+## Status and next checks
+
+| Lead | Evidence available here | Status and next step |
+| --- | --- | --- |
+| SEC-01 incident review | Proposed matched fictional incident packets | Build the answer key and report trace before comparing agents |
+| SEC-02 contract context | Evaluation design and prior-work reference | Separate intent and vulnerability labels; curate inert fixtures |
+| SEC-03 model safety | Proposed response and disagreement criteria | Freeze labels and controls before collecting outputs |
+| SEC-04 identity | Proposed provider receipt fields | Test wrong-entity merges and explicit adapter failures |
+| SEC-05 processing | Proposed synthetic resolver workload | Test bounded concurrency, retries and restart accounting |
+| SEC-06 source recovery | Unresolved `inst4.py` identity | Recover the exact source before making implementation claims |
+| SEC-07 source recovery | Unresolved `Butcher.py` identity | Recover the exact source; carving evaluation remains proposed |
+| SEC-08 index quality | Proposed fictional ledger comparison | Define source events and trace each aggregation |
+
+The existing [resource simulator](../internet-protocol-amplification-research/README.md) and [saved signal pilot](../sigint-spectrum-analysis-and-covert-channel-concepts/README.md) support their own bounded claims. They do not validate all eight leads.
 
 ## SEC-01 — evidence-linked incident review
 
@@ -50,10 +80,9 @@ The common infrastructure can be provenance. The conclusions cannot. That bounda
 
 The [resource-budget simulator](../internet-protocol-amplification-research/README.md) now checks finite graph and byte-accounting invariants. The [signal study](../sigint-spectrum-analysis-and-covert-channel-concepts/README.md) includes an executable generator, classifiers and a saved synthetic result showing poor CNN shift transfer. Neither is a deployed vulnerability finding. Incident-correction fixtures and the unresolved inst4/Butcher source identities remain open; no identity or evidence has been invented to fill those gaps.
 
-[Research index](../../README.md)
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

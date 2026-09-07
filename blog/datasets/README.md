@@ -2,7 +2,7 @@
 
 Personal development notes, worked examples and things I want to build.
 
-4 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [cleaning a dataset without cleaning away its meaning](dataset-discovery-and-preparation/README.md)
 - [collecting papers without losing why I wanted them](paper-and-book-collection/README.md)

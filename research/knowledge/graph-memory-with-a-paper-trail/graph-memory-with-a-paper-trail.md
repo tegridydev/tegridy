@@ -1,3 +1,17 @@
++++
+title = "Graph memory with source versions and applicability"
+date = "2026"
+description = "Compare graph and metadata-only retrieval on versioned Cedar sources, including the limits of a fixture where both find the same evidence."
+draft = false
+id = "research/graph-memory-with-a-paper-trail"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/cloudvec-paper-search", "research/local-assistants-and-memory"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Graph memory with source versions and applicability
 
 *system design and evaluation plan*
@@ -5,6 +19,36 @@
 I want a research memory that can answer two questions at once: **what does this say?** and **what is this statement based on, under which version and conditions?** The proposal is ordinary passage retrieval plus a small graph connecting source versions, passages and claims.
 
 The graph is an index for following evidence. It cannot turn an unsupported statement into a true one, and I do not want graph complexity getting credit for metadata that a flat retriever could have used just as well.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Graph expansion recovered the intended support, but the metadata-only control recovered it too. This purpose-built fixture therefore does not establish an advantage for graph structure over the available metadata.
+
+Sixty purpose-built synthetic documents; graph links make qualifications reachable, while metadata-only is a strong control. This construction does not measure natural-corpus relevance or human annotation cost; seed repeats are deterministic.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| graph · support recall | 1 | — |
+| lexical · support recall | 0 | — |
+| metadata-only · support recall | 1 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## the metadata baseline already gets there
+
+The [Cedar fixture](test_cedar.py) has three sources and five scoped questions. Graph traversal and metadata-only retrieval select the same evidence because the applicable sources are already candidates.
+
+| Request | Fixture behaviour |
+| --- | --- |
+| Scope omitted | Conditional evidence with `needs-scope` |
+| Unsupported release 3 | No invented release-specific answer |
+| New deployment versus upgrade | Keep the different applicability rules |
+
+This is useful correctness coverage, but it cannot establish a graph advantage. A larger candidate set, independently assessed support and annotation-cost comparison remain needed.
 
 ## The minimum graph
 
@@ -48,7 +92,7 @@ Measure answer correctness, version correctness, supported-claim rate, evidence 
 
 The current Cedar fixture is intentionally small enough that every useful source is already easy to retrieve. That makes it good for checking semantics—especially applicability and historical versions—but not for claiming a graph advantage. The real test is whether graph expansion recovers useful qualifications that a metadata-matched flat baseline misses.
 
-## What exists locally
+## Implementation
 
 The three Cedar sources and five scoped questions are now executable. Retrieval preserves release/deployment metadata, explicit exclusions, a word budget and reviewed edge traversal capped at two hops and forty records. The test confirms that graph and metadata-only retrieval select the same evidence on this small fixture.
 
@@ -63,6 +107,6 @@ An unspecified question returns conditional evidence with `needs-scope`; release
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

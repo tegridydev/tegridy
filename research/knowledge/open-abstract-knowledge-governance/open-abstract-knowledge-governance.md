@@ -1,3 +1,17 @@
++++
+title = "OpenAbstract: correction, evidence and the public reading view"
+date = "2026"
+description = "An append-only correction fixture separates claim history, support labels and the default public reading view."
+draft = false
+id = "research/open-abstract-knowledge-governance"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["research/autoresearch-web-researcher", "research/graph-memory-with-a-paper-trail"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | OpenAbstract: correction, evidence and the public reading view
 
 *research design*
@@ -5,6 +19,29 @@
 OpenAbstract started from a fairly simple idea: preserve public knowledge and its history without pretending that permanence makes the content correct. The research question I care about now is narrower: **how should a system change what readers see after a correction while keeping the original claim, evidence and review history inspectable?**
 
 That separates four things that are easy to blur together: integrity, provenance, truth and moderation.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The command journal replayed 100 synthetic cases per seed with zero replay errors. Support labels were supplied explicitly, so this demonstrates persistent state transitions rather than independent evidence assessment or better human governance.
+
+Synthetic command-journal crash/replay with explicit support labels; no independent-source voting or human-governance advantage claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| cases | 100 | 0 |
+| replay errors | 0 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## change the reading view without erasing the dispute
+
+The [governance fixture](test_governance.py) keeps immutable claim versions and appends decisions separately. An accepted correction can change the default reading pointer; a challenge or appeal can suspend the affected default while keeping its earlier version available.
+
+Missing support leads to deferral, not invented corroboration. Duplicate evidence IDs do not create additional votes. The forty replay histories repeat a fixture pattern: they test the state transitions, not the truth of externally supplied support labels or the fairness of a real moderation process.
 
 ## What a permanent record can and cannot promise
 
@@ -40,7 +77,7 @@ An unresolved outcome is allowed. Sometimes “the available evidence does not d
 
 The practical target is a reader-facing history that answers: **why is this version currently preferred, what evidence supports it, what was challenged and what could change the decision?** Permanence is useful, but it is only one part of that answer.
 
-## What exists locally
+## Implementation
 
 The correction ledger now separates immutable claim versions, append-only review events and the default reading pointer. Challenges and appeals suspend an affected default; appeals identify an earlier decision. Missing support defers rather than manufacturing corroboration.
 
@@ -50,6 +87,6 @@ The equal-permission fixture retains rejected and deferred versions. Duplicate e
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

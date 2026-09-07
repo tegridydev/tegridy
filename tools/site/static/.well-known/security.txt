@@ -1,0 +1,4 @@
+Contact: https://tegridydev.com/#contact
+Expires: 2027-09-03T23:59:59Z
+Preferred-Languages: en
+Canonical: https://tegridydev.com/.well-known/security.txt

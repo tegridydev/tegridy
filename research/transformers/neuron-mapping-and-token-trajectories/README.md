@@ -13,10 +13,10 @@ The capture API now records every selected hook in one forward pass, keys values
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 This module exposes a Python API. Its local tests are complete runnable usage examples, including failure cases.
@@ -35,3 +35,19 @@ This module exposes a Python API. Its local tests are complete runnable usage ex
 The tests use a tiny local network; no semantic category or real-model circuit has been established. Discovery/final corpus selection, category statistics and matched causal interventions remain experiments.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study neuron-mapping-and-token-trajectories --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Six declared prompts produced 37,632 activation values, projected using a shared two-dimensional basis fitted on the first prompt. Occurrence identity is retained across the capture. Category selectivity and causal effects require separate experiments.
+
+See the [article](neuron-mapping-and-token-trajectories.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

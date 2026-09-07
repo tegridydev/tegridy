@@ -27,3 +27,19 @@ Open `viewer.html` and choose `fixture.json`, or a schema-1 export from the rese
 The included fixture is synthetic data, not a mapped model. The viewer does not infer circuits, perform semantic token alignment or load a model. JavaScript contract checks pass; graphical interaction was not exercised in a browser.
 
 [Topic index](../README.md) · [Blog index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study what-a-model-map-can-show --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+The capture contains 8,448 activation values across 11 tokens from a pinned model. It provides an input for the viewer with recorded provenance; a visual pattern alone does not establish a semantic feature or causal circuit.
+
+See the [article](what-a-model-map-can-show.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

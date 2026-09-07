@@ -13,10 +13,10 @@ The DPO implementation now sums response-masked token log probabilities and deta
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 This module exposes a Python API. Its local tests are complete runnable usage examples, including failure cases.
@@ -35,3 +35,19 @@ Use `sequence_logprob`, `dpo` and `judge_audit`. The tiny gradient test is an ob
 No production judge or iterative self-rewarding trainer has been validated. Sequence masks and external correctness labels remain caller responsibilities; style-controlled audits must pass before using model-generated preferences.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study self-rewarding-training-loops --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Both trained policies scored zero on held-out operand combinations across the five seeds, while the unchanged policy averaged 9%. Accepted preference pairs did not produce combinatorial generalisation in this finite task. This does not evaluate free-form self-judging language models.
+
+See the [article](self-rewarding-training-loops.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

@@ -1,3 +1,17 @@
++++
+title = "CloudVec: measuring index freshness separately from search quality"
+date = "2026"
+description = "A SQLite outbox fixture checks index freshness across crashes, retries, updates and deletion without claiming semantic search quality."
+draft = false
+id = "research/cloudvec-paper-search"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["blog/embeddings-need-a-contract", "research/graph-memory-with-a-paper-trail"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | CloudVec: measuring index freshness separately from search quality
 
 *design study and proposed evaluation*
@@ -5,6 +19,44 @@
 CloudVec started as a paper-search prototype, but the first problem I want to test is more basic than semantic relevance: **can I prove that the search index actually contains the current version of every paper the metadata store says it contains?**
 
 A paper can exist happily in SQLite while never making it into the vector index. A dashboard can then report the right database count and still return incomplete search results. I want index freshness to be an explicit state I can measure rather than something inferred from a green “total papers” number.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Rebuilt and reverse-replayed indexes matched across the declared runs after updates, deletions and injected pre-acknowledgement crashes. This tests application replay and version freshness, not power-loss durability or semantic retrieval quality.
+
+Persistent SQLite crash/replay/version/tombstone comparison; supplied fixture vectors only, no semantic relevance measurement.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| injected crashes | 91 | 0 |
+| live documents | 43.4 | 1.9494 |
+| rebuild equal | 1 | 0 |
+| reverse replay equal | 1 | 0 |
+| writes | 1000 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## follow one crash through replay
+
+A useful freshness check is a tiny sequence with an awkward order. The [outbox test](test_outbox.py) does this without a remote vector service:
+
+| Step | Authoritative state | Eligible index state |
+| --- | --- | --- |
+| Commit paper v1 and its job | v1 exists in SQLite | Delivery still needed |
+| Apply v1, crash before acknowledgement | Job remains unacknowledged | v1 may already be present |
+| Commit and deliver v2 | v2 is current | v2 |
+| Retry the old v1 job | v2 remains current | v2; old delivery cannot roll it back |
+| Deliver deletion, then retry v2 | Deleted | Empty; tombstone prevents resurrection |
+
+After [setup](README.md), `python -m pytest -q test_outbox.py` checks the sequence, restarts the store, replays pending jobs and compares it with a rebuild. It also checks that no unacknowledged jobs remain.
+
+A database row count cannot tell me any of that. Freshness depends on identity, version and delivery state. If the in-memory index is lost after jobs were acknowledged, replaying only pending jobs is insufficient: rebuild from the database.
+
+This is an application of the [transactional outbox pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html): commit the change and its delivery intent together, then make retries safe. This fixture tests delivery mechanics, not semantic relevance or a production worker service.
 
 ## Treat the index as a derivative
 
@@ -42,7 +94,7 @@ Two extensions are worth keeping. A **freshness-aware result view** can show whe
 
 The key result I want first is much less glamorous: after a crash, **is search missing anything, and can the system tell me exactly why?**
 
-## What exists locally
+## Implementation
 
 SQLite now commits metadata and outbox jobs together. The in-memory index adapter enforces monotonically increasing versions and retains deletion tombstones. Crash-before-ack, out-of-order retry, restart, empty-store and full-rebuild fixtures converge to the same final state.
 
@@ -52,6 +104,6 @@ Use `Store.write`, `deliver`, `replay` and `rebuild`; the test provides the comp
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

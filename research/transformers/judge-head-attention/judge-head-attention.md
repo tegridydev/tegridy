@@ -1,3 +1,17 @@
++++
+title = "Judge-head attention: measuring contextual influence"
+date = "2026"
+description = "A failed initial recall run and bounded follow-up comparison show why gating tests alone do not establish task competence."
+draft = false
+id = "research/judge-head-attention"
+type = "research-note"
+author = "tegridydev"
+topic = "architecture-experiments"
+related = ["research/face-based-attention-circuits", "research/hydraform"]
+status = "pilot"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Judge-head attention: measuring contextual influence
 
 *design study and proposed evaluation*
@@ -5,6 +19,39 @@
 Judge-head attention reserves one attention head as a little referee. Every worker head computes normally, the judge produces a context-dependent signal, and that signal gates how strongly the worker outputs contribute before the final projection.
 
 The first research question is **influence allocation**, not speed. Because all worker heads already ran, a small gate value does not mean less compute. Conditional skipping would need a different mechanism that predicts the choice before the expensive work happens.
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+The judge gate averaged 44.10% accuracy, ordinary attention 43.92% and the token-MLP gate 44.84%. The small mean differences do not establish a judge-specific advantage; parameter counts differ and all heads are still computed.
+
+64-token two-pair synthetic recall; disjoint key/value associations and development checkpoint selection. Gating computes all heads; parameter differences are reported, not claimed matched. Causal head-importance study remains separate.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| judge · accuracy | 0.441016 | 0.027469 |
+| ordinary · accuracy | 0.43916 | 0.013609 |
+| static · accuracy | 0.429492 | 0.015084 |
+| token · accuracy | 0.448437 | 0.018831 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## Earlier pilot results
+
+The first run barely learned the task. A longer follow-up improved accuracy, but ordinary attention still led the gated variants. The two runs answer a learnability question on the same small task; they are not independent architecture benchmarks.
+
+| Condition | 40 steps | 400 steps |
+| --- | --- | --- |
+| ordinary | 0.7812% | 48.4375% |
+| static | 0.0000% | 45.3125% |
+| token | 0.0000% | 39.0625% |
+| judge | 0.0000% | 38.2812% |
+
+Both records use seed 1729 and the 12-token two-pair fixture, with separately seeded evaluation episodes. They do not establish transfer to disjoint combinations.
+
+Records: [learning-check.json](learning-check.json), [smoke-results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## Define what the judge actually controls
 
@@ -46,7 +93,7 @@ Any efficiency result then needs actual prefill/decode timings, warm-up, hardwar
 
 The point of the current study is smaller: **can one contextual signal allocate influence in a way that predicts which already-computed workers actually matter for recall?**
 
-## What exists locally
+## Implementation
 
 The causal recall model now compares ordinary attention, static worker scalars, token-state gates and a reserved judge head. A deterministic key/value oracle checks labels, causal tests check masks and gradient tests confirm the gate alters executed worker contributions.
 
@@ -54,7 +101,7 @@ Start with [experiment.py](experiment.py); the [module README](README.md) lists 
 
 Every head is computed before gating. Saved results are one seed with a separate seeded evaluation set; they are not an independently held-out combination benchmark.
 
-## What I actually observed
+## Earlier observations
 
 The original forty-step run failed to learn useful held-out recall: the ordinary condition scored below 1% and the three gated conditions scored 0%. Passing causal-mask and gradient tests therefore did not establish task competence. This failed smoke result is retained instead of being hidden. A fixed 400-step follow-up produced ordinary 48.4%, static 45.3%, token 39.1%, judge 38.3%. This follow-up investigates learnability on the same small task; it is not a new independent evaluation set or a full architecture benchmark. See [learning-check.json](learning-check.json). See the [saved result](smoke-results.json) for the exact values and run scope.
 
@@ -64,6 +111,6 @@ The original forty-step run failed to learn useful held-out recall: the ordinary
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

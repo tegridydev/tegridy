@@ -41,3 +41,13 @@ def test_text_gap_and_integrity(tmp_path):
     assert not verify(out)
     with pytest.raises(FileExistsError):
         extract(p, out)
+
+
+def test_optional_ocr_callback_and_review_integrity(tmp_path):
+    path=tmp_path/'fixture.pdf';fixture(path);calls=[]
+    def ocr(source,page):calls.append(page);return 'Recognised fixture text.'
+    output=tmp_path/'review';result=extract(path,output,ocr=ocr,review=True)
+    assert calls==[2] and result['status']=='complete-text-extraction-with-ocr'
+    assert verify(output)
+    (output/'source.pdf').write_bytes(b'changed')
+    assert not verify(output)

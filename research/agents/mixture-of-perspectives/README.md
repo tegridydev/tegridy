@@ -13,16 +13,16 @@ The evaluator now applies hard constraints before utility ranking, preserves Par
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 perspectives.py
+uv run --no-project --python .venv/bin/python python perspectives.py
 ```
 
 All criteria use declared [0,1] scales and nonnegative weights. Ties remain multiple winners; an infeasible high-scoring action cannot win.
@@ -39,3 +39,19 @@ All criteria use declared [0,1] scales and nonnegative weights. Ties remain mult
 Scores are hand-defined fictional utilities. The forty cases vary one scenario rather than establishing transfer to held-out wording or real decisions. Independent rubric review and wording-sensitivity evaluation remain necessary.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study mixture-of-perspectives --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+The perspectives disagreed in 37.3% of the fictional utility cases while producing no infeasible winners. This demonstrates sensitivity to declared value weights while retaining hard constraints; it does not evaluate moral judgement or language-model deliberation.
+
+See the [article](mixture-of-perspectives.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

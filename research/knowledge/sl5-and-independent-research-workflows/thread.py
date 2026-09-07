@@ -127,3 +127,21 @@ def fixture():
     thread.quote("m2", 0, 16, "m1", 0, 16)
     thread.correct_time("m0", -1, "clock correction from source metadata")
     return thread
+
+
+def export_thread(thread):
+    from dataclasses import asdict
+    return dict(schema=1,messages=[asdict(m) for m in thread.messages.values()],quotes=thread.quotes,corrections=thread.corrections)
+
+
+def import_thread(data):
+    if data.get('schema')!=1:raise ValueError('unknown thread schema')
+    thread=Thread()
+    for row in data['messages']:thread.add(Message(**row))
+    for container,quotes in data['quotes'].items():
+        for start,end,target,target_start,target_end in quotes:thread.quote(container,start,end,target,target_start,target_end)
+    for row in data['corrections']:thread.correct_time(row['message'],row['timestamp'],row['reason'])
+    # Resolve every annotated span now, rejecting quote cycles on import.
+    for container,quotes in thread.quotes.items():
+        for start,end,*_ in quotes:thread.attribution(container,start,end)
+    return thread

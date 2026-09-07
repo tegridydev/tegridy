@@ -2,7 +2,7 @@
 
 Personal development notes, worked examples and things I want to build.
 
-3 modules in this topic include local code or a viewer. Their READMEs separate tested behaviour, saved pilot results and remaining study work.
+Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
 - [getting a useful export out of a chat log](discord-log-export-and-field-extraction-toolkit/README.md)
 - [image conversion has more edge cases than the button suggests](image-conversion-resizing-and-privacy/README.md)

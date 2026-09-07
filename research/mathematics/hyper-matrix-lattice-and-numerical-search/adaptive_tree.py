@@ -74,13 +74,12 @@ class AdaptiveTree:
         self.points = points
         middle = [lo + (hi - lo) / 2 for lo, hi in bounds]
         mean = self.aggregate.mean
-        variance = (
-            math.fsum((p[4] - mean) ** 2 for p in points) / len(points)
-            if points
-            else 0.0
-        )
+        scale = max((abs(p[4]) for p in points), default=0.0)
+        # Compare standard deviations to avoid squaring large finite values.
+        deviation = (math.sqrt(math.fsum((p[4] / scale - mean / scale) ** 2 for p in points) / len(points)) * scale) if scale else 0.0
+
         if (
-            variance <= variance_threshold
+            deviation <= math.sqrt(variance_threshold)
             or len(points) <= capacity
             or _depth >= max_depth
             or len({tuple(p[:4]) for p in points}) <= 1

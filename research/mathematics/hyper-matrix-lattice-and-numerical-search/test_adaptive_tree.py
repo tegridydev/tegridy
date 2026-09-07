@@ -10,3 +10,8 @@ def test_refinement_changes_storage_not_exact_partial_result():
     assert coarse.query(query) == refined.query(query) and coarse.query(query).mean == 2
     shifted = ((0.5, 1.0), (0.0, 1.0), (0.0, 1.0), (0.0, 1.0))
     assert coarse.query(shifted).mean == refined.query(shifted).mean == 10
+
+
+def test_large_finite_variation_does_not_overflow_square():
+    tree=AdaptiveTree([(0.1,)*4+(1e200,),(.9,)*4+(-1e200,)],capacity=1,variance_threshold=1e200)
+    assert tree.query(((0.,.5),)*4).count==1

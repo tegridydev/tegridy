@@ -1,3 +1,17 @@
++++
+title = "glow-worm: an inspectable byte-language-model baseline"
+date = "2026"
+description = "A small byte-language-model implementation with a saved held-out smoke result, explicit window boundaries and no chatbot-quality claim."
+draft = false
+id = "research/glow-worm-byte-model"
+type = "research-note"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = []
+status = "pilot"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | glow-worm: an inspectable byte-language-model baseline
 
 *research proposal*
@@ -5,6 +19,37 @@
 glow-worm is deliberately small: predict the next UTF-8 byte, measure held-out probability quality and keep every part of the pipeline inspectable. A byte vocabulary avoids tokenizer mystery, but it also means one generated token is not necessarily one visible character. The first milestone is therefore a measured byte language model, not “I trained a chatbot”.
 
 The [glow-worm repository](https://github.com/tegridydev/glow-worm) is the project reference. This module contains the local byte baseline and experiment scaffolding; useful conversation would require additional data and evaluation later.
+
+
+<!-- cpu-comparison:start -->
+## Results
+
+Across five initialisation seeds, held-out loss averaged 3.360 bits per byte versus 4.570 for the unigram baseline. Each model used 2,097,152 training-token exposures from approximately ten million available bytes. This is a bounded byte-prediction result, not a full-corpus training pass or a chatbot evaluation.
+
+Pinned WikiText-2 article-grouped byte study with up to roughly ten million available training bytes; fixed 512-step CPU budget, 256-byte windows, development checkpoint selection. Unigram sees the full selected corpus; Transformer training exposure is separately recorded. No chatbot-quality claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| bits per byte | 3.36013 | 0.033341 |
+| unigram bits per byte | 4.57022 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## Earlier pilot results
+
+The saved byte model passed a tiny held-out evaluation and checkpoint reload check. Its low training loss did not translate into similarly low held-out uncertainty. This is a smoke result, not a language-model quality benchmark.
+
+| Measurement | Saved value |
+| --- | --- |
+| Held-out bits per byte | 7.637374 |
+| Evaluation bytes | 352 |
+| Training/evaluation windows | 18 / 11 |
+| Checkpoint reload equal | True |
+
+Seed 1729; 40 training steps; one training document and one distinct evaluation document, identified by hashes in the record. Windows are 32 tokens, non-overlapping and document-local; incomplete tails are excluded. No multi-corpus comparison was run.
+
+Records: [smoke-results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## Bytes make the contract simple, not effortless
 
@@ -32,7 +77,7 @@ The release should keep the model definition, data manifest, split IDs, configur
 
 The ten-million-byte study is still the real next step. The current smoke fixture is mainly there to prove that the causal model, byte accounting and reload path behave the way the article says they do.
 
-## What exists locally
+## Implementation
 
 The four-block, width-128 causal byte Transformer now trains and reports held-out bits per byte. Tests cover prefix invariance to future tokens, one-batch learning and checkpoint reload. The runner accepts separate raw-byte training/evaluation documents and rejects identical hashes across those partitions.
 
@@ -40,12 +85,12 @@ Start with [experiment.py](experiment.py); the [module README](README.md) lists 
 
 Optional `--training-documents train.txt --evaluation-documents heldout.txt` uses local files. Multiple filenames are accepted for each option. The report identifies document hashes and scored byte counts; byte-only evaluation excludes the end-of-document control target.
 
-## What I actually observed
+## Earlier observations
 
 The saved run scores 352 held-out byte targets at 7.637 bits per byte. Its final training loss is much lower than its held-out loss, which is unsurprising for repeated training on a tiny document. A uniform 256-byte baseline assigns eight bits per byte; this comparison alone is weak evidence because the learned model and unigram baselines must also be compared on the exact same scored bytes and document groups. See the [saved result](smoke-results.json) for the exact values and run scope.
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

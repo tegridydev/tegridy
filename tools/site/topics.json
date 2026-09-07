@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "document-dataset-reliability",
+    "title": "Document and dataset reliability",
+    "description": "Follow a document from collection through extraction, preparation and validation.",
+    "articles": [
+      "blog/paper-and-book-collection",
+      "blog/pdf-extraction-and-markdown",
+      "blog/dataset-discovery-and-preparation",
+      "blog/synthetic-data-generation-and-quality",
+      "blog/image-conversion-resizing-and-privacy",
+      "blog/discord-log-export-and-field-extraction-toolkit",
+      "blog/lead-extraction-and-cleaning",
+      "blog/sorting-notes-without-rewriting-history"
+    ]
+  },
+  {
+    "slug": "retrieval-evidence",
+    "title": "Retrieval and evidence",
+    "description": "Check representations, source versions and what a retrieved result actually supports.",
+    "articles": [
+      "blog/embeddings-need-a-contract",
+      "research/cloudvec-paper-search",
+      "research/graph-memory-with-a-paper-trail",
+      "research/local-assistants-and-memory",
+      "research/autoresearch-web-researcher",
+      "blog/knowledge-bases-that-help-with-real-work",
+      "blog/research-without-losing-the-question",
+      "blog/paper-and-book-collection",
+      "blog/xanadu-linked-documents",
+      "research/open-abstract-knowledge-governance",
+      "research/sl5-and-independent-research-workflows"
+    ]
+  },
+  {
+    "slug": "agent-systems",
+    "title": "Agent systems",
+    "description": "Follow state, attribution and evaluation through small agent systems.",
+    "articles": [
+      "blog/botsim-local-community",
+      "research/moa-framework",
+      "research/swarm-and-collective-agent-concepts",
+      "research/mixture-of-perspectives",
+      "research/recursive-self-correction-with-uncertainty",
+      "research/self-rewarding-training-loops",
+      "blog/minecraft-time-with-astra"
+    ]
+  },
+  {
+    "slug": "model-interpretation-evaluation",
+    "title": "Model interpretation and evaluation",
+    "description": "Move from a model view to compatible captures, interventions and bounded comparisons.",
+    "articles": [
+      "blog/what-a-model-map-can-show",
+      "research/neuron-mapping-and-token-trajectories",
+      "research/arithmetic-across-notations",
+      "research/sparse-feature-recovery",
+      "research/glow-worm-byte-model",
+      "research/sigint-spectrum-analysis-and-covert-channel-concepts",
+      "research/internet-protocol-amplification-research",
+      "research/tegridydev-security-research-catalogue"
+    ]
+  },
+  {
+    "slug": "architecture-experiments",
+    "title": "Architecture experiments",
+    "description": "Separate implemented mechanisms, small pilot findings and untested architecture proposals.",
+    "articles": [
+      "research/tegridydev-adaptive-neural-architecture-concepts",
+      "research/face-based-attention-circuits",
+      "research/judge-head-attention",
+      "research/self-healing-tokens",
+      "research/temporal-attention-that-changes-predictions",
+      "research/reflective-transformer-memory-and-adaptation",
+      "research/hydraform",
+      "research/bitnet-quantization-and-conversion",
+      "research/weight-similarity-and-svd-compression",
+      "research/four-dimensional-lattice",
+      "research/hyper-matrix-lattice-and-numerical-search"
+    ]
+  }
+]

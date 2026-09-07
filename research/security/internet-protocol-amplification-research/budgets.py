@@ -107,3 +107,37 @@ if __name__ == "__main__":
             indent=2,
         )
     )
+
+
+def simulate_lifetimes(jobs, capacity=16, deadline=10, work_budget=1000):
+    """Discrete simulated time; one work unit per admission, no network traffic.
+
+    A deadline is absolute from admission; additional bytes cannot extend it.
+    At a deadline boundary an unfinished request expires before a new admission.
+    """
+    import heapq
+    if any(type(v) is not int or v<1 for v in [capacity,deadline,work_budget]):
+        raise ValueError('positive integer limits required')
+    rows=list(jobs)
+    seen=set()
+    for job in rows:
+        if not job.get('id') or job['id'] in seen:raise ValueError('unique nonempty job IDs required')
+        seen.add(job['id'])
+        if type(job['arrival']) is not int or job['arrival']<0 or (job['duration'] is not None and (type(job['duration']) is not int or job['duration']<0)):
+            raise ValueError('nonnegative simulated arrival and duration required')
+    active=[]; ledger=[]; work=0; peak=0
+    for job in sorted(rows,key=lambda j:(j['arrival'],j['id'])):
+        while active and active[0][0]<=job['arrival']:
+            heapq.heappop(active)
+        if work>=work_budget or len(active)>=capacity:
+            ledger.append(dict(**job,status='rejected',reason='work-budget' if work>=work_budget else 'capacity',work_units=0))
+            continue
+        duration=job['duration']; expired=duration is None or duration>=deadline
+        end=job['arrival']+(deadline if expired else duration)
+        ledger.append(dict(**job,status='expired' if expired else 'completed',finished=end,work_units=1))
+        work+=1
+        if end>job['arrival']:heapq.heappush(active,(end,job['id']))
+        peak=max(peak,len(active))
+    return dict(ledger=ledger,offered=len(rows),charged_work=work,peak_active=peak,
+                completed=sum(r['status']=='completed' for r in ledger),expired=sum(r['status']=='expired' for r in ledger),
+                rejected=sum(r['status']=='rejected' for r in ledger),remaining_after_final_deadline=0)

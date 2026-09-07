@@ -1,3 +1,17 @@
++++
+title = "Self-rewarding training: objective fidelity and evaluator drift"
+date = "2026"
+description = "Check preference-loss direction, answer masks and judge bias before treating self-scored training as an improvement."
+draft = false
+id = "research/self-rewarding-training-loops"
+type = "research-note"
+author = "tegridydev"
+topic = "agent-systems"
+related = ["research/recursive-self-correction-with-uncertainty"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Self-rewarding training: objective fidelity and evaluator drift
 
 *design study and proposed evaluation*
@@ -5,6 +19,29 @@
 A self-rewarding loop can look better every iteration simply because the model is getting better at satisfying its own judge. I want an independent measuring point outside that loop.
 
 The core separation is **generator → training-time judge → final evaluator**. Those roles can share model weights in some conditions, but the records and objectives stay distinct. A rising judge score is especially weak evidence when the judge itself changes during training.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Both trained policies scored zero on held-out operand combinations across the five seeds, while the unchanged policy averaged 9%. Accepted preference pairs did not produce combinatorial generalisation in this finite task. This does not evaluate free-form self-judging language models.
+
+Single-token modulo-addition policy, on-policy candidate sampling and exact objective checking; comparison with unchanged and supervised policies on held-out operand pairs. This is not validation of a free-form self-judging language model.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| preference · accuracy | 0 | 0 |
+| supervised · accuracy | 0 | 0 |
+| unchanged · accuracy | 0.09 | 0.054772 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## check the objective before trusting the judge
+
+The [objective tests](test_preference.py) improve the preferred sequence log probability and check that the loss falls; improving the rejected sequence instead makes it rise. Reference scores remain detached, and prompt positions outside the answer mask do not affect the sequence score.
+
+The judge check deliberately offers correct `13` against a longer polished explanation claiming `14`. A length-biased judge fails. Presenting both orders tests whether position affects the choice, but passing that check would still not make the judge an independent source of truth. Preference optimisation and preference quality need separate evidence.
 
 ## First, name the loss honestly
 
@@ -48,7 +85,7 @@ A persistent style-audit set can track whether the judge becomes easier to game 
 
 Every checkpoint should keep model/tokeniser hashes, data split, exact loss, optimiser settings and evaluator outputs. The interesting artifact is not just a new set of weights; it is a reproducible record of **what signal actually pushed them there**.
 
-## What exists locally
+## Implementation
 
 The DPO implementation now sums response-masked token log probabilities and detaches reference ratios. Numerical tests verify both loss directions, prompt-mask exclusion and an actual trainable parameter update. A swapped-order judge audit rejects a deliberately style-biased fixture judge.
 
@@ -66,6 +103,6 @@ Use `sequence_logprob`, `dpo` and `judge_audit`. The tiny gradient test is an ob
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

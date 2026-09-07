@@ -13,16 +13,16 @@ The Pillow backend now decodes, applies EXIF orientation, fits without upscaling
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 app.py
+uv run --no-project --python .venv/bin/python python app.py
 ```
 
 Open http://127.0.0.1:5051. CLI example: `python3 convert.py input.png output.jpg --format JPEG --bounds 400 400 --byte-limit 50000`. The receipt reports input/output metadata keys, hashes, frames, dimensions and all measured candidates. The upload limit is 25 MB and decoded input limit is 25 million pixels.
@@ -38,6 +38,22 @@ Open http://127.0.0.1:5051. CLI example: `python3 convert.py input.png output.jp
 
 ## Remaining work
 
-Animation export is explicitly first-frame only. There is no crop editor, colour-space conversion or batch interface. WebP depends on the installed Pillow build. Browser routes are exercised with Flask’s test client; a graphical browser was not available.
+Animation export is explicitly first-frame only. The batch CLI now records per-file outcomes; crop editing and colour-space conversion remain outside scope. WebP depends on the installed Pillow build. Browser routes are exercised with Flask’s test client; a graphical browser was not available.
 
 [Topic index](../README.md) · [Blog index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study image-conversion-resizing-and-privacy --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Across the generated image families, JPEG outputs averaged about 19 KB, WebP 31 KB and PNG 116 KB under the tested settings. These are encoded-size observations, not a quality-matched format ranking. Some size targets could not be met; the conversion receipts retain those outcomes.
+
+See the [article](image-conversion-resizing-and-privacy.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

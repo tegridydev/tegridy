@@ -13,22 +13,22 @@ A self-contained variance-refined 4D tree now complements the sorted interval re
 Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
 
 ```bash
-python3 -m venv .venv
+uv venv --python 3.12 .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 -m pytest -q
+uv pip sync --python .venv/bin/python requirements.txt
+uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
 Run the tool or experiment after setup:
 
 ```bash
-python3 adaptive_tree.py
+uv run --no-project --python .venv/bin/python python adaptive_tree.py
 ```
 
 The earlier standard-library references have their own self-tests:
 
 ```bash
-python3 interval_reference.py
+uv run --no-project --python .venv/bin/python python interval_reference.py
 ```
 
 The same half-open count/sum convention is implemented locally in this module. Changing refinement affects traversal/storage; it does not license approximate partial-leaf answers.
@@ -46,3 +46,19 @@ The same half-open count/sum convention is implemented locally in this module. C
 The threshold is supplied, not learned. Workload-driven threshold selection, numerically robust high-dynamic-range variance merging and storage/latency evaluation remain unfinished. The current two-pass variance is intended for small finite fixtures.
 
 [Topic index](../README.md) · [Research index](../../README.md)
+
+## Reproduce the bounded CPU comparison
+
+From the repository source root (the folder containing `blog`, `research` and `tools`):
+
+```sh
+uv run --locked --project tools/studies python -B tools/studies/runner.py run --study hyper-matrix-lattice-and-numerical-search --profile cpu --resume
+```
+
+See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
+
+## Recorded findings
+
+Adaptive summaries answered the clustered query workload in about 7.3 ms versus 297.6 ms for Python scanning, with about 112 ms of construction. Separately, standard sorted lookup answered the million-value uniform workload in about 0.34 ms versus 215 ms scanning after about 108 ms of sorting. These are distinct algorithms and baselines; sorting benefits are not evidence for a new lattice mechanism.
+
+See the [article](hyper-matrix-lattice-and-numerical-search.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.

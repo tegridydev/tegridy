@@ -1,3 +1,17 @@
++++
+title = "SL5: thread-aware evidence and prediction timelines"
+date = "2026"
+description = "Preserve nested-quote attribution and original timestamps, and keep unresolvable forecasts out of hindsight-based scoring."
+draft = false
+id = "research/sl5-and-independent-research-workflows"
+type = "research-note"
+author = "tegridydev"
+topic = "retrieval-evidence"
+related = ["blog/discord-log-export-and-field-extraction-toolkit", "blog/xanadu-linked-documents"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | SL5: thread-aware evidence and prediction timelines
 
 *design study and proposed evaluation*
@@ -5,6 +19,29 @@
 SL5 is my attempt to make technical discussions searchable without flattening away the things that make them evidence: **who said what, what they were replying to, which words were actually quoted and when the statement existed**. The 3D-library stuff is fun, but the first research question is much more boring and more useful.
 
 Does thread-aware retrieval reduce attribution and chronology errors compared with flat retrieval when both systems receive the same metadata and context budget?
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The generated set of 100 nested-quote threads per seed produced zero attribution errors under the exact-offset checks. Semantic attribution in ambiguous prose and agreement with human annotators remain unmeasured.
+
+Generated nested-quote histories with exact offsets and explicit clock corrections; no semantic retrieval or human annotation-agreement claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| attribution errors | 0 | 0 |
+| threads | 100 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+<!-- cpu-comparison:end -->
+
+## a quote is not a fresh prediction
+
+The [nested-attribution test](test_thread.py) follows the same quoted passage through `m0`, `m1`, `m2`, `m5` and `m9`. It resolves to `author-0`, original timestamp `0`, with a separately retained corrected timestamp `-1`. The later speaker does not acquire authorship of the quoted sentence.
+
+A forecast without a measurable target remains `unresolvable`, even after an outcome is known. Related standards help specify the records: [W3C Web Annotation](https://www.w3.org/TR/annotation-model/) describes annotations and selectors; [PROV](https://www.w3.org/TR/prov-overview/) describes provenance. These are design references, not evidence that the fixture implements either standard completely.
 
 ## Store discussions as evidence, not loose text
 
@@ -42,7 +79,7 @@ For the broader independent-research workflow, I’d keep the evaluation separat
 
 The immediate target remains tiny: resolve five questions over ten messages correctly in a text interface before building spatial navigation, historical personas or anything else that makes the demo look cooler than the evidence system underneath it.
 
-## What exists locally
+## Implementation
 
 A ten-message thread fixture now resolves nested quotes to the original author/span, retains timestamp correction history and rejects mixed or cyclic quote attribution. Forecast resolution requires a pre-outcome interpretation and leaves two vague forecasts unresolvable.
 
@@ -52,6 +89,6 @@ The `Thread` API stores messages and quote edges; `Forecast` freezes target, dea
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

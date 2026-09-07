@@ -1,0 +1,15 @@
+# Local environments and generated output
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+tools/.site-build.lock
+tools/_preview/
+tools/_runs/
+tools/_models/
+tools/_corpus/

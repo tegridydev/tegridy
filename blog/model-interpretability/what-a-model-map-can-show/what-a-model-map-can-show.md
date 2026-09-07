@@ -1,3 +1,16 @@
++++
+title = "what am I actually looking at in a model map?"
+date = "2026"
+description = "I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I've actually tested causally."
+draft = false
+id = "blog/what-a-model-map-can-show"
+type = "article"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = ["research/neuron-mapping-and-token-trajectories", "research/arithmetic-across-notations"]
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | what am I actually looking at in a model map?
 
 The model-analysis interface I keep wanting is easy to picture.
@@ -9,6 +22,31 @@ Click a neuron. Follow an edge. Open the numbers behind it. Patch something and 
 Basically Chrome DevTools except the weird bug is somewhere inside GPT-2.
 
 Graphix and MechaMap are some of the projects I've used to explore that direction. The important part isn't just drawing the graph; it's making sure the graph tells me **what kind of evidence I'm actually looking at**.
+
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+The capture contains 8,448 activation values across 11 tokens from a pinned model. It provides an input for the viewer with recorded provenance; a visual pattern alone does not establish a semantic feature or causal circuit.
+
+Real pinned-model activation file for manual loading in the existing viewer. No browser was opened; no circuit interpretation follows from visualising this capture.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| recorded values | 8448 | — |
+| tokens | 11 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## one useful route through the viewer
+
+Open the [local viewer](viewer.html) and inspect its supplied fixture. First establish whether a displayed connection describes model structure or observed activity; then inspect its identity and provenance before giving it a semantic label.
+
+For an observed activation, the next useful step is a [compatible capture](../../../research/transformers/neuron-mapping-and-token-trajectories/README.md): checkpoint, token occurrence and component location must agree. To ask whether it matters to an answer, use a bounded [intervention scorer](../../../research/transformers/arithmetic-across-notations/README.md).
+
+The fixture demonstrates the viewer contract. It is not a capture from an unspecified production model, and a visually striking edge is not a causal finding.
 
 ## three maps that happen to look similar
 

@@ -1,3 +1,17 @@
++++
+title = "Neuron mapping: selectivity, trajectories and causal checks"
+date = "2026"
+description = "Keep token occurrences, model revisions and projection bases compatible before interpreting activation maps or trajectories."
+draft = false
+id = "research/neuron-mapping-and-token-trajectories"
+type = "research-note"
+author = "tegridydev"
+topic = "model-interpretation-evaluation"
+related = ["blog/what-a-model-map-can-show", "research/sparse-feature-recovery"]
+status = "implemented"
+updated = "2026-09-08"
++++
+
 # [td] tegridydev | Neuron mapping: selectivity, trajectories and causal checks
 
 *design study and proposed evaluation*
@@ -5,6 +19,29 @@
 I keep building neuron viewers because activations are much easier to reason about when I can actually see them. The trap is that a nice cluster or top-token list starts to look like a semantic explanation long before I have evidence for one.
 
 This study treats the tooling as a **microscope, not a label printer**. Descriptive selectivity, geometry in a chosen projection and causal task effects remain three different evidence levels.
+
+
+<!-- cpu-comparison:start -->
+## Recorded findings
+
+Six declared prompts produced 37,632 activation values, projected using a shared two-dimensional basis fitted on the first prompt. Occurrence identity is retained across the capture. Category selectivity and causal effects require separate experiments.
+
+Real GPT-Neo first-block activations for explicitly listed short prompts; shared PCA fitted only on the first prompt. Occurrence identity is retained; this does not establish semantic selectivity or causal circuits.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| projected dimensions | 2 | — |
+| prompts | 6 | — |
+| recorded values | 37632 | — |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
+<!-- cpu-comparison:end -->
+
+## the second occurrence of a token is another observation
+
+The [capture fixture](test_capture.py) uses tokens `[2, 3, 2]`. Token ID 2 appears at two positions; merging them by token ID would discard occurrence identity. Across its two four-wide components, the fixture retains 24 scalar records, including genuine zero activations.
+
+For projection comparisons, fit one basis and apply that same basis to compatible captures. Separately fitted plots can rotate and make a visual movement look meaningful. A zero-length path has undefined straightness, represented as `None`, rather than a fabricated perfect score.
 
 ## One activation record, no ambiguous identity
 
@@ -40,7 +77,7 @@ A useful extension is a **label challenge set**: for every proposed neuron descr
 
 That is the model microscope I actually want: easy enough to explore with, but annoying enough to keep asking **“did this component merely light up, or did changing it change the behaviour?”**
 
-## What exists locally
+## Implementation
 
 The capture API now records every selected hook in one forward pass, keys values by sample/token occurrence/component/feature, preserves measured zero and enforces a storage ceiling. It removes hooks and restores training mode on failure. Shared PCA and guarded high-dimensional path straightness are supplied.
 
@@ -58,6 +95,6 @@ Start with [capture.py](capture.py); the [module README](README.md) lists setup,
 
 ## Status
 
-The local implementation is tested where stated above. Anything beyond those bounded fixtures or saved results remains proposed rather than presented as a completed finding.
+The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)
