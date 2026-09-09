@@ -49,6 +49,7 @@ jobs:
     permissions:
       contents: write
       pages: write
+      actions: read
     concurrency:
       group: publish-static
       cancel-in-progress: false

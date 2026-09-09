@@ -14,6 +14,20 @@ class PublishTests(unittest.TestCase):
         publish.validate_settings(SETTINGS)
         for change in ({'source': {'branch': 'main', 'path': '/'}}, {'cname': None}, {'https_enforced': False}, {'build_type': 'workflow'}):
             with self.assertRaises(RuntimeError): publish.validate_settings({**SETTINGS, **change})
+    def test_cancelled_duplicate_does_not_hide_success(self):
+        run = {'head_sha': 'abc', 'path': 'dynamic/pages/pages-build-deployment', 'status': 'completed', 'conclusion': 'success'}
+        responses = [{'commit': 'abc', 'status': 'errored'}, {'workflow_runs': []},
+                     {'commit': 'abc', 'status': 'errored'}, {'workflow_runs': [run]}]
+        with patch.object(publish, 'api', side_effect=responses), patch.object(publish.time, 'sleep'):
+            publish.wait_for_pages('/repos/test/test', 'abc', 'source', attempts=2)
+
+    def test_wrong_commit_or_workflow_cannot_confirm(self):
+        runs = [{'head_sha': 'other', 'path': 'dynamic/pages/pages-build-deployment', 'status': 'completed', 'conclusion': 'success'},
+                {'head_sha': 'abc', 'path': '.github/workflows/test.yml', 'status': 'completed', 'conclusion': 'success'}]
+        with patch.object(publish, 'api', side_effect=[{'commit': 'other', 'status': 'built'}, {'workflow_runs': runs}]), patch.object(publish.time, 'sleep'):
+            with self.assertRaises(RuntimeError):
+                publish.wait_for_pages('/repos/test/test', 'abc', 'source', attempts=1)
+
     def test_real_static_sync_and_build_request(self):
         with tempfile.TemporaryDirectory() as tmp:
             base=Path(tmp); root=base/'main'; remote=base/'remote.git'; root.mkdir()

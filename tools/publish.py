@@ -89,16 +89,33 @@ def main():
             git('worktree', 'remove', '--force', str(checkout), cwd=root)
     # GITHUB_TOKEN pushes do not trigger branch based Pages builds automatically.
     api(endpoint + '/pages/builds', method='POST')
-    for _ in range(90):
+    wait_for_pages(endpoint, published, sha)
+
+
+def wait_for_pages(endpoint, published, source, attempts=90):
+    """Confirm the exact output commit despite overlapping Pages builds."""
+    last_status = 'unknown'
+    for _ in range(attempts):
         result = api(endpoint + '/pages/builds/latest')
         if result.get('commit') == published:
-            if result.get('status') == 'built':
-                print('Pages built static commit ' + published + ' from main ' + sha)
+            last_status = result.get('status', 'unknown')
+            if last_status == 'built':
+                print('Pages built static commit ' + published + ' from main ' + source)
                 return
-            if result.get('status') == 'errored':
-                raise RuntimeError('Pages build failed: ' + str(result.get('error')))
+        # A cancelled duplicate can leave the legacy endpoint errored while the
+        # generated Pages workflow for the same commit is still deploying.
+        data = api(endpoint + '/actions/runs?head_sha=' + published + '&per_page=100')
+        runs = [run for run in data.get('workflow_runs', [])
+                if run.get('head_sha') == published
+                and run.get('path') == 'dynamic/pages/pages-build-deployment']
+        if any(run.get('status') == 'completed' and run.get('conclusion') == 'success' for run in runs):
+            print('Pages deployed static commit ' + published + ' from main ' + source)
+            return
         time.sleep(10)
-    raise RuntimeError('Pages build not confirmed within 15 minutes. Check Pages build history; static is updated.')
+    raise RuntimeError('Pages deployment not confirmed for static commit ' + published
+                       + '. Last Pages status: ' + str(last_status)
+                       + '. Static is updated; check the matching Pages workflow logs.')
+
 
 
 if __name__ == '__main__':
