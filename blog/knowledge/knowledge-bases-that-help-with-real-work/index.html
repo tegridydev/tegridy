@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-j2seMoxilmjloZ5PKAl7XWyYL579nGnvtUzGYeLvG2k=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-1Becizb6J0iqshd9DGsJ1+4+hNFak312uvr0am1Uz04=&#x27; https://cloud.umami.is; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27; https://gateway.umami.is; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>knowledge bases should help me choose the next check — tegridydev</title><meta name="description" content="I don&#x27;t really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me.">
+<title>Building Technical Knowledge Bases for Troubleshooting | tegridydev</title><meta name="description" content="Organise a technical knowledge base around the next useful check, with source evidence, device time and receipt time kept distinct.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/">
@@ -12,11 +12,12 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="knowledge bases should help me choose the next check — tegridydev">
-<meta property="og:description" content="I don&#x27;t really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me."><meta property="og:url" content="https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="knowledge bases should help me choose the next check — tegridydev"><meta name="twitter:description" content="I don&#x27;t really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me.">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="Building Technical Knowledge Bases for Troubleshooting | tegridydev">
+<meta property="og:description" content="Organise a technical knowledge base around the next useful check, with source evidence, device time and receipt time kept distinct."><meta property="og:url" content="https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/">
+<meta property="og:image" content="https://tegridydev.com/assets/social.png"><meta property="og:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:image" content="https://tegridydev.com/assets/social.png"><meta name="twitter:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Building Technical Knowledge Bases for Troubleshooting | tegridydev"><meta name="twitter:description" content="Organise a technical knowledge base around the next useful check, with source evidence, device time and receipt time kept distinct.">
+<script defer src="/assets/analytics.js"></script><script defer src="https://cloud.umami.is/script.js" data-website-id="af5a218c-d27d-484c-b0a2-8f1a25e82669" data-domains="tegridydev.com,www.tegridydev.com" data-performance="true" data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true" data-before-send="tegridyAnalyticsFilter"></script>
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"knowledge bases should help me choose the next check","description":"I don't really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Building Technical Knowledge Bases for Troubleshooting","description":"Organise a technical knowledge base around the next useful check, with source evidence, device time and receipt time kept distinct.","dateModified":"2026-09-09","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/","image":"https://tegridydev.com/assets/social.png","inLanguage":"en","url":"https://tegridydev.com/blog/knowledge/knowledge-bases-that-help-with-real-work/"}</script>
 <link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
@@ -125,7 +126,7 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents &amp; assistants<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">minecraft time with astra</a></li><li><a href="/blog/agents/botsim-local-community/">botsim: letting the locals talk</a></li></ul></details><details class="topic-group"><summary>Applications &amp; utilities<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">pulling useful fields out of messy text</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">image conversion has more edge cases than the button suggests</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">getting a useful export out of a chat log</a></li></ul></details><details class="topic-group"><summary>Datasets &amp; documents<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">making synthetic data I can actually check</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">a readable PDF export can still be wrong</a></li><li><a href="/blog/datasets/paper-and-book-collection/">collecting papers without losing why I wanted them</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/">cleaning a dataset without cleaning away its meaning</a></li></ul></details><details class="topic-group"><summary>Developer workflows<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/">doing research without losing the question</a></li></ul></details><details class="topic-group" open><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">xanadu-2: links that remember what they point to</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">sorting old notes without rewriting history</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/" aria-current="page">knowledge bases should help me choose the next check</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">an embedding column needs more than a convincing name</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">what am I actually looking at in a model map?</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine-Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026</time> · Updated <time datetime="2026-09-08">2026-09-08</time></p><h1 id="td-tegridydev-knowledge-bases-should-help-me-choose-the-next-check">[td] tegridydev | knowledge bases should help me choose the next check</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#one-question-through-to-the-next-check">one question through to the next check</a></li><li><a href="#start-with-the-actual-question">start with the actual question</a></li><li><a href="#keep-the-raw-thing-beside-the-interpretation">keep the raw thing beside the interpretation</a></li><li><a href="#organise-around-routes-not-encyclopaedias">organise around routes, not encyclopaedias</a></li><li><a href="#test-the-navigation-too">test the navigation too</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents &amp; assistants<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">Building a Minecraft Style Browser Game with Astra</a></li><li><a href="/blog/agents/botsim-local-community/">BotSim: A Local AI Agent Community Simulator</a></li></ul></details><details class="topic-group"><summary>Applications &amp; utilities<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">Extracting Contact Fields with Source Evidence</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">Image Resizing: File Size, Formats and Metadata</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">Processing Saved Chat Logs Without Losing History</a></li></ul></details><details class="topic-group"><summary>Datasets &amp; documents<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">Synthetic Datasets with Independent Validation</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">PDF to Markdown: Checking Extraction Fidelity</a></li><li><a href="/blog/datasets/paper-and-book-collection/">Organising Research Papers, Books and Reading Notes</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/">Dataset Cleaning Without Losing IDs or Meaning</a></li></ul></details><details class="topic-group"><summary>Developer workflows<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/">A Practical Workflow for Independent AI Research</a></li></ul></details><details class="topic-group" open><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">Xanadu Inspired Links to Versioned Document Passages</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">Organising Research Notes Without Losing History</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/" aria-current="page">Building Technical Knowledge Bases for Troubleshooting</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">Embedding Compatibility: Models, Vectors and Search</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">Reading LLM Model Maps: Activations and Causal Evidence</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-09">2026-09-09</time></p><h1 id="building-technical-knowledge-bases-for-troubleshooting">Building Technical Knowledge Bases for Troubleshooting</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#one-question-through-to-the-next-check">one question through to the next check</a></li><li><a href="#start-with-the-actual-question">start with the actual question</a></li><li><a href="#keep-the-raw-thing-beside-the-interpretation">keep the raw thing beside the interpretation</a></li><li><a href="#organise-around-routes-not-encyclopaedias">organise around routes, not encyclopaedias</a></li><li><a href="#test-the-navigation-too">test the navigation too</a></li><li><a href="#implementation-checks-and-recorded-findings">Implementation checks and recorded findings</a></li></ol></details>
 <p>I keep technical knowledge bases because remembering a term and knowing what to do next are very different things.</p>
 <p>The useful page gets me from:</p>
 <blockquote>
@@ -136,45 +137,7 @@
 <p>okay, this is the next thing I should inspect</p>
 </blockquote>
 <p>without pretending one check proves more than it does.</p>
-<p>Two of my public projects approach that from different directions: <a href="https://github.com/tegridydev/Mechanistic-Interpretability">Mechanistic-Interpretability</a> and <a href="https://github.com/tegridydev/physical-security-dev">physical-security-dev</a>. The subjects stay separate; the useful design habit is the same.</p>
-<!-- cpu-comparison:start -->
-<h2 id="recorded-findings">Recorded findings</h2>
-<p>The four-question walkthrough separated two scoped answers, one request needing clarification and one unsupported question. This demonstrates the intended evidence and next-check behaviour on authored documents; it is not a general question-answering benchmark.</p>
-<p>Explicit Cedar fictional-document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge-base performance claim.</p>
-<table>
-<thead>
-<tr>
-<th>Recorded metric</th>
-<th style="text-align: right;">Mean</th>
-<th style="text-align: right;">Seed standard deviation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>needs scope</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">—</td>
-</tr>
-<tr>
-<td>questions</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">—</td>
-</tr>
-<tr>
-<td>scoped</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">—</td>
-</tr>
-<tr>
-<td>unsupported</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">—</td>
-</tr>
-</tbody>
-</table>
-<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/comparison-results.json">comparison record</a> includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.</p>
-<!-- cpu-comparison:end -->
-
+<p>Two of my public projects approach that from different directions: <a href="https://github.com/tegridydev/Mechanistic-Interpretability">Mechanistic Interpretability</a> and <a href="https://github.com/tegridydev/physical-security-dev">physical security dev</a>. The subjects stay separate; the useful design habit is the same.</p>
 <h2 id="one-question-through-to-the-next-check">one question through to the next check</h2>
 <p>Take an illustrative late door alarm. The question is whether the device reported late or the application handled it late. Keep the raw event, device timestamp, receipt timestamp and mapping revision together; compare the two time fields before rewriting the integration.</p>
 <p>If receipt was timely but the UI appeared late, inspect the downstream queue. If device and receipt times disagree, check clock synchronisation and timestamp meaning first. Neither branch proves the sensor was wrong.</p>
@@ -190,10 +153,10 @@
 </blockquote>
 <p>need different evidence.</p>
 <p>An activation view gives me a candidate. An intervention tests what happens when I change it.</p>
-<p>Physical-security integrations have the same trap. <code>did this event arrive?</code> is different from <code>does this field mean what my application thinks it means?</code></p>
-<p>Perfectly valid JSON can still confuse device time with receipt time or a persistent alarm state with a one-off event. A useful knowledge base should make those distinctions hard to miss.</p>
+<p>Physical security integrations have the same trap. <code>did this event arrive?</code> is different from <code>does this field mean what my application thinks it means?</code></p>
+<p>Perfectly valid JSON can still confuse device time with receipt time or a persistent alarm state with a one off event. A useful knowledge base should make those distinctions hard to miss.</p>
 <h2 id="keep-the-raw-thing-beside-the-interpretation">keep the raw thing beside the interpretation</h2>
-<p>In <a href="https://github.com/tegridydev/physical-security-dev/blob/main/01-foundations/data-models-and-semantics.md">physical-security-dev's data-model guidance</a>, raw source records stay separate from parsed fields and the application's canonical model.</p>
+<p>In <a href="https://github.com/tegridydev/physical-security-dev/blob/main/01-foundations/data-models-and-semantics.md">physical security dev's data model guidance</a>, raw source records stay separate from parsed fields and the application's canonical model.</p>
 <p>That lets me improve a mapping later without pretending the device originally sent something different. For a door event I'd want:</p>
 <pre><code class="language-text">raw message
 device_time
@@ -221,7 +184,7 @@ deeper references
 <p>If I'm debugging a late alarm, I want the route from raw message to diagnostic decision. A giant contents tree is useful only if it gets me there faster.</p>
 <h2 id="test-the-navigation-too">test the navigation too</h2>
 <p>Take realistic questions and ask someone to choose the next check, find the supporting passage and explain what the result would <strong>not</strong> establish.</p>
-<p>Then compare a flat contents page with task-oriented routes.</p>
+<p>Then compare a flat contents page with task oriented routes.</p>
 <p>If the fancy route just adds more clicking, delete it.</p>
 <p>I especially want limitations easy to find. A confident answer that hides when it doesn't apply is actively unhelpful.</p>
 <p>There is now a <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/embeddings-need-a-contract/README.md">local lexical/vector search tool</a> and a <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/graph-memory-with-a-paper-trail/README.md">Cedar evidence fixture</a> for smaller versions of the same idea.</p>
@@ -230,7 +193,37 @@ deeper references
 <blockquote>
 <p><strong>help me choose the next defensible check, then show me what that check actually means.</strong></p>
 </blockquote>
-<p><a href="/blog/">Blog index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/knowledge/graph-memory-with-a-paper-trail/"><span class="entry-title">Graph memory with source versions and applicability</span><span class="entry-description">Compare graph and metadata-only retrieval on versioned Cedar sources, including the limits of a fixture where both find the same evidence.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/blog/knowledge/embeddings-need-a-contract/"><span class="entry-title">an embedding column needs more than a convincing name</span><span class="entry-description">Before I trust an embedding search or scatterplot, I want to know exactly which model produced the vectors, how they were made and whether the query uses the same representation.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/knowledge-bases-that-help-with-real-work.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/blog/knowledge/sorting-notes-without-rewriting-history/"><span>Previous in topic</span><strong>sorting old notes without rewriting history</strong></a><a href="/blog/knowledge/embeddings-need-a-contract/"><span>Next in topic</span><strong>an embedding column needs more than a convincing name</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p><a href="/blog/">Blog index</a></p>
+<h2 id="implementation-checks-and-recorded-findings">Implementation checks and recorded findings</h2>
+<p>The four question walkthrough separated two scoped answers, one request needing clarification and one unsupported question. This demonstrates the intended evidence and next check behaviour on authored documents; it is not a general question answering benchmark.</p>
+<p>Explicit Cedar fictional document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge base performance claim.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>needs scope</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>questions</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>scoped</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>unsupported</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/comparison-results.json">comparison record</a> includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.</p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/knowledge/graph-memory-with-a-paper-trail/"><span class="entry-title">Graph Based Research Memory with Source Provenance</span><span class="entry-description">Compare graph and metadata retrieval on versioned sources, keeping source history visible and accounting for cases where the simpler baseline matches it.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/blog/knowledge/embeddings-need-a-contract/"><span class="entry-title">Embedding Compatibility: Models, Vectors and Search</span><span class="entry-description">Record model revisions, pooling and normalisation beside embeddings, then compare retrieval methods without mistaking equal dimensions for compatibility.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/knowledge-bases-that-help-with-real-work.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/knowledge/knowledge-bases-that-help-with-real-work/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/blog/knowledge/sorting-notes-without-rewriting-history/"><span>Previous in topic</span><strong>Organising Research Notes Without Losing History</strong></a><a href="/blog/knowledge/embeddings-need-a-contract/"><span>Next in topic</span><strong>Embedding Compatibility: Models, Vectors and Search</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" data-theme="mocha" data-theme-choice="system"><head>
-<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-zpS2U3RuC8FOsqw5LNNHwJWCYgFTMr2j+NH5i0Y5sl8=&#x27;; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27;; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-cdDD1qBAV/ABa182eZkZ09DJ4yn56AWVclwiqLbuRIU=&#x27; &#x27;sha256-HbA/c+vjj4Ss62qEakzB7k/zOeKHm4KpLhTvVL1N168=&#x27; https://cloud.umami.is; script-src-attr &#x27;none&#x27;; style-src &#x27;self&#x27;; style-src-attr &#x27;none&#x27;; img-src &#x27;self&#x27; https:; connect-src &#x27;self&#x27; https://gateway.umami.is; font-src &#x27;none&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>doing research without losing the question — tegridydev</title><meta name="description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.">
+<title>A Practical Workflow for Independent AI Research | tegridydev</title><meta name="description" content="Turn an AI research question into a baseline, measurable test and evidence record without letting reading lists and architecture ideas replace the question.">
 <meta name="author" content="tegridydev"><meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#11111b" id="theme-color"><link rel="canonical" href="https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/">
@@ -12,11 +12,12 @@
 <link rel="alternate" type="application/rss+xml" title="tegridydev blog" href="/blog/feed.xml">
 <link rel="alternate" type="application/rss+xml" title="tegridydev research" href="/research/feed.xml">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="doing research without losing the question — tegridydev">
-<meta property="og:description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer."><meta property="og:url" content="https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="doing research without losing the question — tegridydev"><meta name="twitter:description" content="I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.">
+<meta property="og:site_name" content="tegridydev"><meta property="og:title" content="A Practical Workflow for Independent AI Research | tegridydev">
+<meta property="og:description" content="Turn an AI research question into a baseline, measurable test and evidence record without letting reading lists and architecture ideas replace the question."><meta property="og:url" content="https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/">
+<meta property="og:image" content="https://tegridydev.com/assets/social.png"><meta property="og:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:image" content="https://tegridydev.com/assets/social.png"><meta name="twitter:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A Practical Workflow for Independent AI Research | tegridydev"><meta name="twitter:description" content="Turn an AI research question into a baseline, measurable test and evidence record without letting reading lists and architecture ideas replace the question.">
+<script defer src="/assets/analytics.js"></script><script defer src="https://cloud.umami.is/script.js" data-website-id="af5a218c-d27d-484c-b0a2-8f1a25e82669" data-domains="tegridydev.com,www.tegridydev.com" data-performance="true" data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true" data-before-send="tegridyAnalyticsFilter"></script>
 <script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"doing research without losing the question","description":"I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer.","dateModified":"2026-09-08","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"A Practical Workflow for Independent AI Research","description":"Turn an AI research question into a baseline, measurable test and evidence record without letting reading lists and architecture ideas replace the question.","dateModified":"2026-09-09","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/","image":"https://tegridydev.com/assets/social.png","inLanguage":"en","url":"https://tegridydev.com/blog/developer-tools/research-without-losing-the-question/"}</script>
 <link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
@@ -125,40 +126,12 @@
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents &amp; assistants<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">minecraft time with astra</a></li><li><a href="/blog/agents/botsim-local-community/">botsim: letting the locals talk</a></li></ul></details><details class="topic-group"><summary>Applications &amp; utilities<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">pulling useful fields out of messy text</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">image conversion has more edge cases than the button suggests</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">getting a useful export out of a chat log</a></li></ul></details><details class="topic-group"><summary>Datasets &amp; documents<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">making synthetic data I can actually check</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">a readable PDF export can still be wrong</a></li><li><a href="/blog/datasets/paper-and-book-collection/">collecting papers without losing why I wanted them</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/">cleaning a dataset without cleaning away its meaning</a></li></ul></details><details class="topic-group" open><summary>Developer workflows<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/" aria-current="page">doing research without losing the question</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">xanadu-2: links that remember what they point to</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">sorting old notes without rewriting history</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/">knowledge bases should help me choose the next check</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">an embedding column needs more than a convincing name</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">what am I actually looking at in a model map?</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine-Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026</time> · Updated <time datetime="2026-09-08">2026-09-08</time></p><h1 id="td-tegridydev-doing-research-without-losing-the-question">[td] tegridydev | doing research without losing the question</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#a-reusable-hand-off">a reusable hand-off</a></li><li><a href="#turn-curiosity-into-something-that-can-lose">turn curiosity into something that can lose</a></li><li><a href="#search-for-mechanisms-not-the-name-i-gave-mine">search for mechanisms, not the name I gave mine</a></li><li><a href="#attach-evidence-to-claims">attach evidence to claims</a></li><li><a href="#build-the-cheapest-test-that-separates-explanations">build the cheapest test that separates explanations</a></li><li><a href="#use-ai-where-i-can-inspect-the-contribution">use AI where I can inspect the contribution</a></li><li><a href="#finish-with-an-answer-sized-to-the-evidence">finish with an answer sized to the evidence</a></li><li><a href="#reference">reference</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse blog <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/" class="selected">Blog</a><a href="/research/">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Blog topics"><details class="topic-group"><summary>Agents &amp; assistants<span>2</span></summary><ul><li><a href="/blog/agents/minecraft-time-with-astra/">Building a Minecraft Style Browser Game with Astra</a></li><li><a href="/blog/agents/botsim-local-community/">BotSim: A Local AI Agent Community Simulator</a></li></ul></details><details class="topic-group"><summary>Applications &amp; utilities<span>3</span></summary><ul><li><a href="/blog/applications/lead-extraction-and-cleaning/">Extracting Contact Fields with Source Evidence</a></li><li><a href="/blog/applications/image-conversion-resizing-and-privacy/">Image Resizing: File Size, Formats and Metadata</a></li><li><a href="/blog/applications/discord-log-export-and-field-extraction-toolkit/">Processing Saved Chat Logs Without Losing History</a></li></ul></details><details class="topic-group"><summary>Datasets &amp; documents<span>4</span></summary><ul><li><a href="/blog/datasets/synthetic-data-generation-and-quality/">Synthetic Datasets with Independent Validation</a></li><li><a href="/blog/datasets/pdf-extraction-and-markdown/">PDF to Markdown: Checking Extraction Fidelity</a></li><li><a href="/blog/datasets/paper-and-book-collection/">Organising Research Papers, Books and Reading Notes</a></li><li><a href="/blog/datasets/dataset-discovery-and-preparation/">Dataset Cleaning Without Losing IDs or Meaning</a></li></ul></details><details class="topic-group" open><summary>Developer workflows<span>1</span></summary><ul><li><a href="/blog/developer-tools/research-without-losing-the-question/" aria-current="page">A Practical Workflow for Independent AI Research</a></li></ul></details><details class="topic-group"><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/blog/knowledge/xanadu-linked-documents/">Xanadu Inspired Links to Versioned Document Passages</a></li><li><a href="/blog/knowledge/sorting-notes-without-rewriting-history/">Organising Research Notes Without Losing History</a></li><li><a href="/blog/knowledge/knowledge-bases-that-help-with-real-work/">Building Technical Knowledge Bases for Troubleshooting</a></li><li><a href="/blog/knowledge/embeddings-need-a-contract/">Embedding Compatibility: Models, Vectors and Search</a></li></ul></details><details class="topic-group"><summary>Model interpretability<span>1</span></summary><ul><li><a href="/blog/model-interpretability/what-a-model-map-can-show/">Reading LLM Model Maps: Activations and Causal Evidence</a></li></ul></details><details class="topic-group"><summary>On Hugging Face<span>4</span></summary><ul><li><a href="https://huggingface.co/blog/tegridydev/research-papers-dataset">Research Papers Dataset</a></li><li><a href="https://huggingface.co/blog/tegridydev/open-source-ai-agents-directory">Open Source AI Agents</a></li><li><a href="https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025">WTF is Fine Tuning?</a></li><li><a href="https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face">LLM Dataset Formats 101</a></li></ul></details></nav><a class="sidebar-rss" href="/blog/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/blog/">← Blog</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-09">2026-09-09</time></p><h1 id="a-practical-workflow-for-independent-ai-research">A Practical Workflow for Independent AI Research</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#a-reusable-hand-off">a reusable hand off</a></li><li><a href="#turn-curiosity-into-something-that-can-lose">turn curiosity into something that can lose</a></li><li><a href="#search-for-mechanisms-not-the-name-i-gave-mine">search for mechanisms, not the name I gave mine</a></li><li><a href="#attach-evidence-to-claims">attach evidence to claims</a></li><li><a href="#build-the-cheapest-test-that-separates-explanations">build the cheapest test that separates explanations</a></li><li><a href="#use-ai-where-i-can-inspect-the-contribution">use AI where I can inspect the contribution</a></li><li><a href="#finish-with-an-answer-sized-to-the-evidence">finish with an answer sized to the evidence</a></li><li><a href="#implementation-checks-and-recorded-findings">Implementation checks and recorded findings</a></li><li><a href="#reference">reference</a></li></ol></details>
 <p>I like questions that start slightly sideways.</p>
 <p>Could a different representation make this easier to inspect? Is the complicated system doing anything the little baseline isn't? What happens if I change one weird part?</p>
 <p>The problem is that one question can quickly become a reading list, dashboard and three architectures before I've decided what would count as an answer.</p>
 <p>At that point I'm also giving myself several creative ways to avoid the original question lol.</p>
-<!-- cpu-comparison:start -->
-<h2 id="recorded-findings">Recorded findings</h2>
-<p>The worked example linked two claims to one recorded evidence item while preserving the question and revision trail. It demonstrates traceability, not an independently measured improvement in research quality.</p>
-<p>Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.</p>
-<table>
-<thead>
-<tr>
-<th>Recorded metric</th>
-<th style="text-align: right;">Mean</th>
-<th style="text-align: right;">Seed standard deviation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>claims</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">—</td>
-</tr>
-<tr>
-<td>evidence</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">—</td>
-</tr>
-</tbody>
-</table>
-<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/comparison-results.json">comparison record</a> includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.</p>
-<!-- cpu-comparison:end -->
-
-<h2 id="a-reusable-hand-off">a reusable hand-off</h2>
+<h2 id="a-reusable-hand-off">a reusable hand off</h2>
 <p>Here is the blank version of the question card, ready to copy into a note:</p>
 <pre><code class="language-text">Question:
 Prediction that could fail:
@@ -177,7 +150,7 @@ Next action:
 <p><code>understand how models do maths</code> is an interest.</p>
 <p>This is a question:</p>
 <blockquote>
-<p>Do components selected using digit-form addition also matter when the same problem is written using number words?</p>
+<p>Do components selected using digit form addition also matter when the same problem is written using number words?</p>
 </blockquote>
 <p>Now I have something I can vary and something I can measure.</p>
 <p>Before building much, I like a tiny question card:</p>
@@ -191,7 +164,7 @@ Next action:
 <tbody>
 <tr>
 <td>question</td>
-<td>do digit-selected components contribute to word-form addition?</td>
+<td>do digit selected components contribute to word form addition?</td>
 </tr>
 <tr>
 <td>prediction</td>
@@ -207,7 +180,7 @@ Next action:
 </tr>
 <tr>
 <td>evidence</td>
-<td>held-out answers before/after intervention</td>
+<td>held out answers before/after intervention</td>
 </tr>
 <tr>
 <td>stop</td>
@@ -221,7 +194,7 @@ Next action:
 <p>The name I give an idea usually tells me very little about prior art.</p>
 <p>Something I call <code>reflective memory</code> could overlap with retrieval, recurrent state, cache replacement or online adaptation. Those are the terms I actually need to search.</p>
 <p>For close methods I want to know what changes, what the baseline is, what evidence is reported and how the question differs from mine.</p>
-<p>If I can't explain the difference, I don't know enough to call my thing novel. If a simpler method already handles the problem, finding that early saves a lot of lovingly over-engineered work.</p>
+<p>If I can't explain the difference, I don't know enough to call my thing novel. If a simpler method already handles the problem, finding that early saves a lot of lovingly over engineered work.</p>
 <h2 id="attach-evidence-to-claims">attach evidence to claims</h2>
 <p>A bibliography tells me which sources I used.</p>
 <p>It doesn't tell me which source supports which sentence.</p>
@@ -238,7 +211,7 @@ Next action:
 <tbody>
 <tr>
 <td>tool saves a conversation</td>
-<td>save-path + round-trip fixture</td>
+<td>save path + round trip fixture</td>
 <td>implementation claim</td>
 <td>saving isn't retrieval</td>
 </tr>
@@ -250,7 +223,7 @@ Next action:
 </tr>
 <tr>
 <td>memory improves accuracy</td>
-<td>held-out comparison</td>
+<td>held out comparison</td>
 <td>hypothesis</td>
 <td>extra context may explain it</td>
 </tr>
@@ -267,7 +240,7 @@ discovery   → choose candidates
 evaluation  → test choices already made
 </code></pre>
 <p>Related examples stay together. A paraphrase isn't magically unseen because the wording changed.</p>
-<p>Before final evaluation, freeze the main metric and comparison. If I change them after seeing the result, cool—that run just became development data.</p>
+<p>Before final evaluation, freeze the main metric and comparison. If I change them after seeing the result, cool, that run just became development data.</p>
 <p>A fixed seed doesn't rescue a bad metric. It only helps me reproduce it perfectly :)</p>
 <h2 id="use-ai-where-i-can-inspect-the-contribution">use AI where I can inspect the contribution</h2>
 <p>Models are useful for search terms, explanations, fixtures, code review and draft criticism.</p>
@@ -279,7 +252,7 @@ evaluation  → test choices already made
 <p>Generated explanations and novelty scores are still generated outputs. They don't become independent validation because they sound confident.</p>
 <h2 id="finish-with-an-answer-sized-to-the-evidence">finish with an answer sized to the evidence</h2>
 <p>A useful result can be positive, negative or a good reason to abandon the idea.</p>
-<p>The write-up should say what I asked, what I compared, what happened and what else could still explain it.</p>
+<p>The write up should say what I asked, what I compared, what happened and what else could still explain it.</p>
 <p>I try to keep these distinctions visible:</p>
 <pre><code class="language-text">helped on this evaluation ≠ generally works
 inconclusive test ≠ hypothesis is false
@@ -291,11 +264,33 @@ candidate feature ≠ mechanism found
 <p>The scorer accepts the right digits inside a wrong explanation. Fix canonical matching before collecting activations.</p>
 </blockquote>
 <p>That's dramatically more useful tomorrow than <code>continue research</code>.</p>
-<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/README.md">arithmetic module</a> now has a token-boundary checker and intervention scorer, so the next hand-off there is concrete: choose the local model, record the exact hook and pass the feasibility check before ranking anything.</p>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/research/transformers/arithmetic-across-notations/README.md">arithmetic module</a> now has a token boundary checker and intervention scorer, so the next hand off there is concrete: choose the local model, record the exact hook and pass the feasibility check before ranking anything.</p>
 <p>Still not enough to write <code>arithmetic circuit found</code> in the notes :)</p>
+<h2 id="implementation-checks-and-recorded-findings">Implementation checks and recorded findings</h2>
+<p>The worked example linked two claims to one recorded evidence item while preserving the question and revision trail. It demonstrates traceability, not an independently measured improvement in research quality.</p>
+<p>Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.</p>
+<table>
+<thead>
+<tr>
+<th>Recorded metric</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>claims</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>evidence</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/comparison-results.json">comparison record</a> includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.</p>
 <h2 id="reference">reference</h2>
 <p>Paul Groth and Luc Moreau, editors. <strong>PROV-Overview: An Overview of the PROV Family of Documents.</strong> W3C Working Group Note, 30 April 2013. <a href="https://www.w3.org/TR/prov-overview/">Full document</a>.</p>
-<p><a href="/blog/">Blog index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/agents/autoresearch-web-researcher/"><span class="entry-title">Autoresearch: evidence that survives revision</span><span class="entry-description">A local evidence fixture follows claims and exact citations through source revisions without rewriting earlier answers.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/transformers/arithmetic-across-notations/"><span class="entry-title">Arithmetic across notations: testing causal transfer</span><span class="entry-description">A protocol and local scorer for testing whether digit-selected components transfer to number-word arithmetic after a feasibility gate.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/research-without-losing-the-question.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main></div>  <footer class="site-footer">
+<p><a href="/blog/">Blog index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/agents/autoresearch-web-researcher/"><span class="entry-title">Autoresearch: Citation Tracking for Research Agents</span><span class="entry-description">Track exact citations through revised sources without rewriting earlier answers, and distinguish citation preservation from evidence supporting a claim.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/transformers/arithmetic-across-notations/"><span class="entry-title">LLM Arithmetic: Digits vs Number Words</span><span class="entry-description">A protocol for comparing digit and number word arithmetic circuits, including the failed answer generation gate that blocks causal interpretation.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/research-without-losing-the-question.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/blog/developer-tools/research-without-losing-the-question/README.md">Setup and supporting files</a> · <a href="/blog/">More blog</a></p></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">
