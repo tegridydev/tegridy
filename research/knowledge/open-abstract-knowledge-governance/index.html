@@ -16,7 +16,7 @@
 <meta property="og:description" content="Follow a claim correction without erasing its history, separating replay correctness, support labels and the rules for the default reading view."><meta property="og:url" content="https://tegridydev.com/research/knowledge/open-abstract-knowledge-governance/">
 <meta property="og:image" content="https://tegridydev.com/assets/social.png"><meta property="og:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:image" content="https://tegridydev.com/assets/social.png"><meta name="twitter:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="OpenAbstract: Versioned Claims and Corrections | tegridydev"><meta name="twitter:description" content="Follow a claim correction without erasing its history, separating replay correctness, support labels and the rules for the default reading view.">
 <script defer src="/assets/analytics.js"></script><script defer src="https://cloud.umami.is/script.js" data-website-id="af5a218c-d27d-484c-b0a2-8f1a25e82669" data-domains="tegridydev.com,www.tegridydev.com" data-performance="true" data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true" data-before-send="tegridyAnalyticsFilter"></script>
-<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css"><link rel="stylesheet" href="/assets/responsive.css"><script defer src="/assets/responsive.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"OpenAbstract: Versioned Claims and Corrections","description":"Follow a claim correction without erasing its history, separating replay correctness, support labels and the rules for the default reading view.","dateModified":"2026-09-09","author":{"@type":"Person","name":"tegridydev","url":"https://tegridydev.com/"},"mainEntityOfPage":"https://tegridydev.com/research/knowledge/open-abstract-knowledge-governance/","image":"https://tegridydev.com/assets/social.png","inLanguage":"en","url":"https://tegridydev.com/research/knowledge/open-abstract-knowledge-governance/"}</script>
 <link rel="stylesheet" href="/assets/reading.css"><script src="/assets/reading.js" defer></script></head><body class="writing-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -38,95 +38,120 @@
         <a class="email-nav" href="/#contact">Contact</a>
       </nav>
 
-      <div class="theme-picker">
-        <button class="theme-toggle" type="button" aria-expanded="false"
-          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
-          title="Choose colour theme">
-          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
-            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
-            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
-          </svg>
-        </button>
-
-        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
-          <div class="theme-group">
-            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
-            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
-              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
-                <span class="theme-swatch" aria-hidden="true"></span>
-                <span>System</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
-                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
-                <span>Latte</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
-                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
-                <span>Frappé</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
-                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
-                <span>Macchiato</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
-                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
-                <span>Mocha</span>
-              </button>
+      <div class="header-actions">
+        <div class="theme-picker">
+          <button class="theme-toggle" type="button" aria-expanded="false"
+            aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+            title="Choose colour theme">
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+              <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+              <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+            </svg>
+          </button>
+  
+          <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+            <div class="theme-group">
+              <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+              <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+                <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                  <span class="theme-swatch" aria-hidden="true"></span>
+                  <span>System</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                  <span>Latte</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                  <span>Frappé</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                  <span>Macchiato</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                  <span>Mocha</span>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div class="theme-group">
-            <p class="theme-group-label" id="custom-themes">tegridydev</p>
-            <div class="theme-options" role="group" aria-labelledby="custom-themes">
-              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
-                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
-                <span>Terminal Mint</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
-                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
-                <span>Night Shift</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
-                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
-                <span>Emberline</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
-                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
-                <span>Moss Byte</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
-                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
-                <span>Plum Static</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
-                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
-                <span>Deep Current</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
-                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
-                <span>Graphite</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
-                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
-                <span>Solar Paper</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
-                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
-                <span>Cherry Wire</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
-                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
-                <span>Cobalt Lab</span>
-              </button>
+  
+            <div class="theme-group">
+              <p class="theme-group-label" id="custom-themes">tegridydev</p>
+              <div class="theme-options" role="group" aria-labelledby="custom-themes">
+                <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                  <span>Terminal Mint</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                  <span>Night Shift</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                  <span>Emberline</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                  <span>Moss Byte</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                  <span>Plum Static</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                  <span>Deep Current</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                  <span>Graphite</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                  <span>Solar Paper</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                  <span>Cherry Wire</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                  <span>Cobalt Lab</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+        <button class="nav-toggle" type="button" aria-expanded="false"
+          aria-controls="mobile-nav-panel" aria-label="Open navigation" title="Navigation">
+          <svg class="nav-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="nav-line nav-line-top" d="M4 7h16"/>
+            <path class="nav-line nav-line-middle" d="M4 12h16"/>
+            <path class="nav-line nav-line-bottom" d="M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-panel" id="mobile-nav-panel" hidden>
+      <div class="container mobile-nav-inner">
+        <nav class="mobile-nav" aria-label="Mobile primary navigation">
+          <a href="/#projects">Projects</a>
+          <a href="/#datasets">Data</a>
+          <a href="/#writing">Writing</a>
+          <a href="/blog/">Blog</a>
+          <a href="/research/" aria-current="page">Research</a>
+          <a href="/#research">Citations</a>
+          <a class="email-nav" href="/#contact">Contact</a>
+        </nav>
       </div>
     </div>
   </header>
 
-<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm Sequence Generation: Neighbour Coupling Tests</a></li><li><a href="/research/agents/moa-framework/">Multi Agent Orchestration: Streaming, Failures and Replay</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: Decision Support with Disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local AI Memory: Retrieval and Temporal Validity</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: Citation Tracking for Research Agents</a></li></ul></details><details class="topic-group" open><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: Thread Aware Retrieval and Quote Attribution</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/" aria-current="page">OpenAbstract: Versioned Claims and Corrections</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph Based Research Memory with Source Provenance</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: Vector Index Freshness with a SQLite Outbox</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Adaptive Range Summaries and Interval Search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">4D Range Queries with Sparse Summary Trees</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Defensive Security Research Projects</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Synthetic Signal Detection Under Distribution Shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol Resource Limits and Amplification Modelling</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self Rewarding Training: DPO and Evaluation</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">LLM Self Correction: Evaluation and Stopping</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">Glow Worm: A Small Byte Level Language Model</a></li></ul></details><details class="topic-group"><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">SVD Compression: Storage and Functional Error</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal Attention for Irregular Observations</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive Neural Architectures: Experiments and Questions</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse Autoencoders: Reconstruction vs Feature Recovery</a></li><li><a href="/research/transformers/self-healing-tokens/">Self Healing Tokens: Selective Denoising Experiments</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Transformer Memory: Causal Retrieval and Adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Transformer Activation Maps and Token Trajectories</a></li><li><a href="/research/transformers/judge-head-attention/">Judge Head Attention: Contextual Head Gating</a></li><li><a href="/research/transformers/hydraform/">Hydraform: Adaptive Attention Head Mutation</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face Based Attention: Gated Feature Mixing</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet Style Quantisation: Storage vs Execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">LLM Arithmetic: Digits vs Number Words</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026 (exact date unverified)</time> · Updated <time datetime="2026-09-09">2026-09-09</time> · Local implementation</p><h1 id="openabstract-versioned-claims-and-corrections">OpenAbstract: Versioned Claims and Corrections</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#change-the-reading-view-without-erasing-the-dispute">change the reading view without erasing the dispute</a></li><li><a href="#what-a-permanent-record-can-and-cannot-promise">What a permanent record can and cannot promise</a></li><li><a href="#governance-needs-a-rule-people-can-see">Governance needs a rule people can see</a></li><li><a href="#a-small-governance-experiment">A small governance experiment</a></li><li><a href="#implementation">Implementation</a></li></ol></details>
+<div class="reading-layout"><aside class="reading-sidebar" aria-label="Writing navigation"><details class="browse-panel" open><summary>Browse research <span class="browse-hint">topics &amp; articles</span></summary><div class="browse-content"><nav class="writing-tabs" aria-label="Writing sections"><a href="/blog/">Blog</a><a href="/research/" class="selected">Research</a></nav><a class="reading-paths-link" href="/topics/">Explore reading paths ↗</a><div class="search-wrapper"><div class="navigation-search" hidden><label for="nav-search">Find an article</label><input id="nav-search" type="search" placeholder="Filter titles or topics…" autocomplete="off" aria-controls="topic-list"><p class="search-status" role="status" aria-live="polite"></p></div></div><nav id="topic-list" aria-label="Research topics"><details class="topic-group"><summary>Agents &amp; assistants<span>5</span></summary><ul><li><a href="/research/agents/swarm-and-collective-agent-concepts/">Swarm Sequence Generation: Neighbour Coupling Tests</a></li><li><a href="/research/agents/moa-framework/">Multi Agent Orchestration: Streaming, Failures and Replay</a></li><li><a href="/research/agents/mixture-of-perspectives/">Mixture of Perspectives: Decision Support with Disagreement</a></li><li><a href="/research/agents/local-assistants-and-memory/">Local AI Memory: Retrieval and Temporal Validity</a></li><li><a href="/research/agents/autoresearch-web-researcher/">Autoresearch: Citation Tracking for Research Agents</a></li></ul></details><details class="topic-group" open><summary>Knowledge &amp; memory<span>4</span></summary><ul><li><a href="/research/knowledge/sl5-and-independent-research-workflows/">SL5: Thread Aware Retrieval and Quote Attribution</a></li><li><a href="/research/knowledge/open-abstract-knowledge-governance/" aria-current="page">OpenAbstract: Versioned Claims and Corrections</a></li><li><a href="/research/knowledge/graph-memory-with-a-paper-trail/">Graph Based Research Memory with Source Provenance</a></li><li><a href="/research/knowledge/cloudvec-paper-search/">CloudVec: Vector Index Freshness with a SQLite Outbox</a></li></ul></details><details class="topic-group"><summary>Mathematics<span>2</span></summary><ul><li><a href="/research/mathematics/hyper-matrix-lattice-and-numerical-search/">Adaptive Range Summaries and Interval Search</a></li><li><a href="/research/mathematics/four-dimensional-lattice/">4D Range Queries with Sparse Summary Trees</a></li></ul></details><details class="topic-group"><summary>Security<span>3</span></summary><ul><li><a href="/research/security/tegridydev-security-research-catalogue/">Defensive Security Research Projects</a></li><li><a href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/">Synthetic Signal Detection Under Distribution Shift</a></li><li><a href="/research/security/internet-protocol-amplification-research/">Protocol Resource Limits and Amplification Modelling</a></li></ul></details><details class="topic-group"><summary>Training &amp; evaluation<span>3</span></summary><ul><li><a href="/research/training-and-evaluation/self-rewarding-training-loops/">Self Rewarding Training: DPO and Evaluation</a></li><li><a href="/research/training-and-evaluation/recursive-self-correction-with-uncertainty/">LLM Self Correction: Evaluation and Stopping</a></li><li><a href="/research/training-and-evaluation/glow-worm-byte-model/">Glow Worm: A Small Byte Level Language Model</a></li></ul></details><details class="topic-group"><summary>Transformers<span>12</span></summary><ul><li><a href="/research/transformers/weight-similarity-and-svd-compression/">SVD Compression: Storage and Functional Error</a></li><li><a href="/research/transformers/temporal-attention-that-changes-predictions/">Temporal Attention for Irregular Observations</a></li><li><a href="/research/transformers/tegridydev-adaptive-neural-architecture-concepts/">Adaptive Neural Architectures: Experiments and Questions</a></li><li><a href="/research/transformers/sparse-feature-recovery/">Sparse Autoencoders: Reconstruction vs Feature Recovery</a></li><li><a href="/research/transformers/self-healing-tokens/">Self Healing Tokens: Selective Denoising Experiments</a></li><li><a href="/research/transformers/reflective-transformer-memory-and-adaptation/">Transformer Memory: Causal Retrieval and Adaptation</a></li><li><a href="/research/transformers/neuron-mapping-and-token-trajectories/">Transformer Activation Maps and Token Trajectories</a></li><li><a href="/research/transformers/judge-head-attention/">Judge Head Attention: Contextual Head Gating</a></li><li><a href="/research/transformers/hydraform/">Hydraform: Adaptive Attention Head Mutation</a></li><li><a href="/research/transformers/face-based-attention-circuits/">Face Based Attention: Gated Feature Mixing</a></li><li><a href="/research/transformers/bitnet-quantization-and-conversion/">BitNet Style Quantisation: Storage vs Execution</a></li><li><a href="/research/transformers/arithmetic-across-notations/">LLM Arithmetic: Digits vs Number Words</a></li></ul></details></nav><a class="sidebar-rss" href="/research/feed.xml">Subscribe via RSS ↗</a></div></details></aside><main class="reading-main" id="main-content"><article class="article"><p><a href="/research/">← Research</a></p><p class="article-meta"><a rel="author" href="/">tegridydev</a> · <time datetime="2026">2026</time> · Updated <time datetime="2026-09-09">2026-09-09</time> · Local implementation</p><h1 id="openabstract-versioned-claims-and-corrections">OpenAbstract: Versioned Claims and Corrections</h1><details class="article-toc" open><summary>On this page</summary><ol><li><a href="#recorded-findings">Recorded findings</a></li><li><a href="#change-the-reading-view-without-erasing-the-dispute">change the reading view without erasing the dispute</a></li><li><a href="#what-a-permanent-record-can-and-cannot-promise">What a permanent record can and cannot promise</a></li><li><a href="#governance-needs-a-rule-people-can-see">Governance needs a rule people can see</a></li><li><a href="#a-small-governance-experiment">A small governance experiment</a></li><li><a href="#implementation">Implementation</a></li></ol></details>
 <p><em>research design</em></p>
 <p>OpenAbstract started from a fairly simple idea: preserve public knowledge and its history without pretending that permanence makes the content correct. The research question I care about now is narrower: <strong>how should a system change what readers see after a correction while keeping the original claim, evidence and review history inspectable?</strong></p>
 <p>That separates four things that are easy to blur together: integrity, provenance, truth and moderation.</p>
@@ -182,7 +207,7 @@
 <p>The correction ledger now separates immutable claim versions, append only review events and the default reading pointer. Challenges and appeals suspend an affected default; appeals identify an earlier decision. Missing support defers rather than manufacturing corroboration.</p>
 <p>See <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/governance.py">governance.py</a>; the <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/README.md">module README</a> describes usage and dependencies.</p>
 <p>The equal permission fixture retains rejected and deferred versions. Duplicate evidence IDs do not become additional votes. A workflow decision is distinct from evidence being true.</p>
-<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/agents/autoresearch-web-researcher/"><span class="entry-title">Autoresearch: Citation Tracking for Research Agents</span><span class="entry-description">Track exact citations through revised sources without rewriting earlier answers, and distinguish citation preservation from evidence supporting a claim.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/knowledge/graph-memory-with-a-paper-trail/"><span class="entry-title">Graph Based Research Memory with Source Provenance</span><span class="entry-description">Compare graph and metadata retrieval on versioned sources, keeping source history visible and accounting for cases where the simpler baseline matches it.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/open-abstract-knowledge-governance.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/knowledge/sl5-and-independent-research-workflows/"><span>Previous in topic</span><strong>SL5: Thread Aware Retrieval and Quote Attribution</strong></a><a href="/research/knowledge/graph-memory-with-a-paper-trail/"><span>Next in topic</span><strong>Graph Based Research Memory with Source Provenance</strong></a></nav></article></main></div>  <footer class="site-footer">
+<p><a href="/research/">Research index</a></p><aside aria-label="Related reading"><h2>Related reading</h2><ul class="entries"><li><a class="entry-link" href="/research/agents/autoresearch-web-researcher/"><span class="entry-title">Autoresearch: Citation Tracking for Research Agents</span><span class="entry-description">Track exact citations through revised sources without rewriting earlier answers, and distinguish citation preservation from evidence supporting a claim.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/knowledge/graph-memory-with-a-paper-trail/"><span class="entry-title">Graph Based Research Memory with Source Provenance</span><span class="entry-description">Compare graph and metadata retrieval on versioned sources, keeping source history visible and accounting for cases where the simpler baseline matches it.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li></ul></aside><p><a href="/topics/retrieval-evidence/">Explore this reading path</a></p><p class="article-nav"><a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/open-abstract-knowledge-governance.md">Source on GitHub</a> · <a href="https://github.com/tegridydev/tegridy/blob/main/research/knowledge/open-abstract-knowledge-governance/README.md">Setup and supporting files</a> · <a href="/research/">More research</a></p><nav class="article-pagination" aria-label="More in this topic"><a href="/research/knowledge/sl5-and-independent-research-workflows/"><span>Previous in topic</span><strong>SL5: Thread Aware Retrieval and Quote Attribution</strong></a><a href="/research/knowledge/graph-memory-with-a-paper-trail/"><span>Next in topic</span><strong>Graph Based Research Memory with Source Provenance</strong></a></nav></article></main></div>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">

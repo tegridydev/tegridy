@@ -16,7 +16,7 @@
 <meta property="og:description" content="Move from a model view to compatible captures, interventions and bounded comparisons."><meta property="og:url" content="https://tegridydev.com/topics/model-interpretation-evaluation/">
 <meta property="og:image" content="https://tegridydev.com/assets/social.png"><meta property="og:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:image" content="https://tegridydev.com/assets/social.png"><meta name="twitter:image:alt" content="tegridydev: open source tools, AI and security research"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="LLM Interpretability and Evaluation | tegridydev"><meta name="twitter:description" content="Move from a model view to compatible captures, interventions and bounded comparisons.">
 <script defer src="/assets/analytics.js"></script><script defer src="https://cloud.umami.is/script.js" data-website-id="af5a218c-d27d-484c-b0a2-8f1a25e82669" data-domains="tegridydev.com,www.tegridydev.com" data-performance="true" data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true" data-before-send="tegridyAnalyticsFilter"></script>
-<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css">
+<script>(()=>{let t=document.documentElement,a=new Set(["system","latte","frappe","macchiato","mocha","terminal-mint","night-shift","emberline","moss-byte","plum-static","deep-current","graphite","solar-paper","cherry-wire","cobalt-lab"]),e="system";try{let s=localStorage.getItem("td-theme");if(a.has(s))e=s}catch{}t.classList.add("js"),t.dataset.themeChoice=e,t.dataset.theme=e==="system"?matchMedia("(prefers-color-scheme: light)").matches?"latte":"mocha":e})();</script><link rel="stylesheet" href="/assets/build/site.502282bc98c5.css"><link rel="stylesheet" href="/assets/articles.css"><link rel="stylesheet" href="/assets/responsive.css"><script defer src="/assets/responsive.js"></script>
 
 </head><body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -38,95 +38,120 @@
         <a class="email-nav" href="/#contact">Contact</a>
       </nav>
 
-      <div class="theme-picker">
-        <button class="theme-toggle" type="button" aria-expanded="false"
-          aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
-          title="Choose colour theme">
-          <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
-            <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
-            <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
-          </svg>
-        </button>
-
-        <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
-          <div class="theme-group">
-            <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
-            <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
-              <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
-                <span class="theme-swatch" aria-hidden="true"></span>
-                <span>System</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
-                <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
-                <span>Latte</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
-                <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
-                <span>Frappé</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
-                <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
-                <span>Macchiato</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
-                <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
-                <span>Mocha</span>
-              </button>
+      <div class="header-actions">
+        <div class="theme-picker">
+          <button class="theme-toggle" type="button" aria-expanded="false"
+            aria-controls="theme-menu" aria-label="Choose colour theme. Current: System"
+            title="Choose colour theme">
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="theme-icon-ring" cx="12" cy="12" r="8.5"/>
+              <path class="theme-icon-shade" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>
+              <circle class="theme-icon-core" cx="12" cy="12" r="2.1"/>
+            </svg>
+          </button>
+  
+          <div class="theme-menu" id="theme-menu" data-nosnippet hidden>
+            <div class="theme-group">
+              <p class="theme-group-label" id="catppuccin-themes">catppuccin</p>
+              <div class="theme-options" role="group" aria-labelledby="catppuccin-themes">
+                <button class="theme-option" type="button" data-theme-choice="system" data-theme-label="System" aria-pressed="true">
+                  <span class="theme-swatch" aria-hidden="true"></span>
+                  <span>System</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="latte" data-theme-label="Latte" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="latte" aria-hidden="true"></span>
+                  <span>Latte</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="frappe" data-theme-label="Frappé" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="frappe" aria-hidden="true"></span>
+                  <span>Frappé</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="macchiato" data-theme-label="Macchiato" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="macchiato" aria-hidden="true"></span>
+                  <span>Macchiato</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="mocha" data-theme-label="Mocha" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="mocha" aria-hidden="true"></span>
+                  <span>Mocha</span>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div class="theme-group">
-            <p class="theme-group-label" id="custom-themes">tegridydev</p>
-            <div class="theme-options" role="group" aria-labelledby="custom-themes">
-              <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
-                <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
-                <span>Terminal Mint</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
-                <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
-                <span>Night Shift</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
-                <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
-                <span>Emberline</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
-                <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
-                <span>Moss Byte</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
-                <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
-                <span>Plum Static</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
-                <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
-                <span>Deep Current</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
-                <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
-                <span>Graphite</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
-                <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
-                <span>Solar Paper</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
-                <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
-                <span>Cherry Wire</span>
-              </button>
-              <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
-                <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
-                <span>Cobalt Lab</span>
-              </button>
+  
+            <div class="theme-group">
+              <p class="theme-group-label" id="custom-themes">tegridydev</p>
+              <div class="theme-options" role="group" aria-labelledby="custom-themes">
+                <button class="theme-option" type="button" data-theme-choice="terminal-mint" data-theme-label="Terminal Mint" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="terminal-mint" aria-hidden="true"></span>
+                  <span>Terminal Mint</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="night-shift" data-theme-label="Night Shift" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="night-shift" aria-hidden="true"></span>
+                  <span>Night Shift</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="emberline" data-theme-label="Emberline" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="emberline" aria-hidden="true"></span>
+                  <span>Emberline</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="moss-byte" data-theme-label="Moss Byte" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="moss-byte" aria-hidden="true"></span>
+                  <span>Moss Byte</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="plum-static" data-theme-label="Plum Static" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="plum-static" aria-hidden="true"></span>
+                  <span>Plum Static</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="deep-current" data-theme-label="Deep Current" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="deep-current" aria-hidden="true"></span>
+                  <span>Deep Current</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="graphite" data-theme-label="Graphite" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="graphite" aria-hidden="true"></span>
+                  <span>Graphite</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="solar-paper" data-theme-label="Solar Paper" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="solar-paper" aria-hidden="true"></span>
+                  <span>Solar Paper</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="cherry-wire" data-theme-label="Cherry Wire" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="cherry-wire" aria-hidden="true"></span>
+                  <span>Cherry Wire</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="cobalt-lab" data-theme-label="Cobalt Lab" aria-pressed="false">
+                  <span class="theme-swatch" data-theme="cobalt-lab" aria-hidden="true"></span>
+                  <span>Cobalt Lab</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+        <button class="nav-toggle" type="button" aria-expanded="false"
+          aria-controls="mobile-nav-panel" aria-label="Open navigation" title="Navigation">
+          <svg class="nav-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="nav-line nav-line-top" d="M4 7h16"/>
+            <path class="nav-line nav-line-middle" d="M4 12h16"/>
+            <path class="nav-line nav-line-bottom" d="M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-panel" id="mobile-nav-panel" hidden>
+      <div class="container mobile-nav-inner">
+        <nav class="mobile-nav" aria-label="Mobile primary navigation">
+          <a href="/#projects">Projects</a>
+          <a href="/#datasets">Data</a>
+          <a href="/#writing">Writing</a>
+          <a href="/blog/">Blog</a>
+          <a href="/research/">Research</a>
+          <a href="/#research">Citations</a>
+          <a class="email-nav" href="/#contact">Contact</a>
+        </nav>
       </div>
     </div>
   </header>
 
-<main class="container" id="main-content"><div class="document"><h1>LLM Interpretability and Evaluation</h1><p>Move from a model view to compatible captures, interventions and bounded comparisons.</p><h2>Read the map first</h2><p>Start with the model map article to separate architecture, observed activations and causal evidence. Activation mapping then explains token occurrence identity and compatible projections.</p><h2>Check what a result establishes</h2><p>Arithmetic across notations requires baseline competence before circuit analysis. Sparse feature recovery separates reconstruction from recovery of known generating features. Glow Worm measures byte prediction rather than chatbot quality.</p><h2>Related evaluation lessons from security</h2><p>The signal and protocol studies use different tasks, but make useful comparisons about distribution shift, false alarms and resource budgets. The security catalogue is a separate map of defensive proposals.</p><h2>Articles in this reading path</h2><ul class="entries"><li><a class="entry-link" href="/blog/model-interpretability/what-a-model-map-can-show/"><span class="entry-title">Reading LLM Model Maps: Activations and Causal Evidence</span><span class="entry-description">Read a model map without confusing architecture, measured activations and causal evidence, using a local viewer and explicit capture provenance.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/transformers/neuron-mapping-and-token-trajectories/"><span class="entry-title">Transformer Activation Maps and Token Trajectories</span><span class="entry-description">Track individual token occurrences, model revisions and shared projection bases so activation maps remain comparable and their limits stay visible.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/transformers/arithmetic-across-notations/"><span class="entry-title">LLM Arithmetic: Digits vs Number Words</span><span class="entry-description">A protocol for comparing digit and number word arithmetic circuits, including the failed answer generation gate that blocks causal interpretation.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/transformers/sparse-feature-recovery/"><span class="entry-title">Sparse Autoencoders: Reconstruction vs Feature Recovery</span><span class="entry-description">A synthetic sparse autoencoder comparison separates reconstruction error from feature recovery using cosine matching, support scores and correlated features.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/training-and-evaluation/glow-worm-byte-model/"><span class="entry-title">Glow Worm: A Small Byte Level Language Model</span><span class="entry-description">A small byte level language model tested on WikiText 2, with bits per byte, a unigram baseline and an explicit account of training exposure.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/"><span class="entry-title">Synthetic Signal Detection Under Distribution Shift</span><span class="entry-description">Compare synthetic signal detection and false alarms under session shift, including a detector whose ranking score hides a failed operating threshold.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/security/internet-protocol-amplification-research/"><span class="entry-title">Protocol Resource Limits and Amplification Modelling</span><span class="entry-description">Inspect byte, work, connection and time budgets in local protocol simulations, without treating bounded fixtures as evidence of live vulnerabilities.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li><li><a class="entry-link" href="/research/security/tegridydev-security-research-catalogue/"><span class="entry-title">Defensive Security Research Projects</span><span class="entry-description">Browse defensive research ideas, local implementations and unresolved sources, with practical next checks for incident review and model evaluation.</span></a><p class="article-meta"><time datetime="2026">2026 (exact date unverified)</time></p></li></ul><p><a href="/topics/">All reading paths</a></p></div></main>  <footer class="site-footer">
+<main class="container" id="main-content"><div class="document"><h1>LLM Interpretability and Evaluation</h1><p>Move from a model view to compatible captures, interventions and bounded comparisons.</p><h2>Read the map first</h2><p>Start with the model map article to separate architecture, observed activations and causal evidence. Activation mapping then explains token occurrence identity and compatible projections.</p><h2>Check what a result establishes</h2><p>Arithmetic across notations requires baseline competence before circuit analysis. Sparse feature recovery separates reconstruction from recovery of known generating features. Glow Worm measures byte prediction rather than chatbot quality.</p><h2>Related evaluation lessons from security</h2><p>The signal and protocol studies use different tasks, but make useful comparisons about distribution shift, false alarms and resource budgets. The security catalogue is a separate map of defensive proposals.</p><h2>Articles in this reading path</h2><ul class="entries"><li><a class="entry-link" href="/blog/model-interpretability/what-a-model-map-can-show/"><span class="entry-title">Reading LLM Model Maps: Activations and Causal Evidence</span><span class="entry-description">Read a model map without confusing architecture, measured activations and causal evidence, using a local viewer and explicit capture provenance.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/transformers/neuron-mapping-and-token-trajectories/"><span class="entry-title">Transformer Activation Maps and Token Trajectories</span><span class="entry-description">Track individual token occurrences, model revisions and shared projection bases so activation maps remain comparable and their limits stay visible.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/transformers/arithmetic-across-notations/"><span class="entry-title">LLM Arithmetic: Digits vs Number Words</span><span class="entry-description">A protocol for comparing digit and number word arithmetic circuits, including the failed answer generation gate that blocks causal interpretation.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/transformers/sparse-feature-recovery/"><span class="entry-title">Sparse Autoencoders: Reconstruction vs Feature Recovery</span><span class="entry-description">A synthetic sparse autoencoder comparison separates reconstruction error from feature recovery using cosine matching, support scores and correlated features.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/training-and-evaluation/glow-worm-byte-model/"><span class="entry-title">Glow Worm: A Small Byte Level Language Model</span><span class="entry-description">A small byte level language model tested on WikiText 2, with bits per byte, a unigram baseline and an explicit account of training exposure.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/security/sigint-spectrum-analysis-and-covert-channel-concepts/"><span class="entry-title">Synthetic Signal Detection Under Distribution Shift</span><span class="entry-description">Compare synthetic signal detection and false alarms under session shift, including a detector whose ranking score hides a failed operating threshold.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/security/internet-protocol-amplification-research/"><span class="entry-title">Protocol Resource Limits and Amplification Modelling</span><span class="entry-description">Inspect byte, work, connection and time budgets in local protocol simulations, without treating bounded fixtures as evidence of live vulnerabilities.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li><li><a class="entry-link" href="/research/security/tegridydev-security-research-catalogue/"><span class="entry-title">Defensive Security Research Projects</span><span class="entry-description">Browse defensive research ideas, local implementations and unresolved sources, with practical next checks for incident review and model evaluation.</span></a><p class="article-meta"><time datetime="2026">2026</time></p></li></ul><p><a href="/topics/">All reading paths</a></p></div></main>  <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">92 is only half way</p>
       <nav class="footer-links" aria-label="Other profiles">
