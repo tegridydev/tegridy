@@ -1,16 +1,16 @@
-# Four-dimensional summary trees and time-slice queries
+# 4D Range Queries with Sparse Summary Trees
 
-A sparse four-dimensional tree can reuse regional summaries for spatial and time-interval queries.
+A sparse four dimensional tree can reuse regional summaries for spatial and time interval queries.
 
 [Read the study](four-dimensional-lattice.md)
 
-## Included implementation
+## Implementation
 
-The sparse sixteen-child tree now retains raw leaf observations for exact partial queries and reuses aggregates only for covered nodes. Tests cover all child codes, boundaries, duplicates, empty results and randomized scan comparisons at depths zero, one and three. A 1,000-point pilot records build and query costs.
+The sparse sixteen child tree now retains raw leaf observations for exact partial queries and reuses aggregates only for covered nodes. Tests cover all child codes, boundaries, duplicates, empty results and randomized scan comparisons at depths zero, one and three. A 1,000-point pilot records build and query costs.
 
 ## Run locally
 
-Use Python 3.11 or newer. Run these commands from this article folder; each module keeps its own imports and dependencies.
+Run from this directory with Python 3.12.
 
 ```bash
 uv venv --python 3.12 .venv
@@ -19,44 +19,30 @@ uv pip sync --python .venv/bin/python requirements.txt
 uv run --no-project --python .venv/bin/python python -m pytest -q
 ```
 
-Run the tool or experiment after setup:
+Run:
 
 ```bash
 uv run --no-project --python .venv/bin/python python tree.py
 ```
 
-The API consumes `(x,y,z,t,value)` tuples in finite half-open bounds. Duplicate coordinates remain separate observations. `pilot-results.json` records local timings; benchmark break-even is conditional on that synthetic workload.
+The API consumes `(x,y,z,t,value)` tuples in finite half open bounds. Duplicate coordinates remain separate observations. `pilot-results.json` records local timings; benchmark break even is conditional on that synthetic workload.
 
 ## Earlier pilot result
 
-On this machine's repeated-query pilot, the clustered workload amortized construction after approximately 27 queries. The uniform workload had no measured break-even because traversal was slower than scanning. These timings depend on two reused query shapes and are too narrow for a general speed claim. Exact counts and sums matched the scan oracle in every timed case.
+On this machine's repeated query pilot, the clustered workload amortized construction after approximately 27 queries. The uniform workload had no measured break even because traversal was slower than scanning. These timings depend on two reused query shapes and are too narrow for a general speed claim. Exact counts and sums matched the scan oracle in every timed case.
 
-## Files
+## Scope and limitations
 
-- [four-dimensional-lattice.md](four-dimensional-lattice.md) — Article.
-- [pilot-results.json](pilot-results.json) — Recorded synthetic run; scope and provenance included.
-- [requirements.txt](requirements.txt) — Runtime and test dependencies.
-- [test_tree.py](test_tree.py) — Local regression checks.
-- [tree.py](tree.py) — Runnable implementation.
-
-## Remaining work
-
-The saved timing pilot uses only two repeated query shapes across uniform, clustered and identical-coordinate distributions. It is not the preregistered 100-distinct-query or 10,000-point study, and includes no established index or peak-memory comparison.
+The saved timing pilot uses only two repeated query shapes across uniform, clustered and identical coordinate distributions. It is not the preregistered 100-distinct query or 10,000-point study, and includes no established index or peak memory comparison.
 
 [Topic index](../README.md) · [Research index](../../README.md)
 
-## Reproduce the bounded CPU comparison
+## Reproduce the comparison
 
-From the repository source root (the folder containing `blog`, `research` and `tools`):
+From the repository root:
 
 ```sh
 uv run --locked --project tools/studies python -B tools/studies/runner.py run --study four-dimensional-lattice --profile cpu --resume
 ```
 
-See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
-
-## Recorded findings
-
-For 10,000 clustered points, the tree answered the 100-query workload in about 8.2 ms, versus 24.2 ms for NumPy scanning and 18.9 ms for cKDTree. Counts and sums matched the reference queries. The tree was slower on several other distributions; these query timings exclude construction and do not establish a universal speed advantage.
-
-See the [article](four-dimensional-lattice.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.
+See [reproducing the studies](../../../tools/studies/README.md) for dependencies, data and run profiles.

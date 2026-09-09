@@ -1,17 +1,17 @@
 +++
-title = "an embedding column needs more than a convincing name"
+title = "Embedding Compatibility: Models, Vectors and Search"
 date = "2026"
-description = "Before I trust an embedding search or scatterplot, I want to know exactly which model produced the vectors, how they were made and whether the query uses the same representation."
+description = "Record model revisions, pooling and normalisation beside embeddings, then compare retrieval methods without mistaking equal dimensions for compatibility."
 draft = false
 id = "blog/embeddings-need-a-contract"
 type = "article"
 author = "tegridydev"
 topic = "retrieval-evidence"
 related = ["research/cloudvec-paper-search", "research/graph-memory-with-a-paper-trail"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | an embedding column needs more than a convincing name
+# Embedding Compatibility: Models, Vectors and Search
 
 An embedding workbench is a very satisfying thing to build.
 
@@ -23,30 +23,9 @@ Before I trust the search, I want a contract between generation, storage and ret
 
 Think of map coordinates. Two numbers aren't enough unless I know the coordinate system.
 
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-On these ten authored fixtures, vector search ranked the labelled documents better than lexical search. Rank fusion performed worse than vector search alone; adding lexical ranks did not improve this fixture.
-
-Ten explicitly authored topic/paraphrase relevance fixtures using a real pinned pretrained encoder; labels are engineering fixtures, not an independently annotated retrieval benchmark. Deterministic seed repeats do not add evidence.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| hybrid · mrr | 0.7125 | — |
-| hybrid · recall at 3 | 0.9 | — |
-| lexical · mrr | 0.45 | — |
-| lexical · recall at 3 | 0.5 | — |
-| vector · mrr | 0.95 | — |
-| vector · recall at 3 | 1 | — |
-
-The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
-<!-- cpu-comparison:end -->
-
 ## two dimensions can still be incompatible
 
-This example uses hand-written vectors, not a downloaded embedding model. After [setup](README.md), run it in the module folder:
+This example uses hand written vectors, not a downloaded embedding model. After [setup](README.md), run it in the module folder:
 
 ```python
 from search import rank
@@ -78,7 +57,7 @@ The [regression test](test_search.py) also checks that an unknown lexical query 
 
 ## what actually made the vector?
 
-A text encoder produces a fixed-dimensional representation using a specific model and procedure.
+A text encoder produces a fixed dimensional representation using a specific model and procedure.
 
 That procedure can include tokenisation, prefixes, pooling, normalisation and truncation. Some retrieval models expect different instructions for queries and documents.
 
@@ -86,7 +65,7 @@ Matching dimensions isn't enough.
 
 Two unrelated encoders can both output 768 values and still live in completely different representation spaces.
 
-Sentence-BERT is a useful established example because its sentence representations are trained for comparison rather than being arbitrary numbers generated as text. [Reimers and Gurevych, 2019](https://arxiv.org/abs/1908.10084v1).
+Sentence BERT is a useful established example because its sentence representations are trained for comparison rather than being arbitrary numbers generated as text. [Reimers and Gurevych, 2019](https://arxiv.org/abs/1908.10084v1).
 
 ## save the recipe beside the vectors
 
@@ -108,13 +87,13 @@ Each passage then keeps a stable ID, source/version ID, exact encoded text or re
 
 If encoding fails, save the failure.
 
-Don't quietly replace it with an all-zero vector and let that thing wander into the index like nothing happened.
+Don't quietly replace it with an all zero vector and let that thing wander into the index like nothing happened.
 
 The cache key also needs the whole representation recipe. Change the prefix or truncation rule and the old cache may no longer be compatible even if the friendly model name stayed the same.
 
 ## validate before indexing
 
-Every vector should be one-dimensional, have the declared length and contain finite numbers.
+Every vector should be one dimensional, have the declared length and contain finite numbers.
 
 Reject ragged values, booleans, NaNs and infinities.
 
@@ -150,11 +129,11 @@ A gorgeous cluster doesn't prove its members answer the same question, and a 2D 
 
 An exact error code is a nice example. Lexical search may nail the identifier while semantic search retrieves a beautifully related explanation that never mentions it.
 
-That's a good reason to evaluate both, not declare semantic search universally better because it has more floating-point numbers involved.
+That's a good reason to evaluate both, not declare semantic search universally better because it has more floating point numbers involved.
 
 ## make the benchmark readable
 
-I'd start with a small self-authored corpus containing exact IDs, paraphrases, negation, conflicting versions, near-duplicates, long passages and queries with no valid answer.
+I'd start with a small self authored corpus containing exact IDs, paraphrases, negation, conflicting versions, near duplicates, long passages and queries with no valid answer.
 
 Keep query families together when splitting development from evaluation.
 
@@ -168,7 +147,7 @@ combined ranking
 
 over the same passage set.
 
-A simple reciprocal-rank fusion baseline is enough to start:
+A simple reciprocal rank fusion baseline is enough to start:
 
 ```text
 score = Σ 1 / (60 + rank)
@@ -196,7 +175,24 @@ If every query suddenly looks unrelated, compare the query/document manifests.
 
 If only long passages fail, inspect the exact encoded text and truncation.
 
-Those are different bugs and no amount of t-SNE colouring is going to fix them for me.
+Those are different bugs and no amount of t SNE colouring is going to fix them for me.
+
+## Implementation checks and recorded findings
+
+On these ten authored fixtures, vector search ranked the labelled documents better than lexical search. Rank fusion performed worse than vector search alone; adding lexical ranks did not improve this fixture.
+
+Ten explicitly authored topic/paraphrase relevance fixtures using a real pinned pretrained encoder; labels are engineering fixtures, not an independently annotated retrieval benchmark. Deterministic seed repeats do not add evidence.
+
+| Recorded metric | Value |
+| --- | ---: |
+| hybrid · mrr | 0.7125 |
+| hybrid · recall at 3 | 0.9 |
+| lexical · mrr | 0.45 |
+| lexical · recall at 3 | 0.5 |
+| vector · mrr | 0.95 |
+| vector · recall at 3 | 1 |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.
 
 ## what I built from this
 
@@ -206,11 +202,11 @@ Those are different bugs and no amount of t-SNE colouring is going to fix them f
 python3 vector_reference.py
 ```
 
-The local [search.py](search.py) tool then provides a BM25-style lexical baseline, signed-cosine ranking over supplied vectors and reciprocal-rank fusion.
+The local [search.py](search.py) tool then provides a BM25 style lexical baseline, signed cosine ranking over supplied vectors and reciprocal rank fusion.
 
-It checks unique document IDs, dimensions and exact representation-manifest compatibility. Negative cosine scores remain visible.
+It checks unique document IDs, dimensions and exact representation manifest compatibility. Negative cosine scores remain visible.
 
-The [module README](README.md) documents the index/query format. The optional [index builder](build_index.py) calls an explicitly acquired, hash-checked encoder. Model weights are not bundled. The recorded ten-query comparison is an authored engineering fixture; neural retrieval quality on other workloads still needs labelled evaluation and truthful provenance.
+The [module README](README.md) documents the index/query format. The optional [index builder](build_index.py) calls an explicitly acquired, hash checked encoder. Model weights are not bundled. The recorded ten query comparison is an authored engineering fixture; neural retrieval quality on other workloads still needs labelled evaluation and truthful provenance.
 
 That's deliberate.
 

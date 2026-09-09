@@ -1,17 +1,17 @@
 +++
-title = "sorting old notes without rewriting history"
+title = "Organising Research Notes Without Losing History"
 date = "2026"
-description = "A research folder turns into an archaeological site surprisingly fast. I want a clean reading copy without losing the weird history that explains where it came from."
+description = "Create a useful reading copy of research notes while preserving original files, duplicate relationships, conflicting versions and attribution."
 draft = false
 id = "blog/sorting-notes-without-rewriting-history"
 type = "article"
 author = "tegridydev"
 topic = "document-dataset-reliability"
 related = ["blog/xanadu-linked-documents", "blog/pdf-extraction-and-markdown"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | sorting old notes without rewriting history
+# Organising Research Notes Without Losing History
 
 A research folder can become an archaeological site surprisingly quickly.
 
@@ -27,25 +27,7 @@ and more about:
 
 I want a clean reading copy **without deleting the trail that explains where it came from**.
 
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-The archive fixture identified 500 exact-duplicate groups among 1,000 files and reported two name conflicts. Original files were preserved. Repeating this deterministic inventory with different seed labels does not provide independent statistical evidence.
-
-Known byte-duplicate archive fixture; originals are never modified or moved. Name collisions do not imply semantic duplicates.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| duplicate groups | 500 | 0 |
-| files | 1000 | 0 |
-| name conflicts | 2 | 0 |
-
-The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
-<!-- cpu-comparison:end -->
-
-## a three-file inventory
+## a three file inventory
 
 Suppose `notes/a.md` and `backup/a.md` have the same byte hash, while `notes/a-clean.md` differs. Keep two occurrences of the first content version and one occurrence of the second; record the cleanup as a possible transformation, not an established fact until its diff is inspected.
 
@@ -63,7 +45,7 @@ These shouldn't share one delete button.
 
 | relationship | meaning |
 |---|---|
-| byte-identical | every stored byte matches |
+| byte identical | every stored byte matches |
 | same body | content matches under an explicit rule |
 | revision | something actually changed |
 | related topic | they discuss similar things |
@@ -108,7 +90,7 @@ W3C PROV already provides useful language for entities, activities and derivatio
 
 This is the annoying part.
 
-A converter can produce cleaner Markdown while damaging source-like text.
+A converter can produce cleaner Markdown while damaging source like text.
 
 ```python
 class Note:
@@ -171,9 +153,23 @@ I also prefer supporting files beside the project they belong to. A post with sc
 
 That's basically the rule:
 
-> make the current collection nicer to use without forcing future-me to trust that the cleanup was perfect.
+> make the current collection nicer to use without forcing future me to trust that the cleanup was perfect.
 
-Given how many folders I've apparently named `final`, future-me deserves the help :)
+Given how many folders I've apparently named `final`, future me deserves the help :)
+
+## Implementation checks and recorded findings
+
+The archive fixture identified 500 exact duplicate groups among 1,000 files and reported two name conflicts. Original files were preserved. Repeating this deterministic inventory with different seed labels does not provide independent statistical evidence.
+
+Known byte duplicate archive fixture; originals are never modified or moved. Name collisions do not imply semantic duplicates.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| duplicate groups | 500 | 0 |
+| files | 1000 | 0 |
+| name conflicts | 2 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
 
 ## reference
 

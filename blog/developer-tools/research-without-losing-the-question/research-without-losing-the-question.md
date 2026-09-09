@@ -1,17 +1,17 @@
 +++
-title = "doing research without losing the question"
+title = "A Practical Workflow for Independent AI Research"
 date = "2026"
-description = "I like weird questions. The trick is stopping one question from becoming a reading list, dashboard and three architectures before I decide what would count as an answer."
+description = "Turn an AI research question into a baseline, measurable test and evidence record without letting reading lists and architecture ideas replace the question."
 draft = false
 id = "blog/research-without-losing-the-question"
 type = "article"
 author = "tegridydev"
 topic = "retrieval-evidence"
 related = ["research/autoresearch-web-researcher", "research/arithmetic-across-notations"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | doing research without losing the question
+# A Practical Workflow for Independent AI Research
 
 I like questions that start slightly sideways.
 
@@ -21,24 +21,7 @@ The problem is that one question can quickly become a reading list, dashboard an
 
 At that point I'm also giving myself several creative ways to avoid the original question lol.
 
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-The worked example linked two claims to one recorded evidence item while preserving the question and revision trail. It demonstrates traceability, not an independently measured improvement in research quality.
-
-Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| claims | 2 | — |
-| evidence | 1 | — |
-
-The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
-<!-- cpu-comparison:end -->
-
-## a reusable hand-off
+## a reusable hand off
 
 Here is the blank version of the question card, ready to copy into a note:
 
@@ -67,7 +50,7 @@ For the arithmetic example, a failed baseline accuracy check changes the next ac
 
 This is a question:
 
-> Do components selected using digit-form addition also matter when the same problem is written using number words?
+> Do components selected using digit form addition also matter when the same problem is written using number words?
 
 Now I have something I can vary and something I can measure.
 
@@ -75,11 +58,11 @@ Before building much, I like a tiny question card:
 
 | thing | example |
 |---|---|
-| question | do digit-selected components contribute to word-form addition? |
+| question | do digit selected components contribute to word form addition? |
 | prediction | removing them hurts more than matched random components |
 | comparison | same model and operands, different notation |
 | alternative | they support number output generally |
-| evidence | held-out answers before/after intervention |
+| evidence | held out answers before/after intervention |
 | stop | the untouched model can't reliably do the task |
 
 The stop condition is underrated.
@@ -94,7 +77,7 @@ Something I call `reflective memory` could overlap with retrieval, recurrent sta
 
 For close methods I want to know what changes, what the baseline is, what evidence is reported and how the question differs from mine.
 
-If I can't explain the difference, I don't know enough to call my thing novel. If a simpler method already handles the problem, finding that early saves a lot of lovingly over-engineered work.
+If I can't explain the difference, I don't know enough to call my thing novel. If a simpler method already handles the problem, finding that early saves a lot of lovingly over engineered work.
 
 ## attach evidence to claims
 
@@ -106,9 +89,9 @@ So I keep a small claim ledger:
 
 | claim | evidence | status | limit |
 |---|---|---|---|
-| tool saves a conversation | save-path + round-trip fixture | implementation claim | saving isn't retrieval |
+| tool saves a conversation | save path + round trip fixture | implementation claim | saving isn't retrieval |
 | retrieved history changes an answer | paired requests | proposed test | change can still be wrong |
-| memory improves accuracy | held-out comparison | hypothesis | extra context may explain it |
+| memory improves accuracy | held out comparison | hypothesis | extra context may explain it |
 
 For papers I keep title, authors, version, URL and relevant section. For runs I keep code revision, inputs, settings and output.
 
@@ -130,7 +113,7 @@ evaluation  → test choices already made
 
 Related examples stay together. A paraphrase isn't magically unseen because the wording changed.
 
-Before final evaluation, freeze the main metric and comparison. If I change them after seeing the result, cool—that run just became development data.
+Before final evaluation, freeze the main metric and comparison. If I change them after seeing the result, cool, that run just became development data.
 
 A fixed seed doesn't rescue a bad metric. It only helps me reproduce it perfectly :)
 
@@ -150,7 +133,7 @@ Generated explanations and novelty scores are still generated outputs. They don'
 
 A useful result can be positive, negative or a good reason to abandon the idea.
 
-The write-up should say what I asked, what I compared, what happened and what else could still explain it.
+The write up should say what I asked, what I compared, what happened and what else could still explain it.
 
 I try to keep these distinctions visible:
 
@@ -168,9 +151,22 @@ At the end of a session I want one recoverable state and one next action.
 
 That's dramatically more useful tomorrow than `continue research`.
 
-The [arithmetic module](../../../research/transformers/arithmetic-across-notations/README.md) now has a token-boundary checker and intervention scorer, so the next hand-off there is concrete: choose the local model, record the exact hook and pass the feasibility check before ranking anything.
+The [arithmetic module](../../../research/transformers/arithmetic-across-notations/README.md) now has a token boundary checker and intervention scorer, so the next hand off there is concrete: choose the local model, record the exact hook and pass the feasibility check before ranking anything.
 
 Still not enough to write `arithmetic circuit found` in the notes :)
+
+## Implementation checks and recorded findings
+
+The worked example linked two claims to one recorded evidence item while preserving the question and revision trail. It demonstrates traceability, not an independently measured improvement in research quality.
+
+Worked question/evidence/revision example with a deliberately authored fixture, not an independently observed external experiment.
+
+| Recorded metric | Value |
+| --- | ---: |
+| claims | 2 |
+| evidence | 1 |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.
 
 ## reference
 

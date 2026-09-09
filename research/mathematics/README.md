@@ -4,7 +4,7 @@ Research questions, explicit mechanisms, controls and next experiments.
 
 Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
-- [Four-dimensional summary trees and time-slice queries](four-dimensional-lattice/README.md)
-- [Hyper Matrix Lattice: adaptive summaries and interval search](hyper-matrix-lattice-and-numerical-search/README.md)
+- [4D Range Queries with Sparse Summary Trees](four-dimensional-lattice/README.md)
+- [Adaptive Range Summaries and Interval Search](hyper-matrix-lattice-and-numerical-search/README.md)
 
 [Research index](../README.md)

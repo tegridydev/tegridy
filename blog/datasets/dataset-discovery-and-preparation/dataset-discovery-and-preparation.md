@@ -1,43 +1,23 @@
 +++
-title = "cleaning a dataset without cleaning away its meaning"
+title = "Dataset Cleaning Without Losing IDs or Meaning"
 date = "2026"
-description = "I want dataset cleanup to remove repetitive work, not quietly decide that IDs are numbers, casing never matters or conflicting duplicates can be thrown away."
+description = "Clean datasets with explicit row accounting, preserved identifiers, conflict quarantine and reproducible splits rather than silent type conversion."
 draft = false
 id = "blog/dataset-discovery-and-preparation"
 type = "article"
 author = "tegridydev"
 topic = "document-dataset-reliability"
 related = ["blog/synthetic-data-generation-and-quality", "blog/pdf-extraction-and-markdown"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | cleaning a dataset without cleaning away its meaning
+# Dataset Cleaning Without Losing IDs or Meaning
 
 I want dataset tools to save me repetitive work.
 
 I don't want them deciding that an ID is secretly a number, casing never matters, or two rows with the same key must be interchangeable.
 
 A table can be beautifully clean and still be wrong in some very tidy ways.
-
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-The 11,592 input rows were accounted for as 9,411 accepted rows, 941 duplicates, 1,237 quarantined rows, and three rejected rows. The split check found no group leakage. This establishes accounting for the supplied synthetic recipe, not improved downstream model quality.
-
-Synthetic mixed-quality row accounting and grouped splitting; no discovery-provider or downstream-quality claim.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| accepted | 9411 | 0 |
-| duplicates | 941 | 0 |
-| elapsed seconds | 0.0497992 | 0.0011065 |
-| input rows | 11592 | 0 |
-| quarantined | 1237 | 0 |
-
-The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
-<!-- cpu-comparison:end -->
 
 ## account for every input row
 
@@ -76,7 +56,7 @@ Take:
 0018   gamma
 ```
 
-Converting IDs to integers turns `0017` into `17`. Keeping the first duplicate makes the disagreement between `beta` and `gamma` disappear. Lowercasing everything could damage code or case-sensitive labels.
+Converting IDs to integers turns `0017` into `17`. Keeping the first duplicate makes the disagreement between `beta` and `gamma` disappear. Lowercasing everything could damage code or case sensitive labels.
 
 My preferred result is boring: keep `0017` as a string and quarantine both conflicting `0018` rows.
 
@@ -116,23 +96,39 @@ A seed only makes the assignment repeatable. It doesn't make the grouping sensib
 
 A random preview can miss exactly what a cleaner is likely to damage.
 
-I'd deliberately surface leading-zero IDs, rare labels, malformed rows and duplicate conflicts. The before/after view should say **why** each change happened.
+I'd deliberately surface leading zero IDs, rare labels, malformed rows and duplicate conflicts. The before/after view should say **why** each change happened.
 
 Once I can follow one awkward row all the way through, bulk processing starts feeling useful instead of slightly terrifying.
 
+## Implementation checks and recorded findings
+
+The 11,592 input rows were accounted for as 9,411 accepted rows, 941 duplicates, 1,237 quarantined rows, and three rejected rows. The split check found no group leakage. This establishes accounting for the supplied synthetic recipe, not improved downstream model quality.
+
+Synthetic mixed quality row accounting and grouped splitting; no discovery provider or downstream quality claim.
+
+| Recorded metric | Mean | Seed standard deviation |
+| --- | ---: | ---: |
+| accepted | 9411 | 0 |
+| duplicates | 941 | 0 |
+| elapsed seconds | 0.0497992 | 0.0011065 |
+| input rows | 11592 | 0 |
+| quarantined | 1237 | 0 |
+
+The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
+
 ## what I built from this
 
-The local recipe engine reads CSV, JSON arrays and JSONL without coercing numeric-looking IDs.
+The local recipe engine reads CSV, JSON arrays and JSONL without coercing numeric looking IDs.
 
 It preserves protected fields, logs whitespace edits, quarantines conflicting duplicates, counts identical repeats separately and assigns deterministic group splits. Every input row is accounted for.
 
-Start with [prepare.py](prepare.py) or the [module README](README.md).
+See [prepare.py](prepare.py) or the [module README](README.md).
 
 The supplied recipe expects string `record_id` values. An optional `group_field` keeps related children together; otherwise the ID becomes the split group. Hash buckets target 80/10/10 without pretending that guarantees exact class balance.
 
-The engine only supports explicit recipe operations. Dataset discovery providers, augmentation and an interactive row-diff UI are still separate work.
+The engine only supports explicit recipe operations. Dataset discovery providers, augmentation and an interactive row diff UI are still separate work.
 
-Malformed JSONL rows can be rejected individually; malformed whole JSON/CSV files remain file-level errors.
+Malformed JSONL rows can be rejected individually; malformed whole JSON/CSV files remain file level errors.
 
 That's the direction I want: make the dataset easier to use without making its history harder to explain.
 

@@ -1,4 +1,4 @@
-name: Validate website
+name: Validate and publish website
 on:
   push:
     branches: [main]
@@ -33,7 +33,37 @@ jobs:
         run: uv run --no-project --python .venv/bin/python -m unittest discover -s tools/tests -v
       - name: Test viewer without starting a browser
         run: node blog/model-interpretability/what-a-model-map-can-show/test_viewer.cjs
+      - name: Test analytics
+        run: node tools/tests/test_analytics.cjs
       - name: Validate project Pages compatibility
         run: uv run --no-project --python .venv/bin/python tools/build.py --base-url https://tegridydev.github.io/tegridy
       - name: Build custom-domain production artifact
         run: uv run --no-project --python .venv/bin/python tools/build.py
+
+  publish:
+    name: Update static and request Pages build
+    needs: build
+    if: github.repository == 'tegridydev/tegridy' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pages: write
+    concurrency:
+      group: publish-static
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install pinned site dependency
+        run: python -m pip install -r requirements.txt
+      - name: Build production site
+        run: python tools/build.py
+      - name: Publish through the existing static branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/publish.py

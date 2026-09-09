@@ -6,15 +6,15 @@
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-2-800.webp",
         "width": 800,
         "height": 391,
-        "bytes": 271714,
-        "sha256": "3cee500916f6d3b6af1e866ac3098404f079bbb04f814728078be2fd4708d9b9"
+        "bytes": 33240,
+        "sha256": "141ae239a11f21a32e052b30016c9d0fa87d1eb8e98dbefe6ceb6f038bcc11e9"
       },
       {
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-2-1200.webp",
         "width": 1200,
         "height": 587,
-        "bytes": 585180,
-        "sha256": "14a4d437438d1c9581209ea3a31acef7a3cd36a7dbc4afb966e881a211562331"
+        "bytes": 66800,
+        "sha256": "266dc02a90942370ed44e99514f21b82a78dc542f258348703b6f2cc58e59259"
       }
     ]
   },
@@ -25,15 +25,15 @@
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-revision-codex-800.webp",
         "width": 800,
         "height": 391,
-        "bytes": 421750,
-        "sha256": "c8e0815decdbe0943d8d7866681b369343585e4a442b66f65a7b92578b923e06"
+        "bytes": 59302,
+        "sha256": "1975345015a3722564aa9174f8aab41a81cf2f852f2510f5caf780b19d933b1f"
       },
       {
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-revision-codex-1200.webp",
         "width": 1200,
         "height": 586,
-        "bytes": 862450,
-        "sha256": "a5080f18cafd6a01b0cd8e1d1d907d045ef1a8d062ffe591ec596b01bdaf2478"
+        "bytes": 110832,
+        "sha256": "2b52f7fe1273590d665425eddd86420bc192f4b7ef758cbceda581428d196b6e"
       }
     ]
   },
@@ -44,15 +44,15 @@
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-revision-800.webp",
         "width": 800,
         "height": 388,
-        "bytes": 259624,
-        "sha256": "7da89ade7bbfb4b108549a9039b160757486e380901e7ff27167278f7eeee5a3"
+        "bytes": 31976,
+        "sha256": "a2ef7f931ebad06485450fddbb6aa668170ab9f847f9c5f64298666049fced0d"
       },
       {
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-revision-1200.webp",
         "width": 1200,
         "height": 582,
-        "bytes": 499692,
-        "sha256": "745294b424ff3c3d6841320f957900268c231c30954d1455161db90dded7d567"
+        "bytes": 53372,
+        "sha256": "b03447e3de9cd1abbe5c4847565828251cf0e9741edc326b8ea871d375f0e428"
       }
     ]
   },
@@ -63,15 +63,15 @@
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-800.webp",
         "width": 800,
         "height": 439,
-        "bytes": 269026,
-        "sha256": "9392e6e7e5d5d98a5bbc960fe16ae0b4699055d8fb2fbcc7eb65a7935422c0af"
+        "bytes": 19264,
+        "sha256": "bfc447cdada28a6cf42a8f52983deb9c97285768f78ae35effcd8ae2ad35fd91"
       },
       {
         "path": "/blog/agents/minecraft-time-with-astra/wild-block-one-shot-1200.webp",
         "width": 1200,
         "height": 658,
-        "bytes": 591254,
-        "sha256": "543310a5c0c35d0d0d9fc4e840938ccbe4d87f2c01f2ece509feaf18d3af3b1d"
+        "bytes": 41074,
+        "sha256": "5e1a213608ef4a8e0c1cd29c3b8c2024e91482db8702fdd959c3ecd1f602f6af"
       }
     ]
   }

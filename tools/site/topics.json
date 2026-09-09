@@ -1,7 +1,7 @@
 [
   {
     "slug": "document-dataset-reliability",
-    "title": "Document and dataset reliability",
+    "title": "Document Processing and Dataset Quality",
     "description": "Follow a document from collection through extraction, preparation and validation.",
     "articles": [
       "blog/paper-and-book-collection",
@@ -12,11 +12,25 @@
       "blog/discord-log-export-and-field-extraction-toolkit",
       "blog/lead-extraction-and-cleaning",
       "blog/sorting-notes-without-rewriting-history"
+    ],
+    "guide": [
+      {
+        "title": "Collect the source",
+        "text": "Start with paper and book collection if versions or acquisition history are getting lost. Keep the original file and why you saved it before converting anything."
+      },
+      {
+        "title": "Extract and prepare",
+        "text": "Read PDF extraction when layout or reading order matters. Continue to dataset preparation for identifiers, conflicting rows and split rules. Saved chat and contact extraction cover records that must keep a precise source reference."
+      },
+      {
+        "title": "Validate the output",
+        "text": "Use the synthetic data article when you can check answers independently. Image conversion covers dimensions, byte limits and metadata. Note organisation explains how to make a reading copy while keeping the originals."
+      }
     ]
   },
   {
     "slug": "retrieval-evidence",
-    "title": "Retrieval and evidence",
+    "title": "Retrieval, Embeddings and Evidence Tracking",
     "description": "Check representations, source versions and what a retrieved result actually supports.",
     "articles": [
       "blog/embeddings-need-a-contract",
@@ -30,11 +44,25 @@
       "blog/xanadu-linked-documents",
       "research/open-abstract-knowledge-governance",
       "research/sl5-and-independent-research-workflows"
+    ],
+    "guide": [
+      {
+        "title": "Check the representation",
+        "text": "Start with embedding compatibility before changing your search model. Equal vector dimensions do not mean the query and document vectors share a coordinate system."
+      },
+      {
+        "title": "Keep the index current",
+        "text": "CloudVec explains how database changes reach a vector index after a crash. Graph memory asks whether explicit relationships improve on ordinary metadata retrieval. Assistant memory adds ownership and time validity."
+      },
+      {
+        "title": "Keep evidence attached",
+        "text": "For retrieval augmented generation, retain the passage and version behind each answer. Autoresearch, Xanadu and OpenAbstract cover citation history, stable passage links and corrections. SL5 adds nested discussion attribution."
+      }
     ]
   },
   {
     "slug": "agent-systems",
-    "title": "Agent systems",
+    "title": "AI Agent Systems: Memory and Evaluation",
     "description": "Follow state, attribution and evaluation through small agent systems.",
     "articles": [
       "blog/botsim-local-community",
@@ -44,11 +72,25 @@
       "research/recursive-self-correction-with-uncertainty",
       "research/self-rewarding-training-loops",
       "blog/minecraft-time-with-astra"
+    ],
+    "guide": [
+      {
+        "title": "Start with state and failures",
+        "text": "BotSim introduces a small local community. The orchestration article follows streamed events, failures and cancellation. Both distinguish deterministic test providers from live language models."
+      },
+      {
+        "title": "Test coordination",
+        "text": "The swarm experiment measures neighbour coupling in a tiny grammar. Mixture of Perspectives separates hard constraints from preference disagreements. Neither fixture establishes general intelligence or better decisions in the world."
+      },
+      {
+        "title": "Evaluate revision and training",
+        "text": "Read self correction before adding repeated answer revisions, then self rewarding training for preference loss and independent evaluation. The Minecraft article is a personal game building account, not a model benchmark."
+      }
     ]
   },
   {
     "slug": "model-interpretation-evaluation",
-    "title": "Model interpretation and evaluation",
+    "title": "LLM Interpretability and Evaluation",
     "description": "Move from a model view to compatible captures, interventions and bounded comparisons.",
     "articles": [
       "blog/what-a-model-map-can-show",
@@ -59,11 +101,25 @@
       "research/sigint-spectrum-analysis-and-covert-channel-concepts",
       "research/internet-protocol-amplification-research",
       "research/tegridydev-security-research-catalogue"
+    ],
+    "guide": [
+      {
+        "title": "Read the map first",
+        "text": "Start with the model map article to separate architecture, observed activations and causal evidence. Activation mapping then explains token occurrence identity and compatible projections."
+      },
+      {
+        "title": "Check what a result establishes",
+        "text": "Arithmetic across notations requires baseline competence before circuit analysis. Sparse feature recovery separates reconstruction from recovery of known generating features. Glow Worm measures byte prediction rather than chatbot quality."
+      },
+      {
+        "title": "Related evaluation lessons from security",
+        "text": "The signal and protocol studies use different tasks, but make useful comparisons about distribution shift, false alarms and resource budgets. The security catalogue is a separate map of defensive proposals."
+      }
     ]
   },
   {
     "slug": "architecture-experiments",
-    "title": "Architecture experiments",
+    "title": "Neural Architecture Experiments",
     "description": "Separate implemented mechanisms, small pilot findings and untested architecture proposals.",
     "articles": [
       "research/tegridydev-adaptive-neural-architecture-concepts",
@@ -77,6 +133,20 @@
       "research/weight-similarity-and-svd-compression",
       "research/four-dimensional-lattice",
       "research/hyper-matrix-lattice-and-numerical-search"
+    ],
+    "guide": [
+      {
+        "title": "Choose one mechanism",
+        "text": "The architecture overview separates memory, routing, repair and representation ideas. Start with a mechanism whose result you can check against a simple control."
+      },
+      {
+        "title": "Compare controls and costs",
+        "text": "Read temporal attention and causal memory for sequence history, judge heads and face based attention for gating, and Hydraform for mutation. Token repair needs a strong rule baseline. BitNet and SVD separate storage savings from execution speed and functional error."
+      },
+      {
+        "title": "Data structures are a separate branch",
+        "text": "The 4D lattice and adaptive range summary articles concern query algorithms. Compare construction and query costs with scanning before connecting those results to neural architecture claims."
+      }
     ]
   }
 ]

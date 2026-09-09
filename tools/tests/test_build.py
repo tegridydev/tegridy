@@ -35,7 +35,7 @@ class PublishingTests(unittest.TestCase):
              'url':f'https://example.com/article-{i}'} for i in range(4)]))
         config = self.root/'tools/site.toml'
         import re
-        config.write_text(re.sub(r'cloudflare_analytics_token = "[^"]*"', 'cloudflare_analytics_token = ""', config.read_text()))
+        config.write_text(re.sub(r'umami_website_id = "[^"]*"', 'umami_website_id = ""', config.read_text()))
     def tearDown(self):
         self.tmp.cleanup()
     def run_build(self, url='https://tegridydev.com'):
@@ -52,7 +52,7 @@ class PublishingTests(unittest.TestCase):
                              (self.root/'blog/minecraft-time-with-astra'/name).read_bytes())
         self.assertFalse((out/'scripts').exists())
         self.assertFalse((out/'research/hydraform.md').exists())
-        self.assertNotIn('static.cloudflareinsights.com/beacon', (out/'index.html').read_text())
+        self.assertNotIn('cloud.umami.is/script.js', (out/'index.html').read_text())
         self.assertNotIn('hydraform', (out/'sitemap.xml').read_text())
     def test_project_prefix_and_feeds(self):
         out = self.run_build('https://tegridydev.github.io/tegridy')
@@ -81,12 +81,12 @@ class PublishingTests(unittest.TestCase):
             self.run_build()
     def test_analytics_configuration_and_csp(self):
         p = self.root/'tools/site.toml'
-        p.write_text(p.read_text().replace('cloudflare_analytics_token = ""', 'cloudflare_analytics_token = "'+'a'*32+'"'))
+        p.write_text(p.read_text().replace('umami_website_id = ""', 'umami_website_id = "'+'af5a218c-d27d-484c-b0a2-8f1a25e82669'+'"'))
         out = self.run_build()
         page = (out/'index.html').read_text()
-        self.assertIn('https://cloudflareinsights.com', page)
-        self.assertEqual(page.count('src="https://static.cloudflareinsights.com/beacon.min.js"'), 1)
-        self.assertIn('This site uses Cloudflare Web Analytics', (out/'privacy/index.html').read_text())
+        self.assertIn('https://gateway.umami.is', page)
+        self.assertEqual(page.count('src="https://cloud.umami.is/script.js"'), 1)
+        self.assertIn('This site uses Umami Cloud', (out/'privacy/index.html').read_text())
     def test_rebuild_removes_unpublished_output(self):
         out = self.run_build()
         p = self.root/'blog/minecraft-time-with-astra/minecraft-time-with-astra.md'

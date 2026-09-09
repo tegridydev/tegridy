@@ -1,4 +1,4 @@
-# sorting old notes without rewriting history
+# Organising Research Notes Without Losing History
 
 A research folder can become an archaeological site surprisingly quickly.
 
@@ -10,18 +10,12 @@ The current public modules keep their implementation, tests, dependency file and
 
 [Topic index](../README.md) · [Blog index](../../README.md)
 
-## Reproduce the bounded CPU comparison
+## Reproduce the comparison
 
-From the repository source root (the folder containing `blog`, `research` and `tools`):
+From the repository root:
 
 ```sh
 uv run --locked --project tools/studies python -B tools/studies/runner.py run --study sorting-notes-without-rewriting-history --profile cpu --resume
 ```
 
-See the [study execution guide](../../../tools/studies/README.md) for pinned asset acquisition, declared seeds, artifact locations and workload limits. The adapter writes raw evidence and a scope statement; a completed run does not establish claims outside that scope. `--profile smoke` checks integration only.
-
-## Recorded findings
-
-The archive fixture identified 500 exact-duplicate groups among 1,000 files and reported two name conflicts. Original files were preserved. Repeating this deterministic inventory with different seed labels does not provide independent statistical evidence.
-
-See the [article](sorting-notes-without-rewriting-history.md) for methods and interpretation, and the [comparison record](comparison-results.json) for all conditions, seeds and measured values.
+See [reproducing the studies](../../../tools/studies/README.md) for dependencies, data and run profiles.

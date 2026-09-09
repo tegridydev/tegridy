@@ -79,12 +79,12 @@ class PublicationTests(unittest.TestCase):
 
     def test_analytics_absent_from_preview_and_alternate_host(self):
         p = self.root/'tools/site.toml'
-        p.write_text(p.read_text().replace('cloudflare_analytics_token = ""', 'cloudflare_analytics_token = "'+'a'*32+'"'))
+        p.write_text(p.read_text().replace('umami_website_id = ""', 'umami_website_id = "'+'af5a218c-d27d-484c-b0a2-8f1a25e82669'+'"'))
         out = self.run_build('https://tegridydev.github.io/tegridy')
-        self.assertNotIn('beacon.min.js', self.page(out))
+        self.assertNotIn('cloud.umami.is/script.js', self.page(out))
         with contextlib.redirect_stdout(io.StringIO()):
             out = build.build(self.root, 'http://127.0.0.1:8000', preview=True)
-        self.assertNotIn('beacon.min.js', self.page(out))
+        self.assertNotIn('cloud.umami.is/script.js', self.page(out))
         self.assertEqual(out.parent, self.root/'tools')
 
     def test_image_dimensions_loading_and_topic_navigation(self):

@@ -1,17 +1,17 @@
 +++
-title = "knowledge bases should help me choose the next check"
+title = "Building Technical Knowledge Bases for Troubleshooting"
 date = "2026"
-description = "I don't really need a knowledge base to remember every term. I want it to help me work out what to inspect next and what that check can actually tell me."
+description = "Organise a technical knowledge base around the next useful check, with source evidence, device time and receipt time kept distinct."
 draft = false
 id = "blog/knowledge-bases-that-help-with-real-work"
 type = "article"
 author = "tegridydev"
 topic = "retrieval-evidence"
 related = ["research/graph-memory-with-a-paper-trail", "blog/embeddings-need-a-contract"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | knowledge bases should help me choose the next check
+# Building Technical Knowledge Bases for Troubleshooting
 
 I keep technical knowledge bases because remembering a term and knowing what to do next are very different things.
 
@@ -25,26 +25,7 @@ to:
 
 without pretending one check proves more than it does.
 
-Two of my public projects approach that from different directions: [Mechanistic-Interpretability](https://github.com/tegridydev/Mechanistic-Interpretability) and [physical-security-dev](https://github.com/tegridydev/physical-security-dev). The subjects stay separate; the useful design habit is the same.
-
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-The four-question walkthrough separated two scoped answers, one request needing clarification and one unsupported question. This demonstrates the intended evidence and next-check behaviour on authored documents; it is not a general question-answering benchmark.
-
-Explicit Cedar fictional-document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge-base performance claim.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| needs scope | 1 | — |
-| questions | 4 | — |
-| scoped | 2 | — |
-| unsupported | 1 | — |
-
-The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
-<!-- cpu-comparison:end -->
+Two of my public projects approach that from different directions: [Mechanistic Interpretability](https://github.com/tegridydev/Mechanistic-Interpretability) and [physical security dev](https://github.com/tegridydev/physical-security-dev). The subjects stay separate; the useful design habit is the same.
 
 ## one question through to the next check
 
@@ -68,13 +49,13 @@ need different evidence.
 
 An activation view gives me a candidate. An intervention tests what happens when I change it.
 
-Physical-security integrations have the same trap. `did this event arrive?` is different from `does this field mean what my application thinks it means?`
+Physical security integrations have the same trap. `did this event arrive?` is different from `does this field mean what my application thinks it means?`
 
-Perfectly valid JSON can still confuse device time with receipt time or a persistent alarm state with a one-off event. A useful knowledge base should make those distinctions hard to miss.
+Perfectly valid JSON can still confuse device time with receipt time or a persistent alarm state with a one off event. A useful knowledge base should make those distinctions hard to miss.
 
 ## keep the raw thing beside the interpretation
 
-In [physical-security-dev's data-model guidance](https://github.com/tegridydev/physical-security-dev/blob/main/01-foundations/data-models-and-semantics.md), raw source records stay separate from parsed fields and the application's canonical model.
+In [physical security dev's data model guidance](https://github.com/tegridydev/physical-security-dev/blob/main/01-foundations/data-models-and-semantics.md), raw source records stay separate from parsed fields and the application's canonical model.
 
 That lets me improve a mapping later without pretending the device originally sent something different. For a door event I'd want:
 
@@ -115,7 +96,7 @@ If I'm debugging a late alarm, I want the route from raw message to diagnostic d
 
 Take realistic questions and ask someone to choose the next check, find the supporting passage and explain what the result would **not** establish.
 
-Then compare a flat contents page with task-oriented routes.
+Then compare a flat contents page with task oriented routes.
 
 If the fancy route just adds more clicking, delete it.
 
@@ -130,3 +111,19 @@ I don't need one giant unified system. I just want each one to do this well:
 > **help me choose the next defensible check, then show me what that check actually means.**
 
 [Blog index](../../README.md)
+
+## Implementation checks and recorded findings
+
+The four question walkthrough separated two scoped answers, one request needing clarification and one unsupported question. This demonstrates the intended evidence and next check behaviour on authored documents; it is not a general question answering benchmark.
+
+Explicit Cedar fictional document walkthrough; supported evidence, ambiguity and missing coverage remain separate. No external knowledge base performance claim.
+
+| Recorded metric | Value |
+| --- | ---: |
+| needs scope | 1 |
+| questions | 4 |
+| scoped | 2 |
+| unsupported | 1 |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.
+

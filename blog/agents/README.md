@@ -4,7 +4,7 @@ Personal development notes, worked examples and things I want to build.
 
 Each entry links to its article, supporting code and setup instructions. Recorded results state their methods and limitations.
 
-- [botsim: letting the locals talk](botsim-local-community/README.md)
-- [minecraft time with astra](minecraft-time-with-astra/README.md)
+- [BotSim: A Local AI Agent Community Simulator](botsim-local-community/README.md)
+- [Building a Minecraft Style Browser Game with Astra](minecraft-time-with-astra/README.md)
 
 [Blog index](../README.md)

@@ -1,8 +1,8 @@
 +++
-title = "a readable PDF export can still be wrong"
+title = "PDF to Markdown: Checking Extraction Fidelity"
 date = "2026"
-description = "PDF conversion can look finished long before I've checked whether the Markdown still means the same thing as the original page."
-updated = "2026-09-07"
+description = "Check whether PDF extraction preserves page evidence, reading order and meaning, and identify when native text extraction needs an OCR alternative."
+updated = "2026-09-09"
 draft = false
 id = "blog/pdf-extraction-and-markdown"
 type = "article"
@@ -11,16 +11,15 @@ topic = "document-dataset-reliability"
 related = ["blog/paper-and-book-collection", "blog/dataset-discovery-and-preparation"]
 +++
 
-# [td] tegridydev | a readable PDF export can still be wrong
+# PDF to Markdown: Checking Extraction Fidelity
 
 PDF conversion is one of those jobs where the output can look finished long before I've checked whether it is actually right.
 
-A two-column paper can become one readable paragraph with the columns mixed together. A table can lose its headers. An equation can lose one minus sign and still look completely normal.
+A two column paper can become one readable paragraph with the columns mixed together. A table can lose its headers. An equation can lose one minus sign and still look completely normal.
 
 So I'm less interested in **getting text out of a PDF** than keeping enough information around to notice when the conversion changed the meaning.
 
-
-## try the native-text boundary
+## try the native text boundary
 
 The smallest useful example has one page saying `Price: 12.50` and one blank page. The second page is deliberately **not** proof of an OCR failure: it has no native text, so the extractor must ask for review instead of guessing why.
 
@@ -70,9 +69,9 @@ Page/block identity also gives the UI somewhere useful to go when I click a susp
 
 ## use the expensive path when it earns it
 
-Native text extraction, layout-aware parsing and OCR solve different problems.
+Native text extraction, layout aware parsing and OCR solve different problems.
 
-[Docling's technical report](https://arxiv.org/abs/2408.09869v5) is useful related work around layout and table-aware conversion. It doesn't mean every document needs the heaviest pipeline.
+[Docling's technical report](https://arxiv.org/abs/2408.09869v5) is useful related work around layout and table aware conversion. It doesn't mean every document needs the heaviest pipeline.
 
 I'd start cheap and explicit. If native extraction works, use it. If a page has no usable text, mark it for another path rather than calling it a successful empty page.
 
@@ -80,7 +79,7 @@ If two extractors disagree on numbers, that disagreement itself is a useful revi
 
 ## keep the faithful copy before making it convenient
 
-A readable extraction and a training-ready chunk set are different products.
+A readable extraction and a training ready chunk set are different products.
 
 First preserve the closest faithful copy I can. Then treat heading cleanup, chunking and summarisation as later transformations.
 
@@ -102,23 +101,23 @@ Then ask questions whose answers depend on those structures.
 
 The first check isn't whether an LLM answers correctly. It's whether the needed evidence survived conversion. Otherwise model knowledge can hide a dropped table.
 
-I'd keep reading-order errors, missing symbols and table/header mistakes separate rather than collapse everything into one score.
+I'd keep reading order errors, missing symbols and table/header mistakes separate rather than collapse everything into one score.
 
 ## what I built from this
 
-The local extractor now creates page-scoped native text blocks with explicit empty-page/failure outcomes, parser revision and source/output hashes.
+The local extractor now creates page scoped native text blocks with explicit empty page/failure outcomes, parser revision and source/output hashes.
 
 It writes to staging and only renames the directory after `extracted.md` and `manifest.json` are complete. Integrity checking catches later changes.
 
-A generated two-page fixture verifies one known price and one page with no native extractable text.
+A generated two page fixture verifies one known price and one page with no native extractable text.
 
-Start with [extract.py](extract.py) or the [module README](README.md). It uses [pypdf native text extraction](https://pypdf.readthedocs.io/en/stable/user/extract-text.html) first. Optional `--ocr` invokes local pdftoppm and Tesseract for pages without native text, and `--review` saves a static side-by-side PDF/text review page.
+See [extract.py](extract.py) or the [module README](README.md). It uses [pypdf native text extraction](https://pypdf.readthedocs.io/en/stable/user/extract-text.html) first. Optional `--ocr` invokes local pdftoppm and Tesseract for pages without native text, and `--review` saves a static side by side PDF/text review page.
 
-`verify(output_path)` checks the stored reading-copy hash.
+`verify(output_path)` checks the stored reading copy hash.
 
-The optional OCR adapter and static comparison page are implemented, but real OCR accuracy has not been measured here: the OCR executables and labelled eighteen-layout-family corpus are unavailable. Semantic table/equation reconstruction remains outside this extractor. The [corpus evaluator](evaluate_corpus.py) requires source hashes and reference page text; it does not generate its own ground truth.
+The optional OCR adapter and static comparison page are implemented, but real OCR accuracy has not been measured here: the OCR executables and labelled eighteen layout family corpus are unavailable. Semantic table/equation reconstruction remains outside this extractor. The [corpus evaluator](evaluate_corpus.py) requires source hashes and reference page text; it does not generate its own ground truth.
 
-And `complete native extraction` only means every page returned non-empty native text.
+And `complete native extraction` only means every page returned non empty native text.
 
 It does **not** mean the document survived faithfully.
 

@@ -254,14 +254,22 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
                   key=lambda x: (x['date'], x['route']), reverse=True)
     research = [x for x in articles if x['section'] == 'research']
     navigation = Navigation(blog, research, any(a.get('topic') for a in articles))
-    token = '' if preview or base != site_url(config['url']) else config.get('cloudflare_analytics_token', '')
-    if token and not re.fullmatch(r'[a-fA-F0-9]{32}', token):
-        raise ValueError('Cloudflare Web Analytics token must be 32 hexadecimal characters')
-    analytics = ('<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-                 f'data-cf-beacon=\'{json.dumps({"token": token}, separators=(",", ":"))}\'></script>') if token else ''
+    umami_id = config.get('umami_website_id', '')
+    if umami_id and not re.fullmatch(r'[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}', umami_id):
+        raise ValueError('Umami website ID must be a UUID')
+    # Never send preview traffic to the production property. Domain filtering also
+    # protects production files opened on localhost or another hosting domain.
+    analytics_enabled = bool(umami_id) and not preview and base == site_url(config['url'])
+    analytics = (f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{umami_id}" '
+                 'data-domains="tegridydev.com,www.tegridydev.com" data-performance="true" '
+                 'data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true" '
+                 'data-before-send="tegridyAnalyticsFilter"></script>') if analytics_enabled else ''
 
     def local(route: str) -> str:
         return route if urlsplit(route).scheme else prefix + route
+
+    if analytics_enabled:
+        analytics = f'<script defer src="{local("/assets/analytics.js")}"></script>' + analytics
 
     def absolute(route: str) -> str:
         return route if urlsplit(route).scheme else base + route
@@ -293,13 +301,16 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
         hashes = ["'sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode() + "'"
                   for s in (theme, schema_text) if s]
         csp = ("default-src 'none'; base-uri 'none'; object-src 'none'; script-src 'self' " + ' '.join(hashes)
-               + (' https://static.cloudflareinsights.com' if token else '')
+               + (' https://cloud.umami.is' if analytics_enabled else '')
                + "; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' https:; "
-                 "connect-src 'self'" + (' https://cloudflareinsights.com' if token else '')
+                 "connect-src 'self'" + (' https://gateway.umami.is' if analytics_enabled else '')
                + "; font-src 'none'; media-src 'self'; frame-src 'none'; worker-src 'none'; form-action 'none'; "
                  "require-trusted-types-for 'script'")
         desc = escape(description, quote=True)
         ttl = escape(title, quote=True)
+        social = social or {}
+        if not social.get('image'):
+            social = {**social, 'image': '/assets/social.png', 'image_alt': 'tegridydev: open source tools, AI and security research'}
         social_meta = ''
         if social and social.get('image'):
             image_url = escape(absolute(social['image']), quote=True)
@@ -322,13 +333,14 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
 <meta property="og:site_name" content="tegridydev"><meta property="og:title" content="{ttl}">
 <meta property="og:description" content="{desc}"><meta property="og:url" content="{escape(url, quote=True)}">
 {social_meta}<meta name="twitter:card" content="{'summary_large_image' if social_meta else 'summary'}"><meta name="twitter:title" content="{ttl}"><meta name="twitter:description" content="{desc}">
+{analytics}
 <script>{theme}</script><link rel="stylesheet" href="{local(css)}"><link rel="stylesheet" href="{local('/assets/articles.css')}">
 {('<script type="application/ld+json">' + schema_text + '</script>') if schema_text else ''}
 </head>'''
         if writing:
             head = head.replace('</head>', '<link rel="stylesheet" href="' + local('/assets/reading.css') + '"><script src="' + local('/assets/reading.js') + '" defer></script></head>')
         tail = footer.replace('{{CONTACT_SCRIPT}}', '<script src="/assets/build/contact.72f5707fe9d1.js" defer></script>' if contact else '')
-        tail = tail.replace('{{ANALYTICS}}', analytics)
+        tail = tail.replace('{{ANALYTICS}}', '')
         if route != '/':
             tail = tail.replace('href="/#home">top ↑', 'href="#main-content">top ↑')
         nav = header.replace('<body>', '<body class="writing-page">') if writing else header
@@ -342,17 +354,20 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(html, encoding='utf-8')
 
-    desc = 'Open-source tools, datasets and practical research by tegridydev across AI security, local LLMs, mechanistic interpretability, OSINT and physical security.'
+    desc = 'Open source tools, datasets and practical research by tegridydev across AI security, local LLMs, mechanistic interpretability, OSINT and physical security.'
     home = (template / 'home.html').read_text().replace('{{WRITING}}', entries(blog[:5])).replace('{{TOPICS}}', '<p><a href="/topics/">Explore topic reading paths</a></p>' if any(a.get('topic') for a in articles) else '')
+    featured_ids = ('blog/what-a-model-map-can-show', 'blog/dataset-discovery-and-preparation', 'research/cloudvec-paper-search')
+    featured = [a for identifier in featured_ids for a in articles if a['id'] == identifier]
+    home = home.replace('{{FEATURED}}', '<h3>Start here</h3>' + entries(featured) if featured else '')
     profile = {'@context': 'https://schema.org', '@type': 'ProfilePage', 'url': absolute('/'),
                'mainEntity': {'@type': 'Person', 'name': 'tegridydev', 'url': absolute('/'),
                               'sameAs': ['https://github.com/tegridydev', 'https://huggingface.co/tegridydev',
                                          'https://bsky.app/profile/mechanistics.bsky.social']}}
-    write_page('/', 'tegridydev — Open-source developer & independent researcher', desc, home, profile, contact=True)
+    write_page('/', 'tegridydev | Open Source AI and Security Research', desc, home, profile, contact=True)
     for section, items in [('blog', blog), ('research', research)]:
-        intro = 'Project write-ups, experiments and things I’ve been playing around with.' if section == 'blog' else 'Research notes, methods and open questions. Each article states its own scope and limitations.'
+        intro = ('Practical writing about AI tools, datasets, document processing and the things I build.' if section == 'blog' else 'AI and security research notes with methods, controls and measured limits. Proposed study means a plan; local implementation means working code; bounded pilot means a saved experiment with a stated scope.')
         body = f'<main class="container" id="main-content"><div class="document"><h1>{section.title()}</h1><p>{intro}</p><p><a href="/{section}/feed.xml">Subscribe via RSS</a></p>{navigation.index(section, entries)}</div></main>'
-        write_page(f'/{section}/', f'{section.title()} — tegridydev', intro, body)
+        write_page(f'/{section}/', ('AI, Datasets and Developer Tools Blog' if section == 'blog' else 'AI and Security Research Notes') + ' | tegridydev', intro, body)
 
     by_id = {a['id']: a for a in articles}
     topic_file = infrastructure(root) / 'site/topics.json'
@@ -368,11 +383,11 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
             continue
         route = '/topics/' + topic['slug'] + '/'
         topic_routes.append(route)
-        write_page(route, topic['title'] + ' — tegridydev', topic['description'],
-                   '<main class="container" id="main-content"><div class="document"><h1>' + escape(topic['title']) + '</h1><p>' + escape(topic['description']) + '</p>' + entries(members) + '<p><a href="/topics/">All reading paths</a></p></div></main>')
+        write_page(route, topic['title'] + ' | tegridydev', topic['description'],
+                   '<main class="container" id="main-content"><div class="document"><h1>' + escape(topic['title']) + '</h1><p>' + escape(topic['description']) + '</p>' + ''.join('<h2>' + escape(g['title']) + '</h2><p>' + escape(g['text']) + '</p>' for g in topic.get('guide', [])) + '<h2>Articles in this reading path</h2>' + entries(members) + '<p><a href="/topics/">All reading paths</a></p></div></main>')
     if topic_routes:
-        cards = ''.join('<li><a href="/topics/' + t['slug'] + '/">' + escape(t['title']) + '</a> — ' + escape(t['description']) + '</li>' for t in topics if '/topics/' + t['slug'] + '/' in topic_routes)
-        write_page('/topics/', 'Reading paths — tegridydev', 'Connected articles for the next useful check.', '<main class="container" id="main-content"><div class="document"><h1>Reading paths</h1><ul>' + cards + '</ul></div></main>')
+        cards = ''.join('<li><a href="/topics/' + t['slug'] + '/">' + escape(t['title']) + '</a>: ' + escape(t['description']) + '</li>' for t in topics if '/topics/' + t['slug'] + '/' in topic_routes)
+        write_page('/topics/', 'AI Research and Developer Reading Paths | tegridydev', 'Choose a reading path through document processing, retrieval, AI agents, model evaluation and architecture experiments.', '<main class="container" id="main-content"><div class="document"><h1>Reading paths</h1><p>Choose the problem you are working on. Each path explains where to start and connects practical tools with the experiments behind them.</p><ul>' + cards + '</ul></div></main>')
         topic_routes.append('/topics/')
     asset_owners: dict[str, str] = {}
     for article in articles:
@@ -459,14 +474,20 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
         for key in ('datePublished', 'dateModified'):
             if len(schema[key]) != 10:
                 del schema[key]
-        if article.get('image'):
-            schema['image'] = absolute(article['image'])
-        write_page(article['route'], article['title'] + ' — tegridydev', article['description'], body, schema, social=article)
+        schema['image'] = absolute(article.get('image') or '/assets/social.png')
+        schema['inLanguage'] = 'en'
+        schema['url'] = absolute(article['route'])
+        write_page(article['route'], article['title'] + ' | tegridydev', article['description'], body, schema, social=article)
 
-    analytics_text = ('This site uses Cloudflare Web Analytics to measure visits and page performance. It does not use analytics cookies or fingerprint individual visitors. '
-                      '<a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics privacy information</a>.') if token else 'No website analytics beacon is included in this build.'
+    analytics_text = ('This site uses Umami Cloud to understand page visits, referring websites, approximate location, '
+                      'browser and device information, and page performance. The tracker sends page information and '
+                      'performance measurements to Umami. Only the campaign labels utm_source, utm_medium and utm_campaign are retained from page query strings. Other query values and fragments are excluded. '
+                      'Browser Do Not Track preferences are respected. Clicks on external links, demo links and contact controls are counted using limited category information. No email addresses, form answers or full destination URLs are attached to these events. This integration does not configure session recordings, '
+                      'heatmaps or user identities. '
+                      '<a href="https://umami.is/privacy">Umami privacy policy</a>.') if analytics_enabled else 'No website analytics tracking script is included in this preview or build.'
+
     privacy = ('<main class="container" id="main-content"><div class="document"><h1>Privacy</h1>'
-               '<h2>Website analytics</h2><p>' + analytics_text + '</p><h2>Local preferences and contact</h2>'
+               '<p>Last updated 9 September 2026.</p><h2>Website analytics</h2><p>' + analytics_text + '</p><h2>Local preferences and contact</h2>'
                '<p>Your theme choice is stored locally as <code>td-theme</code>. The contact check runs in your browser. '
                'Revealing or copying the address sends no message.</p><h2>Hosting</h2>'
                '<p>GitHub Pages hosts this site and logs visitor IP addresses for security purposes. '
@@ -475,8 +496,8 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
                '<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>.</p>'
                '<h2>Other websites</h2><p>External links lead to independently operated sites with their own policies.</p>'
                '<h2>Questions</h2><p>Use the <a href="/#contact">contact section</a>.</p></div></main>')
-    write_page('/privacy/', 'Privacy — tegridydev', 'How this website handles hosting, analytics and local preferences.', privacy)
-    write_page('/404.html', 'Page not found — tegridydev', 'This page could not be found.',
+    write_page('/privacy/', 'Privacy | tegridydev', 'How this website handles hosting, analytics and local preferences.', privacy)
+    write_page('/404.html', 'Page not found | tegridydev', 'This page could not be found.',
                '<main class="container" id="main-content"><div class="document"><h1>Page not found</h1><p>That page may have moved.</p><p><a href="/">Home</a> · <a href="/blog/">Blog</a> · <a href="/research/">Research</a></p></div></main>', noindex=True)
     ET.register_namespace('', 'http://www.sitemaps.org/schemas/sitemap/0.9')
     sitemap = ET.Element('{http://www.sitemaps.org/schemas/sitemap/0.9}urlset')

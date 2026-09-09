@@ -1,7 +1,7 @@
 +++
-title = "Temporal attention: elapsed time inside the prediction"
+title = "Temporal Attention for Irregular Observations"
 date = "2026"
-description = "A saved elapsed-time attention pilot finds task-dependent results against timestamp features and a last-observation baseline."
+description = "Compare learned time decay, timestamp features and a last observation baseline across synthetic switching, periodic and shifted arrival tasks."
 draft = false
 id = "research/temporal-attention-that-changes-predictions"
 type = "research-note"
@@ -9,54 +9,53 @@ author = "tegridydev"
 topic = "architecture-experiments"
 related = ["research/reflective-transformer-memory-and-adaptation"]
 status = "pilot"
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | Temporal attention: elapsed time inside the prediction
-
-*method proposal and experimental protocol*
+# Temporal Attention for Irregular Observations
 
 I originally played with temporal attention by reweighting attention maps after a model had already produced its hidden states. That is useful for visualisation, but it cannot show that elapsed time changed the prediction.
 
 This version puts time **inside** the prediction path. The question is whether an explicit age penalty helps a model use irregular observations, compared with an otherwise identical model that already receives timestamp features.
 
-
-<!-- cpu-comparison:start -->
 ## Results
 
-Learned decay reached 79.69% on the ordinary periodic task but fell to 62.75% under the gap shift, below the last-observation baseline at 71.48%. On switching data it was close to the simpler controls and near chance after the shift. The result depends on the generator and arrival gaps; it does not establish universal recency weighting.
+Learned decay reached 79.69% on the ordinary periodic task but fell to 62.75% under the gap shift, below the last observation baseline at 71.48%. On switching data it was close to the simpler controls and near chance after the shift. The result depends on the generator and arrival gaps; it does not establish universal recency weighting.
 
-Two synthetic temporal generators, frozen final and gap-shift sets, development-selected checkpoints; no universal recency or real-arrival-process claim.
+Two synthetic temporal generators, frozen final and gap shift sets, development selected checkpoints; no universal recency or real arrival process claim.
+
+For percentage rows, the mean is a percentage and the standard deviation is in percentage points.
 
 | Recorded metric | Mean | Seed standard deviation |
 | --- | ---: | ---: |
-| periodic-features · final · accuracy | 0.789453 | 0.01265 |
-| periodic-features · shift · accuracy | 0.636133 | 0.018639 |
-| periodic-fixed · final · accuracy | 0.790039 | 0.0118 |
-| periodic-fixed · shift · accuracy | 0.627539 | 0.016596 |
-| periodic-learned · final · accuracy | 0.796875 | 0.010653 |
-| periodic-learned · shift · accuracy | 0.627539 | 0.016596 |
-| periodic-position · final · accuracy | 0.742578 | 0.0013102 |
-| periodic-position · shift · accuracy | 0.713867 | 0.0013811 |
-| periodic · last observation · final · accuracy | 0.743164 | 0 |
-| periodic · last observation · shift · accuracy | 0.714844 | 0 |
-| switching-features · final · accuracy | 0.727734 | 0.0021171 |
-| switching-features · shift · accuracy | 0.506445 | 0.010509 |
-| switching-fixed · final · accuracy | 0.72832 | 0.00368 |
-| switching-fixed · shift · accuracy | 0.500391 | 0.0075833 |
-| switching-learned · final · accuracy | 0.728711 | 0.004223 |
-| switching-learned · shift · accuracy | 0.500195 | 0.0073535 |
-| switching-position · final · accuracy | 0.730078 | 0.00087346 |
-| switching-position · shift · accuracy | 0.504883 | 0 |
-| switching · last observation · final · accuracy | 0.730469 | 0 |
-| switching · last observation · shift · accuracy | 0.504883 | 0 |
+| periodic features · final · accuracy (%) | 78.945 | 1.265 |
+| periodic features · shift · accuracy (%) | 63.613 | 1.864 |
+| periodic fixed · final · accuracy (%) | 79.004 | 1.18 |
+| periodic fixed · shift · accuracy (%) | 62.754 | 1.66 |
+| periodic learned · final · accuracy (%) | 79.688 | 1.065 |
+| periodic learned · shift · accuracy (%) | 62.754 | 1.66 |
+| periodic position · final · accuracy (%) | 74.258 | 0.131 |
+| periodic position · shift · accuracy (%) | 71.387 | 0.138 |
+| periodic · last observation · final · accuracy (%) | 74.316 | 0 |
+| periodic · last observation · shift · accuracy (%) | 71.484 | 0 |
+| switching features · final · accuracy (%) | 72.773 | 0.212 |
+| switching features · shift · accuracy (%) | 50.645 | 1.051 |
+| switching fixed · final · accuracy (%) | 72.832 | 0.368 |
+| switching fixed · shift · accuracy (%) | 50.039 | 0.758 |
+| switching learned · final · accuracy (%) | 72.871 | 0.422 |
+| switching learned · shift · accuracy (%) | 50.019 | 0.735 |
+| switching position · final · accuracy (%) | 73.008 | 0.087 |
+| switching position · shift · accuracy (%) | 50.488 | 0 |
+| switching · last observation · final · accuracy (%) | 73.047 | 0 |
+| switching · last observation · shift · accuracy (%) | 50.488 | 0 |
 
 The [comparison record](comparison-results.json) includes the 5 recorded runs, measured values, source hashes and dependency versions. Variation is reported across the declared seeds; it does not establish generalisation beyond this workload.
-<!-- cpu-comparison:end -->
 
 ## Earlier pilot results
 
-The temporal bias helped on the switching fixture, but the last-observation baseline led the periodic fixture. The task and baseline change the conclusion; there is no general win for recency here.
+This smaller pilot used a different protocol, so its results are not directly comparable with the later experiment.
+
+The temporal bias helped on the switching fixture, but the last observation baseline led the periodic fixture. The task and baseline change the conclusion; there is no general win for recency here.
 
 | Task | Condition | Accuracy | Shifted accuracy |
 | --- | --- | --- | --- |
@@ -71,9 +70,9 @@ The temporal bias helped on the switching fixture, but the last-observation base
 | periodic | learned | 57.0312% | 61.7188% |
 | periodic | last_observation | 74.2188% | 67.9688% |
 
-Seed 1729; 40 steps; 256 training and 128 test episodes per task. Fixed steps, with no final-data tuning. Multi-seed and broader temporal processes remain untested.
+Seed 1729; 40 steps; 256 training and 128 test episodes per task. Fixed steps, with no final data tuning. Multi seed and broader temporal processes remain untested.
 
-Records: [smoke-results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
+Records: [smoke results.json](smoke-results.json). These values are transcribed from the saved records, not newly rerun experiments.
 
 ## The actual attention bias
 
@@ -100,45 +99,37 @@ Both tasks use independent episodes and separate train/development/final streams
 
 ## Fair model comparison
 
-Use the same width-64, two-layer, four-head observation encoder and final query-to-observation readout for every condition. Compare:
+Use the same width 64, two layer, four head observation encoder and final query to observation readout for every condition. Compare:
 
 | Condition | Time path |
 | --- | --- |
 | Position only | Order/value, ordinary attention |
 | Timestamp features | Explicit age features, ordinary attention |
 | Fixed decay | Same features + fixed `λ=1` age bias |
-| Learned decay | Same features + learned non-negative `λ` per head |
+| Learned decay | Same features + learned non negative `λ` per head |
 
-The timestamp-feature baseline is the important one. If decay only beats the position-only model, I have shown that **time information** helps, not that the particular decay rule helps.
+The timestamp feature baseline is the important one. If decay only beats the position only model, I have shown that **time information** helps, not that the particular decay rule helps.
 
-Also keep two cheap baselines: training-majority prediction and the most recent reported value.
+Also keep two cheap baselines: training majority prediction and the most recent reported value.
 
-Report accuracy, negative log likelihood and Brier score, broken down by final observation age. Use paired episode comparisons and separate training-seed variation. Shuffle ages inside episodes as a diagnostic; if nothing changes, the model may not be using time at all.
+Report accuracy, negative log likelihood and Brier score, broken down by final observation age. Use paired episode comparisons and separate training seed variation. Shuffle ages inside episodes as a diagnostic; if nothing changes, the model may not be using time at all.
 
 A dashboard can show observation values, ages, masks, head weights and probabilities, but plots are inspection tools. The result is predictive performance under controlled conditions.
 
-**What would weaken the idea:** learned decay losing to timestamp features means explicit age bias is unnecessary. Strong performance on switching data but poor periodic/shift performance says the recency prior is task-specific. An empty eligible context needs an explicit fallback rather than a NaN or invented uniform distribution.
+**What would weaken the idea:** learned decay losing to timestamp features means explicit age bias is unnecessary. Strong performance on switching data but poor periodic/shift performance says the recency prior is task specific. An empty eligible context needs an explicit fallback rather than a NaN or invented uniform distribution.
 
 The experiment I want is not “temporal attention improves transformers”. It is: **on which time structures does a simple recency bias help after the model already knows the timestamps, and where does that bias become the wrong prior?**
 
 ## Implementation
 
-Both irregular-time generators now produce targets after the last query gap. Position-only, explicit-age, fixed-decay and learned-decay models receive identical observations; a last-observation baseline and longer-gap shift set make the comparison inspectable. Tests cover reproducible episodes and trainable decay.
+Both irregular time generators now produce targets after the last query gap. Position only, explicit age, fixed decay and learned decay models receive identical observations; a last observation baseline and longer gap shift set make the comparison inspectable. Tests cover reproducible episodes and trainable decay.
 
-Start with [experiment.py](experiment.py); the [module README](README.md) lists setup, commands and every supporting file.
+See [experiment.py](experiment.py); the [module README](README.md) describes usage and dependencies.
 
-Bias-only softmax still has the uniform-age-shift cancellation derived in the article. These models also receive explicit age features, which supply an absolute-age path; that distinction is part of the intervention.
-
-## Earlier observations
-
-On switching episodes, learned decay achieved 73.4% accuracy against 71.1% for the last-observation baseline. On periodic episodes it achieved 57.0%, below the last-observation baseline's 74.2%. Learned decay reached 57.8% on the longer-gap switching set. This one-seed run supports checking task dependence and shift sensitivity, not a general recency advantage. Shift gaps are 19, 37 and 83 steps so they do not all alias the twenty-step periodic cycle. See the [saved result](smoke-results.json) for the exact values and run scope.
+Bias only softmax still has the uniform age shift cancellation derived in the article. These models also receive explicit age features, which supply an absolute age path; that distinction is part of the intervention.
 
 ## References
 
 1. Ashish Vaswani and colleagues. *Attention Is All You Need*. 2017. [arXiv:1706.03762, version 7](https://arxiv.org/html/1706.03762v7), especially sections 3.2.1–3.2.3.
-
-## Status
-
-The results apply to the stated datasets and controls. Further experiments described here are proposals unless accompanied by a recorded result.
 
 [Research index](../../README.md)

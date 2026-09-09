@@ -1,51 +1,33 @@
 +++
-title = "xanadu-2: links that remember what they point to"
+title = "Xanadu Inspired Links to Versioned Document Passages"
 date = "2026"
-description = "Normal links point somewhere. I'm interested in links that also remember which version and exact passage I meant when I created them."
+description = "Keep document versions, passage spans and link identities intact through export and import, including Unicode text and historical source references."
 draft = false
 id = "blog/xanadu-linked-documents"
 type = "article"
 author = "tegridydev"
 topic = "retrieval-evidence"
 related = ["research/graph-memory-with-a-paper-trail", "research/sl5-and-independent-research-workflows"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | xanadu-2: links that remember what they point to
+# Xanadu Inspired Links to Versioned Document Passages
 
 A normal link is useful until the thing on the other end changes.
 
 Linking to a passage is better, but only if the system knows **which version of that passage I meant**.
 
-That's the little idea I keep coming back to with [xanadu-2](https://github.com/tegridydev/xanadu-2): what would a local document system look like if links had durable identity and could point to historical content rather than whatever exists today?
+That's the little idea I keep coming back to with [xanadu 2](https://github.com/tegridydev/xanadu-2): what would a local document system look like if links had durable identity and could point to historical content rather than whatever exists today?
 
 The inspiration comes from Project Xanadu, but I'm interested in a pretty small practical slice of that problem.
 
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-All 1,000 passage links survived export/import across 1,000 documents and 2,000 versions. This supports the immutable-passage round-trip contract, including Unicode text; it does not establish distributed editing or an upstream repair.
-
-Local immutable Unicode passage storage and transactional round-trip, not a distributed editor or verified upstream repair.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| documents | 1000 | — |
-| preserved links | 1000 | — |
-| versions | 2000 | — |
-
-The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
-<!-- cpu-comparison:end -->
-
 ## identity through an actual round trip
 
-The [document test](test_documents.py) stores `a café note`, links characters 2–6 of version 1, then creates a replacement version. Resolving the original link still returns `café`. JSON export/import retains that link ID and its historical target.
+The [document test](test_documents.py) stores `a café note`, links characters 2 to 6 of version 1, then creates a replacement version. Resolving the original link still returns `café`. JSON export/import retains that link ID and its historical target.
 
 A missing version returns `missing-version`; a corrupted quote causes import rollback. Those are different failures and should remain different in the UI.
 
-The upstream defect discussed here is not tied to a verified upstream commit in this collection. Treat it as motivation for this independent local contract, not a claim that an identified current upstream release is broken. A pinned upstream reproduction remains needed before making that stronger claim.
+The upstream defect discussed here is not tied to a verified upstream commit in the available evidence. Treat it as motivation for this independent local contract, not a claim that an identified current upstream release is broken. A pinned upstream reproduction remains needed before making that stronger claim.
 
 ## documents should have history
 
@@ -58,7 +40,7 @@ passage
 link
 ```
 
-The document is long-lived. A version is immutable content at one point in its history. A passage link points to a specific version and span.
+The document is long lived. A version is immutable content at one point in its history. A passage link points to a specific version and span.
 
 So if note B quotes note A v1, editing A into v2 doesn't silently rewrite what B originally referred to.
 
@@ -70,17 +52,13 @@ instead of swapping the text underneath me.
 
 ## even the link needs identity
 
-One small bug in the public implementation made this nicely concrete.
+A failure worth testing is a serializer that saves `link_id` while its load path creates a new `Link` without restoring that identity.
 
-`Link.to_dict` serialises a `link_id`, but the corresponding load path created a new `Link` without restoring that ID.
+The visible target can survive save and load while backlinks or annotations lose the object they referred to. The local test checks this failure mode. I do not have a pinned upstream reproduction, so this is not a claim that the current public release has the defect.
 
-So the visible target could survive save/load while the link itself became a different object.
+The [upstream source](https://github.com/tegridydev/xanadu-2/blob/main/xanadu-2/document/link.py) is a moving reference, not a versioned reproduction.
 
-That looks fine until backlinks or annotations depend on link identity.
-
-The current implementation is here: [link.py](https://github.com/tegridydev/xanadu-2/blob/main/xanadu-2/document/link.py).
-
-A round-trip test should compare IDs, not just displayed text.
+A round trip test should compare IDs, not just displayed text.
 
 ## the smallest useful version
 
@@ -103,13 +81,27 @@ For edits, use an expected version. If I'm saving against v3 and somebody alread
 
 Boring database behaviour is what makes the interesting hypertext behaviour trustworthy.
 
+## Implementation checks and recorded findings
+
+All 1,000 passage links survived export/import across 1,000 documents and 2,000 versions. This supports the immutable passage round trip contract, including Unicode text; it does not establish distributed editing or an upstream repair.
+
+Local immutable Unicode passage storage and transactional round trip, not a distributed editor or verified upstream repair.
+
+| Recorded metric | Value |
+| --- | ---: |
+| documents | 1000 |
+| preserved links | 1000 |
+| versions | 2000 |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.
+
 ## what I built from this
 
 The local version now has a SQLite document store with immutable versions, optimistic edit preconditions and exact Unicode passage spans.
 
 Links retain IDs through JSON export/import and resolve historical versions after later edits. Missing targets are distinguished from corrupted quotes, and invalid imports roll back as a transaction.
 
-Start with [documents.py](documents.py) or the [module README](README.md).
+See [documents.py](documents.py) or the [module README](README.md).
 
 The core flow is:
 
@@ -119,7 +111,7 @@ link(document, version, start, end)
 resolve(link_id)
 ```
 
-[link_reference.py](link_reference.py) is a tiny standard-library round-trip example:
+[link_reference.py](link_reference.py) is a tiny standard library round trip example:
 
 ```sh
 python3 link_reference.py

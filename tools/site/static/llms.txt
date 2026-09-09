@@ -1,40 +1,40 @@
 # tegridydev
 
-> Open-source developer and independent researcher building local tools, open datasets and practical research projects around security, language models and interesting problems.
+> Open source developer and independent researcher building local tools, open datasets and practical research projects around security, language models and interesting problems.
 
-tegridydev works across AI security, local LLMs, dataset engineering, mechanistic interpretability, multi-agent systems, OSINT and physical security systems. Most projects begin as a question or a useful personal tool and are published when they may help other people.
+tegridydev works across AI security, local LLMs, dataset engineering, mechanistic interpretability, multi agent systems, OSINT and physical security systems. Most projects begin as a question or a useful personal tool and are published when they may help other people.
 
 ## Profiles
 
-- [GitHub](https://github.com/tegridydev): Open-source projects and code.
+- [GitHub](https://github.com/tegridydev): Open source projects and code.
 - [Hugging Face](https://huggingface.co/tegridydev): Datasets, models, articles and research activity.
 
 ## Selected work
 
 - [auto-md](https://github.com/tegridydev/auto-md): Turn files, folders and GitHub repositories into clean Markdown for LLM and RAG workflows.
-- [abstract-agent](https://github.com/tegridydev/abstract-agent): Local multi-agent research workflow for exploring literature, novelty and hypotheses.
+- [abstract-agent](https://github.com/tegridydev/abstract-agent): Local multi agent research workflow for exploring literature, novelty and hypotheses.
 - [Mechanistic Interpretability](https://github.com/tegridydev/Mechanistic-Interpretability): Research notes and open tools for inspecting transformer internals.
-- [MechaMap](https://github.com/tegridydev/mechamap): A related mechanistic-interpretability project.
+- [MechaMap](https://github.com/tegridydev/mechamap): A related mechanistic interpretability project.
 - [multi-agent-secops-llm](https://github.com/tegridydev/multi-agent-secops-llm): Experiments with LLM agents for security operations and analysis.
-- [physical-security-dev](https://github.com/tegridydev/physical-security-dev): Practical notes for CCTV, access control and physical-security development.
+- [physical-security-dev](https://github.com/tegridydev/physical-security-dev): Practical notes for CCTV, access control and physical security development.
 - [Python OSINT Notebook](https://github.com/tegridydev/python-OSINT-notebook): OSINT tooling, Python automation and intelligence workflows.
-- [dnd-llm-game](https://github.com/tegridydev/dnd-llm-game): Local multi-LLM role-playing and interactive storytelling.
+- [dnd-llm-game](https://github.com/tegridydev/dnd-llm-game): Local multi LLM role playing and interactive storytelling.
 
 ## Research and data
 
 - [Research Papers](https://huggingface.co/datasets/tegridydev/research-papers): Academic documents for OCR, classification and multimodal research. [DOI](https://doi.org/10.57967/hf/8911).
 - [Open-MalSec](https://huggingface.co/datasets/tegridydev/open-malsec): Open cybersecurity data covering phishing, malware, vulnerabilities, fraud and hostile communications. [DOI](https://doi.org/10.57967/hf/5104).
-- [Infosec Tool Output](https://huggingface.co/datasets/tegridydev/infosec-tool-output): Structured security-tool output for blue-team and security-agent research. [DOI](https://doi.org/10.57967/hf/7654).
+- [Infosec Tool Output](https://huggingface.co/datasets/tegridydev/infosec-tool-output): Structured security tool output for blue team and security agent research. [DOI](https://doi.org/10.57967/hf/7654).
 
 ## Writing
 
 - [Research Papers Dataset](https://huggingface.co/blog/tegridydev/research-papers-dataset): How and why I built the research papers dataset.
 - [LLM Dataset Formats 101](https://huggingface.co/blog/tegridydev/llm-dataset-formats-101-hugging-face): A plain guide to common dataset formats.
-- [WTF is Fine-Tuning?](https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025): A plain-English intro to fine-tuning.
+- [WTF is Fine-Tuning?](https://huggingface.co/blog/tegridydev/fine-tuning-dev-intro-2025): A plain English intro to fine tuning.
 
 ## Research citations
 
-- [Toward Equitable Arabic Cybersecurity Literacy](https://doi.org/10.3390/mca31050168): Peer-reviewed research that used Open-MalSec as an experimental cybersecurity corpus.
+- [Toward Equitable Arabic Cybersecurity Literacy](https://doi.org/10.3390/mca31050168): Peer reviewed research that used Open MalSec as an experimental cybersecurity corpus.
 - [WaveformQA](https://arxiv.org/abs/2607.20638): Research preprint that cites LLM Dataset Formats 101.
 
 ## Optional

@@ -1,44 +1,27 @@
 +++
-title = "what am I actually looking at in a model map?"
+title = "Reading LLM Model Maps: Activations and Causal Evidence"
 date = "2026"
-description = "I want a human-readable model microscope, but every pretty node and edge should tell me whether it is structure, an observed activation or something I've actually tested causally."
+description = "Read a model map without confusing architecture, measured activations and causal evidence, using a local viewer and explicit capture provenance."
 draft = false
 id = "blog/what-a-model-map-can-show"
 type = "article"
 author = "tegridydev"
 topic = "model-interpretation-evaluation"
 related = ["research/neuron-mapping-and-token-trajectories", "research/arithmetic-across-notations"]
-updated = "2026-09-08"
+updated = "2026-09-09"
 +++
 
-# [td] tegridydev | what am I actually looking at in a model map?
+# Reading LLM Model Maps: Activations and Causal Evidence
 
-The model-analysis interface I keep wanting is easy to picture.
+The model analysis interface I keep wanting is easy to picture.
 
 Load a model, type a prompt, watch things activate, then run a slightly different prompt and overlay the two.
 
 Click a neuron. Follow an edge. Open the numbers behind it. Patch something and run it again.
 
-Basically Chrome DevTools except the weird bug is somewhere inside GPT-2.
+Basically Chrome DevTools except the weird bug is somewhere inside GPT 2.
 
 Graphix and MechaMap are some of the projects I've used to explore that direction. The important part isn't just drawing the graph; it's making sure the graph tells me **what kind of evidence I'm actually looking at**.
-
-
-
-<!-- cpu-comparison:start -->
-## Recorded findings
-
-The capture contains 8,448 activation values across 11 tokens from a pinned model. It provides an input for the viewer with recorded provenance; a visual pattern alone does not establish a semantic feature or causal circuit.
-
-Real pinned-model activation file for manual loading in the existing viewer. No browser was opened; no circuit interpretation follows from visualising this capture.
-
-| Recorded metric | Mean | Seed standard deviation |
-| --- | ---: | ---: |
-| recorded values | 8448 | — |
-| tokens | 11 | — |
-
-The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across-seed uncertainty is estimated.
-<!-- cpu-comparison:end -->
 
 ## one useful route through the viewer
 
@@ -84,7 +67,7 @@ The tempting thing is to overlay activations and hunt for shared components.
 
 Useful, but the prompts may have different token lengths and boundaries. `token 5` in one isn't automatically comparable with `token 5` in the other.
 
-For a controlled comparison I'd define the role—say the final prompt position before generation—and save:
+For a controlled comparison I'd define the role, say the final prompt position before generation, and save:
 
 ```text
 run ID
@@ -119,7 +102,7 @@ Maybe it cares about arithmetic. Maybe digits. Maybe formatting.
 
 All are interesting. Only one is the story I wanted, so clicking a candidate should also make matched controls easy.
 
-Visual rules matter too. Use one colour scale for compatible measurements. Don't auto-scale tiny and huge changes until both look dramatic. Don't subtract coordinates from separately fitted 2D projections and pretend that's motion in the original space.
+Visual rules matter too. Use one colour scale for compatible measurements. Don't auto scale tiny and huge changes until both look dramatic. Don't subtract coordinates from separately fitted 2D projections and pretend that's motion in the original space.
 
 If the basis changes, say so.
 
@@ -133,7 +116,7 @@ Comparable across layers: NOPE
 
 ## candidate circuit is a good name
 
-If something looks circuit-ish, show:
+If something looks circuit ish, show:
 
 ```text
 supporting prompts
@@ -146,13 +129,13 @@ status
 
 A generated explanation can sit beside that as commentary. It isn't privileged access to the model's reasoning.
 
-For arithmetic I'd select candidates on one prompt set, then intervene on held-out digit and word-form examples. Compare against random same-layer components and components with similar activation magnitude.
+For arithmetic I'd select candidates on one prompt set, then intervene on held out digit and word form examples. Compare against random same layer components and components with similar activation magnitude.
 
 If suppressing the candidate damages every kind of text, broad model damage is still an explanation.
 
-If it only breaks producing `83`, maybe I found number-output machinery rather than addition.
+If it only breaks producing `83`, maybe I found number output machinery rather than addition.
 
-Causal arithmetic work gives good reasons to look here. Nikankin and colleagues report heuristic-like arithmetic components in the models they studied. That's motivation, not permission to call every bright node an arithmetic circuit. [Nikankin et al.](https://arxiv.org/abs/2410.21272v2).
+Causal arithmetic work gives good reasons to look here. Nikankin and colleagues report heuristic like arithmetic components in the models they studied. That's motivation, not permission to call every bright node an arithmetic circuit. [Nikankin et al.](https://arxiv.org/abs/2410.21272v2).
 
 ## keep the measurement attached
 
@@ -164,6 +147,19 @@ An intervention also needs its exact rule.
 
 I don't want a screenshot becoming the only surviving evidence for a precise tensor capture.
 
+## Implementation checks and recorded findings
+
+The capture contains 8,448 activation values across 11 tokens from a pinned model. It provides an input for the viewer with recorded provenance; a visual pattern alone does not establish a semantic feature or causal circuit.
+
+Real pinned model activation file for manual loading in the existing viewer. No browser was opened; no circuit interpretation follows from visualising this capture.
+
+| Recorded metric | Value |
+| --- | ---: |
+| recorded values | 8448 |
+| tokens | 11 |
+
+The [comparison record](comparison-results.json) includes the 1 recorded run, measured values, source hashes and dependency versions. This is a single fixed evaluation; no across seed uncertainty is estimated.
+
 ## what I built from this
 
 The local viewer now reads activation JSON, checks occurrence identities and representation manifests, and displays raw signed values on one shared colour scale.
@@ -172,13 +168,13 @@ The local viewer now reads activation JSON, checks occurrence identities and rep
 
 It refuses incompatible overlays and labels truncation after 2,000 displayed records.
 
-Start with [viewer.html](viewer.html), load [fixture.json](fixture.json), and run:
+See [viewer.html](viewer.html), load [fixture.json](fixture.json), and run:
 
 ```sh
 node test_viewer.cjs
 ```
 
-for the data-contract checks.
+for the data contract checks.
 
 The fixture is synthetic. The viewer does not load a model, infer circuits or perform semantic token alignment.
 
