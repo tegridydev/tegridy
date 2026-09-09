@@ -107,7 +107,7 @@ class PublishingTests(unittest.TestCase):
         (self.root/'blog/README.md').write_text('# Blog')
         out = self.run_build()
         page = (out/'blog/minecraft-time-with-astra/index.html').read_text()
-        self.assertIn('<time datetime="2026">2026 (exact date unverified)</time>', page)
+        self.assertIn('<time datetime="2026">2026</time>', page)
         self.assertNotIn('datePublished', page)
         item = ET.parse(out/'blog/feed.xml').find('.//item')
         self.assertIsNone(item.find('pubDate'))

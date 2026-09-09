@@ -1,0 +1,311 @@
+/* Responsive navigation + homepage layout refinement. */
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .35rem;
+}
+
+.nav-toggle {
+  display: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  color: var(--faint);
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.nav-toggle:hover,
+.nav-toggle[aria-expanded="true"] {
+  color: var(--strong);
+  border-color: var(--border);
+  background: var(--raised);
+}
+
+.nav-toggle-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  transition: transform .25s var(--ease-out);
+}
+
+.nav-toggle .nav-line {
+  transform-origin: 12px 12px;
+  transition: transform .25s var(--ease-out), opacity .18s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-line-top {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-line-middle {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-line-bottom {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.mobile-nav-panel {
+  display: none;
+}
+
+/* Keep the intro strong without letting it sprawl on wider screens. */
+.intro-copy {
+  max-width: 43rem;
+}
+
+.intro-tools {
+  max-width: 48rem;
+}
+
+.page-section h3 {
+  color: var(--strong);
+  margin: 0 0 .9rem;
+  font-size: .82rem;
+  line-height: 1.4;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* Slightly cleaner row rhythm and larger usable tap/focus area. */
+.entry,
+.entry-link {
+  padding-block: 1.15rem;
+}
+
+.entries > li:focus-within {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+@supports ((backdrop-filter: blur(14px)) or (-webkit-backdrop-filter: blur(14px))) {
+  .site-header {
+    background: color-mix(in srgb, var(--bg) 91%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-height: 4rem;
+  }
+
+  .site-header {
+    min-height: var(--header-height);
+  }
+
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    min-height: var(--header-height);
+    gap: .75rem;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .js .site-nav {
+    display: none;
+  }
+
+  .js .nav-toggle {
+    display: grid;
+  }
+
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .theme-picker {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .mobile-nav-panel {
+    position: absolute;
+    z-index: 55;
+    top: 100%;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / .18);
+  }
+
+  .site-header.nav-expanded .mobile-nav-panel {
+    display: block;
+    animation: menu-in .18s var(--ease-out) both;
+  }
+
+  .mobile-nav-inner {
+    padding-top: .7rem;
+    padding-bottom: 1rem;
+  }
+
+  .mobile-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .35rem;
+  }
+
+  .mobile-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    min-width: 0;
+    min-height: 3rem;
+    padding: .65rem .8rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--raised);
+    font-size: .9rem;
+    font-weight: 650;
+    transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+  }
+
+  .mobile-nav a::after {
+    content: "→";
+    flex: none;
+    color: var(--faint);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    transition: transform .2s var(--ease-out), color .2s ease;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a:focus-visible {
+    color: var(--strong);
+    border-color: var(--faint);
+    background: var(--hover);
+  }
+
+  .mobile-nav a:hover::after,
+  .mobile-nav a:focus-visible::after {
+    color: var(--accent);
+    transform: translateX(.15rem);
+  }
+
+  .mobile-nav .email-nav {
+    color: var(--accent);
+  }
+
+  /* No-JS fallback: keep navigation available rather than hiding it. */
+  html:not(.js) .header-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding-block: .45rem;
+  }
+
+  html:not(.js) .site-nav {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .15rem .9rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  html:not(.js) .header-actions {
+    position: absolute;
+    top: .6rem;
+    right: var(--gutter);
+  }
+
+  .intro {
+    padding-top: clamp(2.75rem, 8vw, 4rem);
+    padding-bottom: clamp(2.75rem, 8vw, 3.75rem);
+  }
+
+  .page-section,
+  .contact-section {
+    padding-block: clamp(3rem, 8vw, 4.25rem);
+  }
+
+  .contact-section {
+    gap: 1.5rem;
+  }
+
+  .theme-menu {
+    max-height: calc(100dvh - var(--header-height) - 1rem);
+  }
+}
+
+@media (max-width: 48rem) {
+  .entry,
+  .entry-link {
+    grid-template-columns: 1fr;
+    gap: .3rem;
+    padding-block: 1.05rem;
+  }
+
+  .entry-description {
+    max-width: 42rem;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 35rem) {
+  .mobile-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-nav a {
+    min-height: 2.9rem;
+  }
+
+  h1 {
+    letter-spacing: -.06em;
+  }
+
+  .intro-copy {
+    font-size: 1.04rem;
+  }
+
+  .tool-line {
+    grid-template-columns: 1fr;
+    gap: .15rem;
+  }
+
+  .tool-line > span::after {
+    content: ":";
+  }
+
+  .page-section h2,
+  .contact-section h2 {
+    margin-bottom: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle-icon,
+  .nav-toggle .nav-line,
+  .mobile-nav a,
+  .mobile-nav a::after {
+    transition: none;
+  }
+}
+
+.mobile-nav-panel{max-height:calc(100dvh - var(--header-height));overflow:auto;overscroll-behavior:contain}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}

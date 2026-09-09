@@ -193,8 +193,9 @@ def create_app(path, provider=fake):
                 messages=messages,
                 tasks=tasks,
             )
-        except ValueError as error:
-            return str(error), 400
+        except ValueError:
+            app.logger.warning("BotSim rejected a request")
+            return "Unable to process this request. Check your input and try again.", 400
         finally:
             simulation.close()
 

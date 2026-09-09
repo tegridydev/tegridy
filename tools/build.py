@@ -73,8 +73,8 @@ def site_url(value: str) -> str:
 
 def date_label(value: str) -> str:
     if not value:
-        return 'Publication date unverified'
-    label = escape(value) + (' (exact date unverified)' if len(value) == 4 else '')
+        return ''
+    label = escape(value)
     return '<time datetime="' + escape(value, quote=True) + '">' + label + '</time>'
 
 
@@ -334,7 +334,7 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
 <meta property="og:description" content="{desc}"><meta property="og:url" content="{escape(url, quote=True)}">
 {social_meta}<meta name="twitter:card" content="{'summary_large_image' if social_meta else 'summary'}"><meta name="twitter:title" content="{ttl}"><meta name="twitter:description" content="{desc}">
 {analytics}
-<script>{theme}</script><link rel="stylesheet" href="{local(css)}"><link rel="stylesheet" href="{local('/assets/articles.css')}">
+<script>{theme}</script><link rel="stylesheet" href="{local(css)}"><link rel="stylesheet" href="{local('/assets/articles.css')}"><link rel="stylesheet" href="{local('/assets/responsive.css')}"><script defer src="{local('/assets/responsive.js')}"></script>
 {('<script type="application/ld+json">' + schema_text + '</script>') if schema_text else ''}
 </head>'''
         if writing:
@@ -355,9 +355,10 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
         destination.write_text(html, encoding='utf-8')
 
     desc = 'Open source tools, datasets and practical research by tegridydev across AI security, local LLMs, mechanistic interpretability, OSINT and physical security.'
-    home = (template / 'home.html').read_text().replace('{{WRITING}}', entries(blog[:5])).replace('{{TOPICS}}', '<p><a href="/topics/">Explore topic reading paths</a></p>' if any(a.get('topic') for a in articles) else '')
+    home = (template / 'home.html').read_text().replace('{{TOPICS}}', '<p><a href="/topics/">Explore topic reading paths</a></p>' if any(a.get('topic') for a in articles) else '')
     featured_ids = ('blog/what-a-model-map-can-show', 'blog/dataset-discovery-and-preparation', 'research/cloudvec-paper-search')
     featured = [a for identifier in featured_ids for a in articles if a['id'] == identifier]
+    home = home.replace('{{WRITING}}', '<h3>Latest writing</h3>' + entries([a for a in blog if a.get('id') not in featured_ids][:5]))
     home = home.replace('{{FEATURED}}', '<h3>Start here</h3>' + entries(featured) if featured else '')
     profile = {'@context': 'https://schema.org', '@type': 'ProfilePage', 'url': absolute('/'),
                'mainEntity': {'@type': 'Person', 'name': 'tegridydev', 'url': absolute('/'),
@@ -454,7 +455,7 @@ def _render(root: Path, base_url: str | None, out: Path, preview: bool) -> None:
                 raise ValueError('Unknown topic: ' + topic)
             reading += '<p><a href="/topics/' + topic + '/">Explore this reading path</a></p>'
         status = {'proposal': 'Proposed study', 'implemented': 'Local implementation', 'pilot': 'Bounded pilot; see scope and results'}.get(article.get('status'), '')
-        meta = '<a rel="author" href="/">' + escape(config['author']) + '</a> · ' + date_label(article['date'])
+        meta = '<a rel="author" href="/">' + escape(config['author']) + '</a>' + (' · ' + date_label(article['date']) if article['date'] else '')
         if article['updated']:
             meta += ' · Updated ' + date_label(article['updated'])
         if status:

@@ -4,7 +4,54 @@
   const panel = document.querySelector('.browse-panel');
   if (!panel) return;
   const mobile = window.matchMedia('(max-width: 900px)');
-  const syncPanel = () => { panel.open = !mobile.matches; };
+  const sidebar = document.querySelector('.reading-sidebar');
+  const marker = document.createComment('sidebar');
+  sidebar.before(marker);
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'browse-toggle';
+  button.textContent = 'Browse articles';
+  button.setAttribute('aria-controls', 'writing-drawer');
+  button.setAttribute('aria-expanded', 'false');
+  marker.before(button);
+  const drawer = document.createElement('dialog');
+  drawer.id = 'writing-drawer';
+  drawer.className = 'writing-drawer';
+  drawer.setAttribute('aria-label', 'Browse articles');
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'drawer-close';
+  close.textContent = 'Close articles ×';
+  drawer.append(close);
+  document.body.append(drawer);
+  function closeDrawer() { drawer.close(); }
+  drawer.addEventListener('close', () => {
+    document.documentElement.classList.remove('drawer-open');
+    button.setAttribute('aria-expanded', 'false');
+    if (mobile.matches) button.focus({preventScroll:true});
+  });
+  close.addEventListener('click', closeDrawer);
+  drawer.addEventListener('click', event => {
+    if (event.target.closest('a')) closeDrawer();
+    if (event.target === drawer) {
+      const box = drawer.getBoundingClientRect();
+      if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDrawer();
+    }
+  });
+  button.addEventListener('click', () => {
+    panel.open = true;
+    drawer.showModal();
+    document.documentElement.classList.add('drawer-open');
+    button.setAttribute('aria-expanded', 'true');
+    close.focus();
+  });
+  const syncPanel = () => {
+    if (drawer.open) closeDrawer();
+    panel.open = true;
+    button.hidden = !mobile.matches;
+    if (mobile.matches) drawer.append(sidebar);
+    else marker.after(sidebar);
+  };
   syncPanel();
   mobile.addEventListener('change', syncPanel);
   const search = document.querySelector('.navigation-search');

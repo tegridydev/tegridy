@@ -12,3 +12,13 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 .reading-paths-link{display:block;color:var(--link);margin:0 .25rem 1rem;font-size:.875rem}
+
+.browse-toggle,.drawer-close{font:inherit;color:var(--strong);background:var(--raised);border:1px solid var(--border);border-radius:.5rem;padding:.75rem 1rem;min-height:44px;cursor:pointer}
+.browse-toggle{justify-self:start}.drawer-open{overflow:hidden}
+.writing-drawer{position:fixed;inset:0 auto 0 0;margin:0;height:100dvh;max-height:100dvh;width:min(88vw,24rem);max-width:100vw;padding:1rem;background:var(--bg);color:var(--text);border:0;border-right:1px solid var(--border);overscroll-behavior:contain}
+.writing-drawer::backdrop{background:rgb(0 0 0 / .55)}
+.writing-drawer .reading-sidebar{position:static;max-height:none;margin-top:1rem}
+.writing-drawer .browse-content{max-height:none;overflow:visible}
+.writing-drawer .browse-panel>summary{list-style:none}
+.drawer-close{width:100%;text-align:right}
+@media(max-width:900px){.writing-page .site-header{position:sticky;top:0}.reading-main .article h2{scroll-margin-top:calc(var(--header-height) + 1rem)}}

@@ -28,7 +28,7 @@ class PublicationTests(unittest.TestCase):
         p.write_text(p.read_text().replace('date = "2026-09-06"\n', ''))
         out = self.run_build()
         page = self.page(out)
-        self.assertIn('Publication date unverified', page)
+        self.assertNotIn('Publication date unverified', page)
         self.assertNotIn('datePublished', page)
         self.assertNotIn('dateModified', page)
         item = next(x for x in ET.parse(out/'blog/feed.xml').findall('.//item') if x.findtext('guid', '').startswith('urn:tegridy:'))

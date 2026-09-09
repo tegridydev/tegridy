@@ -60,3 +60,14 @@ def test_web_escapes_and_rejects_foreign_origin(tmp_path):
         ).status_code
         == 403
     )
+
+
+def test_exception_details_are_not_returned(tmp_path, monkeypatch):
+    def fail(*args, **kwargs):
+        raise ValueError("private/database/path secret")
+    monkeypatch.setattr(Simulation, "post", fail)
+    client = create_app(tmp_path / "error.sqlite").test_client()
+    response = client.post("/", data={"text": "hello"})
+    assert response.status_code == 400
+    assert "private/database/path" not in response.text
+    assert "Check your input" in response.text
